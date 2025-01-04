@@ -1,0 +1,48 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { SortOrder } from '../prisma/sort-order.enum';
+import { SortOrderInput } from '../prisma/sort-order.input';
+import { ProfileOrderByWithRelationInput } from '../profile/profile-order-by-with-relation.input';
+
+@InputType()
+export class UserOrderByWithRelationInput {
+
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    email?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    username?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    hashedPassword?: keyof typeof SortOrder;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    hashedRefreshToken?: SortOrderInput;
+
+    @Field(() => SortOrder, {nullable:true})
+    role?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    isActive?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    isApprove?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    createdBy?: SortOrderInput;
+
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    updatedBy?: SortOrderInput;
+
+    @Field(() => ProfileOrderByWithRelationInput, {nullable:true})
+    profile?: ProfileOrderByWithRelationInput;
+}
