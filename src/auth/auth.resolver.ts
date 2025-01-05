@@ -5,6 +5,7 @@ import { SignResponse } from './dto/sign-response';
 import { SignUpInput } from './dto/signup-input';
 import { SignInInput } from './dto/signin-input';
 import { User } from 'src/@generated/user/user.model';
+
 @Resolver()
 export class AuthResolver {
   constructor(private authService: AuthService) {}
@@ -22,6 +23,6 @@ export class AuthResolver {
   }
   @Query(() => [User], { name: 'findAllUser' })
   findAll() {
-    return [];
+    return this.authService.findAll();
   }
 }

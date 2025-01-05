@@ -2,12 +2,14 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
+
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
-import { AccessTokenGuard } from './auth/guards/accessToken.guard';
 import { PrismaModule } from './prisma/prisma.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AccessTokenGuard } from './common/guards/accessToken.guard';
+import { PatientCareModule } from './patient-care/patient-care.module';
 
 @Module({
   imports: [
@@ -22,6 +24,7 @@ import { PrismaModule } from './prisma/prisma.module';
 
     AuthModule,
     PrismaModule,
+    PatientCareModule,
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: AccessTokenGuard }],

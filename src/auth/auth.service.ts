@@ -40,7 +40,7 @@ export class AuthService {
         user.username,
       );
       await this.updateRefresh(user.id, refreshToken);
-``
+      ``;
       return { accessToken, refreshToken, user };
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -131,4 +131,8 @@ export class AuthService {
   // ! Helper function
 
   // ? END
+
+  async findAll() {
+    return this.prisma.user.findMany({});
+  }
 }

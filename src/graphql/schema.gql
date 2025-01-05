@@ -17,6 +17,11 @@ type Mutation {
   signup(signUpInput: SignUpInput!): SignResponse!
 }
 
+type Patient {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Profile {
   address: JSON
   contact: JSON
@@ -36,6 +41,7 @@ type Profile {
 }
 
 type Query {
+  findAlPatient: [Patient!]!
   findAllUser: [User!]!
 }
 
