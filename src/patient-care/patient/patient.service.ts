@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePatientInput } from './dto/create-patient.input';
-import { UpdatePatientInput } from './dto/update-patient.input';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { PatientRegistrationArgs } from './args/patient-registration-args';
 
 @Injectable()
 export class PatientService {
@@ -9,5 +8,20 @@ export class PatientService {
 
   async findAll() {
     return [];
+  }
+
+  async patientRegistration(args: PatientRegistrationArgs) {
+    return this.prisma.case.create({
+      data: {
+        caseNo: '123',
+        patient: {
+          create: {
+            firstName: 'Wilson',
+            lastName: 'Hinacay',
+            middleName: 'Joseph',
+          },
+        },
+      },
+    });
   }
 }

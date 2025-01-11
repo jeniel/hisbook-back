@@ -19,6 +19,7 @@ import { PatientCareModule } from './patient-care/patient-care.module';
       autoSchemaFile: join(process.cwd(), 'src/graphql/schema.gql'),
       sortSchema: true,
       playground: false,
+      context: ({ req, res }) => ({ req, res }),
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
 

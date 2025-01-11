@@ -16,6 +16,11 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: JwtPayload) {
+
+    // console.log('Payload:', payload);
+
+    // console.log(await this.authService.validateUser(payload));
+
     return payload;
   }
 }

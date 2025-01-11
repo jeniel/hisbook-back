@@ -11,7 +11,17 @@ export class AccessTokenGuard extends AuthGuard('jwt') {
 
   getRequest(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
-    return ctx.getContext().req;
+    const request = ctx.getContext().req;
+
+    // Extract token from cookies
+    const token = request.cookies['his-token'];
+    //check token if valid
+
+    if (token) {
+      request.headers.authorization = `Bearer ${token}`;
+    }
+
+    return request;
   }
 
   canActivate(context: ExecutionContext) {
@@ -22,6 +32,10 @@ export class AccessTokenGuard extends AuthGuard('jwt') {
     if (isPublic) {
       return true;
     }
+
+    // const req = this.getRequest(context);
+    // console.log(req.headers);
+
     return super.canActivate(context);
   }
 }

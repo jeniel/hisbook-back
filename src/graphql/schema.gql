@@ -2,10 +2,40 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateCaseIn {
+  ageOnReg: Int
+  caseStatus: Boolean
+  cid: String
+  maritalStatus: String
+  priceGroup: String
+}
+
+input CreatePatientInput {
+  address: JSON
+  birthDate: DateTime
+  contact: JSON
+  firstName: String
+  gender: Gender
+  identification: JSON
+  isDeceased: Boolean
+  lastName: String
+  middleName: String
+  pid: String
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+enum Gender {
+  FEMALE
+  MALE
+}
+
+type GeneralMsg {
+  message: String!
+}
 
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
@@ -13,6 +43,7 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 scalar JSON
 
 type Mutation {
+  patientRegistration(case: CreateCaseIn!, patient: CreatePatientInput!): GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
 }

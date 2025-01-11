@@ -1,0 +1,56 @@
+model User {
+    id                 String   @id @default(uuid())
+    /// @Validator.@IsEmail()
+    email              String   @unique
+    username           String   @unique
+    hashedPassword     String   @map("hashed_password")
+    hashedRefreshToken String?  @map("hashed_refresh_token")
+    role               Role[]   @default([USER])
+    isActive           Boolean  @default(true) @map("is_active")
+    isApprove          Boolean  @default(false) @map("is_approve")
+    // REALTION
+    profile            Profile?
+    // STAMP
+    createdAt          DateTime @default(now()) @map("created_at") @db.Date
+    createdBy          String?  @map("created_by")
+    updatedAt          DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedBy          String?  @map("updated_by")
+
+    @@map("user")
+    @@schema("public")
+}
+
+model Profile {
+    id          String    @id @default(uuid())
+    userId      String?   @unique
+    firstName   String?   @map("first_name")
+    middleName  String?   @map("middle_name")
+    lastName    String?   @map("last_name")
+    designation String?
+    employeeID  Int?      @default(autoincrement()) @map("employee_id")
+    dateHired   DateTime? @map("date_hired")
+    address     Json?
+    contact     Json?
+    //RELATION
+
+    user      User?    @relation(fields: [userId], references: [id])
+    // STAMP
+    createdAt DateTime @default(now()) @map("created_at") @db.Date
+    createdBy String?  @map("created_by")
+    updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedBy String?  @map("updated_by")
+
+    @@map("profile")
+    @@schema("public")
+}
+
+enum Role {
+    USER
+    ADMIN
+    BILLING
+    CASHIER
+    ACCOUNTING
+    RADIOLOGIST
+
+    @@schema("public")
+}

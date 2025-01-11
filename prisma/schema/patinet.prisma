@@ -1,0 +1,76 @@
+model Patient {
+    id             String    @id @default(uuid())
+    pid            String?   @default(nanoid(5))
+    firstName      String?   @map("first_name")
+    middleName     String?   @map("middle_name")
+    lastName       String?   @map("last_name")
+    birthDate      DateTime? @map("birth date") @db.Date
+    address        Json?
+    contact        Json?
+    identification Json?
+    gender         Gender?
+    isDeceased     Boolean?  @default(false)
+    // RELATION
+    case           Case[]
+    // STAMP
+    createdAt      DateTime  @default(now()) @map("created_at") @db.Date
+    createdBy      String?   @map("created_by")
+    updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedBy      String?   @map("updated_by")
+
+    @@map("patient")
+    @@schema("patient")
+}
+
+model Case {
+    id            String      @id @default(uuid())
+    cid           String?     @default(nanoid(5))
+    caseNo        String?     @map("case_no")
+    priceGroup    String?     @map("price_group")
+    ageOnReg      Int?        @map("age_on_reg")
+    caseStatus    Boolean?    @default(false) @map("case_status")
+    maritalStatus String?     @map("marital_status")
+    // RELATION
+    patient       Patient?    @relation(fields: [patientId], references: [id])
+    patientId     String?     @map("patient_id")
+    vitalSign     VitalSign[]
+    // STAMP
+    createdAt     DateTime    @default(now()) @map("created_at") @db.Date
+    createdBy     String?     @map("created_by")
+    updatedAt     DateTime    @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedBy     String?     @map("updated_by")
+
+    @@map("case")
+    @@schema("patient")
+}
+
+model VitalSign {
+    id               String   @id @default(uuid())
+    userId           Int
+    timestamp        DateTime @default(now()) @db.Timestamptz()
+    heartRate        Int?     @map("heart_rate")
+    systolicBP       Int?     @map("systolic_bp")
+    diastolicBP      Int?     @map("diastolic_bp")
+    temperature      Decimal?
+    respiratoryRate  Int?     @map("respiratory_rate")
+    oxygenSaturation Decimal? @map("oxygen_saturation")
+
+    // RELATION
+    case   Case?   @relation(fields: [caseId], references: [id])
+    caseId String? @map("case_id")
+
+    // STAMP
+    createdAt DateTime @default(now()) @map("created_at") @db.Date
+    createdBy String?  @map("created_by")
+    updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedBy String?  @map("updated_by")
+
+    @@schema("patient")
+}
+
+enum Gender {
+    MALE
+    FEMALE
+
+    @@schema("patient")
+}

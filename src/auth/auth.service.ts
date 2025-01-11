@@ -1,11 +1,13 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import * as argon from 'argon2';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { SignUpInput } from './dto/signup-input';
 import { Prisma } from '@prisma/client';
+import * as argon from 'argon2';
+import { Response, Request } from 'express';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { SignInInput } from './dto/signin-input';
+import { SignUpInput } from './dto/signup-input';
+import { JwtPayload2 } from 'src/common/types/jwtPayload';
 
 @Injectable()
 export class AuthService {
@@ -52,7 +54,11 @@ export class AuthService {
     }
   }
 
-  async signin(signInInput: SignInInput) {
+  async signin(
+    signInInput: SignInInput,
+    context: { res: Response; req: Request },
+  ) {
+    // console.log(context.res.);
     const user = await this.prisma.user.findUnique({
       where: {
         email: signInInput.email,
@@ -81,8 +87,15 @@ export class AuthService {
     );
     await this.updateRefresh(user.id, refreshToken);
 
-    // response.cookie('token', accessToken, {});\
-    // console.log(response.cookie('token', accessToken, {}));
+    context.res.cookie('his-token', accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    });
+
+    //console.log(context);
+    // response.cookie('token', accessToken, {});
+
     return { accessToken, refreshToken, user };
   }
 
@@ -123,10 +136,21 @@ export class AuthService {
       await this.jwt.verifyAsync(accessToken, {
         secret: this.config.get('JWT_SECRET'),
       });
+
       return { isValid: true };
     } catch (error) {
       return { isValid: false };
     }
+  }
+  async validateUser(payload: JwtPayload2) {
+    // Assuming the payload contains the user ID, fetch the user from the database
+    const user = await this.prisma.user.findUnique({
+      where: { id: payload.userId },
+    }); // `sub` is the subject claim in JWT
+    if (!user) {
+      return false;
+    }
+    return true;
   }
   // ! Helper function
 
