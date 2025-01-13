@@ -2,16 +2,10 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from 'src/@generated/user/user.model';
 
 @ObjectType()
-export class SignResponse {
+export class MeQuery {
   @Field()
-  accessToken: string;
-
-  @Field()
-  refreshToken: string;
+  isSignedIn: boolean;
 
   @Field(() => User)
   user: User;
-  
-  @Field()
-  isSignedIn: boolean;
 }

@@ -4,12 +4,13 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 
+import { APP_GUARD } from '@nestjs/core';
+import { JwtService } from '@nestjs/jwt';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
-import { PrismaModule } from './prisma/prisma.module';
-import { APP_GUARD } from '@nestjs/core';
 import { AccessTokenGuard } from './common/guards/accessToken.guard';
 import { PatientCareModule } from './patient-care/patient-care.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -22,12 +23,11 @@ import { PatientCareModule } from './patient-care/patient-care.module';
       context: ({ req, res }) => ({ req, res }),
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
-
     AuthModule,
     PrismaModule,
     PatientCareModule,
   ],
   controllers: [],
-  providers: [{ provide: APP_GUARD, useClass: AccessTokenGuard }],
+  providers: [JwtService, { provide: APP_GUARD, useClass: AccessTokenGuard }],
 })
 export class AppModule {}

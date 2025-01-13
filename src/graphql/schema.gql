@@ -42,7 +42,13 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
+type MeQuery {
+  isSignedIn: Boolean!
+  user: User!
+}
+
 type Mutation {
+  logOut: GeneralMsg!
   patientRegistration(case: CreateCaseIn!, patient: CreatePatientInput!): GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
@@ -74,6 +80,7 @@ type Profile {
 type Query {
   findAlPatient: [Patient!]!
   findAllUser: [User!]!
+  meQuery: MeQuery!
 }
 
 enum Role {
@@ -93,6 +100,7 @@ input SignInInput {
 
 type SignResponse {
   accessToken: String!
+  isSignedIn: Boolean!
   refreshToken: String!
   user: User!
 }
@@ -113,7 +121,6 @@ type User {
 
   """@Validator.@IsEmail()"""
   email: String!
-  hashedPassword: String!
   hashedRefreshToken: String
   id: ID!
   isActive: Boolean!

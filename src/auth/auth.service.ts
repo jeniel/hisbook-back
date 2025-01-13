@@ -96,7 +96,17 @@ export class AuthService {
     //console.log(context);
     // response.cookie('token', accessToken, {});
 
-    return { accessToken, refreshToken, user };
+    return { accessToken, refreshToken, user, isSignedIn: true };
+  }
+
+  async logOut(context: { res: Response; req: Request }) {
+    context.res.clearCookie('his-token');
+    return { message: 'Logged Out' };
+  }
+
+  async clearCookie(response: any) {
+    response.clearCookie('his-token');
+    return { message: 'Logged Out' };
   }
 
   // ! Helper function
@@ -107,7 +117,7 @@ export class AuthService {
         email,
         username,
       },
-      { expiresIn: '8h', secret: this.config.get('JWT_SECRET') },
+      { expiresIn: '5h', secret: this.config.get('JWT_SECRET') },
     );
 
     const refreshToken = await this.jwt.sign(
@@ -136,17 +146,15 @@ export class AuthService {
       await this.jwt.verifyAsync(accessToken, {
         secret: this.config.get('JWT_SECRET'),
       });
-
-      return { isValid: true };
+      return true;
     } catch (error) {
-      return { isValid: false };
+      return false;
     }
   }
   async validateUser(payload: JwtPayload2) {
-    // Assuming the payload contains the user ID, fetch the user from the database
     const user = await this.prisma.user.findUnique({
       where: { id: payload.userId },
-    }); // `sub` is the subject claim in JWT
+    });
     if (!user) {
       return false;
     }
@@ -158,5 +166,27 @@ export class AuthService {
 
   async findAll() {
     return this.prisma.user.findMany({});
+  }
+
+  async meQuery(context: { res: Response; req: Request }) {
+    const token = context.req.cookies['his-token'];
+
+    const currentUser = this.jwt.verify(token, {
+      secret: this.config.get('JWT_SECRET'),
+    });
+
+    const me = await this.prisma.user.findUnique({
+      where: {
+        id: currentUser.userId,
+      },
+      include: {
+        profile: true,
+      },
+    });
+
+    return {
+      user: me,
+      isSignedIn: true,
+    };
   }
 }

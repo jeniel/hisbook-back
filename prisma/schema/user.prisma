@@ -3,6 +3,7 @@ model User {
     /// @Validator.@IsEmail()
     email              String   @unique
     username           String   @unique
+    /// @HideField()
     hashedPassword     String   @map("hashed_password")
     hashedRefreshToken String?  @map("hashed_refresh_token")
     role               Role[]   @default([USER])

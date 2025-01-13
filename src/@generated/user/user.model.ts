@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
+import { HideField } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
 import { Profile } from '../profile/profile.model';
 
@@ -19,7 +20,7 @@ export class User {
     @Field(() => String, {nullable:false})
     username!: string;
 
-    @Field(() => String, {nullable:false})
+    @HideField()
     hashedPassword!: string;
 
     @Field(() => String, {nullable:true})

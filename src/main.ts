@@ -30,7 +30,7 @@ async function bootstrap() {
   // app.use(csurf({ cookie: { sameSite: true } }));
 
   // app.use((req: Request, res: any, next: any) => {
-  //   const csrfToken = req.headers['x-csrf-token'];
+  //   const csrfToken = req.headers['his-token'];
   //   console.log('CSRF Token:', csrfToken);
   //   res.cookie('XSRF-TOKEN', csrfToken);
   //   res.locals.csrfToken = csrfToken;

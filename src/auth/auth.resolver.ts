@@ -1,11 +1,13 @@
-import { Args, Mutation, Resolver, Query, Context } from '@nestjs/graphql';
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Request, Response } from 'express';
+import { User } from 'src/@generated/user/user.model';
 import { Public } from 'src/common/decorator/public.decorator';
+import { GeneralMsg } from 'src/common/entities/general-msg.entites';
 import { AuthService } from './auth.service';
 import { SignResponse } from './dto/sign-response';
-import { SignUpInput } from './dto/signup-input';
 import { SignInInput } from './dto/signin-input';
-import { User } from 'src/@generated/user/user.model';
-import { Response, Request } from 'express';
+import { SignUpInput } from './dto/signup-input';
+import { MeQuery } from './entities/me.entities';
 
 @Resolver()
 export class AuthResolver {
@@ -28,6 +30,18 @@ export class AuthResolver {
     // console.log(context.req.headers);
     return this.authService.signin(signInInput, context);
   }
+
+  @Public()
+  @Mutation(() => GeneralMsg)
+  logOut(@Context() context: { res: Response; req: Request }) {
+    return this.authService.logOut(context);
+  }
+
+  @Query(() => MeQuery)
+  meQuery(@Context() context: { res: Response; req: Request }) {
+    return this.authService.meQuery(context);
+  }
+
   @Query(() => [User], { name: 'findAllUser' })
   findAll(@Context() context: { res: Response; req: Request }) {
     // console.log(context.req.headers);
