@@ -9,9 +9,6 @@ export class ProfileMaxAggregate {
     id?: string;
 
     @Field(() => String, {nullable:true})
-    userId?: string;
-
-    @Field(() => String, {nullable:true})
     firstName?: string;
 
     @Field(() => String, {nullable:true})
@@ -28,6 +25,12 @@ export class ProfileMaxAggregate {
 
     @Field(() => Date, {nullable:true})
     dateHired?: Date | string;
+
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
+
+    @Field(() => String, {nullable:true})
+    userId?: string;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;

@@ -15,9 +15,6 @@ export class ProfileGroupBy {
     id!: string;
 
     @Field(() => String, {nullable:true})
-    userId?: string;
-
-    @Field(() => String, {nullable:true})
     firstName?: string;
 
     @Field(() => String, {nullable:true})
@@ -40,6 +37,12 @@ export class ProfileGroupBy {
 
     @Field(() => GraphQLJSON, {nullable:true})
     contact?: any;
+
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
+
+    @Field(() => String, {nullable:true})
+    userId?: string;
 
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;

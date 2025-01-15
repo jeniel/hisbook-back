@@ -3,14 +3,13 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-
 import { APP_GUARD } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { AccessTokenGuard } from './common/guards/accessToken.guard';
-import { PatientCareModule } from './patient-care/patient-care.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { TicketingModule } from './ticketing/ticketing.module';
 
 @Module({
   imports: [
@@ -25,7 +24,7 @@ import { PrismaModule } from './prisma/prisma.module';
     }),
     AuthModule,
     PrismaModule,
-    PatientCareModule,
+    TicketingModule,
   ],
   controllers: [],
   providers: [JwtService, { provide: APP_GUARD, useClass: AccessTokenGuard }],

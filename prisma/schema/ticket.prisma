@@ -1,0 +1,42 @@
+model TicketTransaction {
+    id             String    @id @default(uuid())
+    title          String?
+    description    String?
+    status         String?
+    priority       String?
+    type           String?
+    category       String?
+    subCategory    String?   @map("sub_category")
+    departmentFrom String?   @map("department_from")
+    departmentTo   String?   @map("department_to")
+    // RELATION
+    profile        Profile[]
+    // STAMP
+    createdAt      DateTime  @default(now()) @map("created_at") @db.Date
+    createdBy      String?   @map("created_by")
+    updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedBy      String?   @map("updated_by")
+
+    @@map("ticket_transaction")
+    @@schema("ticketing")
+}
+
+model TicketCategory {
+    id          String  @id @default(uuid())
+    name        String
+    description String?
+    // RELATION
+
+    @@map("ticket_category")
+    @@schema("ticketing")
+}
+
+model TicketSubCategory {
+    id          String  @id @default(uuid())
+    name        String
+    description String?
+    // RELATION
+
+    @@map("ticket_sub_category")
+    @@schema("ticketing")
+}

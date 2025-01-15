@@ -6,6 +6,7 @@ import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
+import { DepartmentNullableScalarRelationFilter } from '../prisma/department-nullable-scalar-relation-filter.input';
 import { UserNullableScalarRelationFilter } from '../prisma/user-nullable-scalar-relation-filter.input';
 
 @InputType()
@@ -22,9 +23,6 @@ export class ProfileWhereInput {
 
     @Field(() => StringFilter, {nullable:true})
     id?: StringFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    userId?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     firstName?: StringNullableFilter;
@@ -50,6 +48,12 @@ export class ProfileWhereInput {
     @Field(() => JsonNullableFilter, {nullable:true})
     contact?: JsonNullableFilter;
 
+    @Field(() => StringNullableFilter, {nullable:true})
+    departmentId?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    userId?: StringNullableFilter;
+
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;
 
@@ -61,6 +65,9 @@ export class ProfileWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     updatedBy?: StringNullableFilter;
+
+    @Field(() => DepartmentNullableScalarRelationFilter, {nullable:true})
+    department?: DepartmentNullableScalarRelationFilter;
 
     @Field(() => UserNullableScalarRelationFilter, {nullable:true})
     user?: UserNullableScalarRelationFilter;

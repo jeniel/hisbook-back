@@ -77,8 +77,8 @@ export class AuthService {
     );
     if (!pwMatches) throw new ForbiddenException('Password incorrect');
 
-    if (!user.isApprove)
-      throw new ForbiddenException('You Account Is Waiting For Approval');
+    // if (!user.isApprove)
+    //   throw new ForbiddenException('You Account Is Waiting For Approval');
 
     const { accessToken, refreshToken } = await this.createTokens(
       user.id,

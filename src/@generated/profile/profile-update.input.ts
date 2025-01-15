@@ -6,6 +6,7 @@ import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-fi
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { DepartmentUpdateOneWithoutProfileNestedInput } from '../department/department-update-one-without-profile-nested.input';
 import { UserUpdateOneWithoutProfileNestedInput } from '../user/user-update-one-without-profile-nested.input';
 
 @InputType()
@@ -49,6 +50,9 @@ export class ProfileUpdateInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     updatedBy?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => DepartmentUpdateOneWithoutProfileNestedInput, {nullable:true})
+    department?: DepartmentUpdateOneWithoutProfileNestedInput;
 
     @Field(() => UserUpdateOneWithoutProfileNestedInput, {nullable:true})
     user?: UserUpdateOneWithoutProfileNestedInput;

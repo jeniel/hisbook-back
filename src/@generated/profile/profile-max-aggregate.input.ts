@@ -8,9 +8,6 @@ export class ProfileMaxAggregateInput {
     id?: true;
 
     @Field(() => Boolean, {nullable:true})
-    userId?: true;
-
-    @Field(() => Boolean, {nullable:true})
     firstName?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -27,6 +24,12 @@ export class ProfileMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     dateHired?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    departmentId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    userId?: true;
 
     @Field(() => Boolean, {nullable:true})
     createdAt?: true;

@@ -14,9 +14,6 @@ export class ProfileUncheckedUpdateInput {
     id?: StringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    userId?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     firstName?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
@@ -39,6 +36,12 @@ export class ProfileUncheckedUpdateInput {
 
     @Field(() => GraphQLJSON, {nullable:true})
     contact?: any;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    departmentId?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    userId?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;

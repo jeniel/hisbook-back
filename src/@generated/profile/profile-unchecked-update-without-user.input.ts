@@ -37,6 +37,9 @@ export class ProfileUncheckedUpdateWithoutUserInput {
     @Field(() => GraphQLJSON, {nullable:true})
     contact?: any;
 
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    departmentId?: NullableStringFieldUpdateOperationsInput;
+
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
 

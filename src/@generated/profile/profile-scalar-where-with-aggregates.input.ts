@@ -23,9 +23,6 @@ export class ProfileScalarWhereWithAggregatesInput {
     id?: StringWithAggregatesFilter;
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    userId?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     firstName?: StringNullableWithAggregatesFilter;
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
@@ -48,6 +45,12 @@ export class ProfileScalarWhereWithAggregatesInput {
 
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
     contact?: JsonNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    departmentId?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    userId?: StringNullableWithAggregatesFilter;
 
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: DateTimeWithAggregatesFilter;

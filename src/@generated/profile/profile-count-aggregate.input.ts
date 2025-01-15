@@ -8,9 +8,6 @@ export class ProfileCountAggregateInput {
     id?: true;
 
     @Field(() => Boolean, {nullable:true})
-    userId?: true;
-
-    @Field(() => Boolean, {nullable:true})
     firstName?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -33,6 +30,12 @@ export class ProfileCountAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     contact?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    departmentId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    userId?: true;
 
     @Field(() => Boolean, {nullable:true})
     createdAt?: true;

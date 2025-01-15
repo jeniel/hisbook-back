@@ -9,9 +9,6 @@ export class ProfileCountOrderByAggregateInput {
     id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     firstName?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -34,6 +31,12 @@ export class ProfileCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     contact?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    departmentId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    userId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;

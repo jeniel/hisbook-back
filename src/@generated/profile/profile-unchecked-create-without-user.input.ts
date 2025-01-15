@@ -33,6 +33,9 @@ export class ProfileUncheckedCreateWithoutUserInput {
     @Field(() => GraphQLJSON, {nullable:true})
     contact?: any;
 
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
+
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
