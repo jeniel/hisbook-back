@@ -8,6 +8,8 @@ import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DepartmentNullableScalarRelationFilter } from '../prisma/department-nullable-scalar-relation-filter.input';
 import { UserNullableScalarRelationFilter } from '../prisma/user-nullable-scalar-relation-filter.input';
+import { TicketTransactionListRelationFilter } from '../ticket-transaction/ticket-transaction-list-relation-filter.input';
+import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
 
 @InputType()
 export class ProfileWhereUniqueInput {
@@ -71,4 +73,10 @@ export class ProfileWhereUniqueInput {
 
     @Field(() => UserNullableScalarRelationFilter, {nullable:true})
     user?: UserNullableScalarRelationFilter;
+
+    @Field(() => TicketTransactionListRelationFilter, {nullable:true})
+    tikcetTransaction?: TicketTransactionListRelationFilter;
+
+    @Field(() => CommentListRelationFilter, {nullable:true})
+    comment?: CommentListRelationFilter;
 }

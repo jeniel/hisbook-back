@@ -56,6 +56,7 @@ export class AccessTokenGuard extends AuthGuard('jwt') {
 
     // Extract token from cookies
     const token = request.cookies['his-token'];
+    // console.log('Token:', token);
 
     // check if token is not found
     if (!token) {
@@ -65,8 +66,13 @@ export class AccessTokenGuard extends AuthGuard('jwt') {
     // check if token is valid
     this.tokenVerify(token, response);
 
-    // set token in headers
+    // set info in headers
+    const currentUser = this.jwt.verify(token, {
+      secret: this.config.get('JWT_SECRET'),
+    });
+
     request.headers.authorization = `Bearer ${token}`;
+    request.userInfo = currentUser;
 
     return request;
   }

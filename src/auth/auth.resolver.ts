@@ -2,7 +2,7 @@ import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Request, Response } from 'express';
 import { User } from 'src/@generated/user/user.model';
 import { Public } from 'src/common/decorator/public.decorator';
-import { GeneralMsg } from 'src/common/entities/general-msg.entites';
+import { GeneralMsg } from 'src/common/entities/general-msg.entities';
 import { AuthService } from './auth.service';
 import { SignResponse } from './dto/sign-response';
 import { SignInInput } from './dto/signin-input';

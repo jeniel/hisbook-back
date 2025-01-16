@@ -8,6 +8,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { SignInInput } from './dto/signin-input';
 import { SignUpInput } from './dto/signup-input';
 import { JwtPayload2 } from 'src/common/types/jwtPayload';
+import { Role } from 'src/@generated/prisma/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -34,12 +35,17 @@ export class AuthService {
             },
           },
         },
+        include: {
+          profile: true,
+        },
       });
 
       const { accessToken, refreshToken } = await this.createTokens(
         user.id,
         user.email,
         user.username,
+        user.profile.id,
+        user.role as Role[],
       );
       await this.updateRefresh(user.id, refreshToken);
       ``;
@@ -84,6 +90,8 @@ export class AuthService {
       user.id,
       user.email,
       user.username,
+      user.profile.id,
+      user.role as Role[],
     );
     await this.updateRefresh(user.id, refreshToken);
 
@@ -110,12 +118,20 @@ export class AuthService {
   }
 
   // ! Helper function
-  async createTokens(userId: string, email: string, username: string) {
+  async createTokens(
+    userId: string,
+    email: string,
+    username: string,
+    profileId: string,
+    role: Role[],
+  ) {
     const accessToken = await this.jwt.sign(
       {
         userId,
         email,
         username,
+        profileId,
+        role,
       },
       { expiresIn: '5h', secret: this.config.get('JWT_SECRET') },
     );

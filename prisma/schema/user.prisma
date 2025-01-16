@@ -22,27 +22,27 @@ model User {
 }
 
 model Profile {
-    id                  String             @id @default(uuid())
-    firstName           String?            @map("first_name")
-    middleName          String?            @map("middle_name")
-    lastName            String?            @map("last_name")
-    designation         String?
-    employeeID          Int?               @default(autoincrement()) @map("employee_id")
-    dateHired           DateTime?          @map("date_hired")
-    address             Json?
-    contact             Json?
+    id                String              @id @default(uuid())
+    firstName         String?             @map("first_name")
+    middleName        String?             @map("middle_name")
+    lastName          String?             @map("last_name")
+    designation       String?
+    employeeID        Int?                @default(autoincrement()) @map("employee_id")
+    dateHired         DateTime?           @map("date_hired")
+    address           Json?
+    contact           Json?
     //RELATION
-    department          Department?        @relation(fields: [departmentId], references: [id])
-    departmentId        String?
-    user                User?              @relation(fields: [userId], references: [id])
-    userId              String?            @unique
-    tikcetTransaction   TicketTransaction? @relation(fields: [ticketTransactionId], references: [id])
-    ticketTransactionId String?
+    department        Department?         @relation(fields: [departmentId], references: [id])
+    departmentId      String?             @map("department_id")
+    user              User?               @relation(fields: [userId], references: [id])
+    userId            String?             @unique @map("user_id")
+    tikcetTransaction TicketTransaction[]
+    comment           Comment[]
     // STAMP
-    createdAt           DateTime           @default(now()) @map("created_at") @db.Date
-    createdBy           String?            @map("created_by")
-    updatedAt           DateTime           @default(now()) @updatedAt @map("updated_at") @db.Date
-    updatedBy           String?            @map("updated_by")
+    createdAt         DateTime            @default(now()) @map("created_at") @db.Date
+    createdBy         String?             @map("created_by")
+    updatedAt         DateTime            @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedBy         String?             @map("updated_by")
 
     @@map("profile")
     @@schema("public")

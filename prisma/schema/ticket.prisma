@@ -1,23 +1,43 @@
 model TicketTransaction {
-    id             String    @id @default(uuid())
+    id             String          @id @default(uuid())
     title          String?
     description    String?
-    status         String?
-    priority       String?
+    status         TicketStatus?   @default(OPEN)
+    priority       TicketPriority? @default(LOW)
     type           String?
     category       String?
-    subCategory    String?   @map("sub_category")
-    departmentFrom String?   @map("department_from")
-    departmentTo   String?   @map("department_to")
+    subCategory    String?         @map("sub_category")
+    departmentFrom String?         @map("department_from")
+    departmentTo   String?         @map("department_to")
     // RELATION
-    profile        Profile[]
+    profile        Profile?        @relation(fields: [profileId], references: [id])
+    profileId      String?         @map("profile_id")
+    comment        Comment[]
     // STAMP
-    createdAt      DateTime  @default(now()) @map("created_at") @db.Date
-    createdBy      String?   @map("created_by")
-    updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at") @db.Date
-    updatedBy      String?   @map("updated_by")
+    createdAt      DateTime        @default(now()) @map("created_at") @db.Date
+    createdBy      String?         @map("created_by")
+    updatedAt      DateTime        @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedBy      String?         @map("updated_by")
 
     @@map("ticket_transaction")
+    @@schema("ticketing")
+}
+
+model Comment {
+    id        String            @id @default(uuid())
+    content   String
+    // RELATION
+    ticket    TicketTransaction @relation(fields: [ticketId], references: [id])
+    ticketId  String            @map("ticket_id")
+    profile   Profile           @relation(fields: [profileId], references: [id])
+    profileId String            @map("profile_id")
+    // STAMP
+    createdAt DateTime          @default(now()) @map("created_at") @db.Date
+    createdBy String?           @map("created_by")
+    updatedAt DateTime          @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedBy String?           @map("updated_by")
+
+    @@map("comment")
     @@schema("ticketing")
 }
 
@@ -38,5 +58,25 @@ model TicketSubCategory {
     // RELATION
 
     @@map("ticket_sub_category")
+    @@schema("ticketing")
+}
+
+enum TicketStatus {
+    OPEN
+    IN_PROGRESS
+    RESOLVED
+    CLOSED
+
+    @@map("ticket_status")
+    @@schema("ticketing")
+}
+
+enum TicketPriority {
+    LOW
+    MEDIUM
+    HIGH
+    CRITICAL
+
+    @@map("ticket_priority")
     @@schema("ticketing")
 }

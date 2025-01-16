@@ -2,10 +2,138 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+type Comment {
+  content: String!
+  createdAt: DateTime!
+  createdBy: String
+  id: ID!
+  profile: Profile!
+  profileId: String!
+  ticket: TicketTransaction!
+  ticketId: String!
+  updatedAt: DateTime!
+  updatedBy: String
+}
+
+input CommentCreateManyTicketInput {
+  content: String!
+  createdAt: DateTime
+  createdBy: String
+  id: String
+  profileId: String!
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+input CommentCreateManyTicketInputEnvelope {
+  data: [CommentCreateManyTicketInput!]!
+  skipDuplicates: Boolean
+}
+
+input CommentCreateNestedManyWithoutTicketInput {
+  connect: [CommentWhereUniqueInput!]
+  connectOrCreate: [CommentCreateOrConnectWithoutTicketInput!]
+  create: [CommentCreateWithoutTicketInput!]
+  createMany: CommentCreateManyTicketInputEnvelope
+}
+
+input CommentCreateOrConnectWithoutTicketInput {
+  create: CommentCreateWithoutTicketInput!
+  where: CommentWhereUniqueInput!
+}
+
+input CommentCreateWithoutTicketInput {
+  content: String!
+  createdAt: DateTime
+  createdBy: String
+  id: String
+  profile: ProfileCreateNestedOneWithoutCommentInput!
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+input CommentListRelationFilter {
+  every: CommentWhereInput
+  none: CommentWhereInput
+  some: CommentWhereInput
+}
+
+input CommentWhereInput {
+  AND: [CommentWhereInput!]
+  NOT: [CommentWhereInput!]
+  OR: [CommentWhereInput!]
+  content: StringFilter
+  createdAt: DateTimeFilter
+  createdBy: StringNullableFilter
+  id: StringFilter
+  profile: ProfileScalarRelationFilter
+  profileId: StringFilter
+  ticket: TicketTransactionScalarRelationFilter
+  ticketId: StringFilter
+  updatedAt: DateTimeFilter
+  updatedBy: StringNullableFilter
+}
+
+input CommentWhereUniqueInput {
+  AND: [CommentWhereInput!]
+  NOT: [CommentWhereInput!]
+  OR: [CommentWhereInput!]
+  content: StringFilter
+  createdAt: DateTimeFilter
+  createdBy: StringNullableFilter
+  id: String
+  profile: ProfileScalarRelationFilter
+  profileId: StringFilter
+  ticket: TicketTransactionScalarRelationFilter
+  ticketId: StringFilter
+  updatedAt: DateTimeFilter
+  updatedBy: StringNullableFilter
+}
+
+input CreateTransactionInput {
+  category: String
+  comment: CommentCreateNestedManyWithoutTicketInput
+  departmentFrom: String
+  departmentTo: String
+  description: String
+  priority: TicketPriority
+  status: TicketStatus
+  subCategory: String
+  title: String
+  type: String
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
 
 type Department {
   _count: DepartmentCount!
@@ -19,8 +147,83 @@ type DepartmentCount {
   profile: Int!
 }
 
+input DepartmentCreateNestedOneWithoutProfileInput {
+  connect: DepartmentWhereUniqueInput
+  connectOrCreate: DepartmentCreateOrConnectWithoutProfileInput
+  create: DepartmentCreateWithoutProfileInput
+}
+
+input DepartmentCreateOrConnectWithoutProfileInput {
+  create: DepartmentCreateWithoutProfileInput!
+  where: DepartmentWhereUniqueInput!
+}
+
+input DepartmentCreateWithoutProfileInput {
+  description: String
+  id: String
+  name: String!
+}
+
+input DepartmentNullableScalarRelationFilter {
+  is: DepartmentWhereInput
+  isNot: DepartmentWhereInput
+}
+
+input DepartmentWhereInput {
+  AND: [DepartmentWhereInput!]
+  NOT: [DepartmentWhereInput!]
+  OR: [DepartmentWhereInput!]
+  description: StringNullableFilter
+  id: StringFilter
+  name: StringFilter
+  profile: ProfileListRelationFilter
+}
+
+input DepartmentWhereUniqueInput {
+  AND: [DepartmentWhereInput!]
+  NOT: [DepartmentWhereInput!]
+  OR: [DepartmentWhereInput!]
+  description: StringNullableFilter
+  id: String
+  name: StringFilter
+  profile: ProfileListRelationFilter
+}
+
+input EnumRoleNullableListFilter {
+  equals: [Role!]
+  has: Role
+  hasEvery: [Role!]
+  hasSome: [Role!]
+  isEmpty: Boolean
+}
+
+input EnumTicketPriorityNullableFilter {
+  equals: TicketPriority
+  in: [TicketPriority!]
+  not: NestedEnumTicketPriorityNullableFilter
+  notIn: [TicketPriority!]
+}
+
+input EnumTicketStatusNullableFilter {
+  equals: TicketStatus
+  in: [TicketStatus!]
+  not: NestedEnumTicketStatusNullableFilter
+  notIn: [TicketStatus!]
+}
+
 type GeneralMsg {
   message: String!
+}
+
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
 }
 
 """
@@ -28,19 +231,129 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
+input JsonNullableFilter {
+  array_contains: JSON
+  array_ends_with: JSON
+  array_starts_with: JSON
+  equals: JSON
+  gt: JSON
+  gte: JSON
+  lt: JSON
+  lte: JSON
+  not: JSON
+  path: [String!]
+  string_contains: String
+  string_ends_with: String
+  string_starts_with: String
+}
+
 type MeQuery {
   isSignedIn: Boolean!
   user: User!
 }
 
+type Meta {
+  currentPage: Float!
+  lastPage: Float!
+  next: Float
+  perPage: Float!
+  prev: Float
+  total: Float!
+}
+
 type Mutation {
+  createTicket(payload: CreateTransactionInput!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
+  upsertDepartment(deptId: String, payload: UpsertDepartmentInput!): GeneralMsg!
+  upsertTicketCateg(categoryId: String, payload: UpsertCategInput!): GeneralMsg!
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
+
+input NestedEnumTicketPriorityNullableFilter {
+  equals: TicketPriority
+  in: [TicketPriority!]
+  not: NestedEnumTicketPriorityNullableFilter
+  notIn: [TicketPriority!]
+}
+
+input NestedEnumTicketStatusNullableFilter {
+  equals: TicketStatus
+  in: [TicketStatus!]
+  not: NestedEnumTicketStatusNullableFilter
+  notIn: [TicketStatus!]
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+input NestedStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NestedStringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
 }
 
 type Profile {
+  _count: ProfileCount!
   address: JSON
+  comment: [Comment!]
   contact: JSON
   createdAt: DateTime!
   createdBy: String
@@ -53,15 +366,124 @@ type Profile {
   id: ID!
   lastName: String
   middleName: String
+  tikcetTransaction: [TicketTransaction!]
   updatedAt: DateTime!
   updatedBy: String
   user: User
   userId: String
 }
 
+type ProfileCount {
+  comment: Int!
+  tikcetTransaction: Int!
+}
+
+input ProfileCreateNestedOneWithoutCommentInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutCommentInput
+  create: ProfileCreateWithoutCommentInput
+}
+
+input ProfileCreateOrConnectWithoutCommentInput {
+  create: ProfileCreateWithoutCommentInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileCreateWithoutCommentInput {
+  address: JSON
+  contact: JSON
+  createdAt: DateTime
+  createdBy: String
+  dateHired: DateTime
+  department: DepartmentCreateNestedOneWithoutProfileInput
+  designation: String
+  employeeID: Int
+  firstName: String
+  id: String
+  lastName: String
+  middleName: String
+  tikcetTransaction: TicketTransactionCreateNestedManyWithoutProfileInput
+  updatedAt: DateTime
+  updatedBy: String
+  user: UserCreateNestedOneWithoutProfileInput
+}
+
+input ProfileListRelationFilter {
+  every: ProfileWhereInput
+  none: ProfileWhereInput
+  some: ProfileWhereInput
+}
+
+input ProfileNullableScalarRelationFilter {
+  is: ProfileWhereInput
+  isNot: ProfileWhereInput
+}
+
+input ProfileScalarRelationFilter {
+  is: ProfileWhereInput
+  isNot: ProfileWhereInput
+}
+
+input ProfileWhereInput {
+  AND: [ProfileWhereInput!]
+  NOT: [ProfileWhereInput!]
+  OR: [ProfileWhereInput!]
+  address: JsonNullableFilter
+  comment: CommentListRelationFilter
+  contact: JsonNullableFilter
+  createdAt: DateTimeFilter
+  createdBy: StringNullableFilter
+  dateHired: DateTimeNullableFilter
+  department: DepartmentNullableScalarRelationFilter
+  departmentId: StringNullableFilter
+  designation: StringNullableFilter
+  employeeID: IntNullableFilter
+  firstName: StringNullableFilter
+  id: StringFilter
+  lastName: StringNullableFilter
+  middleName: StringNullableFilter
+  tikcetTransaction: TicketTransactionListRelationFilter
+  updatedAt: DateTimeFilter
+  updatedBy: StringNullableFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
+}
+
+input ProfileWhereUniqueInput {
+  AND: [ProfileWhereInput!]
+  NOT: [ProfileWhereInput!]
+  OR: [ProfileWhereInput!]
+  address: JsonNullableFilter
+  comment: CommentListRelationFilter
+  contact: JsonNullableFilter
+  createdAt: DateTimeFilter
+  createdBy: StringNullableFilter
+  dateHired: DateTimeNullableFilter
+  department: DepartmentNullableScalarRelationFilter
+  departmentId: StringNullableFilter
+  designation: StringNullableFilter
+  employeeID: IntNullableFilter
+  firstName: StringNullableFilter
+  id: String
+  lastName: StringNullableFilter
+  middleName: StringNullableFilter
+  tikcetTransaction: TicketTransactionListRelationFilter
+  updatedAt: DateTimeFilter
+  updatedBy: StringNullableFilter
+  user: UserNullableScalarRelationFilter
+  userId: String
+}
+
 type Query {
+  findAllTicket(page: Int, perPage: Int, where: TicketTransactionWhereInput): TransactionLists!
   findAllUser: [User!]!
+  findOneTicket(tickerId: String!): TicketTransaction!
   meQuery: MeQuery!
+}
+
+enum QueryMode {
+  default
+  insensitive
 }
 
 enum Role {
@@ -96,6 +518,199 @@ input SignUpInput {
   username: String!
 }
 
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+enum TicketPriority {
+  CRITICAL
+  HIGH
+  LOW
+  MEDIUM
+}
+
+enum TicketStatus {
+  CLOSED
+  IN_PROGRESS
+  OPEN
+  RESOLVED
+}
+
+type TicketTransaction {
+  _count: TicketTransactionCount!
+  category: String
+  comment: [Comment!]
+  createdAt: DateTime!
+  createdBy: String
+  departmentFrom: String
+  departmentTo: String
+  description: String
+  id: ID!
+  priority: TicketPriority
+  profile: Profile
+  profileId: String
+  status: TicketStatus
+  subCategory: String
+  title: String
+  type: String
+  updatedAt: DateTime!
+  updatedBy: String
+}
+
+type TicketTransactionCount {
+  comment: Int!
+}
+
+input TicketTransactionCreateManyProfileInput {
+  category: String
+  createdAt: DateTime
+  createdBy: String
+  departmentFrom: String
+  departmentTo: String
+  description: String
+  id: String
+  priority: TicketPriority
+  status: TicketStatus
+  subCategory: String
+  title: String
+  type: String
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+input TicketTransactionCreateManyProfileInputEnvelope {
+  data: [TicketTransactionCreateManyProfileInput!]!
+  skipDuplicates: Boolean
+}
+
+input TicketTransactionCreateNestedManyWithoutProfileInput {
+  connect: [TicketTransactionWhereUniqueInput!]
+  connectOrCreate: [TicketTransactionCreateOrConnectWithoutProfileInput!]
+  create: [TicketTransactionCreateWithoutProfileInput!]
+  createMany: TicketTransactionCreateManyProfileInputEnvelope
+}
+
+input TicketTransactionCreateOrConnectWithoutProfileInput {
+  create: TicketTransactionCreateWithoutProfileInput!
+  where: TicketTransactionWhereUniqueInput!
+}
+
+input TicketTransactionCreateWithoutProfileInput {
+  category: String
+  comment: CommentCreateNestedManyWithoutTicketInput
+  createdAt: DateTime
+  createdBy: String
+  departmentFrom: String
+  departmentTo: String
+  description: String
+  id: String
+  priority: TicketPriority
+  status: TicketStatus
+  subCategory: String
+  title: String
+  type: String
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+input TicketTransactionListRelationFilter {
+  every: TicketTransactionWhereInput
+  none: TicketTransactionWhereInput
+  some: TicketTransactionWhereInput
+}
+
+input TicketTransactionScalarRelationFilter {
+  is: TicketTransactionWhereInput
+  isNot: TicketTransactionWhereInput
+}
+
+input TicketTransactionWhereInput {
+  AND: [TicketTransactionWhereInput!]
+  NOT: [TicketTransactionWhereInput!]
+  OR: [TicketTransactionWhereInput!]
+  category: StringNullableFilter
+  comment: CommentListRelationFilter
+  createdAt: DateTimeFilter
+  createdBy: StringNullableFilter
+  departmentFrom: StringNullableFilter
+  departmentTo: StringNullableFilter
+  description: StringNullableFilter
+  id: StringFilter
+  priority: EnumTicketPriorityNullableFilter
+  profile: ProfileNullableScalarRelationFilter
+  profileId: StringNullableFilter
+  status: EnumTicketStatusNullableFilter
+  subCategory: StringNullableFilter
+  title: StringNullableFilter
+  type: StringNullableFilter
+  updatedAt: DateTimeFilter
+  updatedBy: StringNullableFilter
+}
+
+input TicketTransactionWhereUniqueInput {
+  AND: [TicketTransactionWhereInput!]
+  NOT: [TicketTransactionWhereInput!]
+  OR: [TicketTransactionWhereInput!]
+  category: StringNullableFilter
+  comment: CommentListRelationFilter
+  createdAt: DateTimeFilter
+  createdBy: StringNullableFilter
+  departmentFrom: StringNullableFilter
+  departmentTo: StringNullableFilter
+  description: StringNullableFilter
+  id: String
+  priority: EnumTicketPriorityNullableFilter
+  profile: ProfileNullableScalarRelationFilter
+  profileId: StringNullableFilter
+  status: EnumTicketStatusNullableFilter
+  subCategory: StringNullableFilter
+  title: StringNullableFilter
+  type: StringNullableFilter
+  updatedAt: DateTimeFilter
+  updatedBy: StringNullableFilter
+}
+
+type TransactionLists {
+  data: [TicketTransaction!]!
+  meta: Meta
+}
+
+input UpsertCategInput {
+  description: String
+  name: String!
+}
+
+input UpsertDepartmentInput {
+  description: String
+  name: String!
+}
+
 type User {
   createdAt: DateTime!
   createdBy: String
@@ -111,4 +726,77 @@ type User {
   updatedAt: DateTime!
   updatedBy: String
   username: String!
+}
+
+input UserCreateNestedOneWithoutProfileInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutProfileInput
+  create: UserCreateWithoutProfileInput
+}
+
+input UserCreateOrConnectWithoutProfileInput {
+  create: UserCreateWithoutProfileInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateWithoutProfileInput {
+  createdAt: DateTime
+  createdBy: String
+  email: String!
+  hashedPassword: String!
+  hashedRefreshToken: String
+  id: String
+  isActive: Boolean
+  isApprove: Boolean
+  role: UserCreateroleInput
+  updatedAt: DateTime
+  updatedBy: String
+  username: String!
+}
+
+input UserCreateroleInput {
+  set: [Role!]!
+}
+
+input UserNullableScalarRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  createdAt: DateTimeFilter
+  createdBy: StringNullableFilter
+  email: StringFilter
+  hashedPassword: StringFilter
+  hashedRefreshToken: StringNullableFilter
+  id: StringFilter
+  isActive: BoolFilter
+  isApprove: BoolFilter
+  profile: ProfileNullableScalarRelationFilter
+  role: EnumRoleNullableListFilter
+  updatedAt: DateTimeFilter
+  updatedBy: StringNullableFilter
+  username: StringFilter
+}
+
+input UserWhereUniqueInput {
+  AND: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  createdAt: DateTimeFilter
+  createdBy: StringNullableFilter
+  email: String
+  hashedPassword: StringFilter
+  hashedRefreshToken: StringNullableFilter
+  id: String
+  isActive: BoolFilter
+  isApprove: BoolFilter
+  profile: ProfileNullableScalarRelationFilter
+  role: EnumRoleNullableListFilter
+  updatedAt: DateTimeFilter
+  updatedBy: StringNullableFilter
+  username: String
 }

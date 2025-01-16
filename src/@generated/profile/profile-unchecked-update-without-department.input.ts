@@ -6,6 +6,8 @@ import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-fi
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { TicketTransactionUncheckedUpdateManyWithoutProfileNestedInput } from '../ticket-transaction/ticket-transaction-unchecked-update-many-without-profile-nested.input';
+import { CommentUncheckedUpdateManyWithoutProfileNestedInput } from '../comment/comment-unchecked-update-many-without-profile-nested.input';
 
 @InputType()
 export class ProfileUncheckedUpdateWithoutDepartmentInput {
@@ -51,4 +53,10 @@ export class ProfileUncheckedUpdateWithoutDepartmentInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     updatedBy?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => TicketTransactionUncheckedUpdateManyWithoutProfileNestedInput, {nullable:true})
+    tikcetTransaction?: TicketTransactionUncheckedUpdateManyWithoutProfileNestedInput;
+
+    @Field(() => CommentUncheckedUpdateManyWithoutProfileNestedInput, {nullable:true})
+    comment?: CommentUncheckedUpdateManyWithoutProfileNestedInput;
 }

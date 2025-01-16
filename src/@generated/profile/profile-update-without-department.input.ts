@@ -7,6 +7,8 @@ import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-d
 import { GraphQLJSON } from 'graphql-type-json';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { UserUpdateOneWithoutProfileNestedInput } from '../user/user-update-one-without-profile-nested.input';
+import { TicketTransactionUpdateManyWithoutProfileNestedInput } from '../ticket-transaction/ticket-transaction-update-many-without-profile-nested.input';
+import { CommentUpdateManyWithoutProfileNestedInput } from '../comment/comment-update-many-without-profile-nested.input';
 
 @InputType()
 export class ProfileUpdateWithoutDepartmentInput {
@@ -52,4 +54,10 @@ export class ProfileUpdateWithoutDepartmentInput {
 
     @Field(() => UserUpdateOneWithoutProfileNestedInput, {nullable:true})
     user?: UserUpdateOneWithoutProfileNestedInput;
+
+    @Field(() => TicketTransactionUpdateManyWithoutProfileNestedInput, {nullable:true})
+    tikcetTransaction?: TicketTransactionUpdateManyWithoutProfileNestedInput;
+
+    @Field(() => CommentUpdateManyWithoutProfileNestedInput, {nullable:true})
+    comment?: CommentUpdateManyWithoutProfileNestedInput;
 }

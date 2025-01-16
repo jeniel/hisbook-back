@@ -3,6 +3,8 @@ import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 import { UserCreateNestedOneWithoutProfileInput } from '../user/user-create-nested-one-without-profile.input';
+import { TicketTransactionCreateNestedManyWithoutProfileInput } from '../ticket-transaction/ticket-transaction-create-nested-many-without-profile.input';
+import { CommentCreateNestedManyWithoutProfileInput } from '../comment/comment-create-nested-many-without-profile.input';
 
 @InputType()
 export class ProfileCreateWithoutDepartmentInput {
@@ -48,4 +50,10 @@ export class ProfileCreateWithoutDepartmentInput {
 
     @Field(() => UserCreateNestedOneWithoutProfileInput, {nullable:true})
     user?: UserCreateNestedOneWithoutProfileInput;
+
+    @Field(() => TicketTransactionCreateNestedManyWithoutProfileInput, {nullable:true})
+    tikcetTransaction?: TicketTransactionCreateNestedManyWithoutProfileInput;
+
+    @Field(() => CommentCreateNestedManyWithoutProfileInput, {nullable:true})
+    comment?: CommentCreateNestedManyWithoutProfileInput;
 }

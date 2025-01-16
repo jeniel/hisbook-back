@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { AccessTokenGuard } from './common/guards/accessToken.guard';
 import { PrismaModule } from './prisma/prisma.module';
 import { TicketingModule } from './ticketing/ticketing.module';
+import { RolesGuard } from './common/guards/roles.guard';
+import { DepartmentModule } from './global/department/department.module';
 
 @Module({
   imports: [
@@ -25,8 +27,13 @@ import { TicketingModule } from './ticketing/ticketing.module';
     AuthModule,
     PrismaModule,
     TicketingModule,
+    DepartmentModule,
   ],
   controllers: [],
-  providers: [JwtService, { provide: APP_GUARD, useClass: AccessTokenGuard }],
+  providers: [
+    JwtService,
+    { provide: APP_GUARD, useClass: AccessTokenGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
+  ],
 })
 export class AppModule {}
