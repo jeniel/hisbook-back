@@ -95,6 +95,12 @@ input CommentWhereUniqueInput {
   updatedBy: StringNullableFilter
 }
 
+input CreateCommentInput {
+  content: String!
+  profileId: String!
+  ticketId: String!
+}
+
 input CreateTransactionInput {
   category: String
   comment: CommentCreateNestedManyWithoutTicketInput
@@ -262,6 +268,7 @@ type Meta {
 }
 
 type Mutation {
+  createComment(payload: CreateCommentInput!): GeneralMsg!
   createTicket(payload: CreateTransactionInput!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!

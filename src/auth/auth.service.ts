@@ -64,7 +64,6 @@ export class AuthService {
     signInInput: SignInInput,
     context: { res: Response; req: Request },
   ) {
-    // console.log(context.res.);
     const user = await this.prisma.user.findUnique({
       where: {
         email: signInInput.email,
@@ -93,6 +92,7 @@ export class AuthService {
       user.profile.id,
       user.role as Role[],
     );
+
     await this.updateRefresh(user.id, refreshToken);
 
     context.res.cookie('his-token', accessToken, {
@@ -101,7 +101,6 @@ export class AuthService {
       sameSite: 'strict',
     });
 
-    //console.log(context);
     // response.cookie('token', accessToken, {});
 
     return { accessToken, refreshToken, user, isSignedIn: true };
