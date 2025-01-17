@@ -8,7 +8,7 @@ export class CommentService {
 
   async createComment(payload: CreateCommentInput) {
     return await this.prisma.comment.create({
-      data:payload
+      data: payload,
     });
   }
 }

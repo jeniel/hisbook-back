@@ -98,7 +98,7 @@ export class AuthService {
     context.res.cookie('his-token', accessToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: 'none',
     });
 
     // response.cookie('token', accessToken, {});
