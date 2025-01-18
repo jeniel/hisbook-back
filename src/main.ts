@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: 'http://localhost:3000', // Replace with your frontend URL
+    origin: ['http://localhost:3000', 'https://helpdesk.acemcbohol.dev'], // Replace with your frontend URL
     credentials: true, // Allow cookies to be sent
     //allowedHeaders: ['Content-Type', 'X-CSRF-Token'], // Allow CSRF token header
   });
