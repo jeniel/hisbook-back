@@ -26,6 +26,9 @@ export class ProfileCountAggregateInput {
     dateHired?: true;
 
     @Field(() => Boolean, {nullable:true})
+    birthDate?: true;
+
+    @Field(() => Boolean, {nullable:true})
     address?: true;
 
     @Field(() => Boolean, {nullable:true})

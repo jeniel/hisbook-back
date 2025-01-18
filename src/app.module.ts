@@ -12,6 +12,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { TicketingModule } from './ticketing/ticketing.module';
 import { RolesGuard } from './common/guards/roles.guard';
 import { DepartmentModule } from './global/department/department.module';
+import { UserModule } from './global/user/user.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { DepartmentModule } from './global/department/department.module';
     PrismaModule,
     TicketingModule,
     DepartmentModule,
+    UserModule,
   ],
   controllers: [],
   providers: [

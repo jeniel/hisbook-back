@@ -1,26 +1,6 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { TicketTransaction } from 'src/@generated/ticket-transaction/ticket-transaction.model';
-
-@ObjectType()
-export class Meta {
-  @Field()
-  total: number;
-
-  @Field()
-  lastPage: number;
-
-  @Field()
-  currentPage: number;
-
-  @Field()
-  perPage: number;
-
-  @Field({ nullable: true })
-  prev?: number | null;
-
-  @Field({ nullable: true })
-  next?: number | null;
-}
+import { Meta } from 'src/common/entities/pagination-meta';
 
 @ObjectType()
 export class TransactionLists {

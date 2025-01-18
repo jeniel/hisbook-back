@@ -33,6 +33,9 @@ export class Profile {
     @Field(() => Date, {nullable:true})
     dateHired!: Date | null;
 
+    @Field(() => Date, {nullable:true})
+    birthDate!: Date | null;
+
     @Field(() => GraphQLJSON, {nullable:true})
     address!: any | null;
 

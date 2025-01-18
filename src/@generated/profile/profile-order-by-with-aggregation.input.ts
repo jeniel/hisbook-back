@@ -33,6 +33,9 @@ export class ProfileOrderByWithAggregationInput {
     dateHired?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
+    birthDate?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
     address?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})

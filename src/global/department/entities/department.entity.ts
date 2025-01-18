@@ -1,7 +1,12 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { Department } from 'src/@generated/department/department.model';
+import { Meta } from 'src/common/entities/pagination-meta';
 
 @ObjectType()
-export class Department {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+export class DepartmentList {
+  @Field(() => [Department])
+  data: Department;
+
+  @Field(() => Meta, { nullable: true })
+  meta: Meta;
 }

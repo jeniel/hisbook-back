@@ -27,6 +27,9 @@ export class ProfileCreateManyInput {
     @Field(() => Date, {nullable:true})
     dateHired?: Date | string;
 
+    @Field(() => Date, {nullable:true})
+    birthDate?: Date | string;
+
     @Field(() => GraphQLJSON, {nullable:true})
     address?: any;
 

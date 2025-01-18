@@ -19,4 +19,8 @@ export class TicketConfigService {
       message: 'Ticket Category upserted successfully',
     };
   }
+
+  async findallCategory() {
+    return await this.prisma.ticketCategory.findMany();
+  }
 }

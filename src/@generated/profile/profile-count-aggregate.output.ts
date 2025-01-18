@@ -27,6 +27,9 @@ export class ProfileCountAggregate {
     dateHired!: number;
 
     @Field(() => Int, {nullable:false})
+    birthDate!: number;
+
+    @Field(() => Int, {nullable:false})
     address!: number;
 
     @Field(() => Int, {nullable:false})

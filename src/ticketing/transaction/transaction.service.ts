@@ -24,7 +24,7 @@ export class TransactionService {
 
   async findAllTicket(args: TransactionArgs) {
     const page = args.page || 1;
-    const perPage = args.perPage || 2;
+    const perPage = args.perPage || 10;
     const skip = page > 0 ? perPage * (page - 1) : 0;
 
     const [total, data] = await Promise.all([

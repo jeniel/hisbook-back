@@ -101,6 +101,14 @@ input CreateCommentInput {
   ticketId: String!
 }
 
+input CreateProfileInput {
+  birthDate: DateTime
+  departmentId: String
+  firstName: String
+  lastName: String
+  middleName: String
+}
+
 input CreateTransactionInput {
   category: String
   comment: CommentCreateNestedManyWithoutTicketInput
@@ -112,6 +120,18 @@ input CreateTransactionInput {
   subCategory: String
   title: String
   type: String
+}
+
+input CreateUserInput {
+  email: String!
+  hashedPassword: String!
+  role: [Role!]
+  username: String!
+}
+
+input CreateUserProfileInput {
+  profile: CreateProfileInput
+  user: CreateUserInput
 }
 
 """
@@ -168,6 +188,11 @@ input DepartmentCreateWithoutProfileInput {
   description: String
   id: String
   name: String!
+}
+
+type DepartmentList {
+  data: [Department!]!
+  meta: Meta
 }
 
 input DepartmentNullableScalarRelationFilter {
@@ -270,6 +295,7 @@ type Meta {
 type Mutation {
   createComment(payload: CreateCommentInput!): GeneralMsg!
   createTicket(payload: CreateTransactionInput!): GeneralMsg!
+  createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
@@ -360,6 +386,7 @@ input NestedStringNullableFilter {
 type Profile {
   _count: ProfileCount!
   address: JSON
+  birthDate: DateTime
   comment: [Comment!]
   contact: JSON
   createdAt: DateTime!
@@ -398,6 +425,7 @@ input ProfileCreateOrConnectWithoutCommentInput {
 
 input ProfileCreateWithoutCommentInput {
   address: JSON
+  birthDate: DateTime
   contact: JSON
   createdAt: DateTime
   createdBy: String
@@ -436,6 +464,7 @@ input ProfileWhereInput {
   NOT: [ProfileWhereInput!]
   OR: [ProfileWhereInput!]
   address: JsonNullableFilter
+  birthDate: DateTimeNullableFilter
   comment: CommentListRelationFilter
   contact: JsonNullableFilter
   createdAt: DateTimeFilter
@@ -461,6 +490,7 @@ input ProfileWhereUniqueInput {
   NOT: [ProfileWhereInput!]
   OR: [ProfileWhereInput!]
   address: JsonNullableFilter
+  birthDate: DateTimeNullableFilter
   comment: CommentListRelationFilter
   contact: JsonNullableFilter
   createdAt: DateTimeFilter
@@ -482,9 +512,12 @@ input ProfileWhereUniqueInput {
 }
 
 type Query {
+  findAllCategory: [TicketCategory!]!
+  findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllTicket(page: Int, perPage: Int, where: TicketTransactionWhereInput): TransactionLists!
-  findAllUser: [User!]!
+  findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
   findOneTicket(tickerId: String!): TicketTransaction!
+  findOneUser(profileId: String!): Profile!
   meQuery: MeQuery!
 }
 
@@ -553,6 +586,12 @@ input StringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
+}
+
+type TicketCategory {
+  description: String
+  id: ID!
+  name: String!
 }
 
 enum TicketPriority {
@@ -763,6 +802,11 @@ input UserCreateWithoutProfileInput {
 
 input UserCreateroleInput {
   set: [Role!]!
+}
+
+type UserList {
+  data: [Profile!]!
+  meta: Meta
 }
 
 input UserNullableScalarRelationFilter {

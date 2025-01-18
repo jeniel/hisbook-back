@@ -31,6 +31,9 @@ export class ProfileUncheckedUpdateManyWithoutDepartmentInput {
     @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
     dateHired?: NullableDateTimeFieldUpdateOperationsInput;
 
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    birthDate?: NullableDateTimeFieldUpdateOperationsInput;
+
     @Field(() => GraphQLJSON, {nullable:true})
     address?: any;
 

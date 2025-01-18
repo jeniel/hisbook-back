@@ -178,11 +178,6 @@ export class AuthService {
   // ! Helper function
 
   // ? END
-
-  async findAll() {
-    return this.prisma.user.findMany({});
-  }
-
   async meQuery(context: { res: Response; req: Request }) {
     const token = context.req.cookies['his-token'];
 

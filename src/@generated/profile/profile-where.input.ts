@@ -44,6 +44,9 @@ export class ProfileWhereInput {
     @Field(() => DateTimeNullableFilter, {nullable:true})
     dateHired?: DateTimeNullableFilter;
 
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    birthDate?: DateTimeNullableFilter;
+
     @Field(() => JsonNullableFilter, {nullable:true})
     address?: JsonNullableFilter;
 

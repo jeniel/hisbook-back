@@ -41,10 +41,4 @@ export class AuthResolver {
   meQuery(@Context() context: { res: Response; req: Request }) {
     return this.authService.meQuery(context);
   }
-
-  @Query(() => [User], { name: 'findAllUser' })
-  findAll(@Context() context: { res: Response; req: Request }) {
-    // console.log(context.req.headers);
-    return this.authService.findAll();
-  }
 }

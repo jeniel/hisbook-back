@@ -27,6 +27,9 @@ export class ProfileMaxOrderByAggregateInput {
     dateHired?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    birthDate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     departmentId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

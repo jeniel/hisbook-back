@@ -3,6 +3,7 @@ import { TicketConfigService } from './ticket-config.service';
 import { TicketConfig } from './entities/ticket-config.entity';
 import { UpsertCategInput } from './dto/upsert-ticket-config.input';
 import { GeneralMsg } from 'src/common/entities/general-msg.entities';
+import { TicketCategory } from 'src/@generated/ticket-category/ticket-category.model';
 
 @Resolver(() => TicketConfig)
 export class TicketConfigResolver {
@@ -15,5 +16,10 @@ export class TicketConfigResolver {
     @Args('categoryId', { nullable: true }) categoryId?: string,
   ) {
     return this.ticketConfigService.upsertCategory(payload, categoryId);
+  }
+
+  @Query(() => [TicketCategory], { name: 'findAllCategory' })
+  findAllCategory() {
+    return this.ticketConfigService.findallCategory();
   }
 }

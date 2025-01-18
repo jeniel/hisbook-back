@@ -27,6 +27,9 @@ export class ProfileCountOrderByAggregateInput {
     dateHired?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    birthDate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     address?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

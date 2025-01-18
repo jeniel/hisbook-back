@@ -26,6 +26,9 @@ export class ProfileMaxAggregate {
     @Field(() => Date, {nullable:true})
     dateHired?: Date | string;
 
+    @Field(() => Date, {nullable:true})
+    birthDate?: Date | string;
+
     @Field(() => String, {nullable:true})
     departmentId?: string;
 

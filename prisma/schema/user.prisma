@@ -29,6 +29,7 @@ model Profile {
     designation       String?
     employeeID        Int?                @default(autoincrement()) @map("employee_id")
     dateHired         DateTime?           @map("date_hired")
+    birthDate         DateTime?           @map("birth_date")
     address           Json?
     contact           Json?
     //RELATION

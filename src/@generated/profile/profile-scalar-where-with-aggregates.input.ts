@@ -40,6 +40,9 @@ export class ProfileScalarWhereWithAggregatesInput {
     @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
     dateHired?: DateTimeNullableWithAggregatesFilter;
 
+    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
+    birthDate?: DateTimeNullableWithAggregatesFilter;
+
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
     address?: JsonNullableWithAggregatesFilter;
 

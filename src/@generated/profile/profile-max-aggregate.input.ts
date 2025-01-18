@@ -26,6 +26,9 @@ export class ProfileMaxAggregateInput {
     dateHired?: true;
 
     @Field(() => Boolean, {nullable:true})
+    birthDate?: true;
+
+    @Field(() => Boolean, {nullable:true})
     departmentId?: true;
 
     @Field(() => Boolean, {nullable:true})
