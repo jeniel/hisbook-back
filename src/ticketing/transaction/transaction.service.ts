@@ -37,6 +37,8 @@ export class TransactionService {
         include: {
           assignedToProfile: true,
           createdByProfile: true,
+          toDepartment: true,
+          fromDepartment: true,
         },
       }),
     ]);

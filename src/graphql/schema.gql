@@ -59,6 +59,7 @@ input CreateProfileInput {
 input CreateTicket {
   departmentTo: String
   description: String
+  priority: TicketPriority
   title: String!
 }
 
