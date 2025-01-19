@@ -7,4 +7,10 @@ export class DepartmentCount {
 
     @Field(() => Int, {nullable:false})
     profile?: number;
+
+    @Field(() => Int, {nullable:false})
+    ticketsFrom?: number;
+
+    @Field(() => Int, {nullable:false})
+    ticketsTo?: number;
 }

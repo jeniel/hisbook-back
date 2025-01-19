@@ -6,7 +6,10 @@ import { Int } from '@nestjs/graphql';
 export class ProfileCount {
 
     @Field(() => Int, {nullable:false})
-    tikcetTransaction?: number;
+    ticketCreatedBy?: number;
+
+    @Field(() => Int, {nullable:false})
+    ticketAssignedTo?: number;
 
     @Field(() => Int, {nullable:false})
     comment?: number;

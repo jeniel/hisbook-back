@@ -1,8 +1,8 @@
-import { CreateTransactionInput } from './create-transaction.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+// import { Field, InputType, Int, PartialType } from '@nestjs/graphql';
+// import { CreateTransactionInput } from './create-transaction.input';
 
-@InputType()
-export class UpdateTransactionInput extends PartialType(CreateTransactionInput) {
-  @Field(() => Int)
-  id: number;
-}
+// @InputType()
+// export class UpdateTransactionInput extends PartialType(CreateTransactionInput) {
+//   @Field(() => Int)
+//   id: number;
+// }

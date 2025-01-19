@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { TicketTransactionListRelationFilter } from '../ticket-transaction/ticket-transaction-list-relation-filter.input';
 
 @InputType()
 export class TicketCategoryWhereInput {
@@ -23,4 +24,7 @@ export class TicketCategoryWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     description?: StringNullableFilter;
+
+    @Field(() => TicketTransactionListRelationFilter, {nullable:true})
+    ticketTransaction?: TicketTransactionListRelationFilter;
 }

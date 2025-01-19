@@ -3,8 +3,10 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { TicketStatus } from '../prisma/ticket-status.enum';
 import { TicketPriority } from '../prisma/ticket-priority.enum';
-import { Profile } from '../profile/profile.model';
 import { Comment } from '../comment/comment.model';
+import { Profile } from '../profile/profile.model';
+import { Department } from '../department/department.model';
+import { TicketCategory } from '../ticket-category/ticket-category.model';
 import { TicketTransactionCount } from './ticket-transaction-count.output';
 
 @ObjectType()
@@ -26,22 +28,19 @@ export class TicketTransaction {
     priority!: keyof typeof TicketPriority | null;
 
     @Field(() => String, {nullable:true})
-    type!: string | null;
-
-    @Field(() => String, {nullable:true})
-    category!: string | null;
-
-    @Field(() => String, {nullable:true})
-    subCategory!: string | null;
-
-    @Field(() => String, {nullable:true})
     departmentFrom!: string | null;
 
     @Field(() => String, {nullable:true})
     departmentTo!: string | null;
 
     @Field(() => String, {nullable:true})
-    profileId!: string | null;
+    ticketCreatedBy!: string | null;
+
+    @Field(() => String, {nullable:true})
+    ticketAssignedTo!: string | null;
+
+    @Field(() => String, {nullable:true})
+    ticketCategoryId!: string | null;
 
     @Field(() => Date, {nullable:false})
     createdAt!: Date;
@@ -55,11 +54,23 @@ export class TicketTransaction {
     @Field(() => String, {nullable:true})
     updatedBy!: string | null;
 
-    @Field(() => Profile, {nullable:true})
-    profile?: Profile | null;
-
     @Field(() => [Comment], {nullable:true})
     comment?: Array<Comment>;
+
+    @Field(() => Profile, {nullable:true})
+    createdByProfile?: Profile | null;
+
+    @Field(() => Profile, {nullable:true})
+    assignedToProfile?: Profile | null;
+
+    @Field(() => Department, {nullable:true})
+    fromDepartment?: Department | null;
+
+    @Field(() => Department, {nullable:true})
+    toDepartment?: Department | null;
+
+    @Field(() => TicketCategory, {nullable:true})
+    ticketCategory?: TicketCategory | null;
 
     @Field(() => TicketTransactionCount, {nullable:false})
     _count?: TicketTransactionCount;

@@ -3,6 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { TicketStatus } from '../prisma/ticket-status.enum';
 import { TicketPriority } from '../prisma/ticket-priority.enum';
 import { CommentCreateNestedManyWithoutTicketInput } from '../comment/comment-create-nested-many-without-ticket.input';
+import { AgentTransactionCreateNestedManyWithoutTicketInput } from '../agent-transaction/agent-transaction-create-nested-many-without-ticket.input';
+import { DepartmentCreateNestedOneWithoutTicketsFromInput } from '../department/department-create-nested-one-without-tickets-from.input';
+import { DepartmentCreateNestedOneWithoutTicketsToInput } from '../department/department-create-nested-one-without-tickets-to.input';
 
 @InputType()
 export class TicketTransactionCreateWithoutProfileInput {
@@ -31,12 +34,6 @@ export class TicketTransactionCreateWithoutProfileInput {
     @Field(() => String, {nullable:true})
     subCategory?: string;
 
-    @Field(() => String, {nullable:true})
-    departmentFrom?: string;
-
-    @Field(() => String, {nullable:true})
-    departmentTo?: string;
-
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
@@ -51,4 +48,13 @@ export class TicketTransactionCreateWithoutProfileInput {
 
     @Field(() => CommentCreateNestedManyWithoutTicketInput, {nullable:true})
     comment?: CommentCreateNestedManyWithoutTicketInput;
+
+    @Field(() => AgentTransactionCreateNestedManyWithoutTicketInput, {nullable:true})
+    agent?: AgentTransactionCreateNestedManyWithoutTicketInput;
+
+    @Field(() => DepartmentCreateNestedOneWithoutTicketsFromInput, {nullable:true})
+    fromDepartment?: DepartmentCreateNestedOneWithoutTicketsFromInput;
+
+    @Field(() => DepartmentCreateNestedOneWithoutTicketsToInput, {nullable:true})
+    toDepartment?: DepartmentCreateNestedOneWithoutTicketsToInput;
 }

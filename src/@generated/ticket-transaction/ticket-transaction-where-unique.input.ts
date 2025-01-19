@@ -5,8 +5,10 @@ import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { EnumTicketStatusNullableFilter } from '../prisma/enum-ticket-status-nullable-filter.input';
 import { EnumTicketPriorityNullableFilter } from '../prisma/enum-ticket-priority-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { ProfileNullableScalarRelationFilter } from '../prisma/profile-nullable-scalar-relation-filter.input';
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
+import { ProfileNullableScalarRelationFilter } from '../prisma/profile-nullable-scalar-relation-filter.input';
+import { DepartmentNullableScalarRelationFilter } from '../prisma/department-nullable-scalar-relation-filter.input';
+import { TicketCategoryNullableScalarRelationFilter } from '../prisma/ticket-category-nullable-scalar-relation-filter.input';
 
 @InputType()
 export class TicketTransactionWhereUniqueInput {
@@ -36,22 +38,19 @@ export class TicketTransactionWhereUniqueInput {
     priority?: EnumTicketPriorityNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
-    type?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    category?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    subCategory?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
     departmentFrom?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     departmentTo?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
-    profileId?: StringNullableFilter;
+    ticketCreatedBy?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    ticketAssignedTo?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    ticketCategoryId?: StringNullableFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;
@@ -65,9 +64,21 @@ export class TicketTransactionWhereUniqueInput {
     @Field(() => StringNullableFilter, {nullable:true})
     updatedBy?: StringNullableFilter;
 
-    @Field(() => ProfileNullableScalarRelationFilter, {nullable:true})
-    profile?: ProfileNullableScalarRelationFilter;
-
     @Field(() => CommentListRelationFilter, {nullable:true})
     comment?: CommentListRelationFilter;
+
+    @Field(() => ProfileNullableScalarRelationFilter, {nullable:true})
+    createdByProfile?: ProfileNullableScalarRelationFilter;
+
+    @Field(() => ProfileNullableScalarRelationFilter, {nullable:true})
+    assignedToProfile?: ProfileNullableScalarRelationFilter;
+
+    @Field(() => DepartmentNullableScalarRelationFilter, {nullable:true})
+    fromDepartment?: DepartmentNullableScalarRelationFilter;
+
+    @Field(() => DepartmentNullableScalarRelationFilter, {nullable:true})
+    toDepartment?: DepartmentNullableScalarRelationFilter;
+
+    @Field(() => TicketCategoryNullableScalarRelationFilter, {nullable:true})
+    ticketCategory?: TicketCategoryNullableScalarRelationFilter;
 }

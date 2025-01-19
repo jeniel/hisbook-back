@@ -22,39 +22,42 @@ model User {
 }
 
 model Profile {
-    id                String              @id @default(uuid())
-    firstName         String?             @map("first_name")
-    middleName        String?             @map("middle_name")
-    lastName          String?             @map("last_name")
-    designation       String?
-    employeeID        Int?                @default(autoincrement()) @map("employee_id")
-    dateHired         DateTime?           @map("date_hired")
-    birthDate         DateTime?           @map("birth_date")
-    address           Json?
-    contact           Json?
+    id               String              @id @default(uuid())
+    firstName        String?             @map("first_name")
+    middleName       String?             @map("middle_name")
+    lastName         String?             @map("last_name")
+    designation      String?
+    employeeID       Int?                @default(autoincrement()) @map("employee_id")
+    dateHired        DateTime?           @map("date_hired")
+    birthDate        DateTime?           @map("birth_date")
+    address          Json?
+    contact          Json?
     //RELATION
-    department        Department?         @relation(fields: [departmentId], references: [id])
-    departmentId      String?             @map("department_id")
-    user              User?               @relation(fields: [userId], references: [id])
-    userId            String?             @unique @map("user_id")
-    tikcetTransaction TicketTransaction[]
-    comment           Comment[]
+    department       Department?         @relation(fields: [departmentId], references: [id])
+    departmentId     String?             @map("department_id")
+    user             User?               @relation(fields: [userId], references: [id])
+    userId           String?             @unique @map("user_id")
+    ticketCreatedBy  TicketTransaction[] @relation("TicketCreatedBy")
+    ticketAssignedTo TicketTransaction[] @relation("TicketAssignedTo")
+    comment          Comment[]
     // STAMP
-    createdAt         DateTime            @default(now()) @map("created_at") @db.Date
-    createdBy         String?             @map("created_by")
-    updatedAt         DateTime            @default(now()) @updatedAt @map("updated_at") @db.Date
-    updatedBy         String?             @map("updated_by")
+    createdAt        DateTime            @default(now()) @map("created_at") @db.Date
+    createdBy        String?             @map("created_by")
+    updatedAt        DateTime            @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedBy        String?             @map("updated_by")
 
     @@map("profile")
     @@schema("public")
 }
 
 model Department {
-    id          String    @id @default(uuid())
+    id          String              @id @default(uuid())
     name        String
     description String?
     // RELATION
     profile     Profile[]
+    ticketsFrom TicketTransaction[] @relation("DepartmentFrom")
+    ticketsTo   TicketTransaction[] @relation("DepartmentTo")
 
     @@map("department")
     @@schema("public")

@@ -78,7 +78,10 @@ export class ProfileWhereUniqueInput {
     user?: UserNullableScalarRelationFilter;
 
     @Field(() => TicketTransactionListRelationFilter, {nullable:true})
-    tikcetTransaction?: TicketTransactionListRelationFilter;
+    ticketCreatedBy?: TicketTransactionListRelationFilter;
+
+    @Field(() => TicketTransactionListRelationFilter, {nullable:true})
+    ticketAssignedTo?: TicketTransactionListRelationFilter;
 
     @Field(() => CommentListRelationFilter, {nullable:true})
     comment?: CommentListRelationFilter;

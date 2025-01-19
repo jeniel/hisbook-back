@@ -20,22 +20,19 @@ export class TicketTransactionMinAggregateInput {
     priority?: true;
 
     @Field(() => Boolean, {nullable:true})
-    type?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    category?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    subCategory?: true;
-
-    @Field(() => Boolean, {nullable:true})
     departmentFrom?: true;
 
     @Field(() => Boolean, {nullable:true})
     departmentTo?: true;
 
     @Field(() => Boolean, {nullable:true})
-    profileId?: true;
+    ticketCreatedBy?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    ticketAssignedTo?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    ticketCategoryId?: true;
 
     @Field(() => Boolean, {nullable:true})
     createdAt?: true;

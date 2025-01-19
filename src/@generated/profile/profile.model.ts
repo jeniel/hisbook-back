@@ -67,7 +67,10 @@ export class Profile {
     user?: User | null;
 
     @Field(() => [TicketTransaction], {nullable:true})
-    tikcetTransaction?: Array<TicketTransaction>;
+    ticketCreatedBy?: Array<TicketTransaction>;
+
+    @Field(() => [TicketTransaction], {nullable:true})
+    ticketAssignedTo?: Array<TicketTransaction>;
 
     @Field(() => [Comment], {nullable:true})
     comment?: Array<Comment>;

@@ -34,22 +34,19 @@ export class TicketTransactionScalarWhereInput {
     priority?: EnumTicketPriorityNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
-    type?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    category?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    subCategory?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
     departmentFrom?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     departmentTo?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
-    profileId?: StringNullableFilter;
+    ticketCreatedBy?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    ticketAssignedTo?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    ticketCategoryId?: StringNullableFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;

@@ -22,22 +22,19 @@ export class TicketTransactionMinAggregate {
     priority?: keyof typeof TicketPriority;
 
     @Field(() => String, {nullable:true})
-    type?: string;
-
-    @Field(() => String, {nullable:true})
-    category?: string;
-
-    @Field(() => String, {nullable:true})
-    subCategory?: string;
-
-    @Field(() => String, {nullable:true})
     departmentFrom?: string;
 
     @Field(() => String, {nullable:true})
     departmentTo?: string;
 
     @Field(() => String, {nullable:true})
-    profileId?: string;
+    ticketCreatedBy?: string;
+
+    @Field(() => String, {nullable:true})
+    ticketAssignedTo?: string;
+
+    @Field(() => String, {nullable:true})
+    ticketCategoryId?: string;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;

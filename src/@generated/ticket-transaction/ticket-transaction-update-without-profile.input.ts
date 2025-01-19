@@ -6,6 +6,9 @@ import { NullableEnumTicketStatusFieldUpdateOperationsInput } from '../prisma/nu
 import { NullableEnumTicketPriorityFieldUpdateOperationsInput } from '../prisma/nullable-enum-ticket-priority-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { CommentUpdateManyWithoutTicketNestedInput } from '../comment/comment-update-many-without-ticket-nested.input';
+import { AgentTransactionUpdateManyWithoutTicketNestedInput } from '../agent-transaction/agent-transaction-update-many-without-ticket-nested.input';
+import { DepartmentUpdateOneWithoutTicketsFromNestedInput } from '../department/department-update-one-without-tickets-from-nested.input';
+import { DepartmentUpdateOneWithoutTicketsToNestedInput } from '../department/department-update-one-without-tickets-to-nested.input';
 
 @InputType()
 export class TicketTransactionUpdateWithoutProfileInput {
@@ -34,12 +37,6 @@ export class TicketTransactionUpdateWithoutProfileInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     subCategory?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    departmentFrom?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    departmentTo?: NullableStringFieldUpdateOperationsInput;
-
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
 
@@ -54,4 +51,13 @@ export class TicketTransactionUpdateWithoutProfileInput {
 
     @Field(() => CommentUpdateManyWithoutTicketNestedInput, {nullable:true})
     comment?: CommentUpdateManyWithoutTicketNestedInput;
+
+    @Field(() => AgentTransactionUpdateManyWithoutTicketNestedInput, {nullable:true})
+    agent?: AgentTransactionUpdateManyWithoutTicketNestedInput;
+
+    @Field(() => DepartmentUpdateOneWithoutTicketsFromNestedInput, {nullable:true})
+    fromDepartment?: DepartmentUpdateOneWithoutTicketsFromNestedInput;
+
+    @Field(() => DepartmentUpdateOneWithoutTicketsToNestedInput, {nullable:true})
+    toDepartment?: DepartmentUpdateOneWithoutTicketsToNestedInput;
 }

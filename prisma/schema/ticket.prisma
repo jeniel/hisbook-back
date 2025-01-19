@@ -1,27 +1,45 @@
 model TicketTransaction {
-    id             String          @id @default(uuid())
-    title          String?
-    description    String?
-    status         TicketStatus?   @default(OPEN)
-    priority       TicketPriority? @default(LOW)
-    type           String?
-    category       String?
-    subCategory    String?         @map("sub_category")
-    departmentFrom String?         @map("department_from")
-    departmentTo   String?         @map("department_to")
+    id               String          @id @default(uuid())
+    title            String?
+    description      String?
+    status           TicketStatus?   @default(OPEN)
+    priority         TicketPriority? @default(LOW)
+    departmentFrom   String?         @map("department_from")
+    departmentTo     String?         @map("department_to")
+    ticketCreatedBy  String?         @map("ticket_created_by")
+    ticketAssignedTo String?         @map("ticket_assigned_to")
     // RELATION
-    profile        Profile?        @relation(fields: [profileId], references: [id])
-    profileId      String?         @map("profile_id")
-    comment        Comment[]
+    comment          Comment[]
+
+    createdByProfile  Profile? @relation("TicketCreatedBy", fields: [ticketCreatedBy], references: [id])
+    assignedToProfile Profile? @relation("TicketAssignedTo", fields: [ticketAssignedTo], references: [id])
+
+    fromDepartment Department? @relation("DepartmentFrom", fields: [departmentFrom], references: [id])
+    toDepartment   Department? @relation("DepartmentTo", fields: [departmentTo], references: [id])
+
+    ticketCategory   TicketCategory? @relation(fields: [ticketCategoryId], references: [id])
+    ticketCategoryId String?         @map("ticket_category_id")
     // STAMP
-    createdAt      DateTime        @default(now()) @map("created_at") @db.Date
-    createdBy      String?         @map("created_by")
-    updatedAt      DateTime        @default(now()) @updatedAt @map("updated_at") @db.Date
-    updatedBy      String?         @map("updated_by")
+    createdAt        DateTime        @default(now()) @map("created_at") @db.Date
+    createdBy        String?         @map("created_by")
+    updatedAt        DateTime        @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedBy        String?         @map("updated_by")
 
     @@map("ticket_transaction")
     @@schema("ticketing")
 }
+
+// model AgentTransaction {
+//     id                  String             @id @default(uuid())
+//     // RELATION
+//     ticket              TicketTransaction? @relation(fields: [ticketTransactionId], references: [id])
+//     ticketTransactionId String?            @map("ticket_transaction_id")
+//     profile             Profile?           @relation(fields: [profileId], references: [id])
+//     profileId           String?            @map("profile_id")
+
+//     @@map("agent_transaction")
+//     @@schema("ticketing")
+// }
 
 model Comment {
     id        String            @id @default(uuid())
@@ -42,10 +60,11 @@ model Comment {
 }
 
 model TicketCategory {
-    id          String  @id @default(uuid())
-    name        String
-    description String?
+    id                String              @id @default(uuid())
+    name              String
+    description       String?
     // RELATION
+    ticketTransaction TicketTransaction[]
 
     @@map("ticket_category")
     @@schema("ticketing")

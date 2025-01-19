@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { TicketTransactionUpdateManyWithoutTicketCategoryNestedInput } from '../ticket-transaction/ticket-transaction-update-many-without-ticket-category-nested.input';
 
 @InputType()
 export class TicketCategoryUpdateInput {
@@ -14,4 +15,7 @@ export class TicketCategoryUpdateInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     description?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => TicketTransactionUpdateManyWithoutTicketCategoryNestedInput, {nullable:true})
+    ticketTransaction?: TicketTransactionUpdateManyWithoutTicketCategoryNestedInput;
 }

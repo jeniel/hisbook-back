@@ -2,8 +2,12 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { TicketStatus } from '../prisma/ticket-status.enum';
 import { TicketPriority } from '../prisma/ticket-priority.enum';
-import { ProfileCreateNestedOneWithoutTikcetTransactionInput } from '../profile/profile-create-nested-one-without-tikcet-transaction.input';
 import { CommentCreateNestedManyWithoutTicketInput } from '../comment/comment-create-nested-many-without-ticket.input';
+import { ProfileCreateNestedOneWithoutTicketCreatedByInput } from '../profile/profile-create-nested-one-without-ticket-created-by.input';
+import { ProfileCreateNestedOneWithoutTicketAssignedToInput } from '../profile/profile-create-nested-one-without-ticket-assigned-to.input';
+import { DepartmentCreateNestedOneWithoutTicketsFromInput } from '../department/department-create-nested-one-without-tickets-from.input';
+import { DepartmentCreateNestedOneWithoutTicketsToInput } from '../department/department-create-nested-one-without-tickets-to.input';
+import { TicketCategoryCreateNestedOneWithoutTicketTransactionInput } from '../ticket-category/ticket-category-create-nested-one-without-ticket-transaction.input';
 
 @InputType()
 export class TicketTransactionCreateInput {
@@ -23,21 +27,6 @@ export class TicketTransactionCreateInput {
     @Field(() => TicketPriority, {nullable:true})
     priority?: keyof typeof TicketPriority;
 
-    @Field(() => String, {nullable:true})
-    type?: string;
-
-    @Field(() => String, {nullable:true})
-    category?: string;
-
-    @Field(() => String, {nullable:true})
-    subCategory?: string;
-
-    @Field(() => String, {nullable:true})
-    departmentFrom?: string;
-
-    @Field(() => String, {nullable:true})
-    departmentTo?: string;
-
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
@@ -50,9 +39,21 @@ export class TicketTransactionCreateInput {
     @Field(() => String, {nullable:true})
     updatedBy?: string;
 
-    @Field(() => ProfileCreateNestedOneWithoutTikcetTransactionInput, {nullable:true})
-    profile?: ProfileCreateNestedOneWithoutTikcetTransactionInput;
-
     @Field(() => CommentCreateNestedManyWithoutTicketInput, {nullable:true})
     comment?: CommentCreateNestedManyWithoutTicketInput;
+
+    @Field(() => ProfileCreateNestedOneWithoutTicketCreatedByInput, {nullable:true})
+    createdByProfile?: ProfileCreateNestedOneWithoutTicketCreatedByInput;
+
+    @Field(() => ProfileCreateNestedOneWithoutTicketAssignedToInput, {nullable:true})
+    assignedToProfile?: ProfileCreateNestedOneWithoutTicketAssignedToInput;
+
+    @Field(() => DepartmentCreateNestedOneWithoutTicketsFromInput, {nullable:true})
+    fromDepartment?: DepartmentCreateNestedOneWithoutTicketsFromInput;
+
+    @Field(() => DepartmentCreateNestedOneWithoutTicketsToInput, {nullable:true})
+    toDepartment?: DepartmentCreateNestedOneWithoutTicketsToInput;
+
+    @Field(() => TicketCategoryCreateNestedOneWithoutTicketTransactionInput, {nullable:true})
+    ticketCategory?: TicketCategoryCreateNestedOneWithoutTicketTransactionInput;
 }

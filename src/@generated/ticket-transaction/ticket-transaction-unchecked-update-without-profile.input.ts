@@ -6,6 +6,7 @@ import { NullableEnumTicketStatusFieldUpdateOperationsInput } from '../prisma/nu
 import { NullableEnumTicketPriorityFieldUpdateOperationsInput } from '../prisma/nullable-enum-ticket-priority-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { CommentUncheckedUpdateManyWithoutTicketNestedInput } from '../comment/comment-unchecked-update-many-without-ticket-nested.input';
+import { AgentTransactionUncheckedUpdateManyWithoutTicketNestedInput } from '../agent-transaction/agent-transaction-unchecked-update-many-without-ticket-nested.input';
 
 @InputType()
 export class TicketTransactionUncheckedUpdateWithoutProfileInput {
@@ -54,4 +55,7 @@ export class TicketTransactionUncheckedUpdateWithoutProfileInput {
 
     @Field(() => CommentUncheckedUpdateManyWithoutTicketNestedInput, {nullable:true})
     comment?: CommentUncheckedUpdateManyWithoutTicketNestedInput;
+
+    @Field(() => AgentTransactionUncheckedUpdateManyWithoutTicketNestedInput, {nullable:true})
+    agent?: AgentTransactionUncheckedUpdateManyWithoutTicketNestedInput;
 }

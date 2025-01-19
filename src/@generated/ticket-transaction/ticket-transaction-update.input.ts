@@ -5,8 +5,12 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 import { NullableEnumTicketStatusFieldUpdateOperationsInput } from '../prisma/nullable-enum-ticket-status-field-update-operations.input';
 import { NullableEnumTicketPriorityFieldUpdateOperationsInput } from '../prisma/nullable-enum-ticket-priority-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { ProfileUpdateOneWithoutTikcetTransactionNestedInput } from '../profile/profile-update-one-without-tikcet-transaction-nested.input';
 import { CommentUpdateManyWithoutTicketNestedInput } from '../comment/comment-update-many-without-ticket-nested.input';
+import { ProfileUpdateOneWithoutTicketCreatedByNestedInput } from '../profile/profile-update-one-without-ticket-created-by-nested.input';
+import { ProfileUpdateOneWithoutTicketAssignedToNestedInput } from '../profile/profile-update-one-without-ticket-assigned-to-nested.input';
+import { DepartmentUpdateOneWithoutTicketsFromNestedInput } from '../department/department-update-one-without-tickets-from-nested.input';
+import { DepartmentUpdateOneWithoutTicketsToNestedInput } from '../department/department-update-one-without-tickets-to-nested.input';
+import { TicketCategoryUpdateOneWithoutTicketTransactionNestedInput } from '../ticket-category/ticket-category-update-one-without-ticket-transaction-nested.input';
 
 @InputType()
 export class TicketTransactionUpdateInput {
@@ -26,21 +30,6 @@ export class TicketTransactionUpdateInput {
     @Field(() => NullableEnumTicketPriorityFieldUpdateOperationsInput, {nullable:true})
     priority?: NullableEnumTicketPriorityFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    type?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    category?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    subCategory?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    departmentFrom?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    departmentTo?: NullableStringFieldUpdateOperationsInput;
-
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
 
@@ -53,9 +42,21 @@ export class TicketTransactionUpdateInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     updatedBy?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => ProfileUpdateOneWithoutTikcetTransactionNestedInput, {nullable:true})
-    profile?: ProfileUpdateOneWithoutTikcetTransactionNestedInput;
-
     @Field(() => CommentUpdateManyWithoutTicketNestedInput, {nullable:true})
     comment?: CommentUpdateManyWithoutTicketNestedInput;
+
+    @Field(() => ProfileUpdateOneWithoutTicketCreatedByNestedInput, {nullable:true})
+    createdByProfile?: ProfileUpdateOneWithoutTicketCreatedByNestedInput;
+
+    @Field(() => ProfileUpdateOneWithoutTicketAssignedToNestedInput, {nullable:true})
+    assignedToProfile?: ProfileUpdateOneWithoutTicketAssignedToNestedInput;
+
+    @Field(() => DepartmentUpdateOneWithoutTicketsFromNestedInput, {nullable:true})
+    fromDepartment?: DepartmentUpdateOneWithoutTicketsFromNestedInput;
+
+    @Field(() => DepartmentUpdateOneWithoutTicketsToNestedInput, {nullable:true})
+    toDepartment?: DepartmentUpdateOneWithoutTicketsToNestedInput;
+
+    @Field(() => TicketCategoryUpdateOneWithoutTicketTransactionNestedInput, {nullable:true})
+    ticketCategory?: TicketCategoryUpdateOneWithoutTicketTransactionNestedInput;
 }

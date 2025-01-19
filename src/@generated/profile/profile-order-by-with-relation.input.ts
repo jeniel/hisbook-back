@@ -65,7 +65,10 @@ export class ProfileOrderByWithRelationInput {
     user?: UserOrderByWithRelationInput;
 
     @Field(() => TicketTransactionOrderByRelationAggregateInput, {nullable:true})
-    tikcetTransaction?: TicketTransactionOrderByRelationAggregateInput;
+    ticketCreatedBy?: TicketTransactionOrderByRelationAggregateInput;
+
+    @Field(() => TicketTransactionOrderByRelationAggregateInput, {nullable:true})
+    ticketAssignedTo?: TicketTransactionOrderByRelationAggregateInput;
 
     @Field(() => CommentOrderByRelationAggregateInput, {nullable:true})
     comment?: CommentOrderByRelationAggregateInput;

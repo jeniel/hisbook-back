@@ -45,6 +45,7 @@ export class AuthService {
         user.email,
         user.username,
         user.profile.id,
+        user.profile.departmentId,
         user.role as Role[],
       );
       await this.updateRefresh(user.id, refreshToken);
@@ -90,6 +91,7 @@ export class AuthService {
       user.email,
       user.username,
       user.profile.id,
+      user.profile.departmentId,
       user.role as Role[],
     );
 
@@ -122,6 +124,7 @@ export class AuthService {
     email: string,
     username: string,
     profileId: string,
+    departmentId: string,
     role: Role[],
   ) {
     const accessToken = await this.jwt.sign(
@@ -130,6 +133,7 @@ export class AuthService {
         email,
         username,
         profileId,
+        departmentId,
         role,
       },
       { expiresIn: '5h', secret: this.config.get('JWT_SECRET') },
@@ -190,7 +194,11 @@ export class AuthService {
         id: currentUser.userId,
       },
       include: {
-        profile: true,
+        profile: {
+          include: {
+            department: true,
+          },
+        },
       },
     });
 

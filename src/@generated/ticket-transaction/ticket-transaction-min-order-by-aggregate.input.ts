@@ -21,22 +21,19 @@ export class TicketTransactionMinOrderByAggregateInput {
     priority?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    type?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    category?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    subCategory?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     departmentFrom?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     departmentTo?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    profileId?: keyof typeof SortOrder;
+    ticketCreatedBy?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    ticketAssignedTo?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    ticketCategoryId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;

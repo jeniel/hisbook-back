@@ -21,22 +21,19 @@ export class TicketTransactionCountAggregate {
     priority!: number;
 
     @Field(() => Int, {nullable:false})
-    type!: number;
-
-    @Field(() => Int, {nullable:false})
-    category!: number;
-
-    @Field(() => Int, {nullable:false})
-    subCategory!: number;
-
-    @Field(() => Int, {nullable:false})
     departmentFrom!: number;
 
     @Field(() => Int, {nullable:false})
     departmentTo!: number;
 
     @Field(() => Int, {nullable:false})
-    profileId!: number;
+    ticketCreatedBy!: number;
+
+    @Field(() => Int, {nullable:false})
+    ticketAssignedTo!: number;
+
+    @Field(() => Int, {nullable:false})
+    ticketCategoryId!: number;
 
     @Field(() => Int, {nullable:false})
     createdAt!: number;

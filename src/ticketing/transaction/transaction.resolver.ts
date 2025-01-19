@@ -1,14 +1,13 @@
-import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CurrentUser } from 'src/common/decorator/currentUser.decorator';
 import { GeneralMsg } from 'src/common/entities/general-msg.entities';
 import { DecodedToken } from 'src/common/types/decodedToken';
-import { CreateTransactionInput } from './dto/create-transaction.input';
+import { CreateTicket } from './dto/create-transaction.input';
 
-import { TransactionService } from './transaction.service';
-import { FindManyTicketTransactionArgs } from 'src/@generated/ticket-transaction/find-many-ticket-transaction.args';
 import { TicketTransaction } from 'src/@generated/ticket-transaction/ticket-transaction.model';
-import { TransactionLists } from './entities/transaction.entity';
 import { TransactionArgs } from './args/transaction.args';
+import { TransactionLists } from './entities/transaction.entity';
+import { TransactionService } from './transaction.service';
 
 @Resolver(() => TicketTransaction)
 export class TransactionResolver {
@@ -17,7 +16,7 @@ export class TransactionResolver {
   // @Roles([Role.USER])
   @Mutation(() => GeneralMsg)
   createTicket(
-    @Args('payload') payload: CreateTransactionInput,
+    @Args('payload') payload: CreateTicket,
     @CurrentUser() userInfo: DecodedToken,
   ) {
     return this.transactionService.create(payload, userInfo);

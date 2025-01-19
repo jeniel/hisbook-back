@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { TicketStatus } from '../prisma/ticket-status.enum';
 import { TicketPriority } from '../prisma/ticket-priority.enum';
 import { CommentUncheckedCreateNestedManyWithoutTicketInput } from '../comment/comment-unchecked-create-nested-many-without-ticket.input';
+import { AgentTransactionUncheckedCreateNestedManyWithoutTicketInput } from '../agent-transaction/agent-transaction-unchecked-create-nested-many-without-ticket.input';
 
 @InputType()
 export class TicketTransactionUncheckedCreateWithoutProfileInput {
@@ -51,4 +52,7 @@ export class TicketTransactionUncheckedCreateWithoutProfileInput {
 
     @Field(() => CommentUncheckedCreateNestedManyWithoutTicketInput, {nullable:true})
     comment?: CommentUncheckedCreateNestedManyWithoutTicketInput;
+
+    @Field(() => AgentTransactionUncheckedCreateNestedManyWithoutTicketInput, {nullable:true})
+    agent?: AgentTransactionUncheckedCreateNestedManyWithoutTicketInput;
 }

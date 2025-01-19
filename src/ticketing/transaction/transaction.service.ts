@@ -2,18 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { DecodedToken } from 'src/common/types/decodedToken';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TransactionArgs } from './args/transaction.args';
-import { CreateTransactionInput } from './dto/create-transaction.input';
+import { CreateTicket } from './dto/create-transaction.input';
 
 @Injectable()
 export class TransactionService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(payload: CreateTransactionInput, userInfo: DecodedToken) {
+  async create(payload: CreateTicket, userInfo: DecodedToken) {
     // console.log('userInfo => ', userInfo);
     await this.prisma.ticketTransaction.create({
       data: {
         ...payload,
-        profileId: userInfo.profileId,
+        ticketCreatedBy: userInfo.profileId,
+        departmentFrom: userInfo.departmentId,
       },
     });
 
@@ -33,6 +34,10 @@ export class TransactionService {
         where: args.where,
         take: perPage,
         skip,
+        include: {
+          assignedToProfile: true,
+          createdByProfile: true,
+        },
       }),
     ]);
 
@@ -56,5 +61,4 @@ export class TransactionService {
       where: { id: ticketId },
     });
   }
-  
 }
