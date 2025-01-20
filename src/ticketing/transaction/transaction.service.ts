@@ -61,6 +61,12 @@ export class TransactionService {
   async findOne(ticketId: string) {
     return await this.prisma.ticketTransaction.findUnique({
       where: { id: ticketId },
+      include: {
+        assignedToProfile: true,
+        createdByProfile: true,
+        toDepartment: true,
+        fromDepartment: true,
+      },
     });
   }
 }

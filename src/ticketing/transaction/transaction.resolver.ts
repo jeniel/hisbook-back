@@ -28,7 +28,7 @@ export class TransactionResolver {
   }
 
   @Query(() => TicketTransaction, { name: 'findOneTicket' })
-  findOne(@Args('tickerId', { type: () => String }) tickerId: string) {
-    return this.transactionService.findOne(tickerId);
+  findOne(@Args('ticketId', { type: () => String }) ticketId: string) {
+    return this.transactionService.findOne(ticketId);
   }
 }

@@ -382,7 +382,7 @@ type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllTicket(page: Int, perPage: Int, where: TicketTransactionWhereInput): TransactionLists!
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
-  findOneTicket(tickerId: String!): TicketTransaction!
+  findOneTicket(ticketId: String!): TicketTransaction!
   findOneUser(profileId: String!): Profile!
   meQuery: MeQuery!
 }
