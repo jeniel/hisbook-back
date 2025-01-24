@@ -15,6 +15,9 @@ export class TicketTransactionMinOrderByAggregateInput {
     description?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    ticketNumber?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     status?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -31,6 +34,9 @@ export class TicketTransactionMinOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     ticketAssignedTo?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    ticketAssignedBy?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     ticketCategoryId?: keyof typeof SortOrder;

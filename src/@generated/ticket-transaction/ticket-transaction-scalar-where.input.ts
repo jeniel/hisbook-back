@@ -27,6 +27,9 @@ export class TicketTransactionScalarWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     description?: StringNullableFilter;
 
+    @Field(() => StringNullableFilter, {nullable:true})
+    ticketNumber?: StringNullableFilter;
+
     @Field(() => EnumTicketStatusNullableFilter, {nullable:true})
     status?: EnumTicketStatusNullableFilter;
 
@@ -44,6 +47,9 @@ export class TicketTransactionScalarWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     ticketAssignedTo?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    ticketAssignedBy?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     ticketCategoryId?: StringNullableFilter;

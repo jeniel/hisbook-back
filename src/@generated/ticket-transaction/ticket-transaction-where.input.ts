@@ -31,6 +31,9 @@ export class TicketTransactionWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     description?: StringNullableFilter;
 
+    @Field(() => StringNullableFilter, {nullable:true})
+    ticketNumber?: StringNullableFilter;
+
     @Field(() => EnumTicketStatusNullableFilter, {nullable:true})
     status?: EnumTicketStatusNullableFilter;
 
@@ -48,6 +51,9 @@ export class TicketTransactionWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     ticketAssignedTo?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    ticketAssignedBy?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     ticketCategoryId?: StringNullableFilter;
@@ -72,6 +78,9 @@ export class TicketTransactionWhereInput {
 
     @Field(() => ProfileNullableScalarRelationFilter, {nullable:true})
     assignedToProfile?: ProfileNullableScalarRelationFilter;
+
+    @Field(() => ProfileNullableScalarRelationFilter, {nullable:true})
+    assignedByProfile?: ProfileNullableScalarRelationFilter;
 
     @Field(() => DepartmentNullableScalarRelationFilter, {nullable:true})
     fromDepartment?: DepartmentNullableScalarRelationFilter;

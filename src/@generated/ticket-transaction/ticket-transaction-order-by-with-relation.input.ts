@@ -20,6 +20,9 @@ export class TicketTransactionOrderByWithRelationInput {
     description?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
+    ticketNumber?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
     status?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
@@ -36,6 +39,9 @@ export class TicketTransactionOrderByWithRelationInput {
 
     @Field(() => SortOrderInput, {nullable:true})
     ticketAssignedTo?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    ticketAssignedBy?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
     ticketCategoryId?: SortOrderInput;
@@ -60,6 +66,9 @@ export class TicketTransactionOrderByWithRelationInput {
 
     @Field(() => ProfileOrderByWithRelationInput, {nullable:true})
     assignedToProfile?: ProfileOrderByWithRelationInput;
+
+    @Field(() => ProfileOrderByWithRelationInput, {nullable:true})
+    assignedByProfile?: ProfileOrderByWithRelationInput;
 
     @Field(() => DepartmentOrderByWithRelationInput, {nullable:true})
     fromDepartment?: DepartmentOrderByWithRelationInput;

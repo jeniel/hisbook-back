@@ -18,6 +18,9 @@ export class TicketTransactionUncheckedUpdateManyWithoutCreatedByProfileInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     description?: NullableStringFieldUpdateOperationsInput;
 
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    ticketNumber?: NullableStringFieldUpdateOperationsInput;
+
     @Field(() => NullableEnumTicketStatusFieldUpdateOperationsInput, {nullable:true})
     status?: NullableEnumTicketStatusFieldUpdateOperationsInput;
 
@@ -32,6 +35,9 @@ export class TicketTransactionUncheckedUpdateManyWithoutCreatedByProfileInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     ticketAssignedTo?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    ticketAssignedBy?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     ticketCategoryId?: NullableStringFieldUpdateOperationsInput;

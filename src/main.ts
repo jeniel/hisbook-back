@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
+process.env.TZ = 'Asia/Manila';
 import * as csurf from 'csurf';
 import { Request } from 'express';
 

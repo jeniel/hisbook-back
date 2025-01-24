@@ -14,6 +14,9 @@ export class TicketTransactionCountAggregateInput {
     description?: true;
 
     @Field(() => Boolean, {nullable:true})
+    ticketNumber?: true;
+
+    @Field(() => Boolean, {nullable:true})
     status?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -30,6 +33,9 @@ export class TicketTransactionCountAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     ticketAssignedTo?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    ticketAssignedBy?: true;
 
     @Field(() => Boolean, {nullable:true})
     ticketCategoryId?: true;

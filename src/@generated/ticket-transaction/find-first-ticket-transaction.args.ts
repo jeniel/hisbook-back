@@ -19,7 +19,7 @@ export class FindFirstTicketTransactionArgs {
     orderBy?: Array<TicketTransactionOrderByWithRelationInput>;
 
     @Field(() => TicketTransactionWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id'>;
+    cursor?: Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id' | 'ticketNumber'>;
 
     @Field(() => Int, {nullable:true})
     take?: number;

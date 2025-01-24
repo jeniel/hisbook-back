@@ -70,6 +70,9 @@ export class ProfileOrderByWithRelationInput {
     @Field(() => TicketTransactionOrderByRelationAggregateInput, {nullable:true})
     ticketAssignedTo?: TicketTransactionOrderByRelationAggregateInput;
 
+    @Field(() => TicketTransactionOrderByRelationAggregateInput, {nullable:true})
+    ticketAssignedBy?: TicketTransactionOrderByRelationAggregateInput;
+
     @Field(() => CommentOrderByRelationAggregateInput, {nullable:true})
     comment?: CommentOrderByRelationAggregateInput;
 }

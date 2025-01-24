@@ -18,6 +18,9 @@ export class TicketTransactionUpdateManyMutationInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     description?: NullableStringFieldUpdateOperationsInput;
 
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    ticketNumber?: NullableStringFieldUpdateOperationsInput;
+
     @Field(() => NullableEnumTicketStatusFieldUpdateOperationsInput, {nullable:true})
     status?: NullableEnumTicketStatusFieldUpdateOperationsInput;
 

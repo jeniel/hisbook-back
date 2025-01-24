@@ -9,6 +9,6 @@ export class CreateCommentInput {
   @Field(() => String, { nullable: false })
   ticketId!: string;
 
-  @Field(() => String, { nullable: false })
-  profileId!: string;
+  // @Field(() => String, { nullable: false })
+  // profileId!: string;
 }

@@ -44,7 +44,6 @@ input CommentWhereInput {
 
 input CreateCommentInput {
   content: String!
-  profileId: String!
   ticketId: String!
 }
 
@@ -213,12 +212,14 @@ type Meta {
 }
 
 type Mutation {
+  assignTicket(assignedTo: String!, ticketId: String!): GeneralMsg!
   createComment(payload: CreateCommentInput!): GeneralMsg!
   createTicket(payload: CreateTicket!): GeneralMsg!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
+  updateTicketStatus(status: TicketStatus!, ticketId: String!): GeneralMsg!
   upsertDepartment(deptId: String, payload: UpsertDepartmentInput!): GeneralMsg!
   upsertTicketCateg(categoryId: String, payload: UpsertCategInput!): GeneralMsg!
 }
@@ -320,6 +321,7 @@ type Profile {
   id: ID!
   lastName: String
   middleName: String
+  ticketAssignedBy: [TicketTransaction!]
   ticketAssignedTo: [TicketTransaction!]
   ticketCreatedBy: [TicketTransaction!]
   updatedAt: DateTime!
@@ -330,6 +332,7 @@ type Profile {
 
 type ProfileCount {
   comment: Int!
+  ticketAssignedBy: Int!
   ticketAssignedTo: Int!
   ticketCreatedBy: Int!
 }
@@ -369,6 +372,7 @@ input ProfileWhereInput {
   id: StringFilter
   lastName: StringNullableFilter
   middleName: StringNullableFilter
+  ticketAssignedBy: TicketTransactionListRelationFilter
   ticketAssignedTo: TicketTransactionListRelationFilter
   ticketCreatedBy: TicketTransactionListRelationFilter
   updatedAt: DateTimeFilter
@@ -382,9 +386,11 @@ type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllTicket(page: Int, perPage: Int, where: TicketTransactionWhereInput): TransactionLists!
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
+  findCommentbyTicketId(ticketId: String!): [Comment!]!
   findOneTicket(ticketId: String!): TicketTransaction!
   findOneUser(profileId: String!): Profile!
   meQuery: MeQuery!
+  ticketReport(where: TicketTransactionWhereInput): TicketCountResponse!
 }
 
 enum QueryMode {
@@ -481,6 +487,16 @@ input TicketCategoryWhereInput {
   ticketTransaction: TicketTransactionListRelationFilter
 }
 
+type TicketCount {
+  count: Int!
+  status: String!
+}
+
+type TicketCountResponse {
+  data: [TicketCount!]!
+  message: String!
+}
+
 enum TicketPriority {
   CRITICAL
   HIGH
@@ -497,6 +513,7 @@ enum TicketStatus {
 
 type TicketTransaction {
   _count: TicketTransactionCount!
+  assignedByProfile: Profile
   assignedToProfile: Profile
   comment: [Comment!]
   createdAt: DateTime!
@@ -509,10 +526,12 @@ type TicketTransaction {
   id: ID!
   priority: TicketPriority
   status: TicketStatus
+  ticketAssignedBy: String
   ticketAssignedTo: String
   ticketCategory: TicketCategory
   ticketCategoryId: String
   ticketCreatedBy: String
+  ticketNumber: String
   title: String
   toDepartment: Department
   updatedAt: DateTime!
@@ -538,6 +557,7 @@ input TicketTransactionWhereInput {
   AND: [TicketTransactionWhereInput!]
   NOT: [TicketTransactionWhereInput!]
   OR: [TicketTransactionWhereInput!]
+  assignedByProfile: ProfileNullableScalarRelationFilter
   assignedToProfile: ProfileNullableScalarRelationFilter
   comment: CommentListRelationFilter
   createdAt: DateTimeFilter
@@ -550,10 +570,12 @@ input TicketTransactionWhereInput {
   id: StringFilter
   priority: EnumTicketPriorityNullableFilter
   status: EnumTicketStatusNullableFilter
+  ticketAssignedBy: StringNullableFilter
   ticketAssignedTo: StringNullableFilter
   ticketCategory: TicketCategoryNullableScalarRelationFilter
   ticketCategoryId: StringNullableFilter
   ticketCreatedBy: StringNullableFilter
+  ticketNumber: StringNullableFilter
   title: StringNullableFilter
   toDepartment: DepartmentNullableScalarRelationFilter
   updatedAt: DateTimeFilter

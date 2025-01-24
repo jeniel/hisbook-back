@@ -8,6 +8,7 @@ import { TicketTransaction } from 'src/@generated/ticket-transaction/ticket-tran
 import { TransactionArgs } from './args/transaction.args';
 import { TransactionLists } from './entities/transaction.entity';
 import { TransactionService } from './transaction.service';
+import { TicketStatus } from 'src/@generated/prisma/ticket-status.enum';
 
 @Resolver(() => TicketTransaction)
 export class TransactionResolver {
@@ -30,5 +31,28 @@ export class TransactionResolver {
   @Query(() => TicketTransaction, { name: 'findOneTicket' })
   findOne(@Args('ticketId', { type: () => String }) ticketId: string) {
     return this.transactionService.findOne(ticketId);
+  }
+
+  @Mutation(() => GeneralMsg)
+  assignTicket(
+    @Args('ticketId', { type: () => String }) ticketId: string,
+    @Args('assignedTo', { type: () => String }) assignedTo: string,
+    @CurrentUser() userInfo: DecodedToken,
+  ) {
+    return this.transactionService.assignTicket(ticketId, assignedTo, userInfo);
+  }
+
+  //update ticket status
+  @Mutation(() => GeneralMsg)
+  updateTicketStatus(
+    @Args('ticketId', { type: () => String }) ticketId: string,
+    @Args('status', { type: () => TicketStatus }) status: TicketStatus,
+    @CurrentUser() userInfo: DecodedToken,
+  ) {
+    return this.transactionService.updateTicketStatus(
+      ticketId,
+      status,
+      userInfo,
+    );
   }
 }

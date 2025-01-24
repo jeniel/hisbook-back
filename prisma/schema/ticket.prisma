@@ -1,18 +1,20 @@
 model TicketTransaction {
-    id               String          @id @default(uuid())
-    title            String?
-    description      String?
-    status           TicketStatus?   @default(OPEN)
-    priority         TicketPriority? @default(LOW)
-    departmentFrom   String?         @map("department_from")
-    departmentTo     String?         @map("department_to")
-    ticketCreatedBy  String?         @map("ticket_created_by")
-    ticketAssignedTo String?         @map("ticket_assigned_to")
+    id                String          @id @default(uuid())
+    title             String?
+    description       String?
+    ticketNumber      String?         @unique @map("ticket_number")
+    status            TicketStatus?   @default(OPEN)
+    priority          TicketPriority? @default(LOW)
+    departmentFrom    String?         @map("department_from")
+    departmentTo      String?         @map("department_to")
+    ticketCreatedBy   String?         @map("ticket_created_by")
+    ticketAssignedTo  String?         @map("ticket_assigned_to")
+    ticketAssignedBy  String?         @map("ticket_assigned_by")
     // RELATION
-    comment          Comment[]
-
-    createdByProfile  Profile? @relation("TicketCreatedBy", fields: [ticketCreatedBy], references: [id])
-    assignedToProfile Profile? @relation("TicketAssignedTo", fields: [ticketAssignedTo], references: [id])
+    comment           Comment[]
+    createdByProfile  Profile?        @relation("TicketCreatedBy", fields: [ticketCreatedBy], references: [id])
+    assignedToProfile Profile?        @relation("TicketAssignedTo", fields: [ticketAssignedTo], references: [id])
+    assignedByProfile Profile?        @relation("TicketAssignedBy", fields: [ticketAssignedBy], references: [id])
 
     fromDepartment Department? @relation("DepartmentFrom", fields: [departmentFrom], references: [id])
     toDepartment   Department? @relation("DepartmentTo", fields: [departmentTo], references: [id])
@@ -20,9 +22,9 @@ model TicketTransaction {
     ticketCategory   TicketCategory? @relation(fields: [ticketCategoryId], references: [id])
     ticketCategoryId String?         @map("ticket_category_id")
     // STAMP
-    createdAt        DateTime        @default(now()) @map("created_at") @db.Date
+    createdAt        DateTime        @default(now()) @map("created_at") @db.Timestamptz()
     createdBy        String?         @map("created_by")
-    updatedAt        DateTime        @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedAt        DateTime        @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
     updatedBy        String?         @map("updated_by")
 
     @@map("ticket_transaction")
@@ -50,9 +52,9 @@ model Comment {
     profile   Profile           @relation(fields: [profileId], references: [id])
     profileId String            @map("profile_id")
     // STAMP
-    createdAt DateTime          @default(now()) @map("created_at") @db.Date
+    createdAt DateTime          @default(now()) @map("created_at") @db.Timestamptz()
     createdBy String?           @map("created_by")
-    updatedAt DateTime          @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedAt DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
     updatedBy String?           @map("updated_by")
 
     @@map("comment")

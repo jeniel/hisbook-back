@@ -39,11 +39,12 @@ model Profile {
     userId           String?             @unique @map("user_id")
     ticketCreatedBy  TicketTransaction[] @relation("TicketCreatedBy")
     ticketAssignedTo TicketTransaction[] @relation("TicketAssignedTo")
+    ticketAssignedBy TicketTransaction[] @relation("TicketAssignedBy")
     comment          Comment[]
     // STAMP
-    createdAt        DateTime            @default(now()) @map("created_at") @db.Date
+    createdAt        DateTime            @default(now()) @map("created_at") @db.Timestamptz()
     createdBy        String?             @map("created_by")
-    updatedAt        DateTime            @default(now()) @updatedAt @map("updated_at") @db.Date
+    updatedAt        DateTime            @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
     updatedBy        String?             @map("updated_by")
 
     @@map("profile")

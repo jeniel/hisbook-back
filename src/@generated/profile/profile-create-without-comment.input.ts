@@ -6,6 +6,7 @@ import { DepartmentCreateNestedOneWithoutProfileInput } from '../department/depa
 import { UserCreateNestedOneWithoutProfileInput } from '../user/user-create-nested-one-without-profile.input';
 import { TicketTransactionCreateNestedManyWithoutCreatedByProfileInput } from '../ticket-transaction/ticket-transaction-create-nested-many-without-created-by-profile.input';
 import { TicketTransactionCreateNestedManyWithoutAssignedToProfileInput } from '../ticket-transaction/ticket-transaction-create-nested-many-without-assigned-to-profile.input';
+import { TicketTransactionCreateNestedManyWithoutAssignedByProfileInput } from '../ticket-transaction/ticket-transaction-create-nested-many-without-assigned-by-profile.input';
 
 @InputType()
 export class ProfileCreateWithoutCommentInput {
@@ -63,4 +64,7 @@ export class ProfileCreateWithoutCommentInput {
 
     @Field(() => TicketTransactionCreateNestedManyWithoutAssignedToProfileInput, {nullable:true})
     ticketAssignedTo?: TicketTransactionCreateNestedManyWithoutAssignedToProfileInput;
+
+    @Field(() => TicketTransactionCreateNestedManyWithoutAssignedByProfileInput, {nullable:true})
+    ticketAssignedBy?: TicketTransactionCreateNestedManyWithoutAssignedByProfileInput;
 }

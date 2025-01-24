@@ -19,6 +19,9 @@ export class TicketTransactionUncheckedUpdateWithoutTicketCategoryInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     description?: NullableStringFieldUpdateOperationsInput;
 
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    ticketNumber?: NullableStringFieldUpdateOperationsInput;
+
     @Field(() => NullableEnumTicketStatusFieldUpdateOperationsInput, {nullable:true})
     status?: NullableEnumTicketStatusFieldUpdateOperationsInput;
 
@@ -36,6 +39,9 @@ export class TicketTransactionUncheckedUpdateWithoutTicketCategoryInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     ticketAssignedTo?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    ticketAssignedBy?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;

@@ -19,5 +19,5 @@ export class TicketTransactionCreateNestedOneWithoutCommentInput {
 
     @Field(() => TicketTransactionWhereUniqueInput, {nullable:true})
     @Type(() => TicketTransactionWhereUniqueInput)
-    connect?: Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id'>;
+    connect?: Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id' | 'ticketNumber'>;
 }

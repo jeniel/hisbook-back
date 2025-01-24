@@ -9,5 +9,5 @@ export class FindUniqueTicketTransactionOrThrowArgs {
 
     @Field(() => TicketTransactionWhereUniqueInput, {nullable:false})
     @Type(() => TicketTransactionWhereUniqueInput)
-    where!: Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id'>;
+    where!: Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id' | 'ticketNumber'>;
 }

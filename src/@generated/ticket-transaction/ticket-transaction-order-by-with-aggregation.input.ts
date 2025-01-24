@@ -19,6 +19,9 @@ export class TicketTransactionOrderByWithAggregationInput {
     description?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
+    ticketNumber?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
     status?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
@@ -35,6 +38,9 @@ export class TicketTransactionOrderByWithAggregationInput {
 
     @Field(() => SortOrderInput, {nullable:true})
     ticketAssignedTo?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    ticketAssignedBy?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
     ticketCategoryId?: SortOrderInput;

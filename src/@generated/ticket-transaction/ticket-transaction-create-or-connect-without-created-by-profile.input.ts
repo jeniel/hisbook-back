@@ -10,7 +10,7 @@ export class TicketTransactionCreateOrConnectWithoutCreatedByProfileInput {
 
     @Field(() => TicketTransactionWhereUniqueInput, {nullable:false})
     @Type(() => TicketTransactionWhereUniqueInput)
-    where!: Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id'>;
+    where!: Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id' | 'ticketNumber'>;
 
     @Field(() => TicketTransactionCreateWithoutCreatedByProfileInput, {nullable:false})
     @Type(() => TicketTransactionCreateWithoutCreatedByProfileInput)

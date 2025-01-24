@@ -8,6 +8,7 @@ import { GraphQLJSON } from 'graphql-type-json';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { TicketTransactionUncheckedUpdateManyWithoutCreatedByProfileNestedInput } from '../ticket-transaction/ticket-transaction-unchecked-update-many-without-created-by-profile-nested.input';
 import { TicketTransactionUncheckedUpdateManyWithoutAssignedToProfileNestedInput } from '../ticket-transaction/ticket-transaction-unchecked-update-many-without-assigned-to-profile-nested.input';
+import { TicketTransactionUncheckedUpdateManyWithoutAssignedByProfileNestedInput } from '../ticket-transaction/ticket-transaction-unchecked-update-many-without-assigned-by-profile-nested.input';
 
 @InputType()
 export class ProfileUncheckedUpdateWithoutCommentInput {
@@ -65,4 +66,7 @@ export class ProfileUncheckedUpdateWithoutCommentInput {
 
     @Field(() => TicketTransactionUncheckedUpdateManyWithoutAssignedToProfileNestedInput, {nullable:true})
     ticketAssignedTo?: TicketTransactionUncheckedUpdateManyWithoutAssignedToProfileNestedInput;
+
+    @Field(() => TicketTransactionUncheckedUpdateManyWithoutAssignedByProfileNestedInput, {nullable:true})
+    ticketAssignedBy?: TicketTransactionUncheckedUpdateManyWithoutAssignedByProfileNestedInput;
 }

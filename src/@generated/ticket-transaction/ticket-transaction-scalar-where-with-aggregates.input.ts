@@ -27,6 +27,9 @@ export class TicketTransactionScalarWhereWithAggregatesInput {
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     description?: StringNullableWithAggregatesFilter;
 
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    ticketNumber?: StringNullableWithAggregatesFilter;
+
     @Field(() => EnumTicketStatusNullableWithAggregatesFilter, {nullable:true})
     status?: EnumTicketStatusNullableWithAggregatesFilter;
 
@@ -44,6 +47,9 @@ export class TicketTransactionScalarWhereWithAggregatesInput {
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     ticketAssignedTo?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    ticketAssignedBy?: StringNullableWithAggregatesFilter;
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     ticketCategoryId?: StringNullableWithAggregatesFilter;

@@ -12,5 +12,8 @@ export class ProfileCount {
     ticketAssignedTo?: number;
 
     @Field(() => Int, {nullable:false})
+    ticketAssignedBy?: number;
+
+    @Field(() => Int, {nullable:false})
     comment?: number;
 }

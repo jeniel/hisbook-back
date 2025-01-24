@@ -2,17 +2,18 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { GraphQLModule } from '@nestjs/graphql';
 import { APP_GUARD } from '@nestjs/core';
+import { GraphQLModule } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { SequentialIdModule } from './common/generator/sequential-id.module';
 import { AccessTokenGuard } from './common/guards/accessToken.guard';
-import { PrismaModule } from './prisma/prisma.module';
-import { TicketingModule } from './ticketing/ticketing.module';
 import { RolesGuard } from './common/guards/roles.guard';
 import { DepartmentModule } from './global/department/department.module';
 import { UserModule } from './global/user/user.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { TicketingModule } from './ticketing/ticketing.module';
 
 @Module({
   imports: [
@@ -30,10 +31,12 @@ import { UserModule } from './global/user/user.module';
     TicketingModule,
     DepartmentModule,
     UserModule,
+    SequentialIdModule,
   ],
   controllers: [],
   providers: [
     JwtService,
+
     { provide: APP_GUARD, useClass: AccessTokenGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
   ],

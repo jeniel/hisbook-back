@@ -10,6 +10,7 @@ import { DepartmentUpdateOneWithoutProfileNestedInput } from '../department/depa
 import { UserUpdateOneWithoutProfileNestedInput } from '../user/user-update-one-without-profile-nested.input';
 import { TicketTransactionUpdateManyWithoutCreatedByProfileNestedInput } from '../ticket-transaction/ticket-transaction-update-many-without-created-by-profile-nested.input';
 import { TicketTransactionUpdateManyWithoutAssignedToProfileNestedInput } from '../ticket-transaction/ticket-transaction-update-many-without-assigned-to-profile-nested.input';
+import { TicketTransactionUpdateManyWithoutAssignedByProfileNestedInput } from '../ticket-transaction/ticket-transaction-update-many-without-assigned-by-profile-nested.input';
 
 @InputType()
 export class ProfileUpdateWithoutCommentInput {
@@ -67,4 +68,7 @@ export class ProfileUpdateWithoutCommentInput {
 
     @Field(() => TicketTransactionUpdateManyWithoutAssignedToProfileNestedInput, {nullable:true})
     ticketAssignedTo?: TicketTransactionUpdateManyWithoutAssignedToProfileNestedInput;
+
+    @Field(() => TicketTransactionUpdateManyWithoutAssignedByProfileNestedInput, {nullable:true})
+    ticketAssignedBy?: TicketTransactionUpdateManyWithoutAssignedByProfileNestedInput;
 }

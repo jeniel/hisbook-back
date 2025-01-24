@@ -83,6 +83,9 @@ export class ProfileWhereInput {
     @Field(() => TicketTransactionListRelationFilter, {nullable:true})
     ticketAssignedTo?: TicketTransactionListRelationFilter;
 
+    @Field(() => TicketTransactionListRelationFilter, {nullable:true})
+    ticketAssignedBy?: TicketTransactionListRelationFilter;
+
     @Field(() => CommentListRelationFilter, {nullable:true})
     comment?: CommentListRelationFilter;
 }

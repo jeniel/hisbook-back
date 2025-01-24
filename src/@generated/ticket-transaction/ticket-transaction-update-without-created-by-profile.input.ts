@@ -7,6 +7,7 @@ import { NullableEnumTicketPriorityFieldUpdateOperationsInput } from '../prisma/
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { CommentUpdateManyWithoutTicketNestedInput } from '../comment/comment-update-many-without-ticket-nested.input';
 import { ProfileUpdateOneWithoutTicketAssignedToNestedInput } from '../profile/profile-update-one-without-ticket-assigned-to-nested.input';
+import { ProfileUpdateOneWithoutTicketAssignedByNestedInput } from '../profile/profile-update-one-without-ticket-assigned-by-nested.input';
 import { DepartmentUpdateOneWithoutTicketsFromNestedInput } from '../department/department-update-one-without-tickets-from-nested.input';
 import { DepartmentUpdateOneWithoutTicketsToNestedInput } from '../department/department-update-one-without-tickets-to-nested.input';
 import { TicketCategoryUpdateOneWithoutTicketTransactionNestedInput } from '../ticket-category/ticket-category-update-one-without-ticket-transaction-nested.input';
@@ -22,6 +23,9 @@ export class TicketTransactionUpdateWithoutCreatedByProfileInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     description?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    ticketNumber?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableEnumTicketStatusFieldUpdateOperationsInput, {nullable:true})
     status?: NullableEnumTicketStatusFieldUpdateOperationsInput;
@@ -46,6 +50,9 @@ export class TicketTransactionUpdateWithoutCreatedByProfileInput {
 
     @Field(() => ProfileUpdateOneWithoutTicketAssignedToNestedInput, {nullable:true})
     assignedToProfile?: ProfileUpdateOneWithoutTicketAssignedToNestedInput;
+
+    @Field(() => ProfileUpdateOneWithoutTicketAssignedByNestedInput, {nullable:true})
+    assignedByProfile?: ProfileUpdateOneWithoutTicketAssignedByNestedInput;
 
     @Field(() => DepartmentUpdateOneWithoutTicketsFromNestedInput, {nullable:true})
     fromDepartment?: DepartmentUpdateOneWithoutTicketsFromNestedInput;

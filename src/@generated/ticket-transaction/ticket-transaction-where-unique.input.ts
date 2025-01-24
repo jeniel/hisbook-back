@@ -16,6 +16,9 @@ export class TicketTransactionWhereUniqueInput {
     @Field(() => String, {nullable:true})
     id?: string;
 
+    @Field(() => String, {nullable:true})
+    ticketNumber?: string;
+
     @Field(() => [TicketTransactionWhereInput], {nullable:true})
     AND?: Array<TicketTransactionWhereInput>;
 
@@ -50,6 +53,9 @@ export class TicketTransactionWhereUniqueInput {
     ticketAssignedTo?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
+    ticketAssignedBy?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
     ticketCategoryId?: StringNullableFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
@@ -72,6 +78,9 @@ export class TicketTransactionWhereUniqueInput {
 
     @Field(() => ProfileNullableScalarRelationFilter, {nullable:true})
     assignedToProfile?: ProfileNullableScalarRelationFilter;
+
+    @Field(() => ProfileNullableScalarRelationFilter, {nullable:true})
+    assignedByProfile?: ProfileNullableScalarRelationFilter;
 
     @Field(() => DepartmentNullableScalarRelationFilter, {nullable:true})
     fromDepartment?: DepartmentNullableScalarRelationFilter;

@@ -24,5 +24,5 @@ export class TicketTransactionCreateNestedManyWithoutToDepartmentInput {
 
     @Field(() => [TicketTransactionWhereUniqueInput], {nullable:true})
     @Type(() => TicketTransactionWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id'>>;
+    connect?: Array<Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id' | 'ticketNumber'>>;
 }

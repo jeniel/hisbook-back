@@ -5,6 +5,7 @@ import { TicketPriority } from '../prisma/ticket-priority.enum';
 import { CommentCreateNestedManyWithoutTicketInput } from '../comment/comment-create-nested-many-without-ticket.input';
 import { ProfileCreateNestedOneWithoutTicketCreatedByInput } from '../profile/profile-create-nested-one-without-ticket-created-by.input';
 import { ProfileCreateNestedOneWithoutTicketAssignedToInput } from '../profile/profile-create-nested-one-without-ticket-assigned-to.input';
+import { ProfileCreateNestedOneWithoutTicketAssignedByInput } from '../profile/profile-create-nested-one-without-ticket-assigned-by.input';
 import { DepartmentCreateNestedOneWithoutTicketsFromInput } from '../department/department-create-nested-one-without-tickets-from.input';
 import { TicketCategoryCreateNestedOneWithoutTicketTransactionInput } from '../ticket-category/ticket-category-create-nested-one-without-ticket-transaction.input';
 
@@ -19,6 +20,9 @@ export class TicketTransactionCreateWithoutToDepartmentInput {
 
     @Field(() => String, {nullable:true})
     description?: string;
+
+    @Field(() => String, {nullable:true})
+    ticketNumber?: string;
 
     @Field(() => TicketStatus, {nullable:true})
     status?: keyof typeof TicketStatus;
@@ -46,6 +50,9 @@ export class TicketTransactionCreateWithoutToDepartmentInput {
 
     @Field(() => ProfileCreateNestedOneWithoutTicketAssignedToInput, {nullable:true})
     assignedToProfile?: ProfileCreateNestedOneWithoutTicketAssignedToInput;
+
+    @Field(() => ProfileCreateNestedOneWithoutTicketAssignedByInput, {nullable:true})
+    assignedByProfile?: ProfileCreateNestedOneWithoutTicketAssignedByInput;
 
     @Field(() => DepartmentCreateNestedOneWithoutTicketsFromInput, {nullable:true})
     fromDepartment?: DepartmentCreateNestedOneWithoutTicketsFromInput;

@@ -10,7 +10,7 @@ export class TicketTransactionUpdateWithWhereUniqueWithoutFromDepartmentInput {
 
     @Field(() => TicketTransactionWhereUniqueInput, {nullable:false})
     @Type(() => TicketTransactionWhereUniqueInput)
-    where!: Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id'>;
+    where!: Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id' | 'ticketNumber'>;
 
     @Field(() => TicketTransactionUpdateWithoutFromDepartmentInput, {nullable:false})
     @Type(() => TicketTransactionUpdateWithoutFromDepartmentInput)

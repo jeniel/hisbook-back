@@ -15,6 +15,9 @@ export class TicketTransactionCountAggregate {
     description!: number;
 
     @Field(() => Int, {nullable:false})
+    ticketNumber!: number;
+
+    @Field(() => Int, {nullable:false})
     status!: number;
 
     @Field(() => Int, {nullable:false})
@@ -31,6 +34,9 @@ export class TicketTransactionCountAggregate {
 
     @Field(() => Int, {nullable:false})
     ticketAssignedTo!: number;
+
+    @Field(() => Int, {nullable:false})
+    ticketAssignedBy!: number;
 
     @Field(() => Int, {nullable:false})
     ticketCategoryId!: number;

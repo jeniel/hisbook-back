@@ -32,19 +32,19 @@ export class TicketTransactionUncheckedUpdateManyWithoutAssignedToProfileNestedI
 
     @Field(() => [TicketTransactionWhereUniqueInput], {nullable:true})
     @Type(() => TicketTransactionWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id'>>;
+    set?: Array<Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id' | 'ticketNumber'>>;
 
     @Field(() => [TicketTransactionWhereUniqueInput], {nullable:true})
     @Type(() => TicketTransactionWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id'>>;
+    disconnect?: Array<Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id' | 'ticketNumber'>>;
 
     @Field(() => [TicketTransactionWhereUniqueInput], {nullable:true})
     @Type(() => TicketTransactionWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id'>>;
+    delete?: Array<Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id' | 'ticketNumber'>>;
 
     @Field(() => [TicketTransactionWhereUniqueInput], {nullable:true})
     @Type(() => TicketTransactionWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id'>>;
+    connect?: Array<Prisma.AtLeast<TicketTransactionWhereUniqueInput, 'id' | 'ticketNumber'>>;
 
     @Field(() => [TicketTransactionUpdateWithWhereUniqueWithoutAssignedToProfileInput], {nullable:true})
     @Type(() => TicketTransactionUpdateWithWhereUniqueWithoutAssignedToProfileInput)

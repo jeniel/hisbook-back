@@ -21,6 +21,9 @@ export class TicketTransaction {
     @Field(() => String, {nullable:true})
     description!: string | null;
 
+    @Field(() => String, {nullable:true})
+    ticketNumber!: string | null;
+
     @Field(() => TicketStatus, {nullable:true,defaultValue:'OPEN'})
     status!: keyof typeof TicketStatus | null;
 
@@ -38,6 +41,9 @@ export class TicketTransaction {
 
     @Field(() => String, {nullable:true})
     ticketAssignedTo!: string | null;
+
+    @Field(() => String, {nullable:true})
+    ticketAssignedBy!: string | null;
 
     @Field(() => String, {nullable:true})
     ticketCategoryId!: string | null;
@@ -62,6 +68,9 @@ export class TicketTransaction {
 
     @Field(() => Profile, {nullable:true})
     assignedToProfile?: Profile | null;
+
+    @Field(() => Profile, {nullable:true})
+    assignedByProfile?: Profile | null;
 
     @Field(() => Department, {nullable:true})
     fromDepartment?: Department | null;

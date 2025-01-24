@@ -15,6 +15,9 @@ export class TicketTransactionCreateManyToDepartmentInput {
     @Field(() => String, {nullable:true})
     description?: string;
 
+    @Field(() => String, {nullable:true})
+    ticketNumber?: string;
+
     @Field(() => TicketStatus, {nullable:true})
     status?: keyof typeof TicketStatus;
 
@@ -29,6 +32,9 @@ export class TicketTransactionCreateManyToDepartmentInput {
 
     @Field(() => String, {nullable:true})
     ticketAssignedTo?: string;
+
+    @Field(() => String, {nullable:true})
+    ticketAssignedBy?: string;
 
     @Field(() => String, {nullable:true})
     ticketCategoryId?: string;
