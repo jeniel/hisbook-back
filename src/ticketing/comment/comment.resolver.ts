@@ -5,6 +5,7 @@ import { GeneralMsg } from 'src/common/entities/general-msg.entities';
 import { Comment } from 'src/@generated/comment/comment.model';
 import { CurrentUser } from 'src/common/decorator/currentUser.decorator';
 import { DecodedToken } from 'src/common/types/decodedToken';
+import { UpsertCommentInput } from './dto/upsert.input';
 
 @Resolver()
 export class CommentResolver {
@@ -16,7 +17,23 @@ export class CommentResolver {
     @Args('payload') payload: CreateCommentInput,
     @CurrentUser() userInfo: DecodedToken,
   ) {
-    return this.commentService.createComment(payload,userInfo);
+    return this.commentService.createComment(payload, userInfo);
+  }
+
+  // Add a new `upsertComment` mutation here
+  @Mutation(() => GeneralMsg)
+  async upsertComment(
+    @Args('payload') payload: UpsertCommentInput,
+    @CurrentUser() userInfo: DecodedToken,
+    @Args('commentId') commentId: string,
+  ) {
+    return this.commentService.upsertComment(payload, userInfo, commentId);
+  }
+
+  //delete comment
+  @Mutation(() => GeneralMsg)
+  async deleteComment(@Args('commentId') commentId: string) {
+    return this.commentService.deleteComment(commentId);
   }
 
   // Add a new `findCommentbyTicketId` query here

@@ -217,11 +217,13 @@ type Mutation {
   createComment(payload: CreateCommentInput!): GeneralMsg!
   createTicket(payload: CreateTicket!): GeneralMsg!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
+  deleteComment(commentId: String!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
   updateTicket(payload: UpdateTicket!, ticketId: String!): GeneralMsg!
   updateTicketStatus(status: TicketStatus!, ticketId: String!): GeneralMsg!
+  upsertComment(commentId: String!, payload: UpsertCommentInput!): GeneralMsg!
   upsertDepartment(deptId: String, payload: UpsertDepartmentInput!): GeneralMsg!
   upsertTicketCateg(categoryId: String, payload: UpsertCategInput!): GeneralMsg!
 }
@@ -601,6 +603,11 @@ input UpdateTicket {
 input UpsertCategInput {
   description: String
   name: String!
+}
+
+input UpsertCommentInput {
+  content: String!
+  ticketId: String!
 }
 
 input UpsertDepartmentInput {
