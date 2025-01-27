@@ -28,4 +28,7 @@ export class CreateTicket {
 
   @Field(() => TicketPriority, { nullable: true })
   priority?: keyof typeof TicketPriority;
+
+  @Field(() => String, { nullable: true })
+  ticketCategoryId: string;
 }

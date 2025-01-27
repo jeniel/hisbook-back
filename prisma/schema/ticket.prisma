@@ -1,7 +1,7 @@
 model TicketTransaction {
     id                String          @id @default(uuid())
     title             String?
-    description       String?
+    description       String?         @db.Text()
     ticketNumber      String?         @unique @map("ticket_number")
     status            TicketStatus?   @default(OPEN)
     priority          TicketPriority? @default(LOW)
@@ -45,7 +45,7 @@ model TicketTransaction {
 
 model Comment {
     id        String            @id @default(uuid())
-    content   String
+    content   String            @db.Text()
     // RELATION
     ticket    TicketTransaction @relation(fields: [ticketId], references: [id])
     ticketId  String            @map("ticket_id")

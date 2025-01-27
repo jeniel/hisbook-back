@@ -8,6 +8,7 @@ import {
   SequentialIdService,
 } from 'src/common/generator/sequential-id.service';
 import { TicketStatus } from 'src/@generated/prisma/ticket-status.enum';
+import { UpdateTicket } from './dto/update-transaction.input';
 
 @Injectable()
 export class TransactionService {
@@ -31,6 +32,24 @@ export class TransactionService {
 
     return {
       message: 'Transaction created successfully',
+    };
+  }
+
+  async update(
+    ticketId: string,
+    payload: UpdateTicket,
+    userInfo: DecodedToken,
+  ) {
+    await this.prisma.ticketTransaction.update({
+      where: { id: ticketId },
+      data: {
+        ...payload,
+        ticketAssignedBy: userInfo.profileId,
+      },
+    });
+
+    return {
+      message: 'Transaction updated successfully',
     };
   }
 

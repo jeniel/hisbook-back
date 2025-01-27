@@ -9,6 +9,7 @@ import { TransactionArgs } from './args/transaction.args';
 import { TransactionLists } from './entities/transaction.entity';
 import { TransactionService } from './transaction.service';
 import { TicketStatus } from 'src/@generated/prisma/ticket-status.enum';
+import { UpdateTicket } from './dto/update-transaction.input';
 
 @Resolver(() => TicketTransaction)
 export class TransactionResolver {
@@ -21,6 +22,16 @@ export class TransactionResolver {
     @CurrentUser() userInfo: DecodedToken,
   ) {
     return this.transactionService.create(payload, userInfo);
+  }
+
+  //update ticket
+  @Mutation(() => GeneralMsg)
+  updateTicket(
+    @Args('ticketId', { type: () => String }) ticketId: string,
+    @Args('payload') payload: UpdateTicket,
+    @CurrentUser() userInfo: DecodedToken,
+  ) {
+    return this.transactionService.update(ticketId, payload, userInfo);
   }
 
   @Query(() => TransactionLists, { name: 'findAllTicket' })
