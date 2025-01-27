@@ -4,8 +4,6 @@ import { SortOrder } from '../prisma/sort-order.enum';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { DepartmentOrderByWithRelationInput } from '../department/department-order-by-with-relation.input';
 import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relation.input';
-import { TicketTransactionOrderByRelationAggregateInput } from '../ticket-transaction/ticket-transaction-order-by-relation-aggregate.input';
-import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
 
 @InputType()
 export class ProfileOrderByWithRelationInput {
@@ -63,16 +61,4 @@ export class ProfileOrderByWithRelationInput {
 
     @Field(() => UserOrderByWithRelationInput, {nullable:true})
     user?: UserOrderByWithRelationInput;
-
-    @Field(() => TicketTransactionOrderByRelationAggregateInput, {nullable:true})
-    ticketCreatedBy?: TicketTransactionOrderByRelationAggregateInput;
-
-    @Field(() => TicketTransactionOrderByRelationAggregateInput, {nullable:true})
-    ticketAssignedTo?: TicketTransactionOrderByRelationAggregateInput;
-
-    @Field(() => TicketTransactionOrderByRelationAggregateInput, {nullable:true})
-    ticketAssignedBy?: TicketTransactionOrderByRelationAggregateInput;
-
-    @Field(() => CommentOrderByRelationAggregateInput, {nullable:true})
-    comment?: CommentOrderByRelationAggregateInput;
 }

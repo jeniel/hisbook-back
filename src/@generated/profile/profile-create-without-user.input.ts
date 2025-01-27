@@ -3,10 +3,6 @@ import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 import { DepartmentCreateNestedOneWithoutProfileInput } from '../department/department-create-nested-one-without-profile.input';
-import { TicketTransactionCreateNestedManyWithoutCreatedByProfileInput } from '../ticket-transaction/ticket-transaction-create-nested-many-without-created-by-profile.input';
-import { TicketTransactionCreateNestedManyWithoutAssignedToProfileInput } from '../ticket-transaction/ticket-transaction-create-nested-many-without-assigned-to-profile.input';
-import { TicketTransactionCreateNestedManyWithoutAssignedByProfileInput } from '../ticket-transaction/ticket-transaction-create-nested-many-without-assigned-by-profile.input';
-import { CommentCreateNestedManyWithoutProfileInput } from '../comment/comment-create-nested-many-without-profile.input';
 
 @InputType()
 export class ProfileCreateWithoutUserInput {
@@ -55,16 +51,4 @@ export class ProfileCreateWithoutUserInput {
 
     @Field(() => DepartmentCreateNestedOneWithoutProfileInput, {nullable:true})
     department?: DepartmentCreateNestedOneWithoutProfileInput;
-
-    @Field(() => TicketTransactionCreateNestedManyWithoutCreatedByProfileInput, {nullable:true})
-    ticketCreatedBy?: TicketTransactionCreateNestedManyWithoutCreatedByProfileInput;
-
-    @Field(() => TicketTransactionCreateNestedManyWithoutAssignedToProfileInput, {nullable:true})
-    ticketAssignedTo?: TicketTransactionCreateNestedManyWithoutAssignedToProfileInput;
-
-    @Field(() => TicketTransactionCreateNestedManyWithoutAssignedByProfileInput, {nullable:true})
-    ticketAssignedBy?: TicketTransactionCreateNestedManyWithoutAssignedByProfileInput;
-
-    @Field(() => CommentCreateNestedManyWithoutProfileInput, {nullable:true})
-    comment?: CommentCreateNestedManyWithoutProfileInput;
 }

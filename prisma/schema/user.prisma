@@ -37,10 +37,8 @@ model Profile {
     departmentId     String?             @map("department_id")
     user             User?               @relation(fields: [userId], references: [id])
     userId           String?             @unique @map("user_id")
-    ticketCreatedBy  TicketTransaction[] @relation("TicketCreatedBy")
-    ticketAssignedTo TicketTransaction[] @relation("TicketAssignedTo")
-    ticketAssignedBy TicketTransaction[] @relation("TicketAssignedBy")
-    comment          Comment[]
+
+
     // STAMP
     createdAt        DateTime            @default(now()) @map("created_at") @db.Timestamptz()
     createdBy        String?             @map("created_by")
@@ -57,8 +55,6 @@ model Department {
     description String?
     // RELATION
     profile     Profile[]
-    ticketsFrom TicketTransaction[] @relation("DepartmentFrom")
-    ticketsTo   TicketTransaction[] @relation("DepartmentTo")
 
     @@map("department")
     @@schema("public")
@@ -67,10 +63,7 @@ model Department {
 enum Role {
     USER
     ADMIN
-    BILLING
-    CASHIER
-    ACCOUNTING
-    RADIOLOGIST
+
 
     @@schema("public")
 }

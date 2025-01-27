@@ -7,60 +7,12 @@ input BoolFilter {
   not: NestedBoolFilter
 }
 
-type Comment {
-  content: String!
-  createdAt: DateTime!
-  createdBy: String
-  id: ID!
-  profile: Profile!
-  profileId: String!
-  ticket: TicketTransaction!
-  ticketId: String!
-  updatedAt: DateTime!
-  updatedBy: String
-}
-
-input CommentListRelationFilter {
-  every: CommentWhereInput
-  none: CommentWhereInput
-  some: CommentWhereInput
-}
-
-input CommentWhereInput {
-  AND: [CommentWhereInput!]
-  NOT: [CommentWhereInput!]
-  OR: [CommentWhereInput!]
-  content: StringFilter
-  createdAt: DateTimeFilter
-  createdBy: StringNullableFilter
-  id: StringFilter
-  profile: ProfileScalarRelationFilter
-  profileId: StringFilter
-  ticket: TicketTransactionScalarRelationFilter
-  ticketId: StringFilter
-  updatedAt: DateTimeFilter
-  updatedBy: StringNullableFilter
-}
-
-input CreateCommentInput {
-  content: String!
-  ticketId: String!
-}
-
 input CreateProfileInput {
   birthDate: DateTime
   departmentId: String
   firstName: String
   lastName: String
   middleName: String
-}
-
-input CreateTicket {
-  departmentTo: String
-  description: String
-  priority: TicketPriority
-  ticketCategoryId: String
-  title: String!
 }
 
 input CreateUserInput {
@@ -108,14 +60,10 @@ type Department {
   id: ID!
   name: String!
   profile: [Profile!]
-  ticketsFrom: [TicketTransaction!]
-  ticketsTo: [TicketTransaction!]
 }
 
 type DepartmentCount {
   profile: Int!
-  ticketsFrom: Int!
-  ticketsTo: Int!
 }
 
 type DepartmentList {
@@ -136,8 +84,6 @@ input DepartmentWhereInput {
   id: StringFilter
   name: StringFilter
   profile: ProfileListRelationFilter
-  ticketsFrom: TicketTransactionListRelationFilter
-  ticketsTo: TicketTransactionListRelationFilter
 }
 
 input EnumRoleNullableListFilter {
@@ -146,20 +92,6 @@ input EnumRoleNullableListFilter {
   hasEvery: [Role!]
   hasSome: [Role!]
   isEmpty: Boolean
-}
-
-input EnumTicketPriorityNullableFilter {
-  equals: TicketPriority
-  in: [TicketPriority!]
-  not: NestedEnumTicketPriorityNullableFilter
-  notIn: [TicketPriority!]
-}
-
-input EnumTicketStatusNullableFilter {
-  equals: TicketStatus
-  in: [TicketStatus!]
-  not: NestedEnumTicketStatusNullableFilter
-  notIn: [TicketStatus!]
 }
 
 type GeneralMsg {
@@ -213,19 +145,11 @@ type Meta {
 }
 
 type Mutation {
-  assignTicket(assignedTo: String!, ticketId: String!): GeneralMsg!
-  createComment(payload: CreateCommentInput!): GeneralMsg!
-  createTicket(payload: CreateTicket!): GeneralMsg!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
-  deleteComment(commentId: String!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
-  updateTicket(payload: UpdateTicket!, ticketId: String!): GeneralMsg!
-  updateTicketStatus(status: TicketStatus!, ticketId: String!): GeneralMsg!
-  upsertComment(commentId: String!, payload: UpsertCommentInput!): GeneralMsg!
   upsertDepartment(deptId: String, payload: UpsertDepartmentInput!): GeneralMsg!
-  upsertTicketCateg(categoryId: String, payload: UpsertCategInput!): GeneralMsg!
 }
 
 input NestedBoolFilter {
@@ -253,20 +177,6 @@ input NestedDateTimeNullableFilter {
   lte: DateTime
   not: NestedDateTimeNullableFilter
   notIn: [DateTime!]
-}
-
-input NestedEnumTicketPriorityNullableFilter {
-  equals: TicketPriority
-  in: [TicketPriority!]
-  not: NestedEnumTicketPriorityNullableFilter
-  notIn: [TicketPriority!]
-}
-
-input NestedEnumTicketStatusNullableFilter {
-  equals: TicketStatus
-  in: [TicketStatus!]
-  not: NestedEnumTicketStatusNullableFilter
-  notIn: [TicketStatus!]
 }
 
 input NestedIntNullableFilter {
@@ -309,10 +219,8 @@ input NestedStringNullableFilter {
 }
 
 type Profile {
-  _count: ProfileCount!
   address: JSON
   birthDate: DateTime
-  comment: [Comment!]
   contact: JSON
   createdAt: DateTime!
   createdBy: String
@@ -325,20 +233,10 @@ type Profile {
   id: ID!
   lastName: String
   middleName: String
-  ticketAssignedBy: [TicketTransaction!]
-  ticketAssignedTo: [TicketTransaction!]
-  ticketCreatedBy: [TicketTransaction!]
   updatedAt: DateTime!
   updatedBy: String
   user: User
   userId: String
-}
-
-type ProfileCount {
-  comment: Int!
-  ticketAssignedBy: Int!
-  ticketAssignedTo: Int!
-  ticketCreatedBy: Int!
 }
 
 input ProfileListRelationFilter {
@@ -352,18 +250,12 @@ input ProfileNullableScalarRelationFilter {
   isNot: ProfileWhereInput
 }
 
-input ProfileScalarRelationFilter {
-  is: ProfileWhereInput
-  isNot: ProfileWhereInput
-}
-
 input ProfileWhereInput {
   AND: [ProfileWhereInput!]
   NOT: [ProfileWhereInput!]
   OR: [ProfileWhereInput!]
   address: JsonNullableFilter
   birthDate: DateTimeNullableFilter
-  comment: CommentListRelationFilter
   contact: JsonNullableFilter
   createdAt: DateTimeFilter
   createdBy: StringNullableFilter
@@ -376,9 +268,6 @@ input ProfileWhereInput {
   id: StringFilter
   lastName: StringNullableFilter
   middleName: StringNullableFilter
-  ticketAssignedBy: TicketTransactionListRelationFilter
-  ticketAssignedTo: TicketTransactionListRelationFilter
-  ticketCreatedBy: TicketTransactionListRelationFilter
   updatedAt: DateTimeFilter
   updatedBy: StringNullableFilter
   user: UserNullableScalarRelationFilter
@@ -386,15 +275,10 @@ input ProfileWhereInput {
 }
 
 type Query {
-  findAllCategory: [TicketCategory!]!
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
-  findAllTicket(page: Int, perPage: Int, where: TicketTransactionWhereInput): TransactionLists!
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
-  findCommentbyTicketId(ticketId: String!): [Comment!]!
-  findOneTicket(ticketId: String!): TicketTransaction!
   findOneUser(profileId: String!): Profile!
   meQuery: MeQuery!
-  ticketReport(where: TicketTransactionWhereInput): TicketCountResponse!
 }
 
 enum QueryMode {
@@ -403,11 +287,7 @@ enum QueryMode {
 }
 
 enum Role {
-  ACCOUNTING
   ADMIN
-  BILLING
-  CASHIER
-  RADIOLOGIST
   USER
 }
 
@@ -462,152 +342,6 @@ input StringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
-}
-
-type TicketCategory {
-  _count: TicketCategoryCount!
-  description: String
-  id: ID!
-  name: String!
-  ticketTransaction: [TicketTransaction!]
-}
-
-type TicketCategoryCount {
-  ticketTransaction: Int!
-}
-
-input TicketCategoryNullableScalarRelationFilter {
-  is: TicketCategoryWhereInput
-  isNot: TicketCategoryWhereInput
-}
-
-input TicketCategoryWhereInput {
-  AND: [TicketCategoryWhereInput!]
-  NOT: [TicketCategoryWhereInput!]
-  OR: [TicketCategoryWhereInput!]
-  description: StringNullableFilter
-  id: StringFilter
-  name: StringFilter
-  ticketTransaction: TicketTransactionListRelationFilter
-}
-
-type TicketCount {
-  count: Int!
-  status: String!
-}
-
-type TicketCountResponse {
-  data: [TicketCount!]!
-  message: String!
-}
-
-enum TicketPriority {
-  CRITICAL
-  HIGH
-  LOW
-  MEDIUM
-}
-
-enum TicketStatus {
-  CLOSED
-  IN_PROGRESS
-  OPEN
-  RESOLVED
-}
-
-type TicketTransaction {
-  _count: TicketTransactionCount!
-  assignedByProfile: Profile
-  assignedToProfile: Profile
-  comment: [Comment!]
-  createdAt: DateTime!
-  createdBy: String
-  createdByProfile: Profile
-  departmentFrom: String
-  departmentTo: String
-  description: String
-  fromDepartment: Department
-  id: ID!
-  priority: TicketPriority
-  status: TicketStatus
-  ticketAssignedBy: String
-  ticketAssignedTo: String
-  ticketCategory: TicketCategory
-  ticketCategoryId: String
-  ticketCreatedBy: String
-  ticketNumber: String
-  title: String
-  toDepartment: Department
-  updatedAt: DateTime!
-  updatedBy: String
-}
-
-type TicketTransactionCount {
-  comment: Int!
-}
-
-input TicketTransactionListRelationFilter {
-  every: TicketTransactionWhereInput
-  none: TicketTransactionWhereInput
-  some: TicketTransactionWhereInput
-}
-
-input TicketTransactionScalarRelationFilter {
-  is: TicketTransactionWhereInput
-  isNot: TicketTransactionWhereInput
-}
-
-input TicketTransactionWhereInput {
-  AND: [TicketTransactionWhereInput!]
-  NOT: [TicketTransactionWhereInput!]
-  OR: [TicketTransactionWhereInput!]
-  assignedByProfile: ProfileNullableScalarRelationFilter
-  assignedToProfile: ProfileNullableScalarRelationFilter
-  comment: CommentListRelationFilter
-  createdAt: DateTimeFilter
-  createdBy: StringNullableFilter
-  createdByProfile: ProfileNullableScalarRelationFilter
-  departmentFrom: StringNullableFilter
-  departmentTo: StringNullableFilter
-  description: StringNullableFilter
-  fromDepartment: DepartmentNullableScalarRelationFilter
-  id: StringFilter
-  priority: EnumTicketPriorityNullableFilter
-  status: EnumTicketStatusNullableFilter
-  ticketAssignedBy: StringNullableFilter
-  ticketAssignedTo: StringNullableFilter
-  ticketCategory: TicketCategoryNullableScalarRelationFilter
-  ticketCategoryId: StringNullableFilter
-  ticketCreatedBy: StringNullableFilter
-  ticketNumber: StringNullableFilter
-  title: StringNullableFilter
-  toDepartment: DepartmentNullableScalarRelationFilter
-  updatedAt: DateTimeFilter
-  updatedBy: StringNullableFilter
-}
-
-type TransactionLists {
-  data: [TicketTransaction!]!
-  meta: Meta
-}
-
-input UpdateTicket {
-  description: String
-  priority: TicketPriority = LOW
-  status: TicketStatus = OPEN
-  ticketAssignedTo: String
-  ticketCategoryId: String
-  title: String
-}
-
-input UpsertCategInput {
-  description: String
-  name: String!
-}
-
-input UpsertCommentInput {
-  content: String!
-  ticketId: String!
 }
 
 input UpsertDepartmentInput {

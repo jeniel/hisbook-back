@@ -5,9 +5,6 @@ import { Int } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 import { Department } from '../department/department.model';
 import { User } from '../user/user.model';
-import { TicketTransaction } from '../ticket-transaction/ticket-transaction.model';
-import { Comment } from '../comment/comment.model';
-import { ProfileCount } from './profile-count.output';
 
 @ObjectType()
 export class Profile {
@@ -65,19 +62,4 @@ export class Profile {
 
     @Field(() => User, {nullable:true})
     user?: User | null;
-
-    @Field(() => [TicketTransaction], {nullable:true})
-    ticketCreatedBy?: Array<TicketTransaction>;
-
-    @Field(() => [TicketTransaction], {nullable:true})
-    ticketAssignedTo?: Array<TicketTransaction>;
-
-    @Field(() => [TicketTransaction], {nullable:true})
-    ticketAssignedBy?: Array<TicketTransaction>;
-
-    @Field(() => [Comment], {nullable:true})
-    comment?: Array<Comment>;
-
-    @Field(() => ProfileCount, {nullable:false})
-    _count?: ProfileCount;
 }

@@ -3,8 +3,6 @@ import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { ProfileUpdateManyWithoutDepartmentNestedInput } from '../profile/profile-update-many-without-department-nested.input';
-import { TicketTransactionUpdateManyWithoutFromDepartmentNestedInput } from '../ticket-transaction/ticket-transaction-update-many-without-from-department-nested.input';
-import { TicketTransactionUpdateManyWithoutToDepartmentNestedInput } from '../ticket-transaction/ticket-transaction-update-many-without-to-department-nested.input';
 
 @InputType()
 export class DepartmentUpdateInput {
@@ -20,10 +18,4 @@ export class DepartmentUpdateInput {
 
     @Field(() => ProfileUpdateManyWithoutDepartmentNestedInput, {nullable:true})
     profile?: ProfileUpdateManyWithoutDepartmentNestedInput;
-
-    @Field(() => TicketTransactionUpdateManyWithoutFromDepartmentNestedInput, {nullable:true})
-    ticketsFrom?: TicketTransactionUpdateManyWithoutFromDepartmentNestedInput;
-
-    @Field(() => TicketTransactionUpdateManyWithoutToDepartmentNestedInput, {nullable:true})
-    ticketsTo?: TicketTransactionUpdateManyWithoutToDepartmentNestedInput;
 }

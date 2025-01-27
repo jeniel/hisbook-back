@@ -8,10 +8,6 @@ import { GraphQLJSON } from 'graphql-type-json';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { DepartmentUpdateOneWithoutProfileNestedInput } from '../department/department-update-one-without-profile-nested.input';
 import { UserUpdateOneWithoutProfileNestedInput } from '../user/user-update-one-without-profile-nested.input';
-import { TicketTransactionUpdateManyWithoutCreatedByProfileNestedInput } from '../ticket-transaction/ticket-transaction-update-many-without-created-by-profile-nested.input';
-import { TicketTransactionUpdateManyWithoutAssignedToProfileNestedInput } from '../ticket-transaction/ticket-transaction-update-many-without-assigned-to-profile-nested.input';
-import { TicketTransactionUpdateManyWithoutAssignedByProfileNestedInput } from '../ticket-transaction/ticket-transaction-update-many-without-assigned-by-profile-nested.input';
-import { CommentUpdateManyWithoutProfileNestedInput } from '../comment/comment-update-many-without-profile-nested.input';
 
 @InputType()
 export class ProfileUpdateInput {
@@ -63,16 +59,4 @@ export class ProfileUpdateInput {
 
     @Field(() => UserUpdateOneWithoutProfileNestedInput, {nullable:true})
     user?: UserUpdateOneWithoutProfileNestedInput;
-
-    @Field(() => TicketTransactionUpdateManyWithoutCreatedByProfileNestedInput, {nullable:true})
-    ticketCreatedBy?: TicketTransactionUpdateManyWithoutCreatedByProfileNestedInput;
-
-    @Field(() => TicketTransactionUpdateManyWithoutAssignedToProfileNestedInput, {nullable:true})
-    ticketAssignedTo?: TicketTransactionUpdateManyWithoutAssignedToProfileNestedInput;
-
-    @Field(() => TicketTransactionUpdateManyWithoutAssignedByProfileNestedInput, {nullable:true})
-    ticketAssignedBy?: TicketTransactionUpdateManyWithoutAssignedByProfileNestedInput;
-
-    @Field(() => CommentUpdateManyWithoutProfileNestedInput, {nullable:true})
-    comment?: CommentUpdateManyWithoutProfileNestedInput;
 }

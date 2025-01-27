@@ -6,10 +6,6 @@ import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-fi
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { TicketTransactionUncheckedUpdateManyWithoutCreatedByProfileNestedInput } from '../ticket-transaction/ticket-transaction-unchecked-update-many-without-created-by-profile-nested.input';
-import { TicketTransactionUncheckedUpdateManyWithoutAssignedToProfileNestedInput } from '../ticket-transaction/ticket-transaction-unchecked-update-many-without-assigned-to-profile-nested.input';
-import { TicketTransactionUncheckedUpdateManyWithoutAssignedByProfileNestedInput } from '../ticket-transaction/ticket-transaction-unchecked-update-many-without-assigned-by-profile-nested.input';
-import { CommentUncheckedUpdateManyWithoutProfileNestedInput } from '../comment/comment-unchecked-update-many-without-profile-nested.input';
 
 @InputType()
 export class ProfileUncheckedUpdateWithoutUserInput {
@@ -58,16 +54,4 @@ export class ProfileUncheckedUpdateWithoutUserInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     updatedBy?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => TicketTransactionUncheckedUpdateManyWithoutCreatedByProfileNestedInput, {nullable:true})
-    ticketCreatedBy?: TicketTransactionUncheckedUpdateManyWithoutCreatedByProfileNestedInput;
-
-    @Field(() => TicketTransactionUncheckedUpdateManyWithoutAssignedToProfileNestedInput, {nullable:true})
-    ticketAssignedTo?: TicketTransactionUncheckedUpdateManyWithoutAssignedToProfileNestedInput;
-
-    @Field(() => TicketTransactionUncheckedUpdateManyWithoutAssignedByProfileNestedInput, {nullable:true})
-    ticketAssignedBy?: TicketTransactionUncheckedUpdateManyWithoutAssignedByProfileNestedInput;
-
-    @Field(() => CommentUncheckedUpdateManyWithoutProfileNestedInput, {nullable:true})
-    comment?: CommentUncheckedUpdateManyWithoutProfileNestedInput;
 }

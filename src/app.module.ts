@@ -13,7 +13,6 @@ import { RolesGuard } from './common/guards/roles.guard';
 import { DepartmentModule } from './global/department/department.module';
 import { UserModule } from './global/user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { TicketingModule } from './ticketing/ticketing.module';
 
 @Module({
   imports: [
@@ -28,7 +27,6 @@ import { TicketingModule } from './ticketing/ticketing.module';
     }),
     AuthModule,
     PrismaModule,
-    TicketingModule,
     DepartmentModule,
     UserModule,
     SequentialIdModule,
