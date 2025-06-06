@@ -12,7 +12,7 @@ import { ProfileSumOrderByAggregateInput } from './profile-sum-order-by-aggregat
 export class ProfileOrderByWithAggregationInput {
 
     @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+    id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
     firstName?: SortOrderInput;
@@ -48,13 +48,13 @@ export class ProfileOrderByWithAggregationInput {
     userId?: SortOrderInput;
 
     @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
+    createdAt?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
     createdBy?: SortOrderInput;
 
     @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
+    updatedAt?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
     updatedBy?: SortOrderInput;

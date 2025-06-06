@@ -6,5 +6,5 @@ import { Role } from '../prisma/role.enum';
 export class UserCreateroleInput {
 
     @Field(() => [Role], {nullable:false})
-    set!: Array<keyof typeof Role>;
+    set!: Array<`${Role}`>;
 }

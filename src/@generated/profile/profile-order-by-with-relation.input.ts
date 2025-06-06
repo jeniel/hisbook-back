@@ -9,7 +9,7 @@ import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relatio
 export class ProfileOrderByWithRelationInput {
 
     @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+    id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
     firstName?: SortOrderInput;
@@ -45,13 +45,13 @@ export class ProfileOrderByWithRelationInput {
     userId?: SortOrderInput;
 
     @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
+    createdAt?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
     createdBy?: SortOrderInput;
 
     @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
+    updatedAt?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
     updatedBy?: SortOrderInput;

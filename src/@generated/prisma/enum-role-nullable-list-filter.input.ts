@@ -6,16 +6,16 @@ import { Role } from './role.enum';
 export class EnumRoleNullableListFilter {
 
     @Field(() => [Role], {nullable:true})
-    equals?: Array<keyof typeof Role>;
+    equals?: Array<`${Role}`>;
 
     @Field(() => Role, {nullable:true})
-    has?: keyof typeof Role;
+    has?: `${Role}`;
 
     @Field(() => [Role], {nullable:true})
-    hasEvery?: Array<keyof typeof Role>;
+    hasEvery?: Array<`${Role}`>;
 
     @Field(() => [Role], {nullable:true})
-    hasSome?: Array<keyof typeof Role>;
+    hasSome?: Array<`${Role}`>;
 
     @Field(() => Boolean, {nullable:true})
     isEmpty?: boolean;

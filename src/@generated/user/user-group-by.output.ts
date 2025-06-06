@@ -25,7 +25,7 @@ export class UserGroupBy {
     hashedRefreshToken?: string;
 
     @Field(() => [Role], {nullable:true})
-    role?: Array<keyof typeof Role>;
+    role?: Array<`${Role}`>;
 
     @Field(() => Boolean, {nullable:false})
     isActive!: boolean;

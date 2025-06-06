@@ -10,37 +10,37 @@ import { UserMinOrderByAggregateInput } from './user-min-order-by-aggregate.inpu
 export class UserOrderByWithAggregationInput {
 
     @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+    id?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    email?: keyof typeof SortOrder;
+    email?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    username?: keyof typeof SortOrder;
+    username?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    hashedPassword?: keyof typeof SortOrder;
+    hashedPassword?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
     hashedRefreshToken?: SortOrderInput;
 
     @Field(() => SortOrder, {nullable:true})
-    role?: keyof typeof SortOrder;
+    role?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    isActive?: keyof typeof SortOrder;
+    isActive?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    isApprove?: keyof typeof SortOrder;
+    isApprove?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
+    createdAt?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
     createdBy?: SortOrderInput;
 
     @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
+    updatedAt?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
     updatedBy?: SortOrderInput;

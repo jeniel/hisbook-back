@@ -63,7 +63,5 @@ model Department {
 enum Role {
     USER
     ADMIN
-
-
     @@schema("public")
 }

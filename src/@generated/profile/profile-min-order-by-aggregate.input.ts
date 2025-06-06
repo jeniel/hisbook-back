@@ -6,44 +6,44 @@ import { SortOrder } from '../prisma/sort-order.enum';
 export class ProfileMinOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+    id?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    firstName?: keyof typeof SortOrder;
+    firstName?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    middleName?: keyof typeof SortOrder;
+    middleName?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    lastName?: keyof typeof SortOrder;
+    lastName?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    designation?: keyof typeof SortOrder;
+    designation?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    employeeID?: keyof typeof SortOrder;
+    employeeID?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    dateHired?: keyof typeof SortOrder;
+    dateHired?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    birthDate?: keyof typeof SortOrder;
+    birthDate?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    departmentId?: keyof typeof SortOrder;
+    departmentId?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
+    userId?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
+    createdAt?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    createdBy?: keyof typeof SortOrder;
+    createdBy?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
+    updatedAt?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    updatedBy?: keyof typeof SortOrder;
+    updatedBy?: `${SortOrder}`;
 }

@@ -6,8 +6,8 @@ import { Role } from '../prisma/role.enum';
 export class UserUpdateroleInput {
 
     @Field(() => [Role], {nullable:true})
-    set?: Array<keyof typeof Role>;
+    set?: Array<`${Role}`>;
 
     @Field(() => [Role], {nullable:true})
-    push?: Array<keyof typeof Role>;
+    push?: Array<`${Role}`>;
 }

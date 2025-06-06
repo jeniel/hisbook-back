@@ -10,10 +10,10 @@ import { DepartmentMinOrderByAggregateInput } from './department-min-order-by-ag
 export class DepartmentOrderByWithAggregationInput {
 
     @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+    id?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+    name?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
     description?: SortOrderInput;

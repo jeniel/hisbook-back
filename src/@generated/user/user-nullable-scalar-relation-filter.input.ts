@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UserWhereInput } from '../user/user-where.input';
+import { UserWhereInput } from './user-where.input';
 
 @InputType()
 export class UserNullableScalarRelationFilter {

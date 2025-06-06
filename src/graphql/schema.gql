@@ -123,6 +123,7 @@ input JsonNullableFilter {
   gte: JSON
   lt: JSON
   lte: JSON
+  mode: QueryMode
   not: JSON
   path: [String!]
   string_contains: String

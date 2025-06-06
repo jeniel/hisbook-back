@@ -14,7 +14,7 @@ export class User {
     /**
      * @Validator.@IsEmail()
      */
-    @Field(() => String, {nullable:false,description:'@Validator.@IsEmail()'})
+    @Field(() => String, {description:'@Validator.@IsEmail()',nullable:false})
     email!: string;
 
     @Field(() => String, {nullable:false})
@@ -27,12 +27,12 @@ export class User {
     hashedRefreshToken!: string | null;
 
     @Field(() => [Role], {nullable:true})
-    role!: Array<keyof typeof Role>;
+    role!: Array<`${Role}`>;
 
-    @Field(() => Boolean, {nullable:false,defaultValue:true})
+    @Field(() => Boolean, {defaultValue:true,nullable:false})
     isActive!: boolean;
 
-    @Field(() => Boolean, {nullable:false,defaultValue:false})
+    @Field(() => Boolean, {defaultValue:false,nullable:false})
     isApprove!: boolean;
 
     @Field(() => Date, {nullable:false})

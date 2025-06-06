@@ -28,5 +28,5 @@ export class FindFirstDepartmentOrThrowArgs {
     skip?: number;
 
     @Field(() => [DepartmentScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof DepartmentScalarFieldEnum>;
+    distinct?: Array<`${DepartmentScalarFieldEnum}`>;
 }

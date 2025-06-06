@@ -6,5 +6,5 @@ import { SortOrder } from '../prisma/sort-order.enum';
 export class ProfileAvgOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
-    employeeID?: keyof typeof SortOrder;
+    employeeID?: `${SortOrder}`;
 }

@@ -3,6 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { DepartmentUpdateManyMutationInput } from './department-update-many-mutation.input';
 import { Type } from 'class-transformer';
 import { DepartmentWhereInput } from './department-where.input';
+import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class UpdateManyDepartmentArgs {
@@ -14,4 +15,7 @@ export class UpdateManyDepartmentArgs {
     @Field(() => DepartmentWhereInput, {nullable:true})
     @Type(() => DepartmentWhereInput)
     where?: DepartmentWhereInput;
+
+    @Field(() => Int, {nullable:true})
+    limit?: number;
 }

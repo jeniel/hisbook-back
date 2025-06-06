@@ -8,10 +8,10 @@ import { ProfileOrderByRelationAggregateInput } from '../profile/profile-order-b
 export class DepartmentOrderByWithRelationInput {
 
     @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+    id?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+    name?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
     description?: SortOrderInput;

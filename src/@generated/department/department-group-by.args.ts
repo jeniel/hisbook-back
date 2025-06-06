@@ -21,7 +21,7 @@ export class DepartmentGroupByArgs {
     orderBy?: Array<DepartmentOrderByWithAggregationInput>;
 
     @Field(() => [DepartmentScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof DepartmentScalarFieldEnum>;
+    by!: Array<`${DepartmentScalarFieldEnum}`>;
 
     @Field(() => DepartmentScalarWhereWithAggregatesInput, {nullable:true})
     having?: DepartmentScalarWhereWithAggregatesInput;
