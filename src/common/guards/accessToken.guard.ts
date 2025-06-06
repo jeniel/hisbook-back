@@ -55,7 +55,7 @@ export class AccessTokenGuard extends AuthGuard('jwt') {
     }
 
     // Extract token from cookies
-    const token = request.cookies['his-token'];
+    const token = request.cookies[this.config.get('TOKEN_NAME')];
     // console.log('Token:', token);
 
     // check if token is not found

@@ -7,6 +7,8 @@ import { UserList } from './entities/user.entity';
 import { UserService } from './user.service';
 import { UserProfileArgs } from './args/user.args';
 import { Profile } from 'src/@generated/profile/profile.model';
+import { Roles } from 'src/common/decorator/roles.decorator';
+import { Role } from 'src/@generated/prisma/role.enum';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -17,6 +19,7 @@ export class UserResolver {
     return this.userService.create(payload);
   }
 
+  @Roles([Role.USER])
   @Query(() => UserList)
   findAllUsers(@Args() args: UserProfileArgs) {
     return this.userService.findAll(args);

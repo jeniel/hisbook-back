@@ -16,6 +16,7 @@ export class AuthService {
     private prisma: PrismaService,
     private jwt: JwtService,
     private config: ConfigService,
+
   ) {}
 
   async signup(signUpInput: SignUpInput) {
@@ -97,7 +98,7 @@ export class AuthService {
 
     await this.updateRefresh(user.id, refreshToken);
 
-    context.res.cookie('his-token', accessToken, {
+    context.res.cookie( this.config.get('TOKEN_NAME'), accessToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
@@ -109,12 +110,12 @@ export class AuthService {
   }
 
   async logOut(context: { res: Response; req: Request }) {
-    context.res.clearCookie('his-token');
+    context.res.clearCookie(this.config.get('TOKEN_NAME'));
     return { message: 'Logged Out' };
   }
 
   async clearCookie(response: any) {
-    response.clearCookie('his-token');
+    response.clearCookie(this.config.get('TOKEN_NAME'));
     return { message: 'Logged Out' };
   }
 
