@@ -1,4 +1,4 @@
-# name: TICKETING SYSTEM CI
+# name: AI BACKEND
 # on:
 #   push:
 #     branches: ['main']

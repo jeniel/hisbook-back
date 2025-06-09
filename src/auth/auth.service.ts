@@ -16,7 +16,6 @@ export class AuthService {
     private prisma: PrismaService,
     private jwt: JwtService,
     private config: ConfigService,
-
   ) {}
 
   async signup(signUpInput: SignUpInput) {
@@ -98,7 +97,7 @@ export class AuthService {
 
     await this.updateRefresh(user.id, refreshToken);
 
-    context.res.cookie( this.config.get('TOKEN_NAME'), accessToken, {
+    context.res.cookie(this.config.get('TOKEN_NAME'), accessToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
