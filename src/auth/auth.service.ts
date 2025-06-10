@@ -183,7 +183,7 @@ export class AuthService {
 
   // ? END
   async meQuery(context: { res: Response; req: Request }) {
-    const token = context.req.cookies['his-token'];
+    const token = context.req.cookies[this.config.get('TOKEN_NAME')];
 
     const currentUser = this.jwt.verify(token, {
       secret: this.config.get('JWT_SECRET'),

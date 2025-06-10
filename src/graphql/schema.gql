@@ -86,6 +86,13 @@ input DepartmentWhereInput {
   profile: ProfileListRelationFilter
 }
 
+type Embedding {
+  createdAt: DateTime!
+  id: ID!
+  text: String!
+  vector: [Float!]!
+}
+
 input EnumRoleNullableListFilter {
   equals: [Role!]
   has: Role
@@ -146,6 +153,7 @@ type Meta {
 }
 
 type Mutation {
+  createEmbedding(text: String!): Embedding!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!

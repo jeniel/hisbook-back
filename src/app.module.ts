@@ -12,6 +12,7 @@ import { RolesGuard } from './common/guards/roles.guard';
 import { PrismaModule } from './prisma/prisma.module';
 import { GlobalModule } from './global/global.module';
 import { join } from 'path';
+import { ToolsModule } from './tools/tools.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { join } from 'path';
     PrismaModule,
     SequentialIdModule,
     GlobalModule,
+    ToolsModule,
   ],
   providers: [
     JwtService,
