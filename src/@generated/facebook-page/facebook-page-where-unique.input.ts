@@ -5,6 +5,7 @@ import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { FloatNullableFilter } from '../prisma/float-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
+import { FacebookPagePostListRelationFilter } from '../facebook-page-post/facebook-page-post-list-relation-filter.input';
 
 @InputType()
 export class FacebookPageWhereUniqueInput {
@@ -68,4 +69,7 @@ export class FacebookPageWhereUniqueInput {
 
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
+
+    @Field(() => FacebookPagePostListRelationFilter, {nullable:true})
+    facebookPagePost?: FacebookPagePostListRelationFilter;
 }

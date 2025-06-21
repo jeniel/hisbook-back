@@ -5,6 +5,7 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { FacebookPagePostUncheckedUpdateManyWithoutPageNestedInput } from '../facebook-page-post/facebook-page-post-unchecked-update-many-without-page-nested.input';
 
 @InputType()
 export class FacebookPageUncheckedUpdateInput {
@@ -59,4 +60,7 @@ export class FacebookPageUncheckedUpdateInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => FacebookPagePostUncheckedUpdateManyWithoutPageNestedInput, {nullable:true})
+    facebookPagePost?: FacebookPagePostUncheckedUpdateManyWithoutPageNestedInput;
 }

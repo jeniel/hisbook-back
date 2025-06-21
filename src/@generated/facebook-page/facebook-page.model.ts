@@ -3,6 +3,8 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
+import { FacebookPagePost } from '../facebook-page-post/facebook-page-post.model';
+import { FacebookPageCount } from './facebook-page-count.output';
 
 @ObjectType()
 export class FacebookPage {
@@ -57,4 +59,10 @@ export class FacebookPage {
 
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
+
+    @Field(() => [FacebookPagePost], {nullable:true})
+    facebookPagePost?: Array<FacebookPagePost>;
+
+    @Field(() => FacebookPageCount, {nullable:false})
+    _count?: FacebookPageCount;
 }

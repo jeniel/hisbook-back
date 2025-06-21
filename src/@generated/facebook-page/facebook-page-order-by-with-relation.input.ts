@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { SortOrderInput } from '../prisma/sort-order.input';
+import { FacebookPagePostOrderByRelationAggregateInput } from '../facebook-page-post/facebook-page-post-order-by-relation-aggregate.input';
 
 @InputType()
 export class FacebookPageOrderByWithRelationInput {
@@ -56,4 +57,7 @@ export class FacebookPageOrderByWithRelationInput {
 
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: `${SortOrder}`;
+
+    @Field(() => FacebookPagePostOrderByRelationAggregateInput, {nullable:true})
+    facebookPagePost?: FacebookPagePostOrderByRelationAggregateInput;
 }

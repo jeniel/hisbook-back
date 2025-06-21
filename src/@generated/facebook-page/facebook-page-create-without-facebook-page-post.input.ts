@@ -2,10 +2,9 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { FacebookPagePostCreateNestedManyWithoutPageInput } from '../facebook-page-post/facebook-page-post-create-nested-many-without-page.input';
 
 @InputType()
-export class FacebookPageCreateInput {
+export class FacebookPageCreateWithoutFacebookPagePostInput {
 
     @Field(() => String, {nullable:true})
     id?: string;
@@ -57,7 +56,4 @@ export class FacebookPageCreateInput {
 
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-
-    @Field(() => FacebookPagePostCreateNestedManyWithoutPageInput, {nullable:true})
-    facebookPagePost?: FacebookPagePostCreateNestedManyWithoutPageInput;
 }
