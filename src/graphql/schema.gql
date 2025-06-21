@@ -2,6 +2,17 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input BigIntFilter {
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedBigIntFilter
+  notIn: [String!]
+}
+
 input BoolFilter {
   equals: Boolean
   not: NestedBoolFilter
@@ -86,11 +97,16 @@ input DepartmentWhereInput {
   profile: ProfileListRelationFilter
 }
 
+input DocumentsListRelationFilter {
+  every: documentsWhereInput
+  none: documentsWhereInput
+  some: documentsWhereInput
+}
+
 type Embedding {
-  createdAt: DateTime!
-  id: ID!
-  text: String!
-  vector: [Float!]!
+  content: JSON
+  embedding: [Float!]
+  metadata: JSON
 }
 
 input EnumRoleNullableListFilter {
@@ -153,12 +169,23 @@ type Meta {
 }
 
 type Mutation {
-  createEmbedding(text: String!): Embedding!
+  createEmbedding(content: JSON!): Embedding!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
   upsertDepartment(deptId: String, payload: UpsertDepartmentInput!): GeneralMsg!
+}
+
+input NestedBigIntFilter {
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedBigIntFilter
+  notIn: [String!]
 }
 
 input NestedBoolFilter {
@@ -288,6 +315,7 @@ type Query {
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
   findOneUser(profileId: String!): Profile!
   meQuery: MeQuery!
+  syncToGraphApi: GeneralMsg!
 }
 
 enum QueryMode {
@@ -297,6 +325,8 @@ enum QueryMode {
 
 enum Role {
   ADMIN
+  CLIENT
+  SUPER_ADMIN
   USER
 }
 
@@ -353,6 +383,44 @@ input StringNullableFilter {
   startsWith: String
 }
 
+type Tenant {
+  _count: TenantCount!
+  createdAt: DateTime!
+  description: String
+  documents: [documents!]
+  id: ID!
+  isActive: Boolean!
+  isApprove: Boolean!
+  name: String!
+  updatedAt: DateTime!
+  users: [User!]
+}
+
+type TenantCount {
+  documents: Int!
+  users: Int!
+}
+
+input TenantNullableScalarRelationFilter {
+  is: TenantWhereInput
+  isNot: TenantWhereInput
+}
+
+input TenantWhereInput {
+  AND: [TenantWhereInput!]
+  NOT: [TenantWhereInput!]
+  OR: [TenantWhereInput!]
+  createdAt: DateTimeFilter
+  description: StringNullableFilter
+  documents: DocumentsListRelationFilter
+  id: StringFilter
+  isActive: BoolFilter
+  isApprove: BoolFilter
+  name: StringFilter
+  updatedAt: DateTimeFilter
+  users: UserListRelationFilter
+}
+
 input UpsertDepartmentInput {
   description: String
   name: String!
@@ -370,6 +438,8 @@ type User {
   isApprove: Boolean!
   profile: Profile
   role: [Role!]
+  tenant: Tenant
+  tenantId: String
   updatedAt: DateTime!
   updatedBy: String
   username: String!
@@ -378,6 +448,12 @@ type User {
 type UserList {
   data: [Profile!]!
   meta: Meta
+}
+
+input UserListRelationFilter {
+  every: UserWhereInput
+  none: UserWhereInput
+  some: UserWhereInput
 }
 
 input UserNullableScalarRelationFilter {
@@ -399,7 +475,28 @@ input UserWhereInput {
   isApprove: BoolFilter
   profile: ProfileNullableScalarRelationFilter
   role: EnumRoleNullableListFilter
+  tenant: TenantNullableScalarRelationFilter
+  tenantId: StringNullableFilter
   updatedAt: DateTimeFilter
   updatedBy: StringNullableFilter
   username: StringFilter
+}
+
+type documents {
+  content: String
+  id: ID!
+  metadata: JSON
+  tenant: Tenant
+  tenantId: String
+}
+
+input documentsWhereInput {
+  AND: [documentsWhereInput!]
+  NOT: [documentsWhereInput!]
+  OR: [documentsWhereInput!]
+  content: StringNullableFilter
+  id: BigIntFilter
+  metadata: JsonNullableFilter
+  tenant: TenantNullableScalarRelationFilter
+  tenantId: StringNullableFilter
 }

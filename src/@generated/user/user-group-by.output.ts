@@ -45,6 +45,9 @@ export class UserGroupBy {
     @Field(() => String, {nullable:true})
     updatedBy?: string;
 
+    @Field(() => String, {nullable:true})
+    tenantId?: string;
+
     @Field(() => UserCountAggregate, {nullable:true})
     _count?: UserCountAggregate;
 

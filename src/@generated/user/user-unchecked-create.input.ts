@@ -42,6 +42,9 @@ export class UserUncheckedCreateInput {
     @Field(() => String, {nullable:true})
     updatedBy?: string;
 
+    @Field(() => String, {nullable:true})
+    tenantId?: string;
+
     @Field(() => ProfileUncheckedCreateNestedOneWithoutUserInput, {nullable:true})
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput;
 }

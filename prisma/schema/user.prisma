@@ -1,67 +1,84 @@
 model User {
-    id                 String   @id @default(uuid())
-    /// @Validator.@IsEmail()
-    email              String   @unique
-    username           String   @unique
-    /// @HideField()
-    hashedPassword     String   @map("hashed_password")
-    hashedRefreshToken String?  @map("hashed_refresh_token")
-    role               Role[]   @default([USER])
-    isActive           Boolean  @default(true) @map("is_active")
-    isApprove          Boolean  @default(false) @map("is_approve")
-    // RELATION
-    profile            Profile?
-    // STAMP
-    createdAt          DateTime @default(now()) @map("created_at") @db.Date
-    createdBy          String?  @map("created_by")
-    updatedAt          DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
-    updatedBy          String?  @map("updated_by")
+  id                 String   @id @default(uuid())
+  /// @Validator.@IsEmail()
+  email              String   @unique
+  username           String   @unique
+  /// @HideField()
+  hashedPassword     String   @map("hashed_password")
+  hashedRefreshToken String?  @map("hashed_refresh_token")
+  role               Role[]   @default([USER])
+  isActive           Boolean  @default(true) @map("is_active")
+  isApprove          Boolean  @default(false) @map("is_approve")
+  createdAt          DateTime @default(now()) @map("created_at") @db.Date
+  createdBy          String?  @map("created_by")
+  updatedAt          DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
+  updatedBy          String?  @map("updated_by")
 
-    @@map("user")
-    @@schema("public")
+  //Relationships
+  tenant   Tenant?  @relation(fields: [tenantId], references: [id])
+  tenantId String?
+  profile  Profile?
+
+  @@map("user")
+  @@schema("public")
 }
 
 model Profile {
-    id               String              @id @default(uuid())
-    firstName        String?             @map("first_name")
-    middleName       String?             @map("middle_name")
-    lastName         String?             @map("last_name")
-    designation      String?
-    employeeID       Int?                @default(autoincrement()) @map("employee_id")
-    dateHired        DateTime?           @map("date_hired")
-    birthDate        DateTime?           @map("birth_date")
-    address          Json?
-    contact          Json?
-    //RELATION
-    department       Department?         @relation(fields: [departmentId], references: [id])
-    departmentId     String?             @map("department_id")
-    user             User?               @relation(fields: [userId], references: [id])
-    userId           String?             @unique @map("user_id")
+  id           String      @id @default(uuid())
+  firstName    String?     @map("first_name")
+  middleName   String?     @map("middle_name")
+  lastName     String?     @map("last_name")
+  designation  String?
+  employeeID   Int?        @default(autoincrement()) @map("employee_id")
+  dateHired    DateTime?   @map("date_hired")
+  birthDate    DateTime?   @map("birth_date")
+  address      Json?
+  contact      Json?
+  departmentId String?     @map("department_id")
+  userId       String?     @unique @map("user_id")
+  createdAt    DateTime    @default(now()) @map("created_at") @db.Date()
+  createdBy    String?     @map("created_by")
+  updatedAt    DateTime    @default(now()) @updatedAt @map("updated_at") @db.Date()
+  updatedBy    String?     @map("updated_by")
+  department   Department? @relation(fields: [departmentId], references: [id])
+  user         User?       @relation(fields: [userId], references: [id])
 
+  @@map("profile")
+  @@schema("public")
+}
 
-    // STAMP
-    createdAt        DateTime            @default(now()) @map("created_at") @db.Timestamptz()
-    createdBy        String?             @map("created_by")
-    updatedAt        DateTime            @default(now()) @updatedAt @map("updated_at") @db.Timestamptz()
-    updatedBy        String?             @map("updated_by")
+model Tenant {
+  id          String  @id @default(nanoid(8))
+  name        String
+  description String?
+  isActive    Boolean @default(true) @map("is_active")
+  isApprove   Boolean @default(false) @map("is_approve")
 
-    @@map("profile")
-    @@schema("public")
+  //Relationships
+  users     User[]
+  documents documents[]
+  createdAt DateTime    @default(now()) @map("created_at") @db.Date()
+  updatedAt DateTime    @default(now()) @updatedAt @map("updated_at") @db.Date()
+
+  @@map("tenant")
+  @@schema("public")
 }
 
 model Department {
-    id          String              @id @default(uuid())
-    name        String
-    description String?
-    // RELATION
-    profile     Profile[]
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  profile     Profile[]
 
-    @@map("department")
-    @@schema("public")
+  @@map("department")
+  @@schema("public")
 }
 
 enum Role {
-    USER
-    ADMIN
-    @@schema("public")
+  USER
+  ADMIN
+  CLIENT
+  SUPER_ADMIN
+
+  @@schema("public")
 }

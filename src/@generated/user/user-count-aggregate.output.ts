@@ -43,5 +43,8 @@ export class UserCountAggregate {
     updatedBy!: number;
 
     @Field(() => Int, {nullable:false})
+    tenantId!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

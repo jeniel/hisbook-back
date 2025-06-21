@@ -1,16 +1,17 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+import GraphQLJSON from 'graphql-type-json';
 
 @ObjectType()
 export class Embedding {
-  @Field(() => ID)
-  id: string;
+  // @Field(() => Int)
+  // id: number;
 
-  @Field()
-  text: string;
+  @Field(() => GraphQLJSON, { nullable: true })
+  content?: any;
 
-  @Field(() => [Number])
-  vector: number[];
+  @Field(() => GraphQLJSON, { nullable: true })
+  metadata?: any;
 
-  @Field()
-  createdAt: Date;
+  @Field(() => [Number], { nullable: true })
+  embedding: number[];
 }

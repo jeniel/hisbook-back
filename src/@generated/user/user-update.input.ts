@@ -5,6 +5,7 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 import { UserUpdateroleInput } from './user-updaterole.input';
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { TenantUpdateOneWithoutUsersNestedInput } from '../tenant/tenant-update-one-without-users-nested.input';
 import { ProfileUpdateOneWithoutUserNestedInput } from '../profile/profile-update-one-without-user-nested.input';
 
 @InputType()
@@ -45,6 +46,9 @@ export class UserUpdateInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     updatedBy?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => TenantUpdateOneWithoutUsersNestedInput, {nullable:true})
+    tenant?: TenantUpdateOneWithoutUsersNestedInput;
 
     @Field(() => ProfileUpdateOneWithoutUserNestedInput, {nullable:true})
     profile?: ProfileUpdateOneWithoutUserNestedInput;

@@ -36,4 +36,7 @@ export class UserMinAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     updatedBy?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    tenantId?: true;
 }

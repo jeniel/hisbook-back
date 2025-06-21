@@ -5,14 +5,15 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
+import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { SequentialIdModule } from './common/generator/sequential-id.module';
 import { AccessTokenGuard } from './common/guards/accessToken.guard';
 import { RolesGuard } from './common/guards/roles.guard';
-import { PrismaModule } from './prisma/prisma.module';
 import { GlobalModule } from './global/global.module';
-import { join } from 'path';
+import { PrismaModule } from './prisma/prisma.module';
 import { ToolsModule } from './tools/tools.module';
+import { IntegrationModule } from './integration/integration.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ToolsModule } from './tools/tools.module';
     SequentialIdModule,
     GlobalModule,
     ToolsModule,
+    IntegrationModule,
   ],
   providers: [
     JwtService,

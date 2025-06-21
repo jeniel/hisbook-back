@@ -1,0 +1,45 @@
+model FacebookPage {
+    id                String   @id @default(uuid())
+    fbId              String?  @unique
+    name              String?
+    about             String?
+    accessToken       String?
+    category          String?
+    fanCount          Int?
+    followersCount    Int?
+    overallStarRating Float?
+    link              String?
+    website           String?
+    username          String?
+    engagementCount   Int? // 
+    engagementMessage String?
+    imageUrl          String? // Derived from picture.data.url
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
+
+    @@map("facebook_page") // Maps to the actual table name in the database
+    @@schema("marketing")
+}
+
+model FacebookDetails {
+    id                String   @id @default(uuid())
+    fbId              String?  @unique
+    name              String?
+    about             String?
+    accessToken       String?
+    category          String?
+    fanCount          Int?
+    followersCount    Int?
+    overallStarRating Float?
+    link              String?
+    website           String?
+    username          String?
+    engagementCount   Int? // 
+    engagementMessage String?
+    imageUrl          String? // Derived from picture.data.url
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
+
+    @@map("facebook_details") // Maps to the actual table name in the database
+    @@schema("marketing")
+}

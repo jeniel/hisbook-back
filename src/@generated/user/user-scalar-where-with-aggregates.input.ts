@@ -53,4 +53,7 @@ export class UserScalarWhereWithAggregatesInput {
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     updatedBy?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    tenantId?: StringNullableWithAggregatesFilter;
 }

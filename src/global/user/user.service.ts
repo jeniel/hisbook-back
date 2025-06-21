@@ -8,6 +8,7 @@ import { CreateUserProfileInput } from './dto/create-user.input';
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
+
   async create(payload: CreateUserProfileInput) {
     const hashedPassword = await argon.hash(payload.user.hashedPassword);
     try {

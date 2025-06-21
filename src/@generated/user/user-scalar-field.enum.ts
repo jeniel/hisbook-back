@@ -12,7 +12,8 @@ export enum UserScalarFieldEnum {
     createdAt = "createdAt",
     createdBy = "createdBy",
     updatedAt = "updatedAt",
-    updatedBy = "updatedBy"
+    updatedBy = "updatedBy",
+    tenantId = "tenantId"
 }
 
 

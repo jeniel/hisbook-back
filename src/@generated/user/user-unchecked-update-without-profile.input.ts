@@ -44,4 +44,7 @@ export class UserUncheckedUpdateWithoutProfileInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     updatedBy?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    tenantId?: NullableStringFieldUpdateOperationsInput;
 }

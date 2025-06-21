@@ -46,6 +46,9 @@ export class UserUncheckedUpdateInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     updatedBy?: NullableStringFieldUpdateOperationsInput;
 
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    tenantId?: NullableStringFieldUpdateOperationsInput;
+
     @Field(() => ProfileUncheckedUpdateOneWithoutUserNestedInput, {nullable:true})
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput;
 }

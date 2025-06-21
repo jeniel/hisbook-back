@@ -12,7 +12,7 @@ async function main() {
       email: 'admin@gmail.com',
       username: 'admin',
       hashedPassword: password,
-      role: ['ADMIN'],
+      role: ['SUPER_ADMIN'],
       isActive: true,
       isApprove: true,
       profile: {

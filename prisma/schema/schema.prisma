@@ -1,23 +1,18 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["multiSchema"]
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  schemas  = ["public", "global"]
+  previewFeatures = ["multiSchema", "postgresqlExtensions"]
 }
 
 generator nestgraphql {
-  provider = "node node_modules/prisma-nestjs-graphql"
-  output   = "../../src/@generated"
+  provider               = "node node_modules/prisma-nestjs-graphql"
+  output                 = "../../src/@generated"
   fields_Validator_from  = "class-validator"
-  fields_Validator_input = true
+  fields_Validator_input = "true"
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [uuid_ossp(map: "uuid-ossp", schema: "extensions"), vector]
+  schemas    = ["global", "public","marketing"]
 }

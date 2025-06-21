@@ -45,6 +45,9 @@ export class UserOrderByWithAggregationInput {
     @Field(() => SortOrderInput, {nullable:true})
     updatedBy?: SortOrderInput;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    tenantId?: SortOrderInput;
+
     @Field(() => UserCountOrderByAggregateInput, {nullable:true})
     _count?: UserCountOrderByAggregateInput;
 

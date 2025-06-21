@@ -41,5 +41,8 @@ export class UserCountAggregateInput {
     updatedBy?: true;
 
     @Field(() => Boolean, {nullable:true})
+    tenantId?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }
