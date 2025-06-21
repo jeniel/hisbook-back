@@ -1,9 +1,8 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { FbService } from './fb.service';
-import { Fb } from './entities/fb.entity';
-import { CreateFbInput } from './dto/create-fb.input';
-import { UpdateFbInput } from './dto/update-fb.input';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { GeneralMsg } from 'src/common/entities/general-msg.entities';
+import { CreatePostPage } from './dto/create-fb.input';
+import { Fb } from './entities/fb.entity';
+import { FbService } from './fb.service';
 
 @Resolver(() => Fb)
 export class FbResolver {
@@ -12,5 +11,11 @@ export class FbResolver {
   @Query(() => GeneralMsg)
   syncToGraphApi() {
     return this.fbService.syncToGraphApi();
+  }
+
+
+  @Mutation(() => GeneralMsg)
+  createPagePost(@Args('CreatePostInput') payload: CreatePostPage) {
+    return this.fbService.createPagePost(payload);
   }
 }

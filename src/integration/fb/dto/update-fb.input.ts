@@ -1,8 +1,7 @@
-import { CreateFbInput } from './create-fb.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { Field, InputType, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateFbInput extends PartialType(CreateFbInput) {
+export class UpdateFbInput  {
   @Field(() => Int)
   id: number;
 }

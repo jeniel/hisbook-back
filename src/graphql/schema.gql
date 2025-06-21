@@ -18,6 +18,14 @@ input BoolFilter {
   not: NestedBoolFilter
 }
 
+input CreatePostPage {
+  """The message to post on the Facebook Page"""
+  message: String!
+
+  """The Facebook Page ID"""
+  pageId: String!
+}
+
 input CreateProfileInput {
   birthDate: DateTime
   departmentId: String
@@ -170,6 +178,7 @@ type Meta {
 
 type Mutation {
   createEmbedding(content: JSON!): Embedding!
+  createPagePost(CreatePostInput: CreatePostPage!): GeneralMsg!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
