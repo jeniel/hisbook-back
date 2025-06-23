@@ -2,12 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { OpenAI } from 'openai';
 import { Embedding } from './entities/embedding.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class EmbeddingService {
-  constructor(private prisma: PrismaService) {}
+  private openai: OpenAI;
+
+  constructor(
+    private prisma: PrismaService,
+    private configService: ConfigService,
+  ) {
+    const apiKey = this.configService.get<string>('OPENAI_API_KEY');
+    this.openai = new OpenAI({ apiKey });
+  }
 
   // async createEmbedding(content: any): Promise<Embedding> {
   //   const response = await openai.embeddings.create({
@@ -42,7 +49,7 @@ export class EmbeddingService {
     const jsonString = JSON.stringify(content);
 
     // Generate embedding
-    const response = await openai.embeddings.create({
+    const response = await this.openai.embeddings.create({
       model: 'text-embedding-3-small', // Use the appropriate model
       input: jsonString,
       encoding_format: 'float',

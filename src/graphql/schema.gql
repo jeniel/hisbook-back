@@ -125,6 +125,106 @@ input EnumRoleNullableListFilter {
   isEmpty: Boolean
 }
 
+type FaceBookPageList {
+  data: [FacebookPage!]!
+  meta: Meta
+}
+
+type FacebookPage {
+  _count: FacebookPageCount!
+  about: String
+  accessToken: String
+  category: String
+  createdAt: DateTime!
+  engagementCount: Int
+  engagementMessage: String
+  facebookPagePost: [FacebookPagePost!]
+  fanCount: Int
+  fbId: String
+  followersCount: Int
+  id: ID!
+  imageUrl: String
+  link: String
+  name: String
+  overallStarRating: Float
+  updatedAt: DateTime!
+  username: String
+  website: String
+}
+
+type FacebookPageCount {
+  facebookPagePost: Int!
+}
+
+type FacebookPagePost {
+  createdAt: DateTime!
+  createdTime: DateTime
+  id: ID!
+  message: String
+  page: FacebookPage!
+  pageId: String!
+  updatedAt: DateTime!
+}
+
+input FacebookPagePostListRelationFilter {
+  every: FacebookPagePostWhereInput
+  none: FacebookPagePostWhereInput
+  some: FacebookPagePostWhereInput
+}
+
+input FacebookPagePostWhereInput {
+  AND: [FacebookPagePostWhereInput!]
+  NOT: [FacebookPagePostWhereInput!]
+  OR: [FacebookPagePostWhereInput!]
+  createdAt: DateTimeFilter
+  createdTime: DateTimeNullableFilter
+  id: StringFilter
+  message: StringNullableFilter
+  page: FacebookPageScalarRelationFilter
+  pageId: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input FacebookPageScalarRelationFilter {
+  is: FacebookPageWhereInput
+  isNot: FacebookPageWhereInput
+}
+
+input FacebookPageWhereInput {
+  AND: [FacebookPageWhereInput!]
+  NOT: [FacebookPageWhereInput!]
+  OR: [FacebookPageWhereInput!]
+  about: StringNullableFilter
+  accessToken: StringNullableFilter
+  category: StringNullableFilter
+  createdAt: DateTimeFilter
+  engagementCount: IntNullableFilter
+  engagementMessage: StringNullableFilter
+  facebookPagePost: FacebookPagePostListRelationFilter
+  fanCount: IntNullableFilter
+  fbId: StringNullableFilter
+  followersCount: IntNullableFilter
+  id: StringFilter
+  imageUrl: StringNullableFilter
+  link: StringNullableFilter
+  name: StringNullableFilter
+  overallStarRating: FloatNullableFilter
+  updatedAt: DateTimeFilter
+  username: StringNullableFilter
+  website: StringNullableFilter
+}
+
+input FloatNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatNullableFilter
+  notIn: [Float!]
+}
+
 type GeneralMsg {
   message: String!
 }
@@ -224,6 +324,17 @@ input NestedDateTimeNullableFilter {
   notIn: [DateTime!]
 }
 
+input NestedFloatNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatNullableFilter
+  notIn: [Float!]
+}
+
 input NestedIntNullableFilter {
   equals: Int
   gt: Int
@@ -321,6 +432,7 @@ input ProfileWhereInput {
 
 type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
+  findAllFbDetails(page: Int, perPage: Int, where: FacebookPageWhereInput): FaceBookPageList!
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
   findOneUser(profileId: String!): Profile!
   meQuery: MeQuery!

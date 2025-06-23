@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import * as bizSdk from 'facebook-nodejs-business-sdk';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePostPage } from './dto/create-fb.input';
+import { FacebookPageArgs } from './args/fb.args';
 
 @Injectable()
 export class FbService {
@@ -92,6 +93,35 @@ export class FbService {
       console.error('Error posting to feed:', error.response?.error || error);
       throw error;
     }
+  }
+
+  async findAllFbDetails(args: FacebookPageArgs) {
+    const page = args.page || 1;
+    const perPage = args.perPage || 30;
+    const skip = page > 0 ? perPage * (page - 1) : 0;
+
+    const [total, data] = await Promise.all([
+      this.prisma.facebookPage.count({ where: args.where }),
+      this.prisma.facebookPage.findMany({
+        where: args.where,
+        take: perPage,
+        skip,
+      }),
+    ]);
+
+    const lastPage = Math.ceil(total / perPage);
+
+    return {
+      data,
+      meta: {
+        total,
+        lastPage,
+        currentPage: page,
+        perPage,
+        prev: page > 1 ? page - 1 : null,
+        next: page < lastPage ? page + 1 : null,
+      },
+    };
   }
 
   //end
