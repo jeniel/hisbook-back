@@ -26,6 +26,12 @@ export class TenantUncheckedCreateWithoutDocumentsInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
+    @Field(() => String, {nullable:true})
+    nanoid?: string;
+
+    @Field(() => String, {nullable:false})
+    slug!: string;
+
     @Field(() => UserUncheckedCreateNestedManyWithoutTenantInput, {nullable:true})
     users?: UserUncheckedCreateNestedManyWithoutTenantInput;
 }

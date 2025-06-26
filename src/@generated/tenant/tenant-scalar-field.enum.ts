@@ -7,7 +7,9 @@ export enum TenantScalarFieldEnum {
     isActive = "isActive",
     isApprove = "isApprove",
     createdAt = "createdAt",
-    updatedAt = "updatedAt"
+    updatedAt = "updatedAt",
+    nanoid = "nanoid",
+    slug = "slug"
 }
 
 

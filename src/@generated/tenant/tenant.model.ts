@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { User } from '../user/user.model';
 import { documents } from '../documents/documents.model';
+import { User } from '../user/user.model';
 import { TenantCount } from './tenant-count.output';
 
 @ObjectType()
@@ -29,11 +29,17 @@ export class Tenant {
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
 
-    @Field(() => [User], {nullable:true})
-    users?: Array<User>;
+    @Field(() => String, {nullable:false})
+    nanoid!: string;
+
+    @Field(() => String, {nullable:false})
+    slug!: string;
 
     @Field(() => [documents], {nullable:true})
     documents?: Array<documents>;
+
+    @Field(() => [User], {nullable:true})
+    users?: Array<User>;
 
     @Field(() => TenantCount, {nullable:false})
     _count?: TenantCount;

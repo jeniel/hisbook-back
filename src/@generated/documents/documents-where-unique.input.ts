@@ -9,7 +9,7 @@ import { TenantNullableScalarRelationFilter } from '../tenant/tenant-nullable-sc
 export class documentsWhereUniqueInput {
 
     @Field(() => String, {nullable:true})
-    id?: bigint | number;
+    id?: string;
 
     @Field(() => [documentsWhereInput], {nullable:true})
     AND?: Array<documentsWhereInput>;
@@ -19,6 +19,9 @@ export class documentsWhereUniqueInput {
 
     @Field(() => [documentsWhereInput], {nullable:true})
     NOT?: Array<documentsWhereInput>;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    client_id?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     content?: StringNullableFilter;

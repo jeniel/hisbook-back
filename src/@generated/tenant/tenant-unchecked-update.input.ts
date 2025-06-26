@@ -4,8 +4,8 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { UserUncheckedUpdateManyWithoutTenantNestedInput } from '../user/user-unchecked-update-many-without-tenant-nested.input';
 import { documentsUncheckedUpdateManyWithoutTenantNestedInput } from '../documents/documents-unchecked-update-many-without-tenant-nested.input';
+import { UserUncheckedUpdateManyWithoutTenantNestedInput } from '../user/user-unchecked-update-many-without-tenant-nested.input';
 
 @InputType()
 export class TenantUncheckedUpdateInput {
@@ -31,9 +31,15 @@ export class TenantUncheckedUpdateInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => UserUncheckedUpdateManyWithoutTenantNestedInput, {nullable:true})
-    users?: UserUncheckedUpdateManyWithoutTenantNestedInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    nanoid?: StringFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    slug?: StringFieldUpdateOperationsInput;
 
     @Field(() => documentsUncheckedUpdateManyWithoutTenantNestedInput, {nullable:true})
     documents?: documentsUncheckedUpdateManyWithoutTenantNestedInput;
+
+    @Field(() => UserUncheckedUpdateManyWithoutTenantNestedInput, {nullable:true})
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput;
 }

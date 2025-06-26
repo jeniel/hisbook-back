@@ -19,7 +19,7 @@ export class FindFirstTenantOrThrowArgs {
     orderBy?: Array<TenantOrderByWithRelationInput>;
 
     @Field(() => TenantWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<TenantWhereUniqueInput, 'id'>;
+    cursor?: Prisma.AtLeast<TenantWhereUniqueInput, 'id' | 'nanoid' | 'slug'>;
 
     @Field(() => Int, {nullable:true})
     take?: number;

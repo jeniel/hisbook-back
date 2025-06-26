@@ -28,4 +28,10 @@ export class TenantUpdateManyMutationInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    nanoid?: StringFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    slug?: StringFieldUpdateOperationsInput;
 }

@@ -24,4 +24,10 @@ export class TenantMinAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    nanoid?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    slug?: true;
 }

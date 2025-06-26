@@ -5,10 +5,13 @@ import { ObjectType } from '@nestjs/graphql';
 export class DocumentsMinAggregate {
 
     @Field(() => String, {nullable:true})
-    id?: bigint | number;
+    client_id?: string;
 
     @Field(() => String, {nullable:true})
     content?: string;
+
+    @Field(() => String, {nullable:true})
+    id?: string;
 
     @Field(() => String, {nullable:true})
     tenantId?: string;

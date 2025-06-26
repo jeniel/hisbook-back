@@ -24,4 +24,10 @@ export class TenantMinAggregate {
 
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+
+    @Field(() => String, {nullable:true})
+    nanoid?: string;
+
+    @Field(() => String, {nullable:true})
+    slug?: string;
 }

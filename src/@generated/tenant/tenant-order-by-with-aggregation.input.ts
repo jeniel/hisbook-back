@@ -30,6 +30,12 @@ export class TenantOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: `${SortOrder}`;
 
+    @Field(() => SortOrder, {nullable:true})
+    nanoid?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    slug?: `${SortOrder}`;
+
     @Field(() => TenantCountOrderByAggregateInput, {nullable:true})
     _count?: TenantCountOrderByAggregateInput;
 

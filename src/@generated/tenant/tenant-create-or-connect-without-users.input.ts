@@ -10,7 +10,7 @@ export class TenantCreateOrConnectWithoutUsersInput {
 
     @Field(() => TenantWhereUniqueInput, {nullable:false})
     @Type(() => TenantWhereUniqueInput)
-    where!: Prisma.AtLeast<TenantWhereUniqueInput, 'id'>;
+    where!: Prisma.AtLeast<TenantWhereUniqueInput, 'id' | 'nanoid' | 'slug'>;
 
     @Field(() => TenantCreateWithoutUsersInput, {nullable:false})
     @Type(() => TenantCreateWithoutUsersInput)

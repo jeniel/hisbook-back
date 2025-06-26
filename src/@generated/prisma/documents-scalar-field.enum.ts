@@ -1,9 +1,10 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum DocumentsScalarFieldEnum {
-    id = "id",
+    client_id = "client_id",
     content = "content",
     metadata = "metadata",
+    id = "id",
     tenantId = "tenantId"
 }
 

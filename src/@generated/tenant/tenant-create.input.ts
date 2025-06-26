@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UserCreateNestedManyWithoutTenantInput } from '../user/user-create-nested-many-without-tenant.input';
 import { documentsCreateNestedManyWithoutTenantInput } from '../documents/documents-create-nested-many-without-tenant.input';
+import { UserCreateNestedManyWithoutTenantInput } from '../user/user-create-nested-many-without-tenant.input';
 
 @InputType()
 export class TenantCreateInput {
@@ -27,9 +27,15 @@ export class TenantCreateInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => UserCreateNestedManyWithoutTenantInput, {nullable:true})
-    users?: UserCreateNestedManyWithoutTenantInput;
+    @Field(() => String, {nullable:true})
+    nanoid?: string;
+
+    @Field(() => String, {nullable:false})
+    slug!: string;
 
     @Field(() => documentsCreateNestedManyWithoutTenantInput, {nullable:true})
     documents?: documentsCreateNestedManyWithoutTenantInput;
+
+    @Field(() => UserCreateNestedManyWithoutTenantInput, {nullable:true})
+    users?: UserCreateNestedManyWithoutTenantInput;
 }

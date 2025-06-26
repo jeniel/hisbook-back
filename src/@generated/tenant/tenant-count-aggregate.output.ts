@@ -27,5 +27,11 @@ export class TenantCountAggregate {
     updatedAt!: number;
 
     @Field(() => Int, {nullable:false})
+    nanoid!: number;
+
+    @Field(() => Int, {nullable:false})
+    slug!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

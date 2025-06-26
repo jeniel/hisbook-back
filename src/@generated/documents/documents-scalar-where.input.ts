@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { BigIntFilter } from '../prisma/big-int-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
+import { UuidFilter } from '../prisma/uuid-filter.input';
 
 @InputType()
 export class documentsScalarWhereInput {
@@ -16,14 +16,17 @@ export class documentsScalarWhereInput {
     @Field(() => [documentsScalarWhereInput], {nullable:true})
     NOT?: Array<documentsScalarWhereInput>;
 
-    @Field(() => BigIntFilter, {nullable:true})
-    id?: BigIntFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    client_id?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     content?: StringNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
     metadata?: JsonNullableFilter;
+
+    @Field(() => UuidFilter, {nullable:true})
+    id?: UuidFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     tenantId?: StringNullableFilter;

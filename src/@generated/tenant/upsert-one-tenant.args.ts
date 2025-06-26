@@ -11,7 +11,7 @@ export class UpsertOneTenantArgs {
 
     @Field(() => TenantWhereUniqueInput, {nullable:false})
     @Type(() => TenantWhereUniqueInput)
-    where!: Prisma.AtLeast<TenantWhereUniqueInput, 'id'>;
+    where!: Prisma.AtLeast<TenantWhereUniqueInput, 'id' | 'nanoid' | 'slug'>;
 
     @Field(() => TenantCreateInput, {nullable:false})
     @Type(() => TenantCreateInput)

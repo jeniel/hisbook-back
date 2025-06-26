@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { BigIntWithAggregatesFilter } from '../prisma/big-int-with-aggregates-filter.input';
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
+import { UuidWithAggregatesFilter } from '../prisma/uuid-with-aggregates-filter.input';
 
 @InputType()
 export class documentsScalarWhereWithAggregatesInput {
@@ -16,14 +16,17 @@ export class documentsScalarWhereWithAggregatesInput {
     @Field(() => [documentsScalarWhereWithAggregatesInput], {nullable:true})
     NOT?: Array<documentsScalarWhereWithAggregatesInput>;
 
-    @Field(() => BigIntWithAggregatesFilter, {nullable:true})
-    id?: BigIntWithAggregatesFilter;
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    client_id?: StringNullableWithAggregatesFilter;
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     content?: StringNullableWithAggregatesFilter;
 
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
     metadata?: JsonNullableWithAggregatesFilter;
+
+    @Field(() => UuidWithAggregatesFilter, {nullable:true})
+    id?: UuidWithAggregatesFilter;
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     tenantId?: StringNullableWithAggregatesFilter;

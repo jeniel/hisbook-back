@@ -37,4 +37,10 @@ export class TenantScalarWhereWithAggregatesInput {
 
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     updatedAt?: DateTimeWithAggregatesFilter;
+
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    nanoid?: StringWithAggregatesFilter;
+
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    slug?: StringWithAggregatesFilter;
 }

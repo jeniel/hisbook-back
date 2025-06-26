@@ -6,13 +6,16 @@ import { SortOrder } from '../prisma/sort-order.enum';
 export class documentsCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
-    id?: `${SortOrder}`;
+    client_id?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
     content?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
     metadata?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    id?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
     tenantId?: `${SortOrder}`;

@@ -6,13 +6,16 @@ import { GraphQLJSON } from 'graphql-type-json';
 export class documentsUncheckedCreateInput {
 
     @Field(() => String, {nullable:true})
-    id?: bigint | number;
+    client_id?: string;
 
     @Field(() => String, {nullable:true})
     content?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     metadata?: any;
+
+    @Field(() => String, {nullable:true})
+    id?: string;
 
     @Field(() => String, {nullable:true})
     tenantId?: string;

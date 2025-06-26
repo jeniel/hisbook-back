@@ -28,6 +28,12 @@ export class TenantGroupBy {
     @Field(() => Date, {nullable:false})
     updatedAt!: Date | string;
 
+    @Field(() => String, {nullable:false})
+    nanoid!: string;
+
+    @Field(() => String, {nullable:false})
+    slug!: string;
+
     @Field(() => TenantCountAggregate, {nullable:true})
     _count?: TenantCountAggregate;
 

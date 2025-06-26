@@ -34,7 +34,7 @@ export class TenantUpdateOneWithoutUsersNestedInput {
 
     @Field(() => TenantWhereUniqueInput, {nullable:true})
     @Type(() => TenantWhereUniqueInput)
-    connect?: Prisma.AtLeast<TenantWhereUniqueInput, 'id'>;
+    connect?: Prisma.AtLeast<TenantWhereUniqueInput, 'id' | 'nanoid' | 'slug'>;
 
     @Field(() => TenantUpdateToOneWithWhereWithoutUsersInput, {nullable:true})
     @Type(() => TenantUpdateToOneWithWhereWithoutUsersInput)

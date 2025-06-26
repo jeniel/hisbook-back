@@ -30,6 +30,12 @@ export class TenantUpdateWithoutDocumentsInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    nanoid?: StringFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    slug?: StringFieldUpdateOperationsInput;
+
     @Field(() => UserUpdateManyWithoutTenantNestedInput, {nullable:true})
     users?: UserUpdateManyWithoutTenantNestedInput;
 }

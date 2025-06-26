@@ -3,8 +3,8 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
-import { Tenant } from '../tenant/tenant.model';
 import { Profile } from '../profile/profile.model';
+import { Tenant } from '../tenant/tenant.model';
 
 @ObjectType()
 export class User {
@@ -51,9 +51,9 @@ export class User {
     @Field(() => String, {nullable:true})
     tenantId!: string | null;
 
-    @Field(() => Tenant, {nullable:true})
-    tenant?: Tenant | null;
-
     @Field(() => Profile, {nullable:true})
     profile?: Profile | null;
+
+    @Field(() => Tenant, {nullable:true})
+    tenant?: Tenant | null;
 }

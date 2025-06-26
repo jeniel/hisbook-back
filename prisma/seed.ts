@@ -4,12 +4,12 @@ import * as argon2 from 'argon2';
 const prisma = new PrismaClient();
 
 async function main() {
-  const password = await argon2.hash('password');
+  const password = await argon2.hash('34670cfafbd9');
   await prisma.user.upsert({
-    where: { email: 'admin@gmail.com' },
+    where: { email: 'joe@advancedlocal.com' },
     update: {},
     create: {
-      email: 'admin@gmail.com',
+      email: 'joe@advancedlocal.com',
       username: 'admin',
       hashedPassword: password,
       role: ['SUPER_ADMIN'],
@@ -17,8 +17,8 @@ async function main() {
       isApprove: true,
       profile: {
         create: {
-          firstName: 'Admin',
-          lastName: 'User',
+          firstName: 'JOE MARK',
+          lastName: 'GIMENO',
         },
       },
     },

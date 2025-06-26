@@ -7,13 +7,16 @@ import { TenantCreateNestedOneWithoutDocumentsInput } from '../tenant/tenant-cre
 export class documentsCreateInput {
 
     @Field(() => String, {nullable:true})
-    id?: bigint | number;
+    client_id?: string;
 
     @Field(() => String, {nullable:true})
     content?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     metadata?: any;
+
+    @Field(() => String, {nullable:true})
+    id?: string;
 
     @Field(() => TenantCreateNestedOneWithoutDocumentsInput, {nullable:true})
     tenant?: TenantCreateNestedOneWithoutDocumentsInput;

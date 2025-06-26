@@ -26,5 +26,11 @@ export class TenantCountAggregateInput {
     updatedAt?: true;
 
     @Field(() => Boolean, {nullable:true})
+    nanoid?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    slug?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }

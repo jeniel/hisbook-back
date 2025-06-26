@@ -13,11 +13,9 @@ model User {
   createdBy          String?  @map("created_by")
   updatedAt          DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
   updatedBy          String?  @map("updated_by")
-
-  //Relationships
-  tenant   Tenant?  @relation(fields: [tenantId], references: [id])
-  tenantId String?
-  profile  Profile?
+  tenantId           String?
+  profile            Profile?
+  tenant             Tenant?  @relation(fields: [tenantId], references: [id])
 
   @@map("user")
   @@schema("public")
@@ -36,9 +34,9 @@ model Profile {
   contact      Json?
   departmentId String?     @map("department_id")
   userId       String?     @unique @map("user_id")
-  createdAt    DateTime    @default(now()) @map("created_at") @db.Date()
+  createdAt    DateTime    @default(now()) @map("created_at") @db.Date
   createdBy    String?     @map("created_by")
-  updatedAt    DateTime    @default(now()) @updatedAt @map("updated_at") @db.Date()
+  updatedAt    DateTime    @default(now()) @updatedAt @map("updated_at") @db.Date
   updatedBy    String?     @map("updated_by")
   department   Department? @relation(fields: [departmentId], references: [id])
   user         User?       @relation(fields: [userId], references: [id])
@@ -48,17 +46,17 @@ model Profile {
 }
 
 model Tenant {
-  id          String  @id @default(nanoid(8))
+  id          String      @id @default(nanoid(8))
   name        String
   description String?
-  isActive    Boolean @default(true) @map("is_active")
-  isApprove   Boolean @default(false) @map("is_approve")
-
-  //Relationships
-  users     User[]
-  documents documents[]
-  createdAt DateTime    @default(now()) @map("created_at") @db.Date()
-  updatedAt DateTime    @default(now()) @updatedAt @map("updated_at") @db.Date()
+  isActive    Boolean     @default(true) @map("is_active")
+  isApprove   Boolean     @default(false) @map("is_approve")
+  createdAt   DateTime    @default(now()) @map("created_at") @db.Date
+  updatedAt   DateTime    @default(now()) @updatedAt @map("updated_at") @db.Date
+  nanoid      String      @unique @default(nanoid(8))
+  slug        String      @unique
+  documents   documents[]
+  users       User[]
 
   @@map("tenant")
   @@schema("public")

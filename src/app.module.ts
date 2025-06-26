@@ -14,6 +14,7 @@ import { GlobalModule } from './global/global.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ToolsModule } from './tools/tools.module';
 import { IntegrationModule } from './integration/integration.module';
+import { AgentModule } from './agent/agent.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { IntegrationModule } from './integration/integration.module';
     GlobalModule,
     ToolsModule,
     IntegrationModule,
+    AgentModule,
   ],
   providers: [
     JwtService,

@@ -5,14 +5,20 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { BoolFilter } from '../prisma/bool-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 import { DocumentsListRelationFilter } from '../prisma/documents-list-relation-filter.input';
+import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 
 @InputType()
 export class TenantWhereUniqueInput {
 
     @Field(() => String, {nullable:true})
     id?: string;
+
+    @Field(() => String, {nullable:true})
+    nanoid?: string;
+
+    @Field(() => String, {nullable:true})
+    slug?: string;
 
     @Field(() => [TenantWhereInput], {nullable:true})
     AND?: Array<TenantWhereInput>;
@@ -41,9 +47,9 @@ export class TenantWhereUniqueInput {
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
 
-    @Field(() => UserListRelationFilter, {nullable:true})
-    users?: UserListRelationFilter;
-
     @Field(() => DocumentsListRelationFilter, {nullable:true})
     documents?: DocumentsListRelationFilter;
+
+    @Field(() => UserListRelationFilter, {nullable:true})
+    users?: UserListRelationFilter;
 }

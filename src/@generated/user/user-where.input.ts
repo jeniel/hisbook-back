@@ -5,8 +5,8 @@ import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { EnumRoleNullableListFilter } from '../prisma/enum-role-nullable-list-filter.input';
 import { BoolFilter } from '../prisma/bool-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { TenantNullableScalarRelationFilter } from '../tenant/tenant-nullable-scalar-relation-filter.input';
 import { ProfileNullableScalarRelationFilter } from '../profile/profile-nullable-scalar-relation-filter.input';
+import { TenantNullableScalarRelationFilter } from '../tenant/tenant-nullable-scalar-relation-filter.input';
 
 @InputType()
 export class UserWhereInput {
@@ -59,9 +59,9 @@ export class UserWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     tenantId?: StringNullableFilter;
 
-    @Field(() => TenantNullableScalarRelationFilter, {nullable:true})
-    tenant?: TenantNullableScalarRelationFilter;
-
     @Field(() => ProfileNullableScalarRelationFilter, {nullable:true})
     profile?: ProfileNullableScalarRelationFilter;
+
+    @Field(() => TenantNullableScalarRelationFilter, {nullable:true})
+    tenant?: TenantNullableScalarRelationFilter;
 }
