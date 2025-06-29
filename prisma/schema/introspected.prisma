@@ -1,10 +1,10 @@
 model documents {
-  client_id String?
   content   String?
   metadata  Json?
   embedding Unsupported("vector")?
-  id        String                 @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   tenantId  String?                @map("tenant_id")
+  client_id String?
+  id        String                 @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   tenant    Tenant?                @relation(fields: [tenantId], references: [id])
 
   @@schema("public")
@@ -27,6 +27,23 @@ model chats_demo {
 }
 
 model documents_demo {
+  id        String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  content   String?
+  metadata  Json?
+  embedding Unsupported("vector")?
+
+  @@schema("public")
+}
+
+model chats_becker {
+  id         String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  session_id String @db.VarChar(255)
+  message    Json?
+
+  @@schema("public")
+}
+
+model documents_becker {
   id        String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   content   String?
   metadata  Json?

@@ -1,6 +1,7 @@
-import { Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { TenantService } from './tenant.service';
 import { GeneralMsg } from 'src/common/entities/general-msg.entities';
+import { CreateTenant } from './dto/create';
 
 @Resolver()
 export class TenantResolver {
@@ -9,8 +10,8 @@ export class TenantResolver {
 
   
   @Mutation(() => GeneralMsg)
-  createTenant() {
-    return this.tenantService.createTenant();
+  createTenant(@Args('createTenant') payload: CreateTenant) {
+    return this.tenantService.createTenant(payload);
   }
 
 

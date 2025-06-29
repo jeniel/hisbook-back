@@ -23,6 +23,12 @@ input CreateProfileInput {
   middleName: String
 }
 
+input CreateTenant {
+  description: String
+  name: String!
+  slug: String!
+}
+
 input CreateUserInput {
   email: String!
   hashedPassword: String!
@@ -98,12 +104,6 @@ input DocumentsListRelationFilter {
   every: documentsWhereInput
   none: documentsWhereInput
   some: documentsWhereInput
-}
-
-type Embedding {
-  content: JSON
-  embedding: [Float!]
-  metadata: JSON
 }
 
 input EnumRoleNullableListFilter {
@@ -266,9 +266,9 @@ type Meta {
 }
 
 type Mutation {
-  createEmbedding(content: JSON!): Embedding!
+  createEmbedding(content: JSON!): GeneralMsg!
   createPagePost(CreatePostInput: CreatePostPage!): GeneralMsg!
-  createTenant: GeneralMsg!
+  createTenant(createTenant: CreateTenant!): GeneralMsg!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!

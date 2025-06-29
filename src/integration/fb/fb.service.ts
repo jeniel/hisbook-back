@@ -38,7 +38,7 @@ export class FbService {
     ]);
 
     const formattedData = pages.map((page) => ({
-      fbId: page.id,
+      fbId: page.id ?? null,
       name: page.name,
       username: page.username ?? null,
       about: page.about ?? null,
@@ -54,8 +54,11 @@ export class FbService {
     await this.prisma.$transaction(
       formattedData.map((page) =>
         this.prisma.facebookPage.upsert({
-          where: { id: page.fbId },
-          update: page,
+          where: { fbId: page.fbId },
+          update: {
+            imageUrl: page.imageUrl,
+            accessToken: page.accessToken,
+          },
           create: page,
         }),
       ),
