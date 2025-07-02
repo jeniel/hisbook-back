@@ -17,17 +17,17 @@ export class documentsScalarWhereWithAggregatesInput {
     NOT?: Array<documentsScalarWhereWithAggregatesInput>;
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    client_id?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     content?: StringNullableWithAggregatesFilter;
 
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
     metadata?: JsonNullableWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
-
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     tenantId?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    client_id?: StringNullableWithAggregatesFilter;
+
+    @Field(() => UuidWithAggregatesFilter, {nullable:true})
+    id?: UuidWithAggregatesFilter;
 }

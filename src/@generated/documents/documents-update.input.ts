@@ -9,13 +9,13 @@ import { TenantUpdateOneWithoutDocumentsNestedInput } from '../tenant/tenant-upd
 export class documentsUpdateInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    client_id?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     content?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => GraphQLJSON, {nullable:true})
     metadata?: any;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    client_id?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     id?: StringFieldUpdateOperationsInput;

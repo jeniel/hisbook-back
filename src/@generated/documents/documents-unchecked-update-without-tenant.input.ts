@@ -8,13 +8,13 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 export class documentsUncheckedUpdateWithoutTenantInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    client_id?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     content?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => GraphQLJSON, {nullable:true})
     metadata?: any;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    client_id?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     id?: StringFieldUpdateOperationsInput;

@@ -251,6 +251,11 @@ input JsonNullableFilter {
   string_starts_with: String
 }
 
+type LangChain {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type MeQuery {
   isSignedIn: Boolean!
   user: User!
@@ -270,6 +275,7 @@ type Mutation {
   createPagePost(CreatePostInput: CreatePostPage!): GeneralMsg!
   createTenant(createTenant: CreateTenant!): GeneralMsg!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
+  embedText(content: JSON!): LangChain!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!

@@ -18,19 +18,19 @@ export class documentsWhereInput {
     NOT?: Array<documentsWhereInput>;
 
     @Field(() => StringNullableFilter, {nullable:true})
-    client_id?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
     content?: StringNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
     metadata?: JsonNullableFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
-
     @Field(() => StringNullableFilter, {nullable:true})
     tenantId?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    client_id?: StringNullableFilter;
+
+    @Field(() => UuidFilter, {nullable:true})
+    id?: UuidFilter;
 
     @Field(() => TenantNullableScalarRelationFilter, {nullable:true})
     tenant?: TenantNullableScalarRelationFilter;

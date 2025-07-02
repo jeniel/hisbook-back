@@ -8,19 +8,19 @@ import { TenantOrderByWithRelationInput } from '../tenant/tenant-order-by-with-r
 export class documentsOrderByWithRelationInput {
 
     @Field(() => SortOrderInput, {nullable:true})
-    client_id?: SortOrderInput;
-
-    @Field(() => SortOrderInput, {nullable:true})
     content?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
     metadata?: SortOrderInput;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: `${SortOrder}`;
-
     @Field(() => SortOrderInput, {nullable:true})
     tenantId?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    client_id?: SortOrderInput;
+
+    @Field(() => SortOrder, {nullable:true})
+    id?: `${SortOrder}`;
 
     @Field(() => TenantOrderByWithRelationInput, {nullable:true})
     tenant?: TenantOrderByWithRelationInput;

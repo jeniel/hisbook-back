@@ -10,19 +10,19 @@ import { documentsMinOrderByAggregateInput } from './documents-min-order-by-aggr
 export class documentsOrderByWithAggregationInput {
 
     @Field(() => SortOrderInput, {nullable:true})
-    client_id?: SortOrderInput;
-
-    @Field(() => SortOrderInput, {nullable:true})
     content?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
     metadata?: SortOrderInput;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: `${SortOrder}`;
-
     @Field(() => SortOrderInput, {nullable:true})
     tenantId?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    client_id?: SortOrderInput;
+
+    @Field(() => SortOrder, {nullable:true})
+    id?: `${SortOrder}`;
 
     @Field(() => documentsCountOrderByAggregateInput, {nullable:true})
     _count?: documentsCountOrderByAggregateInput;

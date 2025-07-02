@@ -9,19 +9,19 @@ import { DocumentsMaxAggregate } from './documents-max-aggregate.output';
 export class DocumentsGroupBy {
 
     @Field(() => String, {nullable:true})
-    client_id?: string;
-
-    @Field(() => String, {nullable:true})
     content?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     metadata?: any;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
-
     @Field(() => String, {nullable:true})
     tenantId?: string;
+
+    @Field(() => String, {nullable:true})
+    client_id?: string;
+
+    @Field(() => String, {nullable:false})
+    id!: string;
 
     @Field(() => DocumentsCountAggregate, {nullable:true})
     _count?: DocumentsCountAggregate;

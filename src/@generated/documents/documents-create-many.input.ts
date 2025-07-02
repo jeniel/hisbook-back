@@ -6,17 +6,17 @@ import { GraphQLJSON } from 'graphql-type-json';
 export class documentsCreateManyInput {
 
     @Field(() => String, {nullable:true})
-    client_id?: string;
-
-    @Field(() => String, {nullable:true})
     content?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     metadata?: any;
 
     @Field(() => String, {nullable:true})
-    id?: string;
+    tenantId?: string;
 
     @Field(() => String, {nullable:true})
-    tenantId?: string;
+    client_id?: string;
+
+    @Field(() => String, {nullable:true})
+    id?: string;
 }

@@ -21,9 +21,6 @@ export class documentsWhereUniqueInput {
     NOT?: Array<documentsWhereInput>;
 
     @Field(() => StringNullableFilter, {nullable:true})
-    client_id?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
     content?: StringNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
@@ -31,6 +28,9 @@ export class documentsWhereUniqueInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     tenantId?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    client_id?: StringNullableFilter;
 
     @Field(() => TenantNullableScalarRelationFilter, {nullable:true})
     tenant?: TenantNullableScalarRelationFilter;

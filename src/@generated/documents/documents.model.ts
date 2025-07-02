@@ -8,19 +8,19 @@ import { Tenant } from '../tenant/tenant.model';
 export class documents {
 
     @Field(() => String, {nullable:true})
-    client_id!: string | null;
-
-    @Field(() => String, {nullable:true})
     content!: string | null;
 
     @Field(() => GraphQLJSON, {nullable:true})
     metadata!: any | null;
 
-    @Field(() => ID, {nullable:false})
-    id!: string;
-
     @Field(() => String, {nullable:true})
     tenantId!: string | null;
+
+    @Field(() => String, {nullable:true})
+    client_id!: string | null;
+
+    @Field(() => ID, {nullable:false})
+    id!: string;
 
     @Field(() => Tenant, {nullable:true})
     tenant?: Tenant | null;

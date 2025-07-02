@@ -5,14 +5,14 @@ import { ObjectType } from '@nestjs/graphql';
 export class DocumentsMaxAggregate {
 
     @Field(() => String, {nullable:true})
-    client_id?: string;
-
-    @Field(() => String, {nullable:true})
     content?: string;
 
     @Field(() => String, {nullable:true})
-    id?: string;
+    tenantId?: string;
 
     @Field(() => String, {nullable:true})
-    tenantId?: string;
+    client_id?: string;
+
+    @Field(() => String, {nullable:true})
+    id?: string;
 }

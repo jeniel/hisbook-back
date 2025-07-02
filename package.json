@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "@apollo/server": "^4.11.3",
+    "@langchain/core": "^0.3.61",
+    "@langchain/openai": "^0.5.16",
     "@nestjs/apollo": "^12.2.2",
     "@nestjs/axios": "^4.0.0",
     "@nestjs/common": "^10.0.0",

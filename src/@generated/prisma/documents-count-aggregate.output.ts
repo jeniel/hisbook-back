@@ -6,19 +6,19 @@ import { Int } from '@nestjs/graphql';
 export class DocumentsCountAggregate {
 
     @Field(() => Int, {nullable:false})
-    client_id!: number;
-
-    @Field(() => Int, {nullable:false})
     content!: number;
 
     @Field(() => Int, {nullable:false})
     metadata!: number;
 
     @Field(() => Int, {nullable:false})
-    id!: number;
+    tenantId!: number;
 
     @Field(() => Int, {nullable:false})
-    tenantId!: number;
+    client_id!: number;
+
+    @Field(() => Int, {nullable:false})
+    id!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

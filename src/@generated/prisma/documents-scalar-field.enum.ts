@@ -1,11 +1,11 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum DocumentsScalarFieldEnum {
-    client_id = "client_id",
     content = "content",
     metadata = "metadata",
-    id = "id",
-    tenantId = "tenantId"
+    tenantId = "tenantId",
+    client_id = "client_id",
+    id = "id"
 }
 
 
