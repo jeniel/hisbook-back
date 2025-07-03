@@ -3,8 +3,10 @@ import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { documents_beckerCountOrderByAggregateInput } from './documents-becker-count-order-by-aggregate.input';
+import { documents_beckerAvgOrderByAggregateInput } from './documents-becker-avg-order-by-aggregate.input';
 import { documents_beckerMaxOrderByAggregateInput } from './documents-becker-max-order-by-aggregate.input';
 import { documents_beckerMinOrderByAggregateInput } from './documents-becker-min-order-by-aggregate.input';
+import { documents_beckerSumOrderByAggregateInput } from './documents-becker-sum-order-by-aggregate.input';
 
 @InputType()
 export class documents_beckerOrderByWithAggregationInput {
@@ -21,9 +23,15 @@ export class documents_beckerOrderByWithAggregationInput {
     @Field(() => documents_beckerCountOrderByAggregateInput, {nullable:true})
     _count?: documents_beckerCountOrderByAggregateInput;
 
+    @Field(() => documents_beckerAvgOrderByAggregateInput, {nullable:true})
+    _avg?: documents_beckerAvgOrderByAggregateInput;
+
     @Field(() => documents_beckerMaxOrderByAggregateInput, {nullable:true})
     _max?: documents_beckerMaxOrderByAggregateInput;
 
     @Field(() => documents_beckerMinOrderByAggregateInput, {nullable:true})
     _min?: documents_beckerMinOrderByAggregateInput;
+
+    @Field(() => documents_beckerSumOrderByAggregateInput, {nullable:true})
+    _sum?: documents_beckerSumOrderByAggregateInput;
 }

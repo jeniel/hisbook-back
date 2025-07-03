@@ -6,7 +6,7 @@ import { GraphQLJSON } from 'graphql-type-json';
 export class documents_beckerCreateInput {
 
     @Field(() => String, {nullable:true})
-    id?: string;
+    id?: bigint | number;
 
     @Field(() => String, {nullable:true})
     content?: string;

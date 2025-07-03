@@ -7,7 +7,7 @@ import { GraphQLJSON } from 'graphql-type-json';
 export class chats_becker {
 
     @Field(() => ID, {nullable:false})
-    id!: string;
+    id!: bigint;
 
     @Field(() => String, {nullable:false})
     session_id!: string;

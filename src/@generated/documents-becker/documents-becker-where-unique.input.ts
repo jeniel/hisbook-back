@@ -8,7 +8,7 @@ import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 export class documents_beckerWhereUniqueInput {
 
     @Field(() => String, {nullable:true})
-    id?: string;
+    id?: bigint | number;
 
     @Field(() => [documents_beckerWhereInput], {nullable:true})
     AND?: Array<documents_beckerWhereInput>;

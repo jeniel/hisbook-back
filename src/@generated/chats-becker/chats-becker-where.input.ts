@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UuidFilter } from '../prisma/uuid-filter.input';
+import { BigIntFilter } from '../prisma/big-int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 
@@ -16,8 +16,8 @@ export class chats_beckerWhereInput {
     @Field(() => [chats_beckerWhereInput], {nullable:true})
     NOT?: Array<chats_beckerWhereInput>;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+    @Field(() => BigIntFilter, {nullable:true})
+    id?: BigIntFilter;
 
     @Field(() => StringFilter, {nullable:true})
     session_id?: StringFilter;

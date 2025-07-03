@@ -3,8 +3,10 @@ import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { chats_beckerCountOrderByAggregateInput } from './chats-becker-count-order-by-aggregate.input';
+import { chats_beckerAvgOrderByAggregateInput } from './chats-becker-avg-order-by-aggregate.input';
 import { chats_beckerMaxOrderByAggregateInput } from './chats-becker-max-order-by-aggregate.input';
 import { chats_beckerMinOrderByAggregateInput } from './chats-becker-min-order-by-aggregate.input';
+import { chats_beckerSumOrderByAggregateInput } from './chats-becker-sum-order-by-aggregate.input';
 
 @InputType()
 export class chats_beckerOrderByWithAggregationInput {
@@ -21,9 +23,15 @@ export class chats_beckerOrderByWithAggregationInput {
     @Field(() => chats_beckerCountOrderByAggregateInput, {nullable:true})
     _count?: chats_beckerCountOrderByAggregateInput;
 
+    @Field(() => chats_beckerAvgOrderByAggregateInput, {nullable:true})
+    _avg?: chats_beckerAvgOrderByAggregateInput;
+
     @Field(() => chats_beckerMaxOrderByAggregateInput, {nullable:true})
     _max?: chats_beckerMaxOrderByAggregateInput;
 
     @Field(() => chats_beckerMinOrderByAggregateInput, {nullable:true})
     _min?: chats_beckerMinOrderByAggregateInput;
+
+    @Field(() => chats_beckerSumOrderByAggregateInput, {nullable:true})
+    _sum?: chats_beckerSumOrderByAggregateInput;
 }

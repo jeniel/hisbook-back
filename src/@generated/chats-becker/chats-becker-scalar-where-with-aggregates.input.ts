@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UuidWithAggregatesFilter } from '../prisma/uuid-with-aggregates-filter.input';
+import { BigIntWithAggregatesFilter } from '../prisma/big-int-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
 
@@ -16,8 +16,8 @@ export class chats_beckerScalarWhereWithAggregatesInput {
     @Field(() => [chats_beckerScalarWhereWithAggregatesInput], {nullable:true})
     NOT?: Array<chats_beckerScalarWhereWithAggregatesInput>;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+    @Field(() => BigIntWithAggregatesFilter, {nullable:true})
+    id?: BigIntWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     session_id?: StringWithAggregatesFilter;

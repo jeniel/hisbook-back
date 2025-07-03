@@ -7,7 +7,7 @@ import { GraphQLJSON } from 'graphql-type-json';
 export class documents_becker {
 
     @Field(() => ID, {nullable:false})
-    id!: string;
+    id!: bigint;
 
     @Field(() => String, {nullable:true})
     content!: string | null;

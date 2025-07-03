@@ -57,7 +57,6 @@ model Tenant {
   slug              String   @unique
   chatTableName     String?  @map("chat_table_name")
   documentTableName String?  @map("document_table_name")
-  // documents   documents[]
   users             User[]
 
   @@map("tenant")

@@ -5,7 +5,7 @@ import { ObjectType } from '@nestjs/graphql';
 export class Chats_beckerMaxAggregate {
 
     @Field(() => String, {nullable:true})
-    id?: string;
+    id?: bigint | number;
 
     @Field(() => String, {nullable:true})
     session_id?: string;
