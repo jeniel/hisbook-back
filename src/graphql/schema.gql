@@ -427,6 +427,7 @@ input ProfileWhereInput {
 }
 
 type Query {
+  chatWithModel: String!
   chats: [n8n_chat_histories!]!
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllFbDetails(page: Int, perPage: Int, where: FacebookPageWhereInput): FaceBookPageList!

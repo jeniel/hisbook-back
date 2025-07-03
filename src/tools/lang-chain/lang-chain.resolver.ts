@@ -13,4 +13,9 @@ export class LangChainResolver {
   embedText(@Args('content', { type: () => GraphQLJSON }) content: any) {
     return this.langChainService.embedText(content);
   }
+
+  @Query(() => String)
+  chatWithModel() { 
+    return this.langChainService.chatWithModel();
+  }
 }

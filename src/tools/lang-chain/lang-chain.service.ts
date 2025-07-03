@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { OpenAIEmbeddings } from '@langchain/openai';
+import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class LangChainService {
   private embeddings: OpenAIEmbeddings;
+  private model = new ChatOpenAI();
 
   constructor(private readonly prisma: PrismaService) {
     const apiKey = process.env.OPENAI_API_KEY; // Ensure this is set in your .env file
@@ -12,6 +13,12 @@ export class LangChainService {
       openAIApiKey: apiKey,
       dimensions: 1536,
       modelName: 'text-embedding-3-small',
+    });
+    this.model = new ChatOpenAI({
+      openAIApiKey: apiKey,
+      modelName: 'gpt-3.5-turbo',
+      temperature: 0.7,
+      maxTokens: 1000,
     });
   }
 
@@ -23,6 +30,13 @@ export class LangChainService {
       VALUES (${content}, ${embedding}::float[]);
     `;
     return embedding;
+  }
+
+  async chatWithModel() {
+    const response = await this.model.invoke("What is the capital of France?");
+    console.log('Model Response:', response);
+
+    return response.text;
   }
 
   //async embedDocuments(
