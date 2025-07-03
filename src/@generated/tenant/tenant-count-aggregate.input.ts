@@ -32,5 +32,11 @@ export class TenantCountAggregateInput {
     slug?: true;
 
     @Field(() => Boolean, {nullable:true})
+    chatTableName?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    documentTableName?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }

@@ -33,5 +33,11 @@ export class TenantCountAggregate {
     slug!: number;
 
     @Field(() => Int, {nullable:false})
+    chatTableName!: number;
+
+    @Field(() => Int, {nullable:false})
+    documentTableName!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

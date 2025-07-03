@@ -4,7 +4,6 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { documentsUpdateManyWithoutTenantNestedInput } from '../documents/documents-update-many-without-tenant-nested.input';
 import { UserUpdateManyWithoutTenantNestedInput } from '../user/user-update-many-without-tenant-nested.input';
 
 @InputType()
@@ -37,8 +36,11 @@ export class TenantUpdateInput {
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     slug?: StringFieldUpdateOperationsInput;
 
-    @Field(() => documentsUpdateManyWithoutTenantNestedInput, {nullable:true})
-    documents?: documentsUpdateManyWithoutTenantNestedInput;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    chatTableName?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    documentTableName?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => UserUpdateManyWithoutTenantNestedInput, {nullable:true})
     users?: UserUpdateManyWithoutTenantNestedInput;

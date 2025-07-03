@@ -30,4 +30,10 @@ export class TenantMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     slug?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    chatTableName?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    documentTableName?: true;
 }

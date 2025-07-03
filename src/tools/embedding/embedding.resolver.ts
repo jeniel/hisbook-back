@@ -8,10 +8,10 @@ import { GeneralMsg } from 'src/common/entities/general-msg.entities';
 export class EmbeddingResolver {
   constructor(private readonly embeddingService: EmbeddingService) {}
 
-  @Mutation(() => GeneralMsg)
-  async createEmbedding(
-    @Args('content', { type: () => GraphQLJSON }) content: any,
-  ) {
-    return this.embeddingService.embedJsonObject(content);
-  }
+  // @Mutation(() => GeneralMsg)
+  // async createEmbedding(
+  //   @Args('content', { type: () => GraphQLJSON }) content: any,
+  // ) {
+  //   return this.embeddingService.embedJsonObject(content);
+  // }
 }

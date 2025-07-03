@@ -4,7 +4,6 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { BoolFilter } from '../prisma/bool-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { DocumentsListRelationFilter } from '../prisma/documents-list-relation-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 
 @InputType()
@@ -46,8 +45,11 @@ export class TenantWhereInput {
     @Field(() => StringFilter, {nullable:true})
     slug?: StringFilter;
 
-    @Field(() => DocumentsListRelationFilter, {nullable:true})
-    documents?: DocumentsListRelationFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    chatTableName?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    documentTableName?: StringNullableFilter;
 
     @Field(() => UserListRelationFilter, {nullable:true})
     users?: UserListRelationFilter;

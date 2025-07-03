@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { documents } from '../documents/documents.model';
 import { User } from '../user/user.model';
 import { TenantCount } from './tenant-count.output';
 
@@ -35,8 +34,11 @@ export class Tenant {
     @Field(() => String, {nullable:false})
     slug!: string;
 
-    @Field(() => [documents], {nullable:true})
-    documents?: Array<documents>;
+    @Field(() => String, {nullable:true})
+    chatTableName!: string | null;
+
+    @Field(() => String, {nullable:true})
+    documentTableName!: string | null;
 
     @Field(() => [User], {nullable:true})
     users?: Array<User>;

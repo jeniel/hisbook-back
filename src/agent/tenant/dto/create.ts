@@ -11,4 +11,10 @@ export class CreateTenant {
 
   @Field(() => String, { nullable: false })
   slug!: string;
+
+  @Field(() => String, {nullable:true})
+  chatTableName!: string | null;
+
+  @Field(() => String, {nullable:true})
+  documentTableName!: string | null;
 }

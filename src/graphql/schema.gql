@@ -24,7 +24,9 @@ input CreateProfileInput {
 }
 
 input CreateTenant {
+  chatTableName: String
   description: String
+  documentTableName: String
   name: String!
   slug: String!
 }
@@ -98,12 +100,6 @@ input DepartmentWhereInput {
   id: StringFilter
   name: StringFilter
   profile: ProfileListRelationFilter
-}
-
-input DocumentsListRelationFilter {
-  every: documentsWhereInput
-  none: documentsWhereInput
-  some: documentsWhereInput
 }
 
 input EnumRoleNullableListFilter {
@@ -251,11 +247,6 @@ input JsonNullableFilter {
   string_starts_with: String
 }
 
-type LangChain {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 type MeQuery {
   isSignedIn: Boolean!
   user: User!
@@ -271,14 +262,14 @@ type Meta {
 }
 
 type Mutation {
-  createEmbedding(content: JSON!): GeneralMsg!
+  createEmbbedings(content: String!, tenantId: String!): GeneralMsg!
   createPagePost(CreatePostInput: CreatePostPage!): GeneralMsg!
   createTenant(createTenant: CreateTenant!): GeneralMsg!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
-  embedText(content: JSON!): LangChain!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
+  updateEmbbedings(content: String!, id: Float!): GeneralMsg!
   upsertDepartment(deptId: String, payload: UpsertDepartmentInput!): GeneralMsg!
 }
 
@@ -359,17 +350,6 @@ input NestedStringNullableFilter {
   startsWith: String
 }
 
-input NestedUuidFilter {
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  not: NestedUuidFilter
-  notIn: [String!]
-}
-
 type Profile {
   address: JSON
   birthDate: DateTime
@@ -431,6 +411,7 @@ type Query {
   chats: [n8n_chat_histories!]!
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllFbDetails(page: Int, perPage: Int, where: FacebookPageWhereInput): FaceBookPageList!
+  findAllTenants: [Tenant!]!
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
   findOneUser(profileId: String!): Profile!
   meQuery: MeQuery!
@@ -504,9 +485,10 @@ input StringNullableFilter {
 
 type Tenant {
   _count: TenantCount!
+  chatTableName: String
   createdAt: DateTime!
   description: String
-  documents: [documents!]
+  documentTableName: String
   id: ID!
   isActive: Boolean!
   isApprove: Boolean!
@@ -518,7 +500,6 @@ type Tenant {
 }
 
 type TenantCount {
-  documents: Int!
   users: Int!
 }
 
@@ -531,9 +512,10 @@ input TenantWhereInput {
   AND: [TenantWhereInput!]
   NOT: [TenantWhereInput!]
   OR: [TenantWhereInput!]
+  chatTableName: StringNullableFilter
   createdAt: DateTimeFilter
   description: StringNullableFilter
-  documents: DocumentsListRelationFilter
+  documentTableName: StringNullableFilter
   id: StringFilter
   isActive: BoolFilter
   isApprove: BoolFilter
@@ -603,39 +585,6 @@ input UserWhereInput {
   updatedAt: DateTimeFilter
   updatedBy: StringNullableFilter
   username: StringFilter
-}
-
-input UuidFilter {
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  mode: QueryMode
-  not: NestedUuidFilter
-  notIn: [String!]
-}
-
-type documents {
-  client_id: String
-  content: String
-  id: ID!
-  metadata: JSON
-  tenant: Tenant
-  tenantId: String
-}
-
-input documentsWhereInput {
-  AND: [documentsWhereInput!]
-  NOT: [documentsWhereInput!]
-  OR: [documentsWhereInput!]
-  client_id: StringNullableFilter
-  content: StringNullableFilter
-  id: UuidFilter
-  metadata: JsonNullableFilter
-  tenant: TenantNullableScalarRelationFilter
-  tenantId: StringNullableFilter
 }
 
 type n8n_chat_histories {

@@ -19,30 +19,38 @@ export class TenantService {
     });
 
     // Use raw SQL identifier safely with Prisma.$raw
-    const documentTableName = Prisma.raw(`documents_${tenantData.slug}`);
-    const chatTableName = Prisma.raw(`chats_${tenantData.slug}`);
+    const documentTableName = Prisma.raw(tenantData.documentTableName);
+    const chatTableName = Prisma.raw(tenantData.chatTableName);
 
     await this.prisma.$transaction([
       this.prisma.$executeRaw`
-          CREATE TABLE IF NOT EXISTS ${documentTableName} (
-            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-            content TEXT,
-            metadata JSONB,
-            embedding vector(1536)
-          )
-        `,
+        CREATE TABLE IF NOT EXISTS ${documentTableName} (
+        id bigserial primary key,
+        content TEXT,
+        metadata JSONB,
+        embedding vector(1536)
+        )
+      `,
 
       this.prisma.$executeRaw`
-          CREATE TABLE IF NOT EXISTS ${chatTableName} (
-            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-            session_id VARCHAR(255) NOT NULL,
-            message JSONB
-          )
-        `,
+        CREATE TABLE IF NOT EXISTS ${chatTableName} (
+        id bigserial primary key,
+        session_id VARCHAR(255) NOT NULL,
+        message JSONB
+        )
+      `,
     ]);
 
     return {
       message: `Tenant ${tenantData.slug} created successfully with document and chat tables`,
     };
   }
+
+  async findAllTenants() {
+    const tenants = await this.prisma.tenant.findMany();
+
+    return tenants;
+  }
+
+  //end
 }

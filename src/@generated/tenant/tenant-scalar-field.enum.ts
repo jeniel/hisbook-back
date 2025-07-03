@@ -9,7 +9,9 @@ export enum TenantScalarFieldEnum {
     createdAt = "createdAt",
     updatedAt = "updatedAt",
     nanoid = "nanoid",
-    slug = "slug"
+    slug = "slug",
+    chatTableName = "chatTableName",
+    documentTableName = "documentTableName"
 }
 
 

@@ -31,4 +31,10 @@ export class TenantMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     slug?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    chatTableName?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    documentTableName?: `${SortOrder}`;
 }

@@ -46,17 +46,19 @@ model Profile {
 }
 
 model Tenant {
-  id          String      @id @default(nanoid(8))
-  name        String
-  description String?
-  isActive    Boolean     @default(true) @map("is_active")
-  isApprove   Boolean     @default(false) @map("is_approve")
-  createdAt   DateTime    @default(now()) @map("created_at") @db.Date
-  updatedAt   DateTime    @default(now()) @updatedAt @map("updated_at") @db.Date
-  nanoid      String      @unique @default(nanoid(8))
-  slug        String      @unique
-  documents   documents[]
-  users       User[]
+  id                String   @id @default(uuid())
+  name              String
+  description       String?
+  isActive          Boolean  @default(true) @map("is_active")
+  isApprove         Boolean  @default(false) @map("is_approve")
+  createdAt         DateTime @default(now()) @map("created_at") @db.Date
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
+  nanoid            String   @unique @default(nanoid(8))
+  slug              String   @unique
+  chatTableName     String?  @map("chat_table_name")
+  documentTableName String?  @map("document_table_name")
+  // documents   documents[]
+  users             User[]
 
   @@map("tenant")
   @@schema("public")

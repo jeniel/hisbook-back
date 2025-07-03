@@ -36,6 +36,12 @@ export class TenantOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     slug?: `${SortOrder}`;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    chatTableName?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    documentTableName?: SortOrderInput;
+
     @Field(() => TenantCountOrderByAggregateInput, {nullable:true})
     _count?: TenantCountOrderByAggregateInput;
 

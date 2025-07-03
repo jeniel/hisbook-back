@@ -30,4 +30,10 @@ export class TenantMinAggregate {
 
     @Field(() => String, {nullable:true})
     slug?: string;
+
+    @Field(() => String, {nullable:true})
+    chatTableName?: string;
+
+    @Field(() => String, {nullable:true})
+    documentTableName?: string;
 }

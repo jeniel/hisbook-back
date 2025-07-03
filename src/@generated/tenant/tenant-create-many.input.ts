@@ -30,4 +30,10 @@ export class TenantCreateManyInput {
 
     @Field(() => String, {nullable:false})
     slug!: string;
+
+    @Field(() => String, {nullable:true})
+    chatTableName?: string;
+
+    @Field(() => String, {nullable:true})
+    documentTableName?: string;
 }
