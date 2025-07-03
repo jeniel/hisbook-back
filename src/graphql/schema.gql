@@ -24,9 +24,9 @@ input CreateProfileInput {
 }
 
 input CreateTenant {
-  chatTableName: String
+  chatTableName: String!
   description: String
-  documentTableName: String
+  documentTableName: String!
   name: String!
   slug: String!
 }
@@ -414,6 +414,7 @@ type Query {
   findAllTenants: [Tenant!]!
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
   findOneUser(profileId: String!): Profile!
+  findTenantById(tenantId: String!): Tenant!
   meQuery: MeQuery!
   syncToGraphApi: GeneralMsg!
 }

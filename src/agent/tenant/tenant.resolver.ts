@@ -8,8 +8,6 @@ import { Tenant } from 'src/@generated/tenant/tenant.model';
 export class TenantResolver {
   constructor(private readonly tenantService: TenantService) {}
 
-
-  
   @Mutation(() => GeneralMsg)
   createTenant(@Args('createTenant') payload: CreateTenant) {
     return this.tenantService.createTenant(payload);
@@ -20,7 +18,10 @@ export class TenantResolver {
     return this.tenantService.findAllTenants();
   }
 
-
+  @Query(() => Tenant)
+  findTenantById(@Args('tenantId') id: string) {
+    return this.tenantService.findTenantById(id);
+  }
 
   //end
 }

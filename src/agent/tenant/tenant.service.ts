@@ -48,8 +48,16 @@ export class TenantService {
 
   async findAllTenants() {
     const tenants = await this.prisma.tenant.findMany();
-
     return tenants;
+  }
+
+  async findTenantById(id: string) {
+    const tenant = await this.prisma.tenant.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    return tenant;
   }
 
   //end
