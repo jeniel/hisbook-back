@@ -66,6 +66,30 @@ export class LangChainService {
     };
   }
 
+  async findContent(tenantId: string) {
+    const tenant = await this.prisma.tenant.findUnique({
+      where: {
+        id: tenantId,
+      },
+    });
+
+    if (!tenant) {
+      throw new Error(`Tenant with ID ${tenantId} not found`);
+    }
+
+    const tableName = Prisma.raw(tenant.documentTableName);
+
+    const contents = await this.prisma.$queryRaw`
+      SELECT id,content FROM ${tableName}
+    `;
+
+    console.log(contents);
+
+    return {
+      message: 'Contents retrieved successfully',
+    };
+  }
+
   async chatWithModel() {
     const response = await this.model.invoke('What is the capital of France?');
     console.log('Model Response:', response);

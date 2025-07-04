@@ -26,6 +26,11 @@ export class LangChainResolver {
     return this.langChainService.updateEmbbedings(content, id);
   }
 
+  @Query(() => GeneralMsg)
+  findContent(@Args('tenantId') tenantId: string) {
+    return this.langChainService.findContent(tenantId);
+  }
+
   @Query(() => String)
   chatWithModel() {
     return this.langChainService.chatWithModel();

@@ -413,6 +413,7 @@ type Query {
   findAllFbDetails(page: Int, perPage: Int, where: FacebookPageWhereInput): FaceBookPageList!
   findAllTenants: [Tenant!]!
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
+  findContent(tenantId: String!): GeneralMsg!
   findOneUser(profileId: String!): Profile!
   findTenantById(tenantId: String!): Tenant!
   meQuery: MeQuery!
