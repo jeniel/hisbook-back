@@ -7,6 +7,19 @@ input BoolFilter {
   not: NestedBoolFilter
 }
 
+type Content {
+  content: String
+
+  """Unique identifier for the content"""
+  id: ID!
+}
+
+type ContentResponse {
+  content: [Content!]!
+  message: String!
+  pagination: Pagination!
+}
+
 input CreatePostPage {
   """The message to post on the Facebook Page"""
   message: String!
@@ -262,14 +275,15 @@ type Meta {
 }
 
 type Mutation {
-  createEmbbedings(content: String!, tenantId: String!): GeneralMsg!
+  createEmbeddings(content: String!, tenantId: String!): GeneralMsg!
   createPagePost(CreatePostInput: CreatePostPage!): GeneralMsg!
   createTenant(createTenant: CreateTenant!): GeneralMsg!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
+  deleteEmbedding(id: Int!, tenantId: String!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
-  updateEmbbedings(content: String!, id: Float!): GeneralMsg!
+  updateEmbeddings(content: String!, id: Float!, tenantId: String!): GeneralMsg!
   upsertDepartment(deptId: String, payload: UpsertDepartmentInput!): GeneralMsg!
 }
 
@@ -350,6 +364,15 @@ input NestedStringNullableFilter {
   startsWith: String
 }
 
+type Pagination {
+  currentPage: Int!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  totalCount: Int!
+  totalPages: Int!
+}
+
 type Profile {
   address: JSON
   birthDate: DateTime
@@ -413,7 +436,7 @@ type Query {
   findAllFbDetails(page: Int, perPage: Int, where: FacebookPageWhereInput): FaceBookPageList!
   findAllTenants: [Tenant!]!
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
-  findContent(tenantId: String!): GeneralMsg!
+  findContent(limit: Int! = 10, page: Int! = 1, tenantId: String!): ContentResponse!
   findOneUser(profileId: String!): Profile!
   findTenantById(tenantId: String!): Tenant!
   meQuery: MeQuery!

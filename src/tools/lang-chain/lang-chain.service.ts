@@ -23,7 +23,8 @@ export class LangChainService {
     });
   }
 
-  async createEmbbedings(content: any, tenantId: string) {
+  // Function to create embeddings and store them in the database
+  async createEmbeddings(content: any, tenantId: string) {
     const tenant = await this.prisma.tenant.findUnique({
       where: {
         id: tenantId,
@@ -48,12 +49,19 @@ export class LangChainService {
   }
 
   //update embedding function to use OpenAIEmbeddings
+  async updateEmbeddings(content: string, id: number, tenantId: string) {
+    const tenant = await this.prisma.tenant.findUnique({
+      where: {
+        id: tenantId,
+      },
+    });
 
-  async updateEmbbedings(content: any, id: number) {
+    if (!tenant) {
+      throw new Error(`Tenant with ID ${tenantId} not found`);
+    }
+
     const embedding = await this.embeddings.embedQuery(content);
-
-    const slug = 'becker';
-    const tableName = Prisma.raw(`documents_${slug}`);
+    const tableName = Prisma.raw(tenant.documentTableName);
 
     await this.prisma.$executeRaw`
     UPDATE ${tableName}
@@ -66,7 +74,8 @@ export class LangChainService {
     };
   }
 
-  async findContent(tenantId: string) {
+  //delete embedding function
+  async deleteEmbedding(id: number, tenantId: string) {
     const tenant = await this.prisma.tenant.findUnique({
       where: {
         id: tenantId,
@@ -79,13 +88,65 @@ export class LangChainService {
 
     const tableName = Prisma.raw(tenant.documentTableName);
 
-    const contents = await this.prisma.$queryRaw`
-      SELECT id,content FROM ${tableName}
-    `;
-
-    console.log(contents);
+    await this.prisma.$executeRaw`
+    DELETE FROM ${tableName}
+    WHERE id = ${id}
+  `;
 
     return {
+      message: 'Embedding deleted successfully',
+    };
+  }
+
+  // Function to find content with pagination
+  async findContent(tenantId: string, page: number, limit: number) {
+    const tenant = await this.prisma.tenant.findUnique({
+      where: {
+        id: tenantId,
+      },
+    });
+
+    if (!tenant) {
+      throw new Error(`Tenant with ID ${tenantId} not found`);
+    }
+
+    const tableName = Prisma.raw(tenant.documentTableName);
+    const offset = (page - 1) * limit;
+
+    // Get total count for pagination metadata
+    const totalCountResult = await this.prisma.$queryRaw<[{ count: bigint }]>`
+    SELECT COUNT(*) as count FROM ${tableName}
+  `;
+    const totalCount = Number(totalCountResult[0].count);
+
+    // Get paginated results
+    const contents = await this.prisma.$queryRaw<
+      { id: bigint; content: string }[]
+    >`
+    SELECT id, content FROM ${tableName}
+    ORDER BY id desc
+    LIMIT ${limit} OFFSET ${offset}
+  `;
+
+    const formattedContents = contents.map((item) => ({
+      ...item,
+      id: item.id.toString(),
+    }));
+
+    const totalPages = Math.ceil(totalCount / limit);
+    const hasNextPage = page < totalPages;
+    const hasPrevPage = page > 1;
+
+    return {
+      content: formattedContents,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalCount,
+        limit,
+        hasNextPage,
+        hasPrevPage,
+      },
       message: 'Contents retrieved successfully',
     };
   }
