@@ -58,6 +58,7 @@ model Tenant {
   chatTableName     String?  @map("chat_table_name")
   documentTableName String?  @map("document_table_name")
   users             User[]
+  reports           Report[]
 
   @@map("tenant")
   @@schema("public")

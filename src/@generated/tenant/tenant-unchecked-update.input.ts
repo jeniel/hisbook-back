@@ -5,6 +5,7 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { UserUncheckedUpdateManyWithoutTenantNestedInput } from '../user/user-unchecked-update-many-without-tenant-nested.input';
+import { ReportUncheckedUpdateManyWithoutTenantNestedInput } from '../report/report-unchecked-update-many-without-tenant-nested.input';
 
 @InputType()
 export class TenantUncheckedUpdateInput {
@@ -44,4 +45,7 @@ export class TenantUncheckedUpdateInput {
 
     @Field(() => UserUncheckedUpdateManyWithoutTenantNestedInput, {nullable:true})
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput;
+
+    @Field(() => ReportUncheckedUpdateManyWithoutTenantNestedInput, {nullable:true})
+    reports?: ReportUncheckedUpdateManyWithoutTenantNestedInput;
 }

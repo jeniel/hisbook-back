@@ -14,3 +14,20 @@ model documents_becker {
 
   @@schema("public")
 }
+
+model chats_callinbound {
+  id         BigInt @id @default(autoincrement())
+  session_id String @db.VarChar(255)
+  message    Json?
+
+  @@schema("public")
+}
+
+model documents_callinbound {
+  id        BigInt                 @id @default(autoincrement())
+  content   String?
+  metadata  Json?
+  embedding Unsupported("vector")?
+
+  @@schema("public")
+}

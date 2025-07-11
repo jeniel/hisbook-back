@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { ReportCreateNestedManyWithoutTenantInput } from '../report/report-create-nested-many-without-tenant.input';
 
 @InputType()
 export class TenantCreateWithoutUsersInput {
@@ -36,4 +37,7 @@ export class TenantCreateWithoutUsersInput {
 
     @Field(() => String, {nullable:true})
     documentTableName?: string;
+
+    @Field(() => ReportCreateNestedManyWithoutTenantInput, {nullable:true})
+    reports?: ReportCreateNestedManyWithoutTenantInput;
 }

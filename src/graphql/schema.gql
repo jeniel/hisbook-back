@@ -36,6 +36,20 @@ input CreateProfileInput {
   middleName: String
 }
 
+input CreateReportInput {
+  """Array of keywords for the report"""
+  keyword: [String!]!
+
+  """Intent of the message"""
+  message_intent: String!
+
+  """Session identifier"""
+  session_id: String!
+
+  """Tenant identifier"""
+  tenantId: String!
+}
+
 input CreateTenant {
   chatTableName: String!
   description: String
@@ -277,6 +291,7 @@ type Meta {
 type Mutation {
   createEmbeddings(content: String!, tenantId: String!): GeneralMsg!
   createPagePost(CreatePostInput: CreatePostPage!): GeneralMsg!
+  createReport(createReportInput: CreateReportInput!): Reports!
   createTenant(createTenant: CreateTenant!): GeneralMsg!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
   deleteEmbedding(id: Int!, tenantId: String!): GeneralMsg!
@@ -448,6 +463,46 @@ enum QueryMode {
   insensitive
 }
 
+type Report {
+  createdAt: DateTime!
+  createdBy: String
+  id: ID!
+  keywords: [String!]
+  message_intent: String!
+  session_id: String
+  tenant: Tenant
+  tenantId: String
+  updatedAt: DateTime!
+  updatedBy: String
+}
+
+input ReportListRelationFilter {
+  every: ReportWhereInput
+  none: ReportWhereInput
+  some: ReportWhereInput
+}
+
+input ReportWhereInput {
+  AND: [ReportWhereInput!]
+  NOT: [ReportWhereInput!]
+  OR: [ReportWhereInput!]
+  createdAt: DateTimeFilter
+  createdBy: StringNullableFilter
+  id: StringFilter
+  keywords: StringNullableListFilter
+  message_intent: StringFilter
+  session_id: StringNullableFilter
+  tenant: TenantNullableScalarRelationFilter
+  tenantId: StringNullableFilter
+  updatedAt: DateTimeFilter
+  updatedBy: StringNullableFilter
+}
+
+type Reports {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 enum Role {
   ADMIN
   CLIENT
@@ -508,6 +563,14 @@ input StringNullableFilter {
   startsWith: String
 }
 
+input StringNullableListFilter {
+  equals: [String!]
+  has: String
+  hasEvery: [String!]
+  hasSome: [String!]
+  isEmpty: Boolean
+}
+
 type Tenant {
   _count: TenantCount!
   chatTableName: String
@@ -519,12 +582,14 @@ type Tenant {
   isApprove: Boolean!
   name: String!
   nanoid: String!
+  reports: [Report!]
   slug: String!
   updatedAt: DateTime!
   users: [User!]
 }
 
 type TenantCount {
+  reports: Int!
   users: Int!
 }
 
@@ -546,6 +611,7 @@ input TenantWhereInput {
   isApprove: BoolFilter
   name: StringFilter
   nanoid: StringFilter
+  reports: ReportListRelationFilter
   slug: StringFilter
   updatedAt: DateTimeFilter
   users: UserListRelationFilter
