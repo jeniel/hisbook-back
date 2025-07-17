@@ -4,6 +4,7 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { StringNullableListFilter } from '../prisma/string-nullable-list-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 
 @InputType()
 export class ReportScalarWhereInput {
@@ -43,4 +44,10 @@ export class ReportScalarWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     updatedBy?: StringNullableFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    count?: IntNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    keyword?: StringNullableFilter;
 }

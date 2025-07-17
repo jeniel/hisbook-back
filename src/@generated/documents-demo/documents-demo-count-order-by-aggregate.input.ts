@@ -13,4 +13,7 @@ export class documents_demoCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     metadata?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    created_at?: `${SortOrder}`;
 }

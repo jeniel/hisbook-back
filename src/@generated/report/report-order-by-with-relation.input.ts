@@ -34,6 +34,12 @@ export class ReportOrderByWithRelationInput {
     @Field(() => SortOrderInput, {nullable:true})
     updatedBy?: SortOrderInput;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    count?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    keyword?: SortOrderInput;
+
     @Field(() => TenantOrderByWithRelationInput, {nullable:true})
     tenant?: TenantOrderByWithRelationInput;
 }

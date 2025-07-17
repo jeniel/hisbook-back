@@ -14,4 +14,7 @@ export class chats_demoOrderByWithRelationInput {
 
     @Field(() => SortOrderInput, {nullable:true})
     message?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    created_at?: SortOrderInput;
 }

@@ -7,11 +7,14 @@ import { GraphQLJSON } from 'graphql-type-json';
 export class documents_demo {
 
     @Field(() => ID, {nullable:false})
-    id!: string;
+    id!: bigint;
 
     @Field(() => String, {nullable:true})
     content!: string | null;
 
     @Field(() => GraphQLJSON, {nullable:true})
     metadata!: any | null;
+
+    @Field(() => Date, {nullable:true})
+    created_at!: Date | null;
 }

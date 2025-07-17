@@ -10,4 +10,7 @@ export class documents_demoMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     content?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    created_at?: `${SortOrder}`;
 }

@@ -10,4 +10,7 @@ export class chats_demoMinOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     session_id?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    created_at?: `${SortOrder}`;
 }

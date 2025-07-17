@@ -28,7 +28,8 @@ export class TenantService {
         id bigserial primary key,
         content TEXT,
         metadata JSONB,
-        embedding vector(1536)
+        embedding vector(1536),
+        created_at TIMESTAMP DEFAULT NOW()
         )
       `,
 
@@ -36,7 +37,8 @@ export class TenantService {
         CREATE TABLE IF NOT EXISTS ${chatTableName} (
         id bigserial primary key,
         session_id VARCHAR(255) NOT NULL,
-        message JSONB
+        message JSONB,
+        created_at TIMESTAMP DEFAULT NOW()
         )
       `,
     ]);

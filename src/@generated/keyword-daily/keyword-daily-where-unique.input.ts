@@ -1,0 +1,35 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { keyword_dailyKeywordDateCompoundUniqueInput } from './keyword-daily-keyword-date-compound-unique.input';
+import { keyword_dailyWhereInput } from './keyword-daily-where.input';
+import { StringFilter } from '../prisma/string-filter.input';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
+
+@InputType()
+export class keyword_dailyWhereUniqueInput {
+
+    @Field(() => String, {nullable:true})
+    id?: string;
+
+    @Field(() => keyword_dailyKeywordDateCompoundUniqueInput, {nullable:true})
+    keyword_date?: keyword_dailyKeywordDateCompoundUniqueInput;
+
+    @Field(() => [keyword_dailyWhereInput], {nullable:true})
+    AND?: Array<keyword_dailyWhereInput>;
+
+    @Field(() => [keyword_dailyWhereInput], {nullable:true})
+    OR?: Array<keyword_dailyWhereInput>;
+
+    @Field(() => [keyword_dailyWhereInput], {nullable:true})
+    NOT?: Array<keyword_dailyWhereInput>;
+
+    @Field(() => StringFilter, {nullable:true})
+    keyword?: StringFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    count?: IntNullableFilter;
+
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    date?: DateTimeNullableFilter;
+}

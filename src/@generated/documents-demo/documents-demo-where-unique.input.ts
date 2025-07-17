@@ -3,12 +3,13 @@ import { InputType } from '@nestjs/graphql';
 import { documents_demoWhereInput } from './documents-demo-where.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
+import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 
 @InputType()
 export class documents_demoWhereUniqueInput {
 
     @Field(() => String, {nullable:true})
-    id?: string;
+    id?: bigint | number;
 
     @Field(() => [documents_demoWhereInput], {nullable:true})
     AND?: Array<documents_demoWhereInput>;
@@ -24,4 +25,7 @@ export class documents_demoWhereUniqueInput {
 
     @Field(() => JsonNullableFilter, {nullable:true})
     metadata?: JsonNullableFilter;
+
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    created_at?: DateTimeNullableFilter;
 }

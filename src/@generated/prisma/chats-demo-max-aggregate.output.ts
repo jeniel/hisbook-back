@@ -5,8 +5,11 @@ import { ObjectType } from '@nestjs/graphql';
 export class Chats_demoMaxAggregate {
 
     @Field(() => String, {nullable:true})
-    id?: string;
+    id?: bigint | number;
 
     @Field(() => String, {nullable:true})
     session_id?: string;
+
+    @Field(() => Date, {nullable:true})
+    created_at?: Date | string;
 }

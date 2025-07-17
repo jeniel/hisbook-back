@@ -32,5 +32,11 @@ export class ReportCountAggregateInput {
     updatedBy?: true;
 
     @Field(() => Boolean, {nullable:true})
+    count?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    keyword?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }

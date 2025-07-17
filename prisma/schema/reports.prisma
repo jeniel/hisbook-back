@@ -1,18 +1,17 @@
 model Report {
-    id             String   @id @default(uuid())
-    session_id     String?
-    keywords       String[]
-    message_intent String
+  id             String   @id @default(uuid())
+  session_id     String?
+  keywords       String[]
+  message_intent String
+  tenantId       String?  @map("tenant_id")
+  createdAt      DateTime @default(now()) @map("created_at") @db.Date
+  updatedAt      DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
+  createdBy      String?  @map("created_by")
+  updatedBy      String?  @map("updated_by")
+  count          Int?     @default(1)
+  keyword        String?
+  tenant         Tenant?  @relation(fields: [tenantId], references: [id])
 
-    // Relationships
-    tenant   Tenant? @relation(fields: [tenantId], references: [id])
-    tenantId String? @map("tenant_id")
-
-    createdAt DateTime @default(now()) @map("created_at") @db.Date
-    updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
-    createdBy String?  @map("created_by")
-    updatedBy String?  @map("updated_by")
-
-    @@map("report")
-    @@schema("public")
+  @@map("report")
+  @@schema("public")
 }

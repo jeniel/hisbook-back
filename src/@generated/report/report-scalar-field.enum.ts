@@ -9,7 +9,9 @@ export enum ReportScalarFieldEnum {
     createdAt = "createdAt",
     updatedAt = "updatedAt",
     createdBy = "createdBy",
-    updatedBy = "updatedBy"
+    updatedBy = "updatedBy",
+    count = "count",
+    keyword = "keyword"
 }
 
 

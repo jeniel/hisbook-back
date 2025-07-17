@@ -33,5 +33,11 @@ export class ReportCountAggregate {
     updatedBy!: number;
 
     @Field(() => Int, {nullable:false})
+    count!: number;
+
+    @Field(() => Int, {nullable:false})
+    keyword!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

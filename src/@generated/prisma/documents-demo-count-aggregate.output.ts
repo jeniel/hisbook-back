@@ -15,5 +15,8 @@ export class Documents_demoCountAggregate {
     metadata!: number;
 
     @Field(() => Int, {nullable:false})
+    created_at!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

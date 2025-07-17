@@ -3,7 +3,8 @@ import { registerEnumType } from '@nestjs/graphql';
 export enum Documents_demoScalarFieldEnum {
     id = "id",
     content = "content",
-    metadata = "metadata"
+    metadata = "metadata",
+    created_at = "created_at"
 }
 
 

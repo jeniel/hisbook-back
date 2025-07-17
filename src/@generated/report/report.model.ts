@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 import { Tenant } from '../tenant/tenant.model';
 
 @ObjectType()
@@ -32,6 +33,12 @@ export class Report {
 
     @Field(() => String, {nullable:true})
     updatedBy!: string | null;
+
+    @Field(() => Int, {defaultValue:1,nullable:true})
+    count!: number | null;
+
+    @Field(() => String, {nullable:true})
+    keyword!: string | null;
 
     @Field(() => Tenant, {nullable:true})
     tenant?: Tenant | null;

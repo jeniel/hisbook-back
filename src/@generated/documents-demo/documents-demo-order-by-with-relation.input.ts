@@ -14,4 +14,7 @@ export class documents_demoOrderByWithRelationInput {
 
     @Field(() => SortOrderInput, {nullable:true})
     metadata?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    created_at?: SortOrderInput;
 }

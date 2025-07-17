@@ -27,4 +27,10 @@ export class ReportMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     updatedBy?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    count?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    keyword?: true;
 }

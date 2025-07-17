@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class ReportMaxAggregate {
@@ -27,4 +28,10 @@ export class ReportMaxAggregate {
 
     @Field(() => String, {nullable:true})
     updatedBy?: string;
+
+    @Field(() => Int, {nullable:true})
+    count?: number;
+
+    @Field(() => String, {nullable:true})
+    keyword?: string;
 }

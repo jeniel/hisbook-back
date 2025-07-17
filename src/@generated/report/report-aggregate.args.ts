@@ -7,6 +7,8 @@ import { Prisma } from '@prisma/client';
 import { ReportWhereUniqueInput } from './report-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ReportCountAggregateInput } from './report-count-aggregate.input';
+import { ReportAvgAggregateInput } from './report-avg-aggregate.input';
+import { ReportSumAggregateInput } from './report-sum-aggregate.input';
 import { ReportMinAggregateInput } from './report-min-aggregate.input';
 import { ReportMaxAggregateInput } from './report-max-aggregate.input';
 
@@ -31,6 +33,12 @@ export class ReportAggregateArgs {
 
     @Field(() => ReportCountAggregateInput, {nullable:true})
     _count?: ReportCountAggregateInput;
+
+    @Field(() => ReportAvgAggregateInput, {nullable:true})
+    _avg?: ReportAvgAggregateInput;
+
+    @Field(() => ReportSumAggregateInput, {nullable:true})
+    _sum?: ReportSumAggregateInput;
 
     @Field(() => ReportMinAggregateInput, {nullable:true})
     _min?: ReportMinAggregateInput;

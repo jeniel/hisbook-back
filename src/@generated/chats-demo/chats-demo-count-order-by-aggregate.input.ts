@@ -13,4 +13,7 @@ export class chats_demoCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     message?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    created_at?: `${SortOrder}`;
 }

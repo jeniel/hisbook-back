@@ -4,6 +4,7 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { ReportUpdatekeywordsInput } from './report-updatekeywords.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { TenantUpdateOneWithoutReportsNestedInput } from '../tenant/tenant-update-one-without-reports-nested.input';
 
 @InputType()
@@ -32,6 +33,12 @@ export class ReportUpdateInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     updatedBy?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    count?: NullableIntFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    keyword?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => TenantUpdateOneWithoutReportsNestedInput, {nullable:true})
     tenant?: TenantUpdateOneWithoutReportsNestedInput;

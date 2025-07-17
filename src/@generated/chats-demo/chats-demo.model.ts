@@ -7,11 +7,14 @@ import { GraphQLJSON } from 'graphql-type-json';
 export class chats_demo {
 
     @Field(() => ID, {nullable:false})
-    id!: string;
+    id!: bigint;
 
     @Field(() => String, {nullable:false})
     session_id!: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     message!: any | null;
+
+    @Field(() => Date, {nullable:true})
+    created_at!: Date | null;
 }

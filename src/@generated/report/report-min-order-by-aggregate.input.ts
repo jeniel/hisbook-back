@@ -28,4 +28,10 @@ export class ReportMinOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     updatedBy?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    count?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    keyword?: `${SortOrder}`;
 }

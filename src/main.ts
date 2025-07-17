@@ -9,7 +9,11 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://admin.advancedlocal.org'], // Replace with your frontend URL
+    origin: [
+      'http://localhost:3000',
+      'https://admin.advancedlocal.org',
+      'http://localhost:4173',
+    ], // Replace with your frontend URL
     credentials: true, // Allow cookies to be sent
     //allowedHeaders: ['Content-Type', 'X-CSRF-Token'], // Allow CSRF token header
   });

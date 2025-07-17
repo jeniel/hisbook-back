@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { ReportCreatekeywordsInput } from './report-createkeywords.input';
+import { Int } from '@nestjs/graphql';
 import { TenantCreateNestedOneWithoutReportsInput } from '../tenant/tenant-create-nested-one-without-reports.input';
 
 @InputType()
@@ -29,6 +30,12 @@ export class ReportCreateInput {
 
     @Field(() => String, {nullable:true})
     updatedBy?: string;
+
+    @Field(() => Int, {nullable:true})
+    count?: number;
+
+    @Field(() => String, {nullable:true})
+    keyword?: string;
 
     @Field(() => TenantCreateNestedOneWithoutReportsInput, {nullable:true})
     tenant?: TenantCreateNestedOneWithoutReportsInput;

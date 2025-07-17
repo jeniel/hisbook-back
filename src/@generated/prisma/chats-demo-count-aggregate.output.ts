@@ -15,5 +15,8 @@ export class Chats_demoCountAggregate {
     message!: number;
 
     @Field(() => Int, {nullable:false})
+    created_at!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

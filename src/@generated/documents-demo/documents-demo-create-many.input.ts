@@ -6,11 +6,14 @@ import { GraphQLJSON } from 'graphql-type-json';
 export class documents_demoCreateManyInput {
 
     @Field(() => String, {nullable:true})
-    id?: string;
+    id?: bigint | number;
 
     @Field(() => String, {nullable:true})
     content?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     metadata?: any;
+
+    @Field(() => Date, {nullable:true})
+    created_at?: Date | string;
 }
