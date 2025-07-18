@@ -13,4 +13,7 @@ export class keywordsMinOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     count?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    tenantId?: `${SortOrder}`;
 }

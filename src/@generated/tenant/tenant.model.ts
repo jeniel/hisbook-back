@@ -1,7 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { Report } from '../report/report.model';
+import { keyword_daily } from '../keyword-daily/keyword-daily.model';
+import { keywords } from '../keywords/keywords.model';
 import { User } from '../user/user.model';
 import { TenantCount } from './tenant-count.output';
 
@@ -41,8 +42,11 @@ export class Tenant {
     @Field(() => String, {nullable:true})
     documentTableName!: string | null;
 
-    @Field(() => [Report], {nullable:true})
-    reports?: Array<Report>;
+    @Field(() => [keyword_daily], {nullable:true})
+    keywordDailies?: Array<keyword_daily>;
+
+    @Field(() => [keywords], {nullable:true})
+    keywords?: Array<keywords>;
 
     @Field(() => [User], {nullable:true})
     users?: Array<User>;

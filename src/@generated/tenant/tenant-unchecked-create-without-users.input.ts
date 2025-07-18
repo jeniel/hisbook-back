@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ReportUncheckedCreateNestedManyWithoutTenantInput } from '../report/report-unchecked-create-nested-many-without-tenant.input';
+import { keyword_dailyUncheckedCreateNestedManyWithoutTenantInput } from '../keyword-daily/keyword-daily-unchecked-create-nested-many-without-tenant.input';
+import { keywordsUncheckedCreateNestedManyWithoutTenantInput } from '../keywords/keywords-unchecked-create-nested-many-without-tenant.input';
 
 @InputType()
 export class TenantUncheckedCreateWithoutUsersInput {
@@ -38,6 +39,9 @@ export class TenantUncheckedCreateWithoutUsersInput {
     @Field(() => String, {nullable:true})
     documentTableName?: string;
 
-    @Field(() => ReportUncheckedCreateNestedManyWithoutTenantInput, {nullable:true})
-    reports?: ReportUncheckedCreateNestedManyWithoutTenantInput;
+    @Field(() => keyword_dailyUncheckedCreateNestedManyWithoutTenantInput, {nullable:true})
+    keywordDailies?: keyword_dailyUncheckedCreateNestedManyWithoutTenantInput;
+
+    @Field(() => keywordsUncheckedCreateNestedManyWithoutTenantInput, {nullable:true})
+    keywords?: keywordsUncheckedCreateNestedManyWithoutTenantInput;
 }

@@ -6,7 +6,10 @@ import { Int } from '@nestjs/graphql';
 export class TenantCount {
 
     @Field(() => Int, {nullable:false})
-    reports?: number;
+    keywordDailies?: number;
+
+    @Field(() => Int, {nullable:false})
+    keywords?: number;
 
     @Field(() => Int, {nullable:false})
     users?: number;

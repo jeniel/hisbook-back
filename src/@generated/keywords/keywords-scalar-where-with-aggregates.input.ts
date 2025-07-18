@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { UuidWithAggregatesFilter } from '../prisma/uuid-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
+import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class keywordsScalarWhereWithAggregatesInput {
@@ -24,4 +25,7 @@ export class keywordsScalarWhereWithAggregatesInput {
 
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
     count?: IntNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    tenantId?: StringNullableWithAggregatesFilter;
 }

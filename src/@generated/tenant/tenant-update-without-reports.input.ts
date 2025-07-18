@@ -4,6 +4,8 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { keyword_dailyUpdateManyWithoutTenantNestedInput } from '../keyword-daily/keyword-daily-update-many-without-tenant-nested.input';
+import { keywordsUpdateManyWithoutTenantNestedInput } from '../keywords/keywords-update-many-without-tenant-nested.input';
 import { UserUpdateManyWithoutTenantNestedInput } from '../user/user-update-many-without-tenant-nested.input';
 
 @InputType()
@@ -41,6 +43,12 @@ export class TenantUpdateWithoutReportsInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     documentTableName?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => keyword_dailyUpdateManyWithoutTenantNestedInput, {nullable:true})
+    keywordDailies?: keyword_dailyUpdateManyWithoutTenantNestedInput;
+
+    @Field(() => keywordsUpdateManyWithoutTenantNestedInput, {nullable:true})
+    keywords?: keywordsUpdateManyWithoutTenantNestedInput;
 
     @Field(() => UserUpdateManyWithoutTenantNestedInput, {nullable:true})
     users?: UserUpdateManyWithoutTenantNestedInput;

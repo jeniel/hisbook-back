@@ -19,6 +19,9 @@ export class KeywordsGroupBy {
     @Field(() => Int, {nullable:true})
     count?: number;
 
+    @Field(() => String, {nullable:true})
+    tenantId?: string;
+
     @Field(() => KeywordsCountAggregate, {nullable:true})
     _count?: KeywordsCountAggregate;
 

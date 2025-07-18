@@ -4,7 +4,8 @@ export enum Keyword_dailyScalarFieldEnum {
     id = "id",
     keyword = "keyword",
     count = "count",
-    date = "date"
+    date = "date",
+    tenantId = "tenantId"
 }
 
 

@@ -5,6 +5,8 @@ import { keyword_dailyWhereInput } from './keyword-daily-where.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { TenantNullableScalarRelationFilter } from '../tenant/tenant-nullable-scalar-relation-filter.input';
 
 @InputType()
 export class keyword_dailyWhereUniqueInput {
@@ -32,4 +34,10 @@ export class keyword_dailyWhereUniqueInput {
 
     @Field(() => DateTimeNullableFilter, {nullable:true})
     date?: DateTimeNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    tenantId?: StringNullableFilter;
+
+    @Field(() => TenantNullableScalarRelationFilter, {nullable:true})
+    tenant?: TenantNullableScalarRelationFilter;
 }

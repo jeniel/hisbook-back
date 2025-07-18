@@ -3,7 +3,8 @@ import { registerEnumType } from '@nestjs/graphql';
 export enum KeywordsScalarFieldEnum {
     id = "id",
     keyword = "keyword",
-    count = "count"
+    count = "count",
+    tenantId = "tenantId"
 }
 
 

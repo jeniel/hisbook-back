@@ -23,6 +23,9 @@ export class keyword_dailyOrderByWithAggregationInput {
     @Field(() => SortOrderInput, {nullable:true})
     date?: SortOrderInput;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    tenantId?: SortOrderInput;
+
     @Field(() => keyword_dailyCountOrderByAggregateInput, {nullable:true})
     _count?: keyword_dailyCountOrderByAggregateInput;
 

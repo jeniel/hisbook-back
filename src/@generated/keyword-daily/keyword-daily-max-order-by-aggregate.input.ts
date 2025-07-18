@@ -16,4 +16,7 @@ export class keyword_dailyMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     date?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    tenantId?: `${SortOrder}`;
 }

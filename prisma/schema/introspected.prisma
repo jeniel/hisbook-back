@@ -52,19 +52,25 @@ model documents_demo {
 }
 
 model keywords {
-  id      String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  keyword String @unique
-  count   Int?   @default(1)
+  id       String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  keyword  String  @unique
+  count    Int?    @default(1)
+  tenantId String? @map("tenant_id")
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@schema("public")
 }
 
 model keyword_daily {
-  id      String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  keyword String
-  count   Int?      @default(1)
-  date    DateTime? @default(dbgenerated("CURRENT_DATE")) @db.Date
+  id       String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  keyword  String
+  count    Int?      @default(1)
+  date     DateTime? @default(dbgenerated("CURRENT_DATE")) @db.Date
+  tenantId String?   @map("tenant_id")
+  tenant   Tenant?   @relation(fields: [tenantId], references: [id])
 
   @@unique([keyword, date])
+  @@index([tenantId])
   @@schema("public")
 }

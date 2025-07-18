@@ -13,4 +13,7 @@ export class keywordsCreateManyInput {
 
     @Field(() => Int, {nullable:true})
     count?: number;
+
+    @Field(() => String, {nullable:true})
+    tenantId?: string;
 }

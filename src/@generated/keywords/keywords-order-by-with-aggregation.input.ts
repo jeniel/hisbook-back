@@ -20,6 +20,9 @@ export class keywordsOrderByWithAggregationInput {
     @Field(() => SortOrderInput, {nullable:true})
     count?: SortOrderInput;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    tenantId?: SortOrderInput;
+
     @Field(() => keywordsCountOrderByAggregateInput, {nullable:true})
     _count?: keywordsCountOrderByAggregateInput;
 

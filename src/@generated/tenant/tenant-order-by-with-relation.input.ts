@@ -2,7 +2,8 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { SortOrderInput } from '../prisma/sort-order.input';
-import { ReportOrderByRelationAggregateInput } from '../report/report-order-by-relation-aggregate.input';
+import { keyword_dailyOrderByRelationAggregateInput } from '../keyword-daily/keyword-daily-order-by-relation-aggregate.input';
+import { keywordsOrderByRelationAggregateInput } from '../keywords/keywords-order-by-relation-aggregate.input';
 import { UserOrderByRelationAggregateInput } from '../user/user-order-by-relation-aggregate.input';
 
 @InputType()
@@ -41,8 +42,11 @@ export class TenantOrderByWithRelationInput {
     @Field(() => SortOrderInput, {nullable:true})
     documentTableName?: SortOrderInput;
 
-    @Field(() => ReportOrderByRelationAggregateInput, {nullable:true})
-    reports?: ReportOrderByRelationAggregateInput;
+    @Field(() => keyword_dailyOrderByRelationAggregateInput, {nullable:true})
+    keywordDailies?: keyword_dailyOrderByRelationAggregateInput;
+
+    @Field(() => keywordsOrderByRelationAggregateInput, {nullable:true})
+    keywords?: keywordsOrderByRelationAggregateInput;
 
     @Field(() => UserOrderByRelationAggregateInput, {nullable:true})
     users?: UserOrderByRelationAggregateInput;

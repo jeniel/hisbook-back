@@ -16,4 +16,7 @@ export class keyword_dailyUncheckedCreateInput {
 
     @Field(() => Date, {nullable:true})
     date?: Date | string;
+
+    @Field(() => String, {nullable:true})
+    tenantId?: string;
 }

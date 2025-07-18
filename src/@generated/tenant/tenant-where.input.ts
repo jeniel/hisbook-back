@@ -4,7 +4,8 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { BoolFilter } from '../prisma/bool-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { ReportListRelationFilter } from '../report/report-list-relation-filter.input';
+import { Keyword_dailyListRelationFilter } from '../prisma/keyword-daily-list-relation-filter.input';
+import { KeywordsListRelationFilter } from '../prisma/keywords-list-relation-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 
 @InputType()
@@ -52,8 +53,11 @@ export class TenantWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     documentTableName?: StringNullableFilter;
 
-    @Field(() => ReportListRelationFilter, {nullable:true})
-    reports?: ReportListRelationFilter;
+    @Field(() => Keyword_dailyListRelationFilter, {nullable:true})
+    keywordDailies?: Keyword_dailyListRelationFilter;
+
+    @Field(() => KeywordsListRelationFilter, {nullable:true})
+    keywords?: KeywordsListRelationFilter;
 
     @Field(() => UserListRelationFilter, {nullable:true})
     users?: UserListRelationFilter;

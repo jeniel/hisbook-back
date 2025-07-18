@@ -4,6 +4,7 @@ import { UuidWithAggregatesFilter } from '../prisma/uuid-with-aggregates-filter.
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
 import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input';
+import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class keyword_dailyScalarWhereWithAggregatesInput {
@@ -28,4 +29,7 @@ export class keyword_dailyScalarWhereWithAggregatesInput {
 
     @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
     date?: DateTimeNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    tenantId?: StringNullableWithAggregatesFilter;
 }

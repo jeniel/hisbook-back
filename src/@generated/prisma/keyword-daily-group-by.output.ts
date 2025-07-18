@@ -22,6 +22,9 @@ export class Keyword_dailyGroupBy {
     @Field(() => Date, {nullable:true})
     date?: Date | string;
 
+    @Field(() => String, {nullable:true})
+    tenantId?: string;
+
     @Field(() => Keyword_dailyCountAggregate, {nullable:true})
     _count?: Keyword_dailyCountAggregate;
 
