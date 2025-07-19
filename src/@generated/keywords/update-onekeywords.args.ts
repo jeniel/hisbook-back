@@ -14,5 +14,5 @@ export class UpdateOnekeywordsArgs {
 
     @Field(() => keywordsWhereUniqueInput, {nullable:false})
     @Type(() => keywordsWhereUniqueInput)
-    where!: Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword'>;
+    where!: Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword_tenantId'>;
 }

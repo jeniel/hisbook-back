@@ -24,5 +24,5 @@ export class keywordsUncheckedCreateNestedManyWithoutTenantInput {
 
     @Field(() => [keywordsWhereUniqueInput], {nullable:true})
     @Type(() => keywordsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword'>>;
+    connect?: Array<Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword_tenantId'>>;
 }

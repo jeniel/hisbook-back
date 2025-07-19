@@ -10,7 +10,7 @@ export class keyword_dailyCreateOrConnectWithoutTenantInput {
 
     @Field(() => keyword_dailyWhereUniqueInput, {nullable:false})
     @Type(() => keyword_dailyWhereUniqueInput)
-    where!: Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date' | 'keyword_date_tenantId'>;
+    where!: Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date_tenantId'>;
 
     @Field(() => keyword_dailyCreateWithoutTenantInput, {nullable:false})
     @Type(() => keyword_dailyCreateWithoutTenantInput)

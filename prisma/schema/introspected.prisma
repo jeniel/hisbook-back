@@ -1,56 +1,3 @@
-model chats_becker {
-  id         BigInt @id @default(autoincrement())
-  session_id String @db.VarChar(255)
-  message    Json?
-
-  @@schema("public")
-}
-
-model documents_becker {
-  id        BigInt                 @id @default(autoincrement())
-  content   String?
-  metadata  Json?
-  embedding Unsupported("vector")?
-
-  @@schema("public")
-}
-
-model chats_callinbound {
-  id         BigInt @id @default(autoincrement())
-  session_id String @db.VarChar(255)
-  message    Json?
-
-  @@schema("public")
-}
-
-model documents_callinbound {
-  id        BigInt                 @id @default(autoincrement())
-  content   String?
-  metadata  Json?
-  embedding Unsupported("vector")?
-
-  @@schema("public")
-}
-
-model chats_demo {
-  id         BigInt    @id @default(autoincrement())
-  session_id String    @db.VarChar(255)
-  message    Json?
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-
-  @@schema("public")
-}
-
-model documents_demo {
-  id         BigInt                 @id @default(autoincrement())
-  content    String?
-  metadata   Json?
-  embedding  Unsupported("vector")?
-  created_at DateTime?              @default(now()) @db.Timestamp(6)
-
-  @@schema("public")
-}
-
 model keywords {
   id       String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   keyword  String
@@ -71,7 +18,6 @@ model keyword_daily {
   tenantId String?   @map("tenant_id")
   tenant   Tenant?   @relation(fields: [tenantId], references: [id])
 
-  @@unique([keyword, date, tenantId], map: "unique_keyword_date_tenant")
   @@unique([keyword, date, tenantId], map: "keyword_daily_unique_per_day")
   @@index([tenantId])
   @@schema("public")

@@ -1,6 +1,5 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { keyword_dailyKeywordDateCompoundUniqueInput } from './keyword-daily-keyword-date-compound-unique.input';
 import { keyword_dailyKeywordDateTenantIdCompoundUniqueInput } from './keyword-daily-keyword-date-tenant-id-compound-unique.input';
 import { keyword_dailyWhereInput } from './keyword-daily-where.input';
 import { StringFilter } from '../prisma/string-filter.input';
@@ -14,9 +13,6 @@ export class keyword_dailyWhereUniqueInput {
 
     @Field(() => String, {nullable:true})
     id?: string;
-
-    @Field(() => keyword_dailyKeywordDateCompoundUniqueInput, {nullable:true})
-    keyword_date?: keyword_dailyKeywordDateCompoundUniqueInput;
 
     @Field(() => keyword_dailyKeywordDateTenantIdCompoundUniqueInput, {nullable:true})
     keyword_date_tenantId?: keyword_dailyKeywordDateTenantIdCompoundUniqueInput;

@@ -32,19 +32,19 @@ export class keyword_dailyUncheckedUpdateManyWithoutTenantNestedInput {
 
     @Field(() => [keyword_dailyWhereUniqueInput], {nullable:true})
     @Type(() => keyword_dailyWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date' | 'keyword_date_tenantId'>>;
+    set?: Array<Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date_tenantId'>>;
 
     @Field(() => [keyword_dailyWhereUniqueInput], {nullable:true})
     @Type(() => keyword_dailyWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date' | 'keyword_date_tenantId'>>;
+    disconnect?: Array<Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date_tenantId'>>;
 
     @Field(() => [keyword_dailyWhereUniqueInput], {nullable:true})
     @Type(() => keyword_dailyWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date' | 'keyword_date_tenantId'>>;
+    delete?: Array<Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date_tenantId'>>;
 
     @Field(() => [keyword_dailyWhereUniqueInput], {nullable:true})
     @Type(() => keyword_dailyWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date' | 'keyword_date_tenantId'>>;
+    connect?: Array<Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date_tenantId'>>;
 
     @Field(() => [keyword_dailyUpdateWithWhereUniqueWithoutTenantInput], {nullable:true})
     @Type(() => keyword_dailyUpdateWithWhereUniqueWithoutTenantInput)

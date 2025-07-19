@@ -32,19 +32,19 @@ export class keywordsUpdateManyWithoutTenantNestedInput {
 
     @Field(() => [keywordsWhereUniqueInput], {nullable:true})
     @Type(() => keywordsWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword'>>;
+    set?: Array<Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword_tenantId'>>;
 
     @Field(() => [keywordsWhereUniqueInput], {nullable:true})
     @Type(() => keywordsWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword'>>;
+    disconnect?: Array<Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword_tenantId'>>;
 
     @Field(() => [keywordsWhereUniqueInput], {nullable:true})
     @Type(() => keywordsWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword'>>;
+    delete?: Array<Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword_tenantId'>>;
 
     @Field(() => [keywordsWhereUniqueInput], {nullable:true})
     @Type(() => keywordsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword'>>;
+    connect?: Array<Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword_tenantId'>>;
 
     @Field(() => [keywordsUpdateWithWhereUniqueWithoutTenantInput], {nullable:true})
     @Type(() => keywordsUpdateWithWhereUniqueWithoutTenantInput)

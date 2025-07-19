@@ -18,7 +18,7 @@ export class keywordsAggregateArgs {
     orderBy?: Array<keywordsOrderByWithRelationInput>;
 
     @Field(() => keywordsWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword'>;
+    cursor?: Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword_tenantId'>;
 
     @Field(() => Int, {nullable:true})
     take?: number;

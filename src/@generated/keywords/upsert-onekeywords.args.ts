@@ -11,7 +11,7 @@ export class UpsertOnekeywordsArgs {
 
     @Field(() => keywordsWhereUniqueInput, {nullable:false})
     @Type(() => keywordsWhereUniqueInput)
-    where!: Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword'>;
+    where!: Prisma.AtLeast<keywordsWhereUniqueInput, 'id' | 'keyword_tenantId'>;
 
     @Field(() => keywordsCreateInput, {nullable:false})
     @Type(() => keywordsCreateInput)
