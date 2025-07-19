@@ -194,6 +194,7 @@ export class AuthService {
         id: currentUser.userId,
       },
       include: {
+        tenant: true,
         profile: {
           include: {
             department: true,

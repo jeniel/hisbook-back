@@ -4,23 +4,16 @@ import { Reports } from './entities/report.entity';
 import { CreateReportInput } from './dto/create-report.input';
 import { UpdateReportInput } from './dto/update-report.input';
 import { Public } from 'src/common/decorator/public.decorator';
+import { GetAllKeyWorkByTenantArgs } from './args/args';
 
 @Resolver(() => Reports)
 export class ReportsResolver {
   constructor(private readonly reportsService: ReportsService) {}
 
-
-  @Public()
-  @Mutation(() => Reports)
-  createReport(@Args('createReportInput') createReportInput: CreateReportInput) {
-    console.log('createReportInput', createReportInput);
-    return this.reportsService.create(createReportInput);
+  @Query(() => Reports)
+  getAllKeyWorkByTenant(@Args() args: GetAllKeyWorkByTenantArgs) {
+    return this.reportsService.getAllKeyWorkByTenant(args);
   }
-
-  // @Query(() => [Report], { name: 'reports' })
-  // findAll() {
-  //   return this.reportsService.findAll();
-  // }
 
   // @Query(() => Report, { name: 'report' })
   // findOne(@Args('id', { type: () => Int }) id: number) {

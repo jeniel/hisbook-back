@@ -36,20 +36,6 @@ input CreateProfileInput {
   middleName: String
 }
 
-input CreateReportInput {
-  """Array of keywords for the report"""
-  keyword: [String!]!
-
-  """Intent of the message"""
-  message_intent: String!
-
-  """Session identifier"""
-  session_id: String!
-
-  """Tenant identifier"""
-  tenantId: String!
-}
-
 input CreateTenant {
   chatTableName: String!
   description: String
@@ -274,6 +260,18 @@ input JsonNullableFilter {
   string_starts_with: String
 }
 
+input Keyword_dailyListRelationFilter {
+  every: keyword_dailyWhereInput
+  none: keyword_dailyWhereInput
+  some: keyword_dailyWhereInput
+}
+
+input KeywordsListRelationFilter {
+  every: keywordsWhereInput
+  none: keywordsWhereInput
+  some: keywordsWhereInput
+}
+
 type MeQuery {
   isSignedIn: Boolean!
   user: User!
@@ -291,7 +289,6 @@ type Meta {
 type Mutation {
   createEmbeddings(content: String!, tenantId: String!): GeneralMsg!
   createPagePost(CreatePostInput: CreatePostPage!): GeneralMsg!
-  createReport(createReportInput: CreateReportInput!): Reports!
   createTenant(createTenant: CreateTenant!): GeneralMsg!
   createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
   deleteEmbedding(id: Int!, tenantId: String!): GeneralMsg!
@@ -379,6 +376,17 @@ input NestedStringNullableFilter {
   startsWith: String
 }
 
+input NestedUuidFilter {
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedUuidFilter
+  notIn: [String!]
+}
+
 type Pagination {
   currentPage: Int!
   hasNextPage: Boolean!
@@ -454,6 +462,7 @@ type Query {
   findContent(limit: Int! = 10, page: Int! = 1, tenantId: String!): ContentResponse!
   findOneUser(profileId: String!): Profile!
   findTenantById(tenantId: String!): Tenant!
+  getAllKeyWorkByTenant(where: keywordsWhereInput): Reports!
   meQuery: MeQuery!
   syncToGraphApi: GeneralMsg!
 }
@@ -463,44 +472,9 @@ enum QueryMode {
   insensitive
 }
 
-type Report {
-  createdAt: DateTime!
-  createdBy: String
-  id: ID!
-  keywords: [String!]
-  message_intent: String!
-  session_id: String
-  tenant: Tenant
-  tenantId: String
-  updatedAt: DateTime!
-  updatedBy: String
-}
-
-input ReportListRelationFilter {
-  every: ReportWhereInput
-  none: ReportWhereInput
-  some: ReportWhereInput
-}
-
-input ReportWhereInput {
-  AND: [ReportWhereInput!]
-  NOT: [ReportWhereInput!]
-  OR: [ReportWhereInput!]
-  createdAt: DateTimeFilter
-  createdBy: StringNullableFilter
-  id: StringFilter
-  keywords: StringNullableListFilter
-  message_intent: StringFilter
-  session_id: StringNullableFilter
-  tenant: TenantNullableScalarRelationFilter
-  tenantId: StringNullableFilter
-  updatedAt: DateTimeFilter
-  updatedBy: StringNullableFilter
-}
-
 type Reports {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  keywords: [keywords!]!
+  totalKeyWord: Int
 }
 
 enum Role {
@@ -563,14 +537,6 @@ input StringNullableFilter {
   startsWith: String
 }
 
-input StringNullableListFilter {
-  equals: [String!]
-  has: String
-  hasEvery: [String!]
-  hasSome: [String!]
-  isEmpty: Boolean
-}
-
 type Tenant {
   _count: TenantCount!
   chatTableName: String
@@ -580,16 +546,18 @@ type Tenant {
   id: ID!
   isActive: Boolean!
   isApprove: Boolean!
+  keywordDailies: [keyword_daily!]
+  keywords: [keywords!]
   name: String!
   nanoid: String!
-  reports: [Report!]
   slug: String!
   updatedAt: DateTime!
   users: [User!]
 }
 
 type TenantCount {
-  reports: Int!
+  keywordDailies: Int!
+  keywords: Int!
   users: Int!
 }
 
@@ -609,9 +577,10 @@ input TenantWhereInput {
   id: StringFilter
   isActive: BoolFilter
   isApprove: BoolFilter
+  keywordDailies: Keyword_dailyListRelationFilter
+  keywords: KeywordsListRelationFilter
   name: StringFilter
   nanoid: StringFilter
-  reports: ReportListRelationFilter
   slug: StringFilter
   updatedAt: DateTimeFilter
   users: UserListRelationFilter
@@ -676,6 +645,58 @@ input UserWhereInput {
   updatedAt: DateTimeFilter
   updatedBy: StringNullableFilter
   username: StringFilter
+}
+
+input UuidFilter {
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedUuidFilter
+  notIn: [String!]
+}
+
+type keyword_daily {
+  count: Int
+  date: DateTime
+  id: ID!
+  keyword: String!
+  tenant: Tenant
+  tenantId: String
+}
+
+input keyword_dailyWhereInput {
+  AND: [keyword_dailyWhereInput!]
+  NOT: [keyword_dailyWhereInput!]
+  OR: [keyword_dailyWhereInput!]
+  count: IntNullableFilter
+  date: DateTimeNullableFilter
+  id: UuidFilter
+  keyword: StringFilter
+  tenant: TenantNullableScalarRelationFilter
+  tenantId: StringNullableFilter
+}
+
+type keywords {
+  count: Int
+  id: ID!
+  keyword: String!
+  tenant: Tenant
+  tenantId: String
+}
+
+input keywordsWhereInput {
+  AND: [keywordsWhereInput!]
+  NOT: [keywordsWhereInput!]
+  OR: [keywordsWhereInput!]
+  count: IntNullableFilter
+  id: UuidFilter
+  keyword: StringFilter
+  tenant: TenantNullableScalarRelationFilter
+  tenantId: StringNullableFilter
 }
 
 type n8n_chat_histories {

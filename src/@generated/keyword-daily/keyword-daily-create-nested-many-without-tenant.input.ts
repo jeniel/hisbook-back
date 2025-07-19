@@ -24,5 +24,5 @@ export class keyword_dailyCreateNestedManyWithoutTenantInput {
 
     @Field(() => [keyword_dailyWhereUniqueInput], {nullable:true})
     @Type(() => keyword_dailyWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date'>>;
+    connect?: Array<Prisma.AtLeast<keyword_dailyWhereUniqueInput, 'id' | 'keyword_date' | 'keyword_date_tenantId'>>;
 }

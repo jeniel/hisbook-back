@@ -1,11 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { CreateReportInput } from './dto/create-report.input';
 import { UpdateReportInput } from './dto/update-report.input';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { keywordsWhereInput } from 'src/@generated/keywords/keywords-where.input';
+import { GetAllKeyWorkByTenantArgs } from './args/args';
 
 @Injectable()
 export class ReportsService {
-  create(createReportInput: CreateReportInput) {
-    return 'This action adds a new report';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async getAllKeyWorkByTenant(args: GetAllKeyWorkByTenantArgs) {
+    const keywords = await this.prisma.keywords.findMany({
+      where: { tenantId: args.where?.tenantId },
+      take: 10, // Select top 10
+      orderBy: { count: 'desc' }, // Order by count descending
+    });
+
+    const totalKeyWord = await this.prisma.keywords.count({
+      where: { tenantId: args.where?.tenantId },
+    });
+
+    return {
+      keywords: keywords,
+      totalKeyWord: totalKeyWord,
+    };
   }
 
   // findAll() {
