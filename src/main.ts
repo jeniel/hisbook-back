@@ -12,6 +12,7 @@ async function bootstrap() {
     origin: [
       'http://localhost:3000',
       'https://admin.advancedlocal.org',
+      'https://al-connect.advancedlocal.org',
       'http://localhost:4173',
     ], // Replace with your frontend URL
     credentials: true, // Allow cookies to be sent

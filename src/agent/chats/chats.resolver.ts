@@ -1,22 +1,14 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 import { ChatsService } from './chats.service';
-import { Chat } from './entities/chat.entity';
-import { CreateChatInput } from './dto/create-chat.input';
-import { UpdateChatInput } from './dto/update-chat.input';
-import { n8n_chat_histories } from 'src/@generated/n-8-n-chat-histories/n-8-n-chat-histories.model';
+import { FindAllChatArgs } from './dto/find-all-chat.args';
+import { Chat, ChatResponse } from './entities/chat.entity';
 
 @Resolver(() => Chat)
 export class ChatsResolver {
   constructor(private readonly chatsService: ChatsService) {}
 
-
-
-  @Query(() => [n8n_chat_histories], { name: 'chats' })
-  findAll() {
-    return this.chatsService.findAll();
+  @Query(() => ChatResponse)
+  findChatBySession(@Args() args: FindAllChatArgs) {
+    return this.chatsService.findChatBySession(args);
   }
-
-
-
- 
 }

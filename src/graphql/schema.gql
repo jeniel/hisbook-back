@@ -7,6 +7,17 @@ input BoolFilter {
   not: NestedBoolFilter
 }
 
+type Chat {
+  id: ID!
+  message: MessageContent!
+  session_id: String!
+}
+
+type ChatResponse {
+  data: [Chat!]!
+  pagination: PaginationChat!
+}
+
 type Content {
   content: String
 
@@ -277,6 +288,15 @@ type MeQuery {
   user: User!
 }
 
+type MessageContent {
+  additional_kwargs: String
+  content: String!
+  invalid_tool_calls: [String!]!
+  response_metadata: String
+  tool_calls: [String!]!
+  type: String!
+}
+
 type Meta {
   currentPage: Float!
   lastPage: Float!
@@ -396,6 +416,15 @@ type Pagination {
   totalPages: Int!
 }
 
+type PaginationChat {
+  currentPage: Int!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  totalCount: Int!
+  totalPages: Int!
+}
+
 type Profile {
   address: JSON
   birthDate: DateTime
@@ -454,11 +483,11 @@ input ProfileWhereInput {
 
 type Query {
   chatWithModel: String!
-  chats: [n8n_chat_histories!]!
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllFbDetails(page: Int, perPage: Int, where: FacebookPageWhereInput): FaceBookPageList!
   findAllTenants: [Tenant!]!
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
+  findChatBySession(limit: Int! = 10, page: Int! = 1, sessionId: String, tenantId: String!): ChatResponse!
   findContent(limit: Int! = 10, page: Int! = 1, tenantId: String!): ContentResponse!
   findOneUser(profileId: String!): Profile!
   findTenantById(tenantId: String!): Tenant!
@@ -697,10 +726,4 @@ input keywordsWhereInput {
   keyword: StringFilter
   tenant: TenantNullableScalarRelationFilter
   tenantId: StringNullableFilter
-}
-
-type n8n_chat_histories {
-  id: ID!
-  message: JSON!
-  session_id: String!
 }
