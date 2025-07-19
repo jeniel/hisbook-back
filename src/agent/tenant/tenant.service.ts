@@ -25,7 +25,7 @@ export class TenantService {
     await this.prisma.$transaction([
       this.prisma.$executeRaw`
         CREATE TABLE IF NOT EXISTS ${documentTableName} (
-        id bigserial primary key,
+        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         content TEXT,
         metadata JSONB,
         embedding vector(1536),
@@ -35,7 +35,7 @@ export class TenantService {
 
       this.prisma.$executeRaw`
         CREATE TABLE IF NOT EXISTS ${chatTableName} (
-        id bigserial primary key,
+        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         session_id VARCHAR(255) NOT NULL,
         message JSONB,
         created_at TIMESTAMP DEFAULT NOW()
