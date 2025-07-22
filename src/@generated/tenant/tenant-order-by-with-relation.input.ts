@@ -42,6 +42,15 @@ export class TenantOrderByWithRelationInput {
     @Field(() => SortOrderInput, {nullable:true})
     documentTableName?: SortOrderInput;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    collectionName?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    size?: SortOrderInput;
+
+    @Field(() => SortOrder, {nullable:true})
+    distance?: `${SortOrder}`;
+
     @Field(() => keyword_dailyOrderByRelationAggregateInput, {nullable:true})
     keywordDailies?: keyword_dailyOrderByRelationAggregateInput;
 

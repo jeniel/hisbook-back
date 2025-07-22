@@ -11,7 +11,10 @@ export enum TenantScalarFieldEnum {
     nanoid = "nanoid",
     slug = "slug",
     chatTableName = "chatTableName",
-    documentTableName = "documentTableName"
+    documentTableName = "documentTableName",
+    collectionName = "collectionName",
+    size = "size",
+    distance = "distance"
 }
 
 

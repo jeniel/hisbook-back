@@ -1,14 +1,20 @@
-import { Injectable } from '@nestjs/common';
 import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { DocumentToEmbedInput } from 'src/qdrant/dto/qdrant.types';
+import { VectorSearchService } from 'src/qdrant/vector-search.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class LangChainService {
   private embeddings: OpenAIEmbeddings;
   private model = new ChatOpenAI();
 
-  constructor(private readonly prisma: PrismaService) {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly vectorSearchService: VectorSearchService,
+  ) {
     const apiKey = process.env.OPENAI_API_KEY; // Ensure this is set in your .env file
     this.embeddings = new OpenAIEmbeddings({
       openAIApiKey: apiKey,
@@ -24,24 +30,52 @@ export class LangChainService {
   }
 
   // Function to create embeddings and store them in the database
-  async createEmbeddings(content: any, tenantId: string) {
-    const tenant = await this.prisma.tenant.findUnique({
-      where: {
-        id: tenantId,
-      },
-    });
+  async createEmbeddings(
+    documents: DocumentToEmbedInput[],
+    collectionName: string = 'documents',
+    // tenantId: string,
+  ) {
+    // const tenant = await this.prisma.tenant.findUnique({
+    //   where: {
+    //     id: tenantId,
+    //   },
+    // });
 
-    if (!tenant) {
-      throw new Error(`Tenant with ID ${tenantId} not found`);
-    }
+    // if (!tenant) {
+    //   throw new Error(`Tenant with ID ${tenantId} not found`);
+    // }
 
-    const embedding = await this.embeddings.embedQuery(content);
-    const tableName = Prisma.raw(tenant.documentTableName);
+    // const embedding = await this.embeddings.embedQuery(payload.documents);
+    //   const tableName = Prisma.raw(tenant.documentTableName);
 
-    await this.prisma.$executeRaw`
-    INSERT INTO ${tableName} (content, embedding )
-    VALUES (${content}, ${embedding}::vector );
-  `;
+    //   await this.prisma.$executeRaw`
+    //   INSERT INTO ${tableName} (content, embedding )
+    //   VALUES (${content}, ${embedding}::vector );
+    // `;
+
+    // Generate embeddings for all documents
+    const documentsWithEmbeddings = await Promise.all(
+      documents.map(async (doc) => {
+        const embedding = await this.embeddings.embedQuery(doc.content);
+        return {
+          id: doc.id || uuidv4(), // Generate a new ID if not provided
+          content: doc.content,
+          embedding,
+          metadata: {
+            tenant_id: doc.tenantId,
+            document_type: doc.documentType,
+            created_at: Date.now(),
+            ...doc.metadata,
+          },
+        };
+      }),
+    );
+
+    // Store in Qdrant
+    const result = await this.vectorSearchService.storeDocumentEmbeddings(
+      collectionName,
+      documentsWithEmbeddings,
+    );
 
     return {
       message: 'Embedding created successfully',

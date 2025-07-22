@@ -4,6 +4,8 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { BoolFilter } from '../prisma/bool-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { EnumDistanceMetricFilter } from '../prisma/enum-distance-metric-filter.input';
 import { Keyword_dailyListRelationFilter } from '../prisma/keyword-daily-list-relation-filter.input';
 import { KeywordsListRelationFilter } from '../prisma/keywords-list-relation-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
@@ -52,6 +54,15 @@ export class TenantWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     documentTableName?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    collectionName?: StringNullableFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    size?: IntNullableFilter;
+
+    @Field(() => EnumDistanceMetricFilter, {nullable:true})
+    distance?: EnumDistanceMetricFilter;
 
     @Field(() => Keyword_dailyListRelationFilter, {nullable:true})
     keywordDailies?: Keyword_dailyListRelationFilter;

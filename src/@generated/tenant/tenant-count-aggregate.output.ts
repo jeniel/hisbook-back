@@ -39,5 +39,14 @@ export class TenantCountAggregate {
     documentTableName!: number;
 
     @Field(() => Int, {nullable:false})
+    collectionName!: number;
+
+    @Field(() => Int, {nullable:false})
+    size!: number;
+
+    @Field(() => Int, {nullable:false})
+    distance!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

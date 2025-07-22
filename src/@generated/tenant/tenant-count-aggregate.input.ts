@@ -38,5 +38,14 @@ export class TenantCountAggregateInput {
     documentTableName?: true;
 
     @Field(() => Boolean, {nullable:true})
+    collectionName?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    size?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    distance?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }

@@ -1,4 +1,4 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 import { User } from 'src/@generated/user/user.model';
 
 @InputType()
@@ -12,9 +12,18 @@ export class CreateTenant {
   @Field(() => String, { nullable: false })
   slug!: string;
 
-  @Field(() => String, {nullable:false})
+  @Field(() => String, { nullable: false })
   chatTableName!: string;
 
-  @Field(() => String, {nullable:false})
-  documentTableName!: string;
+  @Field(() => String, { nullable: true })
+  documentTableName: string;
+
+  @Field(() => String, { nullable: true })
+  collectionName: string;
+
+  @Field(() => Int)
+  size: number;
+
+  @Field({ defaultValue: 'Cosine' })
+  distance?: 'Cosine' | 'Euclid' | 'Dot';
 }

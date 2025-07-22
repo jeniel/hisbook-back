@@ -55,6 +55,44 @@ export class EmbeddingService {
     };
   }
 
+  /**
+   * Generate embedding for text content
+   */
+  async generateEmbedding(content: string): Promise<number[]> {
+    try {
+      const response = await this.openai.embeddings.create({
+        model: 'text-embedding-3-small',
+        input: content,
+        encoding_format: 'float',
+        dimensions: 1536,
+      });
+
+      return response.data[0].embedding;
+    } catch (error) {
+      console.error('Failed to generate embedding:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Generate embeddings for multiple texts
+   */
+  async generateEmbeddings(contents: string[]): Promise<number[][]> {
+    try {
+      const response = await this.openai.embeddings.create({
+        model: 'text-embedding-3-small',
+        input: contents,
+        encoding_format: 'float',
+        dimensions: 1536,
+      });
+
+      return response.data.map(item => item.embedding);
+    } catch (error) {
+      console.error('Failed to generate embeddings:', error);
+      throw error;
+    }
+  }
+
   async insertDocumentRawSQL(
     content: string,
     embedding: number[],

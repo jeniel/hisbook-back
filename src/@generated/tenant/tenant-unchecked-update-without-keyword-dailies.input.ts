@@ -4,6 +4,8 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { EnumDistanceMetricFieldUpdateOperationsInput } from '../prisma/enum-distance-metric-field-update-operations.input';
 import { keywordsUncheckedUpdateManyWithoutTenantNestedInput } from '../keywords/keywords-unchecked-update-many-without-tenant-nested.input';
 import { UserUncheckedUpdateManyWithoutTenantNestedInput } from '../user/user-unchecked-update-many-without-tenant-nested.input';
 
@@ -42,6 +44,15 @@ export class TenantUncheckedUpdateWithoutKeywordDailiesInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     documentTableName?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    collectionName?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    size?: NullableIntFieldUpdateOperationsInput;
+
+    @Field(() => EnumDistanceMetricFieldUpdateOperationsInput, {nullable:true})
+    distance?: EnumDistanceMetricFieldUpdateOperationsInput;
 
     @Field(() => keywordsUncheckedUpdateManyWithoutTenantNestedInput, {nullable:true})
     keywords?: keywordsUncheckedUpdateManyWithoutTenantNestedInput;

@@ -36,4 +36,13 @@ export class TenantMinAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     documentTableName?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    collectionName?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    size?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    distance?: true;
 }

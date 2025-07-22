@@ -57,11 +57,22 @@ model Tenant {
   slug              String          @unique
   chatTableName     String?         @map("chat_table_name")
   documentTableName String?         @map("document_table_name")
+  collectionName    String?         @map("collection_name")
+  size              Int?
+  distance           DistanceMetric @default(Cosine)
   keywordDailies    keyword_daily[]
   keywords          keywords[]
   users             User[]
 
   @@map("tenant")
+  @@schema("public")
+}
+
+enum DistanceMetric {
+  Cosine
+  Euclid
+  Dot
+
   @@schema("public")
 }
 

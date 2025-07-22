@@ -7,6 +7,8 @@ import { TenantScalarFieldEnum } from './tenant-scalar-field.enum';
 import { TenantScalarWhereWithAggregatesInput } from './tenant-scalar-where-with-aggregates.input';
 import { Int } from '@nestjs/graphql';
 import { TenantCountAggregateInput } from './tenant-count-aggregate.input';
+import { TenantAvgAggregateInput } from './tenant-avg-aggregate.input';
+import { TenantSumAggregateInput } from './tenant-sum-aggregate.input';
 import { TenantMinAggregateInput } from './tenant-min-aggregate.input';
 import { TenantMaxAggregateInput } from './tenant-max-aggregate.input';
 
@@ -34,6 +36,12 @@ export class TenantGroupByArgs {
 
     @Field(() => TenantCountAggregateInput, {nullable:true})
     _count?: TenantCountAggregateInput;
+
+    @Field(() => TenantAvgAggregateInput, {nullable:true})
+    _avg?: TenantAvgAggregateInput;
+
+    @Field(() => TenantSumAggregateInput, {nullable:true})
+    _sum?: TenantSumAggregateInput;
 
     @Field(() => TenantMinAggregateInput, {nullable:true})
     _min?: TenantMinAggregateInput;

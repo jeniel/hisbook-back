@@ -2,10 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { CreateTenant } from './dto/create';
+import { QdrantService } from 'src/qdrant/qdrant.service';
 
 @Injectable()
 export class TenantService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly qdrantService: QdrantService,
+  ) {}
 
   async createTenant(payload: CreateTenant) {
     //Steps:
@@ -22,17 +26,15 @@ export class TenantService {
     const documentTableName = Prisma.raw(tenantData.documentTableName);
     const chatTableName = Prisma.raw(tenantData.chatTableName);
 
-    await this.prisma.$transaction([
-      this.prisma.$executeRaw`
-        CREATE TABLE IF NOT EXISTS ${documentTableName} (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        content TEXT,
-        metadata JSONB,
-        embedding vector(1536),
-        created_at TIMESTAMP DEFAULT NOW()
-        )
-      `,
+    // Run Qdrant collection creation and database table creation in parallel
+    await Promise.all([
+      // Create Qdrant collection
+      this.qdrantService.createCollection(tenantData.collectionName, {
+        size: tenantData.size,
+        distance: tenantData.distance || 'Cosine',
+      }),
 
+      // Create chat table using Prisma transaction
       this.prisma.$executeRaw`
         CREATE TABLE IF NOT EXISTS ${chatTableName} (
         id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

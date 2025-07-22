@@ -7,6 +7,8 @@ import { Prisma } from '@prisma/client';
 import { TenantWhereUniqueInput } from './tenant-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { TenantCountAggregateInput } from './tenant-count-aggregate.input';
+import { TenantAvgAggregateInput } from './tenant-avg-aggregate.input';
+import { TenantSumAggregateInput } from './tenant-sum-aggregate.input';
 import { TenantMinAggregateInput } from './tenant-min-aggregate.input';
 import { TenantMaxAggregateInput } from './tenant-max-aggregate.input';
 
@@ -31,6 +33,12 @@ export class TenantAggregateArgs {
 
     @Field(() => TenantCountAggregateInput, {nullable:true})
     _count?: TenantCountAggregateInput;
+
+    @Field(() => TenantAvgAggregateInput, {nullable:true})
+    _avg?: TenantAvgAggregateInput;
+
+    @Field(() => TenantSumAggregateInput, {nullable:true})
+    _sum?: TenantSumAggregateInput;
 
     @Field(() => TenantMinAggregateInput, {nullable:true})
     _min?: TenantMinAggregateInput;

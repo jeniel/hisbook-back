@@ -15,6 +15,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ToolsModule } from './tools/tools.module';
 import { IntegrationModule } from './integration/integration.module';
 import { AgentModule } from './agent/agent.module';
+import { QdrantModule } from './qdrant/qdrant.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { AgentModule } from './agent/agent.module';
     ToolsModule,
     IntegrationModule,
     AgentModule,
+    QdrantModule,
   ],
   providers: [
     JwtService,

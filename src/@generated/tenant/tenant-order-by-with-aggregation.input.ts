@@ -3,8 +3,10 @@ import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { TenantCountOrderByAggregateInput } from './tenant-count-order-by-aggregate.input';
+import { TenantAvgOrderByAggregateInput } from './tenant-avg-order-by-aggregate.input';
 import { TenantMaxOrderByAggregateInput } from './tenant-max-order-by-aggregate.input';
 import { TenantMinOrderByAggregateInput } from './tenant-min-order-by-aggregate.input';
+import { TenantSumOrderByAggregateInput } from './tenant-sum-order-by-aggregate.input';
 
 @InputType()
 export class TenantOrderByWithAggregationInput {
@@ -42,12 +44,27 @@ export class TenantOrderByWithAggregationInput {
     @Field(() => SortOrderInput, {nullable:true})
     documentTableName?: SortOrderInput;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    collectionName?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    size?: SortOrderInput;
+
+    @Field(() => SortOrder, {nullable:true})
+    distance?: `${SortOrder}`;
+
     @Field(() => TenantCountOrderByAggregateInput, {nullable:true})
     _count?: TenantCountOrderByAggregateInput;
+
+    @Field(() => TenantAvgOrderByAggregateInput, {nullable:true})
+    _avg?: TenantAvgOrderByAggregateInput;
 
     @Field(() => TenantMaxOrderByAggregateInput, {nullable:true})
     _max?: TenantMaxOrderByAggregateInput;
 
     @Field(() => TenantMinOrderByAggregateInput, {nullable:true})
     _min?: TenantMinOrderByAggregateInput;
+
+    @Field(() => TenantSumOrderByAggregateInput, {nullable:true})
+    _sum?: TenantSumOrderByAggregateInput;
 }

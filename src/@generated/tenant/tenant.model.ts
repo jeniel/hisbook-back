@@ -1,6 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
+import { DistanceMetric } from '../prisma/distance-metric.enum';
 import { keyword_daily } from '../keyword-daily/keyword-daily.model';
 import { keywords } from '../keywords/keywords.model';
 import { User } from '../user/user.model';
@@ -41,6 +43,15 @@ export class Tenant {
 
     @Field(() => String, {nullable:true})
     documentTableName!: string | null;
+
+    @Field(() => String, {nullable:true})
+    collectionName!: string | null;
+
+    @Field(() => Int, {nullable:true})
+    size!: number | null;
+
+    @Field(() => DistanceMetric, {defaultValue:'Cosine',nullable:false})
+    distance!: `${DistanceMetric}`;
 
     @Field(() => [keyword_daily], {nullable:true})
     keywordDailies?: Array<keyword_daily>;

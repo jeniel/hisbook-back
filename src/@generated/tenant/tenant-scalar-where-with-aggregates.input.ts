@@ -4,6 +4,8 @@ import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-fil
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 import { BoolWithAggregatesFilter } from '../prisma/bool-with-aggregates-filter.input';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
+import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
+import { EnumDistanceMetricWithAggregatesFilter } from '../prisma/enum-distance-metric-with-aggregates-filter.input';
 
 @InputType()
 export class TenantScalarWhereWithAggregatesInput {
@@ -49,4 +51,13 @@ export class TenantScalarWhereWithAggregatesInput {
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     documentTableName?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    collectionName?: StringNullableWithAggregatesFilter;
+
+    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
+    size?: IntNullableWithAggregatesFilter;
+
+    @Field(() => EnumDistanceMetricWithAggregatesFilter, {nullable:true})
+    distance?: EnumDistanceMetricWithAggregatesFilter;
 }

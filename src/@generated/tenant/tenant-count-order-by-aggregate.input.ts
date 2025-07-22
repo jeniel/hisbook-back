@@ -37,4 +37,13 @@ export class TenantCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     documentTableName?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    collectionName?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    size?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    distance?: `${SortOrder}`;
 }

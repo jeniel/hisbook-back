@@ -1,5 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
+import { DistanceMetric } from '../prisma/distance-metric.enum';
 import { keywordsCreateNestedManyWithoutTenantInput } from '../keywords/keywords-create-nested-many-without-tenant.input';
 import { UserCreateNestedManyWithoutTenantInput } from '../user/user-create-nested-many-without-tenant.input';
 
@@ -38,6 +40,15 @@ export class TenantCreateWithoutKeywordDailiesInput {
 
     @Field(() => String, {nullable:true})
     documentTableName?: string;
+
+    @Field(() => String, {nullable:true})
+    collectionName?: string;
+
+    @Field(() => Int, {nullable:true})
+    size?: number;
+
+    @Field(() => DistanceMetric, {nullable:true})
+    distance?: `${DistanceMetric}`;
 
     @Field(() => keywordsCreateNestedManyWithoutTenantInput, {nullable:true})
     keywords?: keywordsCreateNestedManyWithoutTenantInput;
