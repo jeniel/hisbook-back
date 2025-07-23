@@ -7,7 +7,7 @@ model keywords {
 
   @@unique([keyword, tenantId], map: "keywords_unique_per_tenant")
   @@index([tenantId])
-  @@schema("public")
+  @@schema("agent")
 }
 
 model keyword_daily {
@@ -20,5 +20,5 @@ model keyword_daily {
 
   @@unique([keyword, date, tenantId], map: "keyword_daily_unique_per_day")
   @@index([tenantId])
-  @@schema("public")
+  @@schema("agent")
 }

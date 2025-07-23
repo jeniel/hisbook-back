@@ -18,7 +18,7 @@ model User {
   tenant             Tenant?  @relation(fields: [tenantId], references: [id])
 
   @@map("user")
-  @@schema("public")
+  @@schema("global")
 }
 
 model Profile {
@@ -42,7 +42,7 @@ model Profile {
   user         User?       @relation(fields: [userId], references: [id])
 
   @@map("profile")
-  @@schema("public")
+  @@schema("global")
 }
 
 model Tenant {
@@ -59,13 +59,13 @@ model Tenant {
   documentTableName String?         @map("document_table_name")
   collectionName    String?         @map("collection_name")
   size              Int?
-  distance           DistanceMetric @default(Cosine)
+  distance          DistanceMetric  @default(Cosine)
   keywordDailies    keyword_daily[]
   keywords          keywords[]
   users             User[]
 
   @@map("tenant")
-  @@schema("public")
+  @@schema("global")
 }
 
 enum DistanceMetric {
@@ -73,7 +73,7 @@ enum DistanceMetric {
   Euclid
   Dot
 
-  @@schema("public")
+  @@schema("global")
 }
 
 model Department {
@@ -83,7 +83,7 @@ model Department {
   profile     Profile[]
 
   @@map("department")
-  @@schema("public")
+  @@schema("global")
 }
 
 enum Role {
@@ -92,5 +92,5 @@ enum Role {
   CLIENT
   SUPER_ADMIN
 
-  @@schema("public")
+  @@schema("global")
 }

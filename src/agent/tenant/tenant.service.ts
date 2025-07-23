@@ -23,7 +23,7 @@ export class TenantService {
     });
 
     // Use raw SQL identifier safely with Prisma.$raw
-    const documentTableName = Prisma.raw(tenantData.documentTableName);
+    // const documentTableName = Prisma.raw(tenantData.documentTableName);
     const chatTableName = Prisma.raw(tenantData.chatTableName);
 
     // Run Qdrant collection creation and database table creation in parallel
@@ -34,14 +34,17 @@ export class TenantService {
         distance: tenantData.distance || 'Cosine',
       }),
 
+      // //create schema for chat
+      // this.prisma.$executeRawUnsafe(`CREATE SCHEMA IF NOT EXISTS chat;`),
+
       // Create chat table using Prisma transaction
       this.prisma.$executeRaw`
-        CREATE TABLE IF NOT EXISTS ${chatTableName} (
-        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        session_id VARCHAR(255) NOT NULL,
-        message JSONB,
-        created_at TIMESTAMP DEFAULT NOW()
-        )
+    CREATE TABLE IF NOT EXISTS ${chatTableName} (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    session_id VARCHAR(255) NOT NULL,
+    message JSONB,
+    created_at TIMESTAMP DEFAULT NOW()
+);
       `,
     ]);
 
