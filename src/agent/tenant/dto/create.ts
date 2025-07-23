@@ -18,8 +18,8 @@ export class CreateTenant {
   @Field(() => String, { nullable: true })
   documentTableName: string;
 
-  @Field(() => String, { nullable: true })
-  collectionName: string;
+  @Field(() => String, { nullable: false })
+  collectionName!: string;
 
   @Field(() => Int)
   size: number;

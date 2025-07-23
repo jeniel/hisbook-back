@@ -48,7 +48,7 @@ input CreateProfileInput {
 
 input CreateTenant {
   chatTableName: String!
-  collectionName: String
+  collectionName: String!
   description: String
   distance: String! = "Cosine"
   documentTableName: String
