@@ -31,6 +31,9 @@ export class Chat {
 
   @Field(() => MessageContent)
   message: MessageContent;
+
+  @Field(() => Date, { nullable: true })
+  created_at: Date;
 }
 
 @ObjectType()
@@ -65,6 +68,7 @@ export class PaginationChat {
 
 @ObjectType()
 export class ChatResponse {
+
   @Field(() => [Chat])
   data: Chat[];
   @Field(() => PaginationChat)

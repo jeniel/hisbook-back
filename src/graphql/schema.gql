@@ -8,6 +8,7 @@ input BoolFilter {
 }
 
 type Chat {
+  created_at: DateTime
   id: ID!
   message: MessageContent!
   session_id: String!
@@ -559,6 +560,7 @@ type QdrantSearchResultType {
 
 type Query {
   chatWithModel: String!
+  findAllChat(limit: Int! = 10, page: Int! = 1, tenantId: String!): ChatResponse!
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllFbDetails(page: Int, perPage: Int, where: FacebookPageWhereInput): FaceBookPageList!
   findAllTenants: [Tenant!]!

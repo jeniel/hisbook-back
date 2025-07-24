@@ -1,7 +1,7 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
 @ArgsType()
-export class FindAllChatArgs {
+export class FindAllChatWithoutSessionArgs {
   @Field(() => String)
   tenantId: string;
 
@@ -10,9 +10,4 @@ export class FindAllChatArgs {
 
   @Field(() => Int, { defaultValue: 10 })
   limit: number;
-
-  @Field(() => String, { nullable: true })
-  sessionId: string;
 }
-
-
