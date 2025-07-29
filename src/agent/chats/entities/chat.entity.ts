@@ -74,3 +74,21 @@ export class ChatResponse {
   @Field(() => PaginationChat)
   pagination: PaginationChat;
 }
+
+@ObjectType()
+export class SessionChat {
+  @Field(() => String)
+  session_id: string;
+
+  @Field(() => Date)
+  latest_activity: Date;
+}
+
+@ObjectType()
+export class SessionChatResponse {
+  @Field(() => [SessionChat])
+  data: SessionChat[];
+
+  @Field(() => PaginationChat)
+  pagination: PaginationChat;
+}

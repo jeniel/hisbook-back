@@ -567,6 +567,7 @@ type Query {
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
   findChatBySession(limit: Int! = 10, page: Int! = 1, sessionId: String, tenantId: String!): ChatResponse!
   findOneUser(profileId: String!): Profile!
+  findSessionChat(limit: Int! = 10, page: Int! = 1, tenantId: String!): SessionChatResponse!
   findSimilarDocuments(collectionName: String! = "documents", documentId: String!, limit: Float! = 5, tenantId: String!, threshold: Float! = 0.8): [QdrantSearchResultType!]!
   findTenantById(tenantId: String!): Tenant!
   getAllKeyWorkByTenant(where: keywordsWhereInput): Reports!
@@ -626,6 +627,16 @@ input SemanticSearchInput {
   query: String!
   tenantId: String!
   threshold: Float! = 0.7
+}
+
+type SessionChat {
+  latest_activity: DateTime!
+  session_id: String!
+}
+
+type SessionChatResponse {
+  data: [SessionChat!]!
+  pagination: PaginationChat!
 }
 
 input SignInInput {
