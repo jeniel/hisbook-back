@@ -1,0 +1,24 @@
+model Subscription {
+    id          String   @id @default(uuid())
+    name        String
+    description String?
+    isActive    Boolean  @default(true) @map("is_active")
+    createdAt   DateTime @default(now()) @map("created_at") @db.Date
+    updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
+    // Tenant      Tenant[]
+
+    @@map("subscription")
+    @@schema("global")
+}
+
+model Feature {
+    id          String   @id @default(uuid())
+    name        String
+    description String?
+    isActive    Boolean  @default(true) @map("is_active")
+    createdAt   DateTime @default(now()) @map("created_at") @db.Date
+    updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
+
+    @@map("feature")
+    @@schema("global")
+}
