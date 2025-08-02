@@ -80,4 +80,34 @@ export class UserService {
       },
     });
   }
+
+  // async createTenantAdmin(payload: any) {
+  //   const hashedPassword = await argon.hash(payload.user.hashedPassword);
+  //   try {
+  //     await this.prisma.user.create({
+  //       data: {
+  //         ...payload.user,
+  //         hashedPassword,
+  //         profile: {
+  //           create: {
+  //             ...payload.profile,
+  //           },
+  //         },
+  //       },
+  //     });
+
+  //     return {
+  //       message: 'User created successfully',
+  //     };
+  //   } catch (error) {
+  //     if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  //       if (error.code === 'P2002') {
+  //         throw new ForbiddenException('Credetials Taken');
+  //       }
+  //     }
+  //     throw error;
+  //   }
+  // }
+
+  ///end
 }

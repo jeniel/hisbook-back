@@ -91,6 +91,9 @@ enum Role {
   ADMIN
   CLIENT
   SUPER_ADMIN
+  CLIENT_USER
+  CLIENT_ADMIN
+  AL_USER
 
   @@schema("global")
 }

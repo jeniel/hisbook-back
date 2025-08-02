@@ -7,12 +7,10 @@ import { MailService } from './mail.service';
 export class MailResolver {
   constructor(private readonly mailService: MailService) {}
 
-
   @Query(() => GeneralMsg)
   async sendMail() {
     return this.mailService.sendWelcomeEmail();
   }
-
 
   ///
 }

@@ -600,7 +600,10 @@ type Reports {
 
 enum Role {
   ADMIN
+  AL_USER
   CLIENT
+  CLIENT_ADMIN
+  CLIENT_USER
   SUPER_ADMIN
   USER
 }

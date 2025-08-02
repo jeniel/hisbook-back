@@ -19,7 +19,7 @@ export class UserResolver {
     return this.userService.create(payload);
   }
 
-  @Roles([Role.USER])
+  @Roles([Role.SUPER_ADMIN])
   @Query(() => UserList)
   findAllUsers(@Args() args: UserProfileArgs) {
     return this.userService.findAll(args);
