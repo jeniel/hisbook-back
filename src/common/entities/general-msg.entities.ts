@@ -5,4 +5,6 @@ export class GeneralMsg {
   @Field(() => String)
   message: string;
 
+  @Field(() => Boolean, { nullable: true })
+  success?: boolean;
 }

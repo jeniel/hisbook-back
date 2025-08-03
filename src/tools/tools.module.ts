@@ -5,6 +5,7 @@ import { LangChainModule } from './lang-chain/lang-chain.module';
 import { MailModule } from './mail/mail.module';
 
 @Module({
-  imports: [ScraperModule, EmbeddingModule, LangChainModule, MailModule]
+  imports: [ScraperModule, EmbeddingModule, LangChainModule, MailModule],
+  exports: [ScraperModule, EmbeddingModule, LangChainModule, MailModule],
 })
 export class ToolsModule {}

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're Invited to {{platformName}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .invitation-title {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .invitation-content {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .role-badge {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #45a049;
+        }
+        .instructions {
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        .instructions ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .expiration-notice {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 14px;
+        }
+        .security-note {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">{{platformName}}</div>
+        </div>
+
+        <h1 class="invitation-title">🎉 You're Invited!</h1>
+
+        <div class="invitation-content">
+            <p>You've been invited to join <strong>{{tenantName}}</strong> on the <strong>{{platformName}}</strong> as:</p>
+            <div class="role-badge">{{role}}</div>
+            
+            <p>We're excited to have you join our team! Click the button below to complete your profile and get started.</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="{{invitationLink}}" class="cta-button">Complete Your Profile</a>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 What happens next?</h3>
+            <ol>
+                <li>Click the "Complete Your Profile" button above</li>
+                <li>Fill in your personal information (name, password, etc.)</li>
+                <li>Your account will be activated automatically</li>
+                <li>Start exploring {{tenantName}} on {{platformName}}!</li>
+            </ol>
+        </div>
+
+        <div class="expiration-notice">
+            ⏰ <strong>Important:</strong> This invitation link will expire in {{expirationHours}} hours for security reasons.
+        </div>
+
+        <div class="security-note">
+            🔒 <strong>Security Notice:</strong> This invitation was sent to your email address. If you didn't expect this invitation, please ignore this email or contact our support team.
+        </div>
+
+        <div class="footer">
+            <p>Need help? Contact our support team.</p>
+            <p>&copy; {{currentYear}} {{platformName}}. All rights reserved.</p>
+            <p style="font-size: 12px; color: #999;">
+                If the button above doesn't work, copy and paste this link into your browser:<br>
+                <span style="word-break: break-all;">{{invitationLink}}</span>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

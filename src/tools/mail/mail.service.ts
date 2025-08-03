@@ -107,4 +107,63 @@ export class MailService {
       throw new Error(`Simple email sending failed: ${error.message}`);
     }
   }
+
+  async sendInvitationEmail(
+    to: string,
+    invitationLink: string,
+    role: string,
+    tenantName?: string,
+  ): Promise<any> {
+    try {
+      const result = await this.mailerService.sendMail({
+        to: to,
+        from: '"AL Support Team" <notifications.email@gmail.com>',
+        subject: `You\'re Invited to Join ${tenantName || 'AL Connect Platform'}`,
+        template: 'invitation',
+        context: {
+          invitationLink,
+          role,
+          platformName: 'AL Connect Platform',
+          tenantName: tenantName || 'AL Connect Platform',
+          currentYear: new Date().getFullYear(),
+          expirationHours: 24,
+        },
+      });
+
+      return { success: true, messageId: result.messageId };
+    } catch (error) {
+      throw new Error(`Invitation email sending failed: ${error.message}`);
+    }
+  }
+
+  async sendWelcomeEmailToUser(
+    to: string,
+    userName: string,
+    tenantName?: string,
+  ): Promise<any> {
+    try {
+      const result = await this.mailerService.sendMail({
+        to: to,
+        from: '"AL Support Team" <notifications.email@gmail.com>',
+        subject: `Welcome to ${tenantName || 'AL Connect Platform'}`,
+        template: 'welcome',
+        context: {
+          userName,
+          platformName: 'AL Connect Platform',
+          tenantName: tenantName || 'AL Connect Platform',
+          currentYear: new Date().getFullYear(),
+          gettingStartedSteps: [
+            'Complete your profile setup',
+            'Explore our dashboard features',
+            'Connect your integrations',
+            'Start building with our AI agents',
+          ],
+        },
+      });
+
+      return { success: true, messageId: result.messageId };
+    } catch (error) {
+      throw new Error(`Welcome email sending failed: ${error.message}`);
+    }
+  }
 }

@@ -19,6 +19,23 @@ type ChatResponse {
   pagination: PaginationChat!
 }
 
+input CompleteProfileInput {
+  birthDate: DateTime
+  firstName: String!
+  lastName: String!
+  middleName: String
+  password: String!
+  token: String!
+  username: String!
+}
+
+type CompleteProfileResponse {
+  email: String
+  message: String!
+  success: Boolean!
+  userId: String!
+}
+
 input CreateCollectionInput {
   distance: String! = "Cosine"
   name: String!
@@ -260,6 +277,7 @@ input FloatNullableFilter {
 
 type GeneralMsg {
   message: String!
+  success: Boolean
 }
 
 input IntNullableFilter {
@@ -271,6 +289,18 @@ input IntNullableFilter {
   lte: Int
   not: NestedIntNullableFilter
   notIn: [Int!]
+}
+
+input InviteUserInput {
+  email: String!
+  role: [Role!]!
+  tenantId: String!
+}
+
+type InviteUserResponse {
+  invitationLink: String!
+  invitationToken: String!
+  message: String!
 }
 
 """
@@ -331,15 +361,17 @@ type Meta {
 }
 
 type Mutation {
+  completeProfile(completeProfileInput: CompleteProfileInput!): CompleteProfileResponse!
   createPagePost(CreatePostInput: CreatePostPage!): GeneralMsg!
   createQdrantCollection(input: CreateCollectionInput!): Boolean!
   createQdrantIndex(input: CreateIndexInput!): Boolean!
+  createSuperAdmin(createUserInput: CreateUserProfileInput!): GeneralMsg!
   createTenant(createTenant: CreateTenant!): GeneralMsg!
-  createUser(createUserInput: CreateUserProfileInput!): GeneralMsg!
   deleteQdrantCollection(name: String!): Boolean!
   deleteQdrantPoints(collectionName: String!, ids: [ID!]!): Boolean!
   deleteTenantDocuments(collectionName: String! = "documents", tenantId: String!): String!
   initializeDocumentCollection(collectionName: String!, vectorSize: Float! = 1536): Boolean!
+  inviteUser(inviteUserInput: InviteUserInput!): InviteUserResponse!
   logOut: GeneralMsg!
   processAndStoreDocuments(input: ProcessDocumentsInput!): Boolean!
   signin(signInInput: SignInInput!): SignResponse!
@@ -586,6 +618,7 @@ type Query {
   semanticSearch(input: SemanticSearchInput!): [QdrantSearchResultType!]!
   sendMail: GeneralMsg!
   syncToGraphApi: GeneralMsg!
+  validateInvitationToken(email: String!, tenantId: String, token: String!): Boolean!
 }
 
 enum QueryMode {
