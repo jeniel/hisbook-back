@@ -119,7 +119,7 @@ export class MailService {
         to: to,
         from: '"AL Support Team" <notifications.email@gmail.com>',
         subject: `You\'re Invited to Join ${tenantName || 'AL Connect Platform'}`,
-        template: 'invitation',
+        template: './invitation',
         context: {
           invitationLink,
           role,
@@ -146,7 +146,7 @@ export class MailService {
         to: to,
         from: '"AL Support Team" <notifications.email@gmail.com>',
         subject: `Welcome to ${tenantName || 'AL Connect Platform'}`,
-        template: 'welcome',
+        template: './welcome',
         context: {
           userName,
           platformName: 'AL Connect Platform',

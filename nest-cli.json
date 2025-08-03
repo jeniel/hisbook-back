@@ -1,3 +1,5 @@
+
+
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
@@ -5,8 +7,10 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "assets": [
-      "src/tools/mail/templates/**/*",
-      "**/*.hbs"
+      {
+        "include": "tools/mail/templates/**/*",
+        "outDir": "dist/src"
+      }
     ],
     "watchAssets": true
   }

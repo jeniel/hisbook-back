@@ -616,7 +616,6 @@ type Query {
   qdrantScrollPoints(input: ScrollPointsInput!): QdrantScrollResultType!
   qdrantSearchPoints(input: SearchPointsInput!): [QdrantSearchResultType!]!
   semanticSearch(input: SemanticSearchInput!): [QdrantSearchResultType!]!
-  sendMail: GeneralMsg!
   syncToGraphApi: GeneralMsg!
   validateInvitationToken(email: String!, tenantId: String, token: String!): Boolean!
 }
