@@ -1,6 +1,7 @@
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MailService } from './mail.service';
 import { join } from 'path';
 import { MailResolver } from './mail.resolver';
@@ -19,28 +20,40 @@ const getTemplateDir = (): string => {
 
 @Module({
   imports: [
-    MailerModule.forRoot({
-      transport: {
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-          user: 'alconnectsupport@advancedlocal.com',
-          pass: 'otyxfnowcjypmwow',
+    ConfigModule,
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+        transport: {
+          host: config.get('MAIL_HOST', 'smtp.gmail.com'),
+          port: parseInt(config.get('MAIL_PORT', '587')),
+          secure: config.get('MAIL_SECURE', 'false') === 'true', // Use STARTTLS by default
+          auth: {
+            user: config.get('MAIL_USER', 'alconnectsupport@advancedlocal.com'),
+            pass: config.get('MAIL_PASS', 'otyxfnowcjypmwow'),
+          },
+          tls: {
+            ciphers: 'SSLv3',
+            rejectUnauthorized: false
+          },
+          connectionTimeout: 60000, // 60 seconds
+          greetingTimeout: 30000, // 30 seconds
+          socketTimeout: 60000, // 60 seconds
+          logger: config.get('NODE_ENV') === 'development', // Enable logging in development
+          debug: config.get('NODE_ENV') === 'development', // Enable debug in development
         },
-        logger: false, // Disable transporter logging
-        debug: false, // Disable debug logging
-      },
-      defaults: {
-        from: '"No Reply" <alconnectcupport@advancedlocal.com>',
-      },
-      template: {
-        dir: getTemplateDir(),
-        adapter: new HandlebarsAdapter(),
-        options: {
-          strict: false,
+        defaults: {
+          from: config.get('MAIL_FROM', '"No Reply" <alconnectsupport@advancedlocal.com>'),
         },
-      },
+        template: {
+          dir: getTemplateDir(),
+          adapter: new HandlebarsAdapter(),
+          options: {
+            strict: false,
+          },
+        },
+      }),
+      inject: [ConfigService],
     }),
   ],
   providers: [MailService, MailResolver],
