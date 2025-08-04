@@ -1,0 +1,30 @@
+{
+  "typescript.preferences.useAliasesForRenames": true,
+  "typescript.preferences.includePackageJsonAutoImports": "auto",
+  "typescript.suggest.autoImports": true,
+  "typescript.suggest.paths": true,
+  "typescript.preferences.includeSourceReferencesForRenames": true,
+  "typescript.suggestionActions.enabled": true,
+  "typescript.suggest.includeAutomaticOptionalChainCompletions": true,
+  "typescript.suggest.includeCompletionsForImportStatements": true,
+  "typescript.suggest.includeCompletionsWithClassMemberSnippets": true,
+  "typescript.suggest.includeCompletionsForModuleExports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "typescript.workspaceSymbols.scope": "allOpenProjects",
+  "typescript.suggest.completeFunctionCalls": true,
+  "typescript.preferences.includeTypeOnlyAutoImports": true,
+  "files.associations": {
+    "*.ts": "typescript"
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.git": true
+  }
+}
