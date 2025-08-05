@@ -15,7 +15,6 @@ model User {
   updatedBy          String?  @map("updated_by")
   tenantId           String?
   profile            Profile?
-  tenant             Tenant?  @relation(fields: [tenantId], references: [id])
 
   @@map("user")
   @@schema("global")
@@ -45,37 +44,6 @@ model Profile {
   @@schema("global")
 }
 
-model Tenant {
-  id                String          @id @default(uuid())
-  name              String
-  description       String?
-  isActive          Boolean         @default(true) @map("is_active")
-  isApprove         Boolean         @default(false) @map("is_approve")
-  createdAt         DateTime        @default(now()) @map("created_at") @db.Date
-  updatedAt         DateTime        @default(now()) @updatedAt @map("updated_at") @db.Date
-  nanoid            String          @unique @default(nanoid(8))
-  slug              String          @unique
-  chatTableName     String?         @map("chat_table_name")
-  documentTableName String?         @map("document_table_name")
-  collectionName    String?         @map("collection_name")
-  size              Int?
-  distance          DistanceMetric  @default(Cosine)
-  keywordDailies    keyword_daily[]
-  keywords          keywords[]
-  users             User[]
-
-  @@map("tenant")
-  @@schema("global")
-}
-
-enum DistanceMetric {
-  Cosine
-  Euclid
-  Dot
-
-  @@schema("global")
-}
-
 model Department {
   id          String    @id @default(uuid())
   name        String
@@ -89,11 +57,6 @@ model Department {
 enum Role {
   USER
   ADMIN
-  CLIENT
-  SUPER_ADMIN
-  CLIENT_USER
-  CLIENT_ADMIN
-  AL_USER
 
   @@schema("global")
 }

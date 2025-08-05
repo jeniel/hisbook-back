@@ -1,6 +1,6 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Profile } from '@/generated/@generated/profile/profile.model';
+import { Profile } from '@/generated/profile/profile.model';
 import { Meta } from '@/shared/common/entities/pagination-meta';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class UserList {

@@ -1,6 +1,6 @@
+import { ProfileWhereInput } from '@/generated/profile/profile-where.input';
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
-import { ProfileWhereInput } from '@/generated/@generated/profile/profile-where.input';
 
 @ArgsType()
 export class UserProfileArgs {

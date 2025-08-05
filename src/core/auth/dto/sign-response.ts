@@ -1,5 +1,5 @@
+import { User } from '@/generated/user/user.model';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from '@/generated/@generated/user/user.model';
 
 @ObjectType()
 export class SignResponse {
@@ -11,7 +11,7 @@ export class SignResponse {
 
   @Field(() => User)
   user: User;
-  
+
   @Field()
   isSignedIn: boolean;
 }

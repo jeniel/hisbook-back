@@ -1,9 +1,6 @@
 import { AuthModule } from '@/core/auth/auth.module';
 import { PrismaModule } from '@/core/database/prisma/prisma.module';
-import { QdrantModule } from '@/infrastructure/qdrant/qdrant.module';
-import { AgentModule } from '@/modules/agent/agent.module';
 import { GlobalModule } from '@/modules/global/global.module';
-import { IntegrationModule } from '@/modules/integration/integration.module';
 import { ToolsModule } from '@/modules/tools/tools.module';
 import { SequentialIdModule } from '@/shared/common/generator/sequential-id.module';
 import { AccessTokenGuard } from '@/shared/common/guards/accessToken.guard';
@@ -33,9 +30,6 @@ import { join } from 'path';
     SequentialIdModule,
     GlobalModule,
     ToolsModule,
-    IntegrationModule,
-    AgentModule,
-    QdrantModule,
   ],
   providers: [
     JwtService,

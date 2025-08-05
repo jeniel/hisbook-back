@@ -1,4 +1,4 @@
-import { Role } from '@/generated/@generated/prisma/role.enum';
+import { Role } from '@/generated/prisma/role.enum';
 
 export type DecodedToken = {
   userId: string;

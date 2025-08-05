@@ -1,10 +1,10 @@
-import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
-import { GeneralMsg } from '@/shared/common/entities/general-msg.entities';
-import { DepartmentService } from '@/modules/global/department/department.service';
-import { UpsertDepartmentInput } from '@/modules/global/department/dto/upsert-department.input';
-import { Department } from '@/generated/@generated/department/department.model';
+import { Department } from '@/generated/department/department.model';
 import { DepartmentArgs } from '@/modules/global/department/args/department.args';
 import { DepartmentList } from '@/modules/global/department/entities/department.entity';
+import { GeneralMsg } from '@/shared/common/entities/general-msg.entities';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { DepartmentService } from './department.service';
+import { UpsertDepartmentInput } from './dto/upsert-department.input';
 
 @Resolver(() => Department)
 export class DepartmentResolver {

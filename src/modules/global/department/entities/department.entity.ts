@@ -1,6 +1,6 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { Department } from '@/generated/@generated/department/department.model';
+import { Department } from '@/generated/department/department.model';
 import { Meta } from '@/shared/common/entities/pagination-meta';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class DepartmentList {

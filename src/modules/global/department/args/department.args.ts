@@ -1,6 +1,6 @@
+import { DepartmentWhereInput } from '@/generated/department/department-where.input';
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
-import { DepartmentWhereInput } from '@/generated/@generated/department/department-where.input';
 
 @ArgsType()
 export class DepartmentArgs {

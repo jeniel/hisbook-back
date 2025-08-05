@@ -6,13 +6,13 @@ const prisma = new PrismaClient();
 async function main() {
   const password = await argon2.hash('34670cfafbd9');
   await prisma.user.upsert({
-    where: { email: 'joe@advancedlocal.com' },
+    where: { email: 'mis@acemcbohol.com' },
     update: {},
     create: {
-      email: 'joe@advancedlocal.com',
+      email: 'mis@acemcbohol.com',
       username: 'admin',
       hashedPassword: password,
-      role: ['SUPER_ADMIN'],
+      role: ['ADMIN'],
       isActive: true,
       isApprove: true,
       profile: {

@@ -1,6 +1,15 @@
-import { InputType, Field } from '@nestjs/graphql';
-import { Role } from '@/generated/@generated/prisma/role.enum';
-import { IsEmail, IsNotEmpty, IsArray, ArrayNotEmpty, Length, Matches, IsOptional, IsDateString } from 'class-validator';
+import { Role } from '@/generated/prisma/role.enum';
+import { Field, InputType } from '@nestjs/graphql';
+import {
+  ArrayNotEmpty,
+  IsArray,
+  IsDateString,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  Length,
+  Matches,
+} from 'class-validator';
 
 @InputType()
 export class InviteUserInput {
@@ -43,8 +52,9 @@ export class CompleteProfileInput {
   @Field(() => String, { nullable: false })
   @IsNotEmpty({ message: 'Username is required' })
   @Length(3, 30, { message: 'Username must be between 3 and 30 characters' })
-  @Matches(/^[a-zA-Z0-9._-]+$/, { 
-    message: 'Username can only contain letters, numbers, dots, underscores, and hyphens' 
+  @Matches(/^[a-zA-Z0-9._-]+$/, {
+    message:
+      'Username can only contain letters, numbers, dots, underscores, and hyphens',
   })
   username!: string;
 

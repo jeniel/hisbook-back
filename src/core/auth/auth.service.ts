@@ -1,14 +1,14 @@
+import { SignInInput } from '@/core/auth/dto/signin-input';
+import { SignUpInput } from '@/core/auth/dto/signup-input';
+import { PrismaService } from '@/core/database/prisma/prisma.service';
+import { Role } from '@/generated/prisma/role.enum';
+import { JwtPayload2 } from '@/shared/common/types/jwtPayload';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Prisma } from '@prisma/client';
 import * as argon from 'argon2';
-import { Response, Request } from 'express';
-import { PrismaService } from '@/core/database/prisma/prisma.service';
-import { SignInInput } from '@/core/auth/dto/signin-input';
-import { SignUpInput } from '@/core/auth/dto/signup-input';
-import { JwtPayload2 } from '@/shared/common/types/jwtPayload';
-import { Role } from '@/generated/@generated/prisma/role.enum';
+import { Request, Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -194,7 +194,6 @@ export class AuthService {
         id: currentUser.userId,
       },
       include: {
-        tenant: true,
         profile: {
           include: {
             department: true,

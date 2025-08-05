@@ -5,7 +5,7 @@ generator client {
 
 generator nestgraphql {
   provider               = "node node_modules/prisma-nestjs-graphql"
-  output                 = "../../src/@generated"
+  output                 = "../../src/generated"
   fields_Validator_from  = "class-validator"
   fields_Validator_input = "true"
 }
@@ -14,5 +14,5 @@ datasource db {
   provider   = "postgresql"
   url        = env("DATABASE_URL")
   extensions = [uuid_ossp(map: "uuid-ossp", schema: "public")]
-  schemas    = ["global", "marketing","agent"]
+  schemas    = ["global"]
 }

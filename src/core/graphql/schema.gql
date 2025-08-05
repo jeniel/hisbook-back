@@ -7,72 +7,12 @@ input BoolFilter {
   not: NestedBoolFilter
 }
 
-type Chat {
-  created_at: DateTime
-  id: ID!
-  message: MessageContent!
-  session_id: String!
-}
-
-type ChatResponse {
-  data: [Chat!]!
-  pagination: PaginationChat!
-}
-
-input CompleteProfileInput {
-  birthDate: DateTime
-  firstName: String!
-  lastName: String!
-  middleName: String
-  password: String!
-  token: String!
-  username: String!
-}
-
-type CompleteProfileResponse {
-  email: String
-  message: String!
-  success: Boolean!
-  userId: String!
-}
-
-input CreateCollectionInput {
-  distance: String! = "Cosine"
-  name: String!
-  size: Int!
-}
-
-input CreateIndexInput {
-  collectionName: String!
-  fieldName: String!
-  fieldSchema: String! = "keyword"
-}
-
-input CreatePostPage {
-  """The message to post on the Facebook Page"""
-  message: String!
-
-  """The Facebook Page ID"""
-  pageId: String!
-}
-
 input CreateProfileInput {
   birthDate: DateTime
   departmentId: String
   firstName: String
   lastName: String
   middleName: String
-}
-
-input CreateTenant {
-  chatTableName: String!
-  collectionName: String!
-  description: String
-  distance: String! = "Cosine"
-  documentTableName: String
-  name: String!
-  size: Int!
-  slug: String!
 }
 
 input CreateUserInput {
@@ -146,133 +86,12 @@ input DepartmentWhereInput {
   profile: ProfileListRelationFilter
 }
 
-enum DistanceMetric {
-  Cosine
-  Dot
-  Euclid
-}
-
-input DocumentToEmbedInput {
-  content: String!
-  documentType: String!
-  id: String
-  metadata: JSON
-  tenantId: String!
-}
-
-input EnumDistanceMetricFilter {
-  equals: DistanceMetric
-  in: [DistanceMetric!]
-  not: NestedEnumDistanceMetricFilter
-  notIn: [DistanceMetric!]
-}
-
 input EnumRoleNullableListFilter {
   equals: [Role!]
   has: Role
   hasEvery: [Role!]
   hasSome: [Role!]
   isEmpty: Boolean
-}
-
-type FaceBookPageList {
-  data: [FacebookPage!]!
-  meta: Meta
-}
-
-type FacebookPage {
-  _count: FacebookPageCount!
-  about: String
-  accessToken: String
-  category: String
-  createdAt: DateTime!
-  engagementCount: Int
-  engagementMessage: String
-  facebookPagePost: [FacebookPagePost!]
-  fanCount: Int
-  fbId: String
-  followersCount: Int
-  id: ID!
-  imageUrl: String
-  link: String
-  name: String
-  overallStarRating: Float
-  updatedAt: DateTime!
-  username: String
-  website: String
-}
-
-type FacebookPageCount {
-  facebookPagePost: Int!
-}
-
-type FacebookPagePost {
-  createdAt: DateTime!
-  createdTime: DateTime
-  id: ID!
-  message: String
-  page: FacebookPage!
-  pageId: String!
-  updatedAt: DateTime!
-}
-
-input FacebookPagePostListRelationFilter {
-  every: FacebookPagePostWhereInput
-  none: FacebookPagePostWhereInput
-  some: FacebookPagePostWhereInput
-}
-
-input FacebookPagePostWhereInput {
-  AND: [FacebookPagePostWhereInput!]
-  NOT: [FacebookPagePostWhereInput!]
-  OR: [FacebookPagePostWhereInput!]
-  createdAt: DateTimeFilter
-  createdTime: DateTimeNullableFilter
-  id: StringFilter
-  message: StringNullableFilter
-  page: FacebookPageScalarRelationFilter
-  pageId: StringFilter
-  updatedAt: DateTimeFilter
-}
-
-input FacebookPageScalarRelationFilter {
-  is: FacebookPageWhereInput
-  isNot: FacebookPageWhereInput
-}
-
-input FacebookPageWhereInput {
-  AND: [FacebookPageWhereInput!]
-  NOT: [FacebookPageWhereInput!]
-  OR: [FacebookPageWhereInput!]
-  about: StringNullableFilter
-  accessToken: StringNullableFilter
-  category: StringNullableFilter
-  createdAt: DateTimeFilter
-  engagementCount: IntNullableFilter
-  engagementMessage: StringNullableFilter
-  facebookPagePost: FacebookPagePostListRelationFilter
-  fanCount: IntNullableFilter
-  fbId: StringNullableFilter
-  followersCount: IntNullableFilter
-  id: StringFilter
-  imageUrl: StringNullableFilter
-  link: StringNullableFilter
-  name: StringNullableFilter
-  overallStarRating: FloatNullableFilter
-  updatedAt: DateTimeFilter
-  username: StringNullableFilter
-  website: StringNullableFilter
-}
-
-input FloatNullableFilter {
-  equals: Float
-  gt: Float
-  gte: Float
-  in: [Float!]
-  lt: Float
-  lte: Float
-  not: NestedFloatNullableFilter
-  notIn: [Float!]
 }
 
 type GeneralMsg {
@@ -289,18 +108,6 @@ input IntNullableFilter {
   lte: Int
   not: NestedIntNullableFilter
   notIn: [Int!]
-}
-
-input InviteUserInput {
-  email: String!
-  role: [Role!]!
-  tenantId: String!
-}
-
-type InviteUserResponse {
-  invitationLink: String!
-  invitationToken: String!
-  message: String!
 }
 
 """
@@ -325,30 +132,9 @@ input JsonNullableFilter {
   string_starts_with: String
 }
 
-input Keyword_dailyListRelationFilter {
-  every: keyword_dailyWhereInput
-  none: keyword_dailyWhereInput
-  some: keyword_dailyWhereInput
-}
-
-input KeywordsListRelationFilter {
-  every: keywordsWhereInput
-  none: keywordsWhereInput
-  some: keywordsWhereInput
-}
-
 type MeQuery {
   isSignedIn: Boolean!
   user: User!
-}
-
-type MessageContent {
-  additional_kwargs: String
-  content: String!
-  invalid_tool_calls: [String!]!
-  response_metadata: String
-  tool_calls: [String!]!
-  type: String!
 }
 
 type Meta {
@@ -361,23 +147,11 @@ type Meta {
 }
 
 type Mutation {
-  completeProfile(completeProfileInput: CompleteProfileInput!): CompleteProfileResponse!
-  createPagePost(CreatePostInput: CreatePostPage!): GeneralMsg!
-  createQdrantCollection(input: CreateCollectionInput!): Boolean!
-  createQdrantIndex(input: CreateIndexInput!): Boolean!
   createSuperAdmin(createUserInput: CreateUserProfileInput!): GeneralMsg!
-  createTenant(createTenant: CreateTenant!): GeneralMsg!
-  deleteQdrantCollection(name: String!): Boolean!
-  deleteQdrantPoints(collectionName: String!, ids: [ID!]!): Boolean!
-  deleteTenantDocuments(collectionName: String! = "documents", tenantId: String!): String!
-  initializeDocumentCollection(collectionName: String!, vectorSize: Float! = 1536): Boolean!
-  inviteUser(inviteUserInput: InviteUserInput!): InviteUserResponse!
   logOut: GeneralMsg!
-  processAndStoreDocuments(input: ProcessDocumentsInput!): Boolean!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
   upsertDepartment(deptId: String, payload: UpsertDepartmentInput!): GeneralMsg!
-  upsertQdrantPoints(input: UpsertPointsInput!): Boolean!
 }
 
 input NestedBoolFilter {
@@ -405,24 +179,6 @@ input NestedDateTimeNullableFilter {
   lte: DateTime
   not: NestedDateTimeNullableFilter
   notIn: [DateTime!]
-}
-
-input NestedEnumDistanceMetricFilter {
-  equals: DistanceMetric
-  in: [DistanceMetric!]
-  not: NestedEnumDistanceMetricFilter
-  notIn: [DistanceMetric!]
-}
-
-input NestedFloatNullableFilter {
-  equals: Float
-  gt: Float
-  gte: Float
-  in: [Float!]
-  lt: Float
-  lte: Float
-  not: NestedFloatNullableFilter
-  notIn: [Float!]
 }
 
 input NestedIntNullableFilter {
@@ -462,31 +218,6 @@ input NestedStringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
-}
-
-input NestedUuidFilter {
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  not: NestedUuidFilter
-  notIn: [String!]
-}
-
-type PaginationChat {
-  currentPage: Int!
-  hasNextPage: Boolean!
-  hasPrevPage: Boolean!
-  limit: Int!
-  totalCount: Int!
-  totalPages: Int!
-}
-
-input ProcessDocumentsInput {
-  collectionName: String! = "documents"
-  documents: [DocumentToEmbedInput!]!
 }
 
 type Profile {
@@ -545,79 +276,11 @@ input ProfileWhereInput {
   userId: StringNullableFilter
 }
 
-type QdrantCollectionInfoType {
-  config: JSON
-  indexed_vectors_count: Int!
-  payload_schema: JSON
-  points_count: Int!
-  status: String!
-  vectors_count: Int!
-}
-
-type QdrantCollectionType {
-  name: String!
-}
-
-type QdrantCountResultType {
-  count: Int!
-}
-
-input QdrantPointInput {
-  id: ID!
-  payload: JSON
-  vector: [Float!]!
-}
-
-type QdrantPointType {
-  id: ID!
-  payload: JSON
-  score: Float
-  vector: [Float!]
-  version: Int
-}
-
-type QdrantScrollResultType {
-  next_page_offset: String
-  points: [QdrantPointType!]!
-}
-
-type QdrantSearchResultType {
-  content: String
-  id: ID!
-  metadata: JSON
-  payload: JSON
-  score: Float!
-  vector: [Float!]
-}
-
 type Query {
-  chatWithModel: String!
-  findAllChat(limit: Int! = 10, page: Int! = 1, tenantId: String!): ChatResponse!
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
-  findAllFbDetails(page: Int, perPage: Int, where: FacebookPageWhereInput): FaceBookPageList!
-  findAllTenants: [Tenant!]!
   findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
-  findChatBySession(limit: Int! = 10, page: Int! = 1, sessionId: String, tenantId: String!): ChatResponse!
   findOneUser(profileId: String!): Profile!
-  findSessionChat(limit: Int! = 10, page: Int! = 1, tenantId: String!): SessionChatResponse!
-  findSimilarDocuments(collectionName: String! = "documents", documentId: String!, limit: Float! = 5, tenantId: String!, threshold: Float! = 0.8): [QdrantSearchResultType!]!
-  findTenantById(tenantId: String!): Tenant!
-  getAllKeyWorkByTenant(where: keywordsWhereInput): Reports!
-  hybridSearch(collectionName: String! = "documents", keywords: [String!]!, limit: Float! = 10, query: String!, tenantId: String!): [QdrantSearchResultType!]!
   meQuery: MeQuery!
-  qdrantCollection(name: String!): QdrantCollectionInfoType!
-  qdrantCollectionAnalytics(collectionName: String! = "documents"): String!
-  qdrantCollectionExists(name: String!): Boolean!
-  qdrantCollections: [QdrantCollectionType!]!
-  qdrantPoint(collectionName: String!, id: ID!): QdrantPointType
-  qdrantPoints(collectionName: String!, ids: [ID!]!): [QdrantPointType!]!
-  qdrantPointsCount(collectionName: String!, filter: JSON): QdrantCountResultType!
-  qdrantQueryPoints(input: SearchPointsInput!): [QdrantSearchResultType!]!
-  qdrantScrollPoints(input: ScrollPointsInput!): QdrantScrollResultType!
-  qdrantSearchPoints(input: SearchPointsInput!): [QdrantSearchResultType!]!
-  semanticSearch(input: SemanticSearchInput!): [QdrantSearchResultType!]!
-  syncToGraphApi: GeneralMsg!
-  validateInvitationToken(email: String!, tenantId: String, token: String!): Boolean!
 }
 
 enum QueryMode {
@@ -625,54 +288,9 @@ enum QueryMode {
   insensitive
 }
 
-type Reports {
-  keywords: [keywords!]!
-  totalKeyWord: Int
-}
-
 enum Role {
   ADMIN
-  AL_USER
-  CLIENT
-  CLIENT_ADMIN
-  CLIENT_USER
-  SUPER_ADMIN
   USER
-}
-
-input ScrollPointsInput {
-  collectionName: String!
-  filter: JSON
-  limit: Int! = 100
-  offset: String
-}
-
-input SearchPointsInput {
-  collectionName: String!
-  filter: JSON
-  limit: Int! = 10
-  vector: [Float!]!
-  withPayload: Boolean! = true
-  withVector: Boolean! = false
-}
-
-input SemanticSearchInput {
-  collectionName: String! = "documents"
-  documentType: String
-  limit: Int! = 10
-  query: String!
-  tenantId: String!
-  threshold: Float! = 0.7
-}
-
-type SessionChat {
-  latest_activity: DateTime!
-  session_id: String!
-}
-
-type SessionChatResponse {
-  data: [SessionChat!]!
-  pagination: PaginationChat!
 }
 
 input SignInInput {
@@ -728,69 +346,9 @@ input StringNullableFilter {
   startsWith: String
 }
 
-type Tenant {
-  _count: TenantCount!
-  chatTableName: String
-  collectionName: String
-  createdAt: DateTime!
-  description: String
-  distance: DistanceMetric!
-  documentTableName: String
-  id: ID!
-  isActive: Boolean!
-  isApprove: Boolean!
-  keywordDailies: [keyword_daily!]
-  keywords: [keywords!]
-  name: String!
-  nanoid: String!
-  size: Int
-  slug: String!
-  updatedAt: DateTime!
-  users: [User!]
-}
-
-type TenantCount {
-  keywordDailies: Int!
-  keywords: Int!
-  users: Int!
-}
-
-input TenantNullableScalarRelationFilter {
-  is: TenantWhereInput
-  isNot: TenantWhereInput
-}
-
-input TenantWhereInput {
-  AND: [TenantWhereInput!]
-  NOT: [TenantWhereInput!]
-  OR: [TenantWhereInput!]
-  chatTableName: StringNullableFilter
-  collectionName: StringNullableFilter
-  createdAt: DateTimeFilter
-  description: StringNullableFilter
-  distance: EnumDistanceMetricFilter
-  documentTableName: StringNullableFilter
-  id: StringFilter
-  isActive: BoolFilter
-  isApprove: BoolFilter
-  keywordDailies: Keyword_dailyListRelationFilter
-  keywords: KeywordsListRelationFilter
-  name: StringFilter
-  nanoid: StringFilter
-  size: IntNullableFilter
-  slug: StringFilter
-  updatedAt: DateTimeFilter
-  users: UserListRelationFilter
-}
-
 input UpsertDepartmentInput {
   description: String
   name: String!
-}
-
-input UpsertPointsInput {
-  collectionName: String!
-  points: [QdrantPointInput!]!
 }
 
 type User {
@@ -805,7 +363,6 @@ type User {
   isApprove: Boolean!
   profile: Profile
   role: [Role!]
-  tenant: Tenant
   tenantId: String
   updatedAt: DateTime!
   updatedBy: String
@@ -815,12 +372,6 @@ type User {
 type UserList {
   data: [Profile!]!
   meta: Meta
-}
-
-input UserListRelationFilter {
-  every: UserWhereInput
-  none: UserWhereInput
-  some: UserWhereInput
 }
 
 input UserNullableScalarRelationFilter {
@@ -842,61 +393,8 @@ input UserWhereInput {
   isApprove: BoolFilter
   profile: ProfileNullableScalarRelationFilter
   role: EnumRoleNullableListFilter
-  tenant: TenantNullableScalarRelationFilter
   tenantId: StringNullableFilter
   updatedAt: DateTimeFilter
   updatedBy: StringNullableFilter
   username: StringFilter
-}
-
-input UuidFilter {
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  mode: QueryMode
-  not: NestedUuidFilter
-  notIn: [String!]
-}
-
-type keyword_daily {
-  count: Int
-  date: DateTime
-  id: ID!
-  keyword: String!
-  tenant: Tenant
-  tenantId: String
-}
-
-input keyword_dailyWhereInput {
-  AND: [keyword_dailyWhereInput!]
-  NOT: [keyword_dailyWhereInput!]
-  OR: [keyword_dailyWhereInput!]
-  count: IntNullableFilter
-  date: DateTimeNullableFilter
-  id: UuidFilter
-  keyword: StringFilter
-  tenant: TenantNullableScalarRelationFilter
-  tenantId: StringNullableFilter
-}
-
-type keywords {
-  count: Int
-  id: ID!
-  keyword: String!
-  tenant: Tenant
-  tenantId: String
-}
-
-input keywordsWhereInput {
-  AND: [keywordsWhereInput!]
-  NOT: [keywordsWhereInput!]
-  OR: [keywordsWhereInput!]
-  count: IntNullableFilter
-  id: UuidFilter
-  keyword: StringFilter
-  tenant: TenantNullableScalarRelationFilter
-  tenantId: StringNullableFilter
 }
