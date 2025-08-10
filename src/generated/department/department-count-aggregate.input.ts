@@ -14,5 +14,8 @@ export class DepartmentCountAggregateInput {
     description?: true;
 
     @Field(() => Boolean, {nullable:true})
+    order?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }

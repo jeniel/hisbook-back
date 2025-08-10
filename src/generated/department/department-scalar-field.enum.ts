@@ -3,7 +3,8 @@ import { registerEnumType } from '@nestjs/graphql';
 export enum DepartmentScalarFieldEnum {
     id = "id",
     name = "name",
-    description = "description"
+    description = "description",
+    order = "order"
 }
 
 

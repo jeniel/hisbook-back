@@ -1,8 +1,14 @@
 import { CreateDepartmentInput } from '@/modules/global/department/dto/create-department.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateDepartmentInput extends PartialType(CreateDepartmentInput) {
-  @Field(() => Int)
-  id: number;
+  @Field(() => String)
+  name: string;
+
+  @Field(() => String, { nullable: true })
+  description?: string;
+
+  @Field(() => Number)
+  order: number;
 }

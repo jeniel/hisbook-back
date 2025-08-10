@@ -7,6 +7,8 @@ import { DepartmentScalarFieldEnum } from './department-scalar-field.enum';
 import { DepartmentScalarWhereWithAggregatesInput } from './department-scalar-where-with-aggregates.input';
 import { Int } from '@nestjs/graphql';
 import { DepartmentCountAggregateInput } from './department-count-aggregate.input';
+import { DepartmentAvgAggregateInput } from './department-avg-aggregate.input';
+import { DepartmentSumAggregateInput } from './department-sum-aggregate.input';
 import { DepartmentMinAggregateInput } from './department-min-aggregate.input';
 import { DepartmentMaxAggregateInput } from './department-max-aggregate.input';
 
@@ -34,6 +36,12 @@ export class DepartmentGroupByArgs {
 
     @Field(() => DepartmentCountAggregateInput, {nullable:true})
     _count?: DepartmentCountAggregateInput;
+
+    @Field(() => DepartmentAvgAggregateInput, {nullable:true})
+    _avg?: DepartmentAvgAggregateInput;
+
+    @Field(() => DepartmentSumAggregateInput, {nullable:true})
+    _sum?: DepartmentSumAggregateInput;
 
     @Field(() => DepartmentMinAggregateInput, {nullable:true})
     _min?: DepartmentMinAggregateInput;

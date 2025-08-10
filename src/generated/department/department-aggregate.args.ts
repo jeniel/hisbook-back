@@ -7,6 +7,8 @@ import { Prisma } from '@prisma/client';
 import { DepartmentWhereUniqueInput } from './department-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { DepartmentCountAggregateInput } from './department-count-aggregate.input';
+import { DepartmentAvgAggregateInput } from './department-avg-aggregate.input';
+import { DepartmentSumAggregateInput } from './department-sum-aggregate.input';
 import { DepartmentMinAggregateInput } from './department-min-aggregate.input';
 import { DepartmentMaxAggregateInput } from './department-max-aggregate.input';
 
@@ -31,6 +33,12 @@ export class DepartmentAggregateArgs {
 
     @Field(() => DepartmentCountAggregateInput, {nullable:true})
     _count?: DepartmentCountAggregateInput;
+
+    @Field(() => DepartmentAvgAggregateInput, {nullable:true})
+    _avg?: DepartmentAvgAggregateInput;
+
+    @Field(() => DepartmentSumAggregateInput, {nullable:true})
+    _sum?: DepartmentSumAggregateInput;
 
     @Field(() => DepartmentMinAggregateInput, {nullable:true})
     _min?: DepartmentMinAggregateInput;

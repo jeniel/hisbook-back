@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { SortOrderInput } from '../prisma/sort-order.input';
 import { ProfileOrderByRelationAggregateInput } from '../profile/profile-order-by-relation-aggregate.input';
 
 @InputType()
@@ -13,8 +12,11 @@ export class DepartmentOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     name?: `${SortOrder}`;
 
-    @Field(() => SortOrderInput, {nullable:true})
-    description?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    description?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    order?: `${SortOrder}`;
 
     @Field(() => ProfileOrderByRelationAggregateInput, {nullable:true})
     profile?: ProfileOrderByRelationAggregateInput;

@@ -3,23 +3,49 @@ import { DepartmentArgs } from '@/modules/global/department/args/department.args
 import { DepartmentList } from '@/modules/global/department/entities/department.entity';
 import { GeneralMsg } from '@/shared/common/entities/general-msg.entities';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+
 import { DepartmentService } from './department.service';
-import { UpsertDepartmentInput } from './dto/upsert-department.input';
+import { CreateDepartmentInput } from './dto/create-department.input';
+import { UpdateDepartmentInput } from './dto/update-department.input';
+// import { UpsertDepartmentInput } from './dto/upsert-department.input';
 
 @Resolver(() => Department)
 export class DepartmentResolver {
   constructor(private readonly departmentService: DepartmentService) {}
 
+  // Create
   @Mutation(() => GeneralMsg)
-  upsertDepartment(
-    @Args('payload') payload: UpsertDepartmentInput,
-    @Args('deptId', { nullable: true }) deptId?: string,
-  ) {
-    return this.departmentService.upsert(payload, deptId);
+  createDepartment(@Args('payload') payload: CreateDepartmentInput) {
+    return this.departmentService.create(payload);
   }
 
+  // Find All
   @Query(() => DepartmentList)
   async findAllDepartments(@Args() args: DepartmentArgs) {
     return await this.departmentService.findAll(args);
   }
+
+  // Update
+  @Mutation(() => GeneralMsg)
+  updateDepartment(
+    @Args('id') id: string,
+    @Args('payload') payload: UpdateDepartmentInput,
+  ) {
+    return this.departmentService.update(id, payload);
+  }
+
+  // Delete
+  @Mutation(() => GeneralMsg)
+  deleteDepartment(@Args('id') id: string) {
+    return this.departmentService.delete(id);
+  }
+
+  // Upsert (create or update)
+  // @Mutation(() => GeneralMsg)
+  // upsertDepartment(
+  //   @Args('payload') payload: UpsertDepartmentInput,
+  //   @Args('deptId', { nullable: true }) deptId?: string,
+  // ) {
+  //   return this.departmentService.upsert(payload, deptId);
+  // }
 }

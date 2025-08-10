@@ -47,7 +47,8 @@ model Profile {
 model Department {
   id          String    @id @default(uuid())
   name        String
-  description String?
+  description String
+  order       Int       @default(0)
   profile     Profile[]
 
   @@map("department")

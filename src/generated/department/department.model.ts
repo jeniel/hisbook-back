@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 import { Profile } from '../profile/profile.model';
 import { DepartmentCount } from './department-count.output';
 
@@ -13,8 +14,11 @@ export class Department {
     @Field(() => String, {nullable:false})
     name!: string;
 
-    @Field(() => String, {nullable:true})
-    description!: string | null;
+    @Field(() => String, {nullable:false})
+    description!: string;
+
+    @Field(() => Int, {defaultValue:0,nullable:false})
+    order!: number;
 
     @Field(() => [Profile], {nullable:true})
     profile?: Array<Profile>;

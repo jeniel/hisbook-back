@@ -1,25 +1,31 @@
-import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/core/database/prisma/prisma.service';
-import { UpsertDepartmentInput } from '@/modules/global/department/dto/upsert-department.input';
+import { Injectable } from '@nestjs/common';
+
 import { DepartmentArgs } from '@/modules/global/department/args/department.args';
+import { CreateDepartmentInput } from '@/modules/global/department/dto/create-department.input';
+import { UpdateDepartmentInput } from '@/modules/global/department/dto/update-department.input';
 
 @Injectable()
 export class DepartmentService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async upsert(payload: UpsertDepartmentInput, deptId: string) {
-    await this.prisma.department.upsert({
-      where: {
-        id: deptId || '',
+  // Create Department
+  async create(dto: CreateDepartmentInput) {
+    const department = await this.prisma.department.create({
+      data: {
+        name: dto.name,
+        description: dto.description,
+        order: dto.order,
       },
-      update: payload,
-      create: payload,
     });
+
     return {
-      message: 'Department upserted successfully',
+      message: 'Department created successfully',
+      data: department,
     };
   }
 
+  // Find all Departments (with pagination)
   async findAll(args: DepartmentArgs) {
     const page = args.page || 1;
     const perPage = args.perPage || 10;
@@ -29,6 +35,7 @@ export class DepartmentService {
       this.prisma.department.count({ where: args.where }),
       this.prisma.department.findMany({
         where: args.where,
+        orderBy: { order: 'desc' }, // asc or desc order
         take: perPage,
         skip,
       }),
@@ -48,4 +55,47 @@ export class DepartmentService {
       },
     };
   }
+
+  // Delete Department
+  async delete(id: string) {
+    await this.prisma.department.delete({
+      where: { id },
+    });
+
+    return {
+      message: 'Department deleted successfully',
+      success: true,
+    };
+  }
+
+  // Update Department
+  async update(id: string, data: UpdateDepartmentInput) {
+    await this.prisma.department.update({
+      where: { id },
+      data,
+    });
+
+    return {
+      message: 'Department updated successfully',
+      success: true,
+    };
+  }
+
+  // Upsert Department
+  // async upsert(payload: CreateDepartmentInput, id?: string) {
+  //   await this.prisma.department.upsert({
+  //     where: { id: id || '' },
+  //     update: {
+  //       name: payload.name,
+  //       description: payload.description ?? null,
+  //     },
+  //     create: {
+  //       name: payload.name,
+  //       description: payload.description ?? null,
+  //     },
+  //   });
+  //   return {
+  //     message: 'Department upserted successfully',
+  //   };
+  // }
 }

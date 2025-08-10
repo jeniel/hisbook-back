@@ -7,6 +7,12 @@ input BoolFilter {
   not: NestedBoolFilter
 }
 
+input CreateDepartmentInput {
+  description: String
+  name: String!
+  order: Float!
+}
+
 input CreateProfileInput {
   birthDate: DateTime
   departmentId: String
@@ -56,9 +62,10 @@ input DateTimeNullableFilter {
 
 type Department {
   _count: DepartmentCount!
-  description: String
+  description: String!
   id: ID!
   name: String!
+  order: Int!
   profile: [Profile!]
 }
 
@@ -80,9 +87,10 @@ input DepartmentWhereInput {
   AND: [DepartmentWhereInput!]
   NOT: [DepartmentWhereInput!]
   OR: [DepartmentWhereInput!]
-  description: StringNullableFilter
+  description: StringFilter
   id: StringFilter
   name: StringFilter
+  order: IntFilter
   profile: ProfileListRelationFilter
 }
 
@@ -97,6 +105,17 @@ input EnumRoleNullableListFilter {
 type GeneralMsg {
   message: String!
   success: Boolean
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
 }
 
 input IntNullableFilter {
@@ -147,11 +166,13 @@ type Meta {
 }
 
 type Mutation {
+  createDepartment(payload: CreateDepartmentInput!): GeneralMsg!
   createSuperAdmin(createUserInput: CreateUserProfileInput!): GeneralMsg!
+  deleteDepartment(id: String!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
-  upsertDepartment(deptId: String, payload: UpsertDepartmentInput!): GeneralMsg!
+  updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
 }
 
 input NestedBoolFilter {
@@ -179,6 +200,17 @@ input NestedDateTimeNullableFilter {
   lte: DateTime
   not: NestedDateTimeNullableFilter
   notIn: [DateTime!]
+}
+
+input NestedIntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
 }
 
 input NestedIntNullableFilter {
@@ -346,9 +378,10 @@ input StringNullableFilter {
   startsWith: String
 }
 
-input UpsertDepartmentInput {
+input UpdateDepartmentInput {
   description: String
   name: String!
+  order: Float!
 }
 
 type User {

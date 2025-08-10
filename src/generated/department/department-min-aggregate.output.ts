@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class DepartmentMinAggregate {
@@ -12,4 +13,7 @@ export class DepartmentMinAggregate {
 
     @Field(() => String, {nullable:true})
     description?: string;
+
+    @Field(() => Int, {nullable:true})
+    order?: number;
 }
