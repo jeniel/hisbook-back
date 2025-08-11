@@ -2,9 +2,9 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { UserUpdateroleInput } from './user-updaterole.input';
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { UserUpdateroleInput } from './user-updaterole.input';
 
 @InputType()
 export class UserUpdateManyMutationInput {
@@ -23,9 +23,6 @@ export class UserUpdateManyMutationInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     hashedRefreshToken?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => UserUpdateroleInput, {nullable:true})
-    role?: UserUpdateroleInput;
 
     @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
     isActive?: BoolFieldUpdateOperationsInput;
@@ -47,4 +44,7 @@ export class UserUpdateManyMutationInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     tenantId?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => UserUpdateroleInput, {nullable:true})
+    role?: UserUpdateroleInput;
 }

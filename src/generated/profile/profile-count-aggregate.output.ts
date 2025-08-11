@@ -18,9 +18,6 @@ export class ProfileCountAggregate {
     lastName!: number;
 
     @Field(() => Int, {nullable:false})
-    designation!: number;
-
-    @Field(() => Int, {nullable:false})
     employeeID!: number;
 
     @Field(() => Int, {nullable:false})
@@ -36,12 +33,6 @@ export class ProfileCountAggregate {
     contact!: number;
 
     @Field(() => Int, {nullable:false})
-    departmentId!: number;
-
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-
-    @Field(() => Int, {nullable:false})
     createdAt!: number;
 
     @Field(() => Int, {nullable:false})
@@ -52,6 +43,9 @@ export class ProfileCountAggregate {
 
     @Field(() => Int, {nullable:false})
     updatedBy!: number;
+
+    @Field(() => Int, {nullable:false})
+    userId!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

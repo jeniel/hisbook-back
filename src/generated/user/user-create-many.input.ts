@@ -20,9 +20,6 @@ export class UserCreateManyInput {
     @Field(() => String, {nullable:true})
     hashedRefreshToken?: string;
 
-    @Field(() => UserCreateroleInput, {nullable:true})
-    role?: UserCreateroleInput;
-
     @Field(() => Boolean, {nullable:true})
     isActive?: boolean;
 
@@ -43,4 +40,10 @@ export class UserCreateManyInput {
 
     @Field(() => String, {nullable:true})
     tenantId?: string;
+
+    @Field(() => UserCreateroleInput, {nullable:true})
+    role?: UserCreateroleInput;
+
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
 }

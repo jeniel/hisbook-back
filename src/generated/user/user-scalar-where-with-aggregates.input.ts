@@ -2,9 +2,9 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
-import { EnumRoleNullableListFilter } from '../prisma/enum-role-nullable-list-filter.input';
 import { BoolWithAggregatesFilter } from '../prisma/bool-with-aggregates-filter.input';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
+import { EnumRoleNullableListFilter } from '../prisma/enum-role-nullable-list-filter.input';
 
 @InputType()
 export class UserScalarWhereWithAggregatesInput {
@@ -33,9 +33,6 @@ export class UserScalarWhereWithAggregatesInput {
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     hashedRefreshToken?: StringNullableWithAggregatesFilter;
 
-    @Field(() => EnumRoleNullableListFilter, {nullable:true})
-    role?: EnumRoleNullableListFilter;
-
     @Field(() => BoolWithAggregatesFilter, {nullable:true})
     isActive?: BoolWithAggregatesFilter;
 
@@ -56,4 +53,10 @@ export class UserScalarWhereWithAggregatesInput {
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     tenantId?: StringNullableWithAggregatesFilter;
+
+    @Field(() => EnumRoleNullableListFilter, {nullable:true})
+    role?: EnumRoleNullableListFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    departmentId?: StringNullableWithAggregatesFilter;
 }

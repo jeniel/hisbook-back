@@ -17,9 +17,6 @@ export class ProfileMinAggregate {
     @Field(() => String, {nullable:true})
     lastName?: string;
 
-    @Field(() => String, {nullable:true})
-    designation?: string;
-
     @Field(() => Int, {nullable:true})
     employeeID?: number;
 
@@ -30,10 +27,10 @@ export class ProfileMinAggregate {
     birthDate?: Date | string;
 
     @Field(() => String, {nullable:true})
-    departmentId?: string;
+    address?: string;
 
     @Field(() => String, {nullable:true})
-    userId?: string;
+    contact?: string;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
@@ -46,4 +43,7 @@ export class ProfileMinAggregate {
 
     @Field(() => String, {nullable:true})
     updatedBy?: string;
+
+    @Field(() => String, {nullable:true})
+    userId?: string;
 }

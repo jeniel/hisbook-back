@@ -22,9 +22,6 @@ export class UserCountAggregate {
     hashedRefreshToken!: number;
 
     @Field(() => Int, {nullable:false})
-    role!: number;
-
-    @Field(() => Int, {nullable:false})
     isActive!: number;
 
     @Field(() => Int, {nullable:false})
@@ -44,6 +41,12 @@ export class UserCountAggregate {
 
     @Field(() => Int, {nullable:false})
     tenantId!: number;
+
+    @Field(() => Int, {nullable:false})
+    role!: number;
+
+    @Field(() => Int, {nullable:false})
+    departmentId!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

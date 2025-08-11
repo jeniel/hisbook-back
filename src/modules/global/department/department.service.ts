@@ -1,6 +1,7 @@
 import { PrismaService } from '@/core/database/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 
+// Import DTO and ARGS
 import { DepartmentArgs } from '@/modules/global/department/args/department.args';
 import { CreateDepartmentInput } from '@/modules/global/department/dto/create-department.input';
 import { UpdateDepartmentInput } from '@/modules/global/department/dto/update-department.input';

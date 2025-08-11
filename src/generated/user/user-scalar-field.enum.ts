@@ -6,14 +6,15 @@ export enum UserScalarFieldEnum {
     username = "username",
     hashedPassword = "hashedPassword",
     hashedRefreshToken = "hashedRefreshToken",
-    role = "role",
     isActive = "isActive",
     isApprove = "isApprove",
     createdAt = "createdAt",
     createdBy = "createdBy",
     updatedAt = "updatedAt",
     updatedBy = "updatedBy",
-    tenantId = "tenantId"
+    tenantId = "tenantId",
+    role = "role",
+    departmentId = "departmentId"
 }
 
 

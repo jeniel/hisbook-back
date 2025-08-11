@@ -3,6 +3,8 @@ import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { ProfileOrderByWithRelationInput } from '../profile/profile-order-by-with-relation.input';
+import { PostsOrderByRelationAggregateInput } from '../posts/posts-order-by-relation-aggregate.input';
+import { DepartmentOrderByWithRelationInput } from '../department/department-order-by-with-relation.input';
 
 @InputType()
 export class UserOrderByWithRelationInput {
@@ -21,9 +23,6 @@ export class UserOrderByWithRelationInput {
 
     @Field(() => SortOrderInput, {nullable:true})
     hashedRefreshToken?: SortOrderInput;
-
-    @Field(() => SortOrder, {nullable:true})
-    role?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
     isActive?: `${SortOrder}`;
@@ -46,6 +45,18 @@ export class UserOrderByWithRelationInput {
     @Field(() => SortOrderInput, {nullable:true})
     tenantId?: SortOrderInput;
 
+    @Field(() => SortOrder, {nullable:true})
+    role?: `${SortOrder}`;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    departmentId?: SortOrderInput;
+
     @Field(() => ProfileOrderByWithRelationInput, {nullable:true})
     profile?: ProfileOrderByWithRelationInput;
+
+    @Field(() => PostsOrderByRelationAggregateInput, {nullable:true})
+    posts?: PostsOrderByRelationAggregateInput;
+
+    @Field(() => DepartmentOrderByWithRelationInput, {nullable:true})
+    department?: DepartmentOrderByWithRelationInput;
 }

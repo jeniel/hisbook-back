@@ -6,50 +6,56 @@ model User {
   /// @HideField()
   hashedPassword     String   @map("hashed_password")
   hashedRefreshToken String?  @map("hashed_refresh_token")
-  role               Role[]   @default([USER])
   isActive           Boolean  @default(true) @map("is_active")
   isApprove          Boolean  @default(false) @map("is_approve")
-  createdAt          DateTime @default(now()) @map("created_at") @db.Date
+  createdAt          DateTime @default(now()) @map("created_at")
   createdBy          String?  @map("created_by")
-  updatedAt          DateTime @default(now()) @updatedAt @map("updated_at") @db.Date
+  updatedAt          DateTime @default(now()) @updatedAt @map("updated_at")
   updatedBy          String?  @map("updated_by")
   tenantId           String?
-  profile            Profile?
+
+  role Role[] @default([USER])
+
+  // Relations
+  profile      Profile?
+  posts        Posts[]
+  departmentId String?     @map("department_id")
+  department   Department? @relation(fields: [departmentId], references: [id])
 
   @@map("user")
   @@schema("global")
 }
 
 model Profile {
-  id           String      @id @default(uuid())
-  firstName    String?     @map("first_name")
-  middleName   String?     @map("middle_name")
-  lastName     String?     @map("last_name")
-  designation  String?
-  employeeID   Int?        @default(autoincrement()) @map("employee_id")
-  dateHired    DateTime?   @map("date_hired")
-  birthDate    DateTime?   @map("birth_date")
-  address      Json?
-  contact      Json?
-  departmentId String?     @map("department_id")
-  userId       String?     @unique @map("user_id")
-  createdAt    DateTime    @default(now()) @map("created_at") @db.Date
-  createdBy    String?     @map("created_by")
-  updatedAt    DateTime    @default(now()) @updatedAt @map("updated_at") @db.Date
-  updatedBy    String?     @map("updated_by")
-  department   Department? @relation(fields: [departmentId], references: [id])
-  user         User?       @relation(fields: [userId], references: [id])
+  id         String    @id @default(uuid())
+  firstName  String?   @map("first_name")
+  middleName String?   @map("middle_name")
+  lastName   String?   @map("last_name")
+  employeeID Int?      @unique @default(autoincrement()) @map("employee_id")
+  dateHired  DateTime? @map("date_hired")
+  birthDate  DateTime? @map("birth_date")
+  address    String?
+  contact    String?
+  createdAt  DateTime  @default(now()) @map("created_at")
+  createdBy  String?   @map("created_by")
+  updatedAt  DateTime  @default(now()) @updatedAt @map("updated_at")
+  updatedBy  String?   @map("updated_by")
+
+  userId String? @unique @map("user_id")
+  user   User?   @relation(fields: [userId], references: [id])
 
   @@map("profile")
   @@schema("global")
 }
 
 model Department {
-  id          String    @id @default(uuid())
+  id          String @id @default(uuid())
   name        String
   description String
-  order       Int       @default(0)
-  profile     Profile[]
+  order       Int    @default(autoincrement())
+
+  // Relations
+  users User[]
 
   @@map("department")
   @@schema("global")
@@ -60,4 +66,30 @@ enum Role {
   ADMIN
 
   @@schema("global")
+}
+
+model Posts {
+  id      String   @id @default(uuid())
+  content String
+  images  Images[]
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  @@map("posts")
+  @@schema("global")
+}
+
+model Images {
+  id     String @id @default(uuid())
+  url    String
+  postId String
+  post   Posts  @relation(fields: [postId], references: [id])
+
+  @@map("images")
+  @@schema("global")
+}
+
+model MissedLogoutTicket {
+  id String @id @default(uuid())
 }

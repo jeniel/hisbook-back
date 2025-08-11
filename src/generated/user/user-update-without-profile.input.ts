@@ -2,9 +2,11 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { UserUpdateroleInput } from './user-updaterole.input';
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { UserUpdateroleInput } from './user-updaterole.input';
+import { PostsUpdateManyWithoutUserNestedInput } from '../posts/posts-update-many-without-user-nested.input';
+import { DepartmentUpdateOneWithoutUsersNestedInput } from '../department/department-update-one-without-users-nested.input';
 
 @InputType()
 export class UserUpdateWithoutProfileInput {
@@ -23,9 +25,6 @@ export class UserUpdateWithoutProfileInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     hashedRefreshToken?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => UserUpdateroleInput, {nullable:true})
-    role?: UserUpdateroleInput;
 
     @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
     isActive?: BoolFieldUpdateOperationsInput;
@@ -47,4 +46,13 @@ export class UserUpdateWithoutProfileInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     tenantId?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => UserUpdateroleInput, {nullable:true})
+    role?: UserUpdateroleInput;
+
+    @Field(() => PostsUpdateManyWithoutUserNestedInput, {nullable:true})
+    posts?: PostsUpdateManyWithoutUserNestedInput;
+
+    @Field(() => DepartmentUpdateOneWithoutUsersNestedInput, {nullable:true})
+    department?: DepartmentUpdateOneWithoutUsersNestedInput;
 }

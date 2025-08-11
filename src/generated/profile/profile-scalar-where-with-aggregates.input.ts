@@ -4,7 +4,6 @@ import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-fil
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
 import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input';
-import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
 
 @InputType()
@@ -31,9 +30,6 @@ export class ProfileScalarWhereWithAggregatesInput {
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     lastName?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    designation?: StringNullableWithAggregatesFilter;
-
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
     employeeID?: IntNullableWithAggregatesFilter;
 
@@ -43,17 +39,11 @@ export class ProfileScalarWhereWithAggregatesInput {
     @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
     birthDate?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    address?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    contact?: JsonNullableWithAggregatesFilter;
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    address?: StringNullableWithAggregatesFilter;
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    departmentId?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    userId?: StringNullableWithAggregatesFilter;
+    contact?: StringNullableWithAggregatesFilter;
 
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: DateTimeWithAggregatesFilter;
@@ -66,4 +56,7 @@ export class ProfileScalarWhereWithAggregatesInput {
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     updatedBy?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    userId?: StringNullableWithAggregatesFilter;
 }

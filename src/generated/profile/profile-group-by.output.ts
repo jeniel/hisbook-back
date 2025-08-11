@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { GraphQLJSON } from 'graphql-type-json';
 import { ProfileCountAggregate } from './profile-count-aggregate.output';
 import { ProfileAvgAggregate } from './profile-avg-aggregate.output';
 import { ProfileSumAggregate } from './profile-sum-aggregate.output';
@@ -23,9 +22,6 @@ export class ProfileGroupBy {
     @Field(() => String, {nullable:true})
     lastName?: string;
 
-    @Field(() => String, {nullable:true})
-    designation?: string;
-
     @Field(() => Int, {nullable:true})
     employeeID?: number;
 
@@ -35,17 +31,11 @@ export class ProfileGroupBy {
     @Field(() => Date, {nullable:true})
     birthDate?: Date | string;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    address?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contact?: any;
+    @Field(() => String, {nullable:true})
+    address?: string;
 
     @Field(() => String, {nullable:true})
-    departmentId?: string;
-
-    @Field(() => String, {nullable:true})
-    userId?: string;
+    contact?: string;
 
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
@@ -58,6 +48,9 @@ export class ProfileGroupBy {
 
     @Field(() => String, {nullable:true})
     updatedBy?: string;
+
+    @Field(() => String, {nullable:true})
+    userId?: string;
 
     @Field(() => ProfileCountAggregate, {nullable:true})
     _count?: ProfileCountAggregate;

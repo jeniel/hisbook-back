@@ -24,9 +24,6 @@ export class UserGroupBy {
     @Field(() => String, {nullable:true})
     hashedRefreshToken?: string;
 
-    @Field(() => [Role], {nullable:true})
-    role?: Array<`${Role}`>;
-
     @Field(() => Boolean, {nullable:false})
     isActive!: boolean;
 
@@ -47,6 +44,12 @@ export class UserGroupBy {
 
     @Field(() => String, {nullable:true})
     tenantId?: string;
+
+    @Field(() => [Role], {nullable:true})
+    role?: Array<`${Role}`>;
+
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
 
     @Field(() => UserCountAggregate, {nullable:true})
     _count?: UserCountAggregate;

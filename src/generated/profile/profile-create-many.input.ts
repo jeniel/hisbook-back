@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { GraphQLJSON } from 'graphql-type-json';
 
 @InputType()
 export class ProfileCreateManyInput {
@@ -18,9 +17,6 @@ export class ProfileCreateManyInput {
     @Field(() => String, {nullable:true})
     lastName?: string;
 
-    @Field(() => String, {nullable:true})
-    designation?: string;
-
     @Field(() => Int, {nullable:true})
     employeeID?: number;
 
@@ -30,17 +26,11 @@ export class ProfileCreateManyInput {
     @Field(() => Date, {nullable:true})
     birthDate?: Date | string;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    address?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contact?: any;
+    @Field(() => String, {nullable:true})
+    address?: string;
 
     @Field(() => String, {nullable:true})
-    departmentId?: string;
-
-    @Field(() => String, {nullable:true})
-    userId?: string;
+    contact?: string;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
@@ -53,4 +43,7 @@ export class ProfileCreateManyInput {
 
     @Field(() => String, {nullable:true})
     updatedBy?: string;
+
+    @Field(() => String, {nullable:true})
+    userId?: string;
 }

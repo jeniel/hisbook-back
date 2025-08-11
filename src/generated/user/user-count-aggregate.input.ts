@@ -20,9 +20,6 @@ export class UserCountAggregateInput {
     hashedRefreshToken?: true;
 
     @Field(() => Boolean, {nullable:true})
-    role?: true;
-
-    @Field(() => Boolean, {nullable:true})
     isActive?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -42,6 +39,12 @@ export class UserCountAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     tenantId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    role?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    departmentId?: true;
 
     @Field(() => Boolean, {nullable:true})
     _all?: true;

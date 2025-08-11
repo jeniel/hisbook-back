@@ -15,6 +15,7 @@ async function bootstrap() {
       'https://admin.advancedlocal.org',
       'https://al-connect.advancedlocal.org',
       'http://localhost:4173',
+      'http://localhost:5173',
     ], // Replace with your frontend URL
     credentials: true, // Allow cookies to be sent
     //allowedHeaders: ['Content-Type', 'X-CSRF-Token'], // Allow CSRF token header

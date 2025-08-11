@@ -40,4 +40,7 @@ export class UserMinOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     tenantId?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    departmentId?: `${SortOrder}`;
 }

@@ -4,6 +4,9 @@ import { ID } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
 import { Profile } from '../profile/profile.model';
+import { Posts } from '../posts/posts.model';
+import { Department } from '../department/department.model';
+import { UserCount } from './user-count.output';
 
 @ObjectType()
 export class User {
@@ -26,9 +29,6 @@ export class User {
     @Field(() => String, {nullable:true})
     hashedRefreshToken!: string | null;
 
-    @Field(() => [Role], {nullable:true})
-    role!: Array<`${Role}`>;
-
     @Field(() => Boolean, {defaultValue:true,nullable:false})
     isActive!: boolean;
 
@@ -50,6 +50,21 @@ export class User {
     @Field(() => String, {nullable:true})
     tenantId!: string | null;
 
+    @Field(() => [Role], {nullable:true})
+    role!: Array<`${Role}`>;
+
+    @Field(() => String, {nullable:true})
+    departmentId!: string | null;
+
     @Field(() => Profile, {nullable:true})
     profile?: Profile | null;
+
+    @Field(() => [Posts], {nullable:true})
+    posts?: Array<Posts>;
+
+    @Field(() => Department, {nullable:true})
+    department?: Department | null;
+
+    @Field(() => UserCount, {nullable:false})
+    _count?: UserCount;
 }

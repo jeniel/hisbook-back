@@ -3,42 +3,45 @@ import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class CreateUserInput {
-  @Field(() => String, { nullable: false })
-  email!: string;
+  @Field()
+  email: string;
 
-  @Field(() => String, { nullable: false })
-  username!: string;
+  @Field()
+  username: string;
 
-  @Field(() => String, { nullable: false })
-  hashedPassword!: string;
+  @Field()
+  password: string;
 
   @Field(() => [Role], { nullable: true })
-  role: Array<keyof typeof Role>;
-}
+  role?: Role[];
 
-@InputType()
-export class CreateProfileInput {
-  @Field(() => String, { nullable: true })
-  firstName?: string;
-
-  @Field(() => String, { nullable: true })
-  middleName?: string;
-
-  @Field(() => String, { nullable: true })
-  lastName?: string;
-
-  @Field(() => String, { nullable: true })
+  @Field({ nullable: true })
   departmentId?: string;
-
-  @Field(() => Date, { nullable: true })
-  birthDate?: Date | string;
 }
 
-@InputType()
-export class CreateUserProfileInput {
-  @Field(() => CreateProfileInput, { nullable: true })
-  profile?: CreateProfileInput;
+// @InputType()
+// export class CreateProfileInput {
+//   @Field(() => String, { nullable: true })
+//   firstName?: string;
 
-  @Field(() => CreateUserInput, { nullable: true })
-  user?: CreateUserInput;
-}
+//   @Field(() => String, { nullable: true })
+//   middleName?: string;
+
+//   @Field(() => String, { nullable: true })
+//   lastName?: string;
+
+//   @Field(() => String, { nullable: true })
+//   departmentId?: string;
+
+//   @Field(() => Date, { nullable: true })
+//   birthDate?: Date | string;
+// }
+
+// @InputType()
+// export class CreateUserProfileInput {
+//   @Field(() => CreateProfileInput, { nullable: true })
+//   profile?: CreateProfileInput;
+
+//   @Field(() => CreateUserInput, { nullable: true })
+//   user?: CreateUserInput;
+// }

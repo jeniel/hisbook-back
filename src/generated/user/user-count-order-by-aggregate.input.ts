@@ -21,9 +21,6 @@ export class UserCountOrderByAggregateInput {
     hashedRefreshToken?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    role?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
     isActive?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
@@ -43,4 +40,10 @@ export class UserCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     tenantId?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    role?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    departmentId?: `${SortOrder}`;
 }

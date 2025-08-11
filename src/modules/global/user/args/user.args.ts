@@ -1,16 +1,15 @@
-import { ProfileWhereInput } from '@/generated/profile/profile-where.input';
+import { UserWhereInput } from '@/generated/user/user-where.input';
 import { ArgsType, Field, Int } from '@nestjs/graphql';
-import { Type } from 'class-transformer';
+import { Prisma } from '@prisma/client';
 
 @ArgsType()
-export class UserProfileArgs {
+export class UserArgs {
   @Field(() => Int, { nullable: true })
   page?: number;
 
   @Field(() => Int, { nullable: true })
   perPage?: number;
 
-  @Field(() => ProfileWhereInput, { nullable: true })
-  @Type(() => ProfileWhereInput)
-  where?: ProfileWhereInput;
+  @Field(() => UserWhereInput, { nullable: true })
+  where?: Prisma.UserWhereInput;
 }

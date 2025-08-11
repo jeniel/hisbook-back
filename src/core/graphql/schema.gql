@@ -13,24 +13,12 @@ input CreateDepartmentInput {
   order: Float!
 }
 
-input CreateProfileInput {
-  birthDate: DateTime
-  departmentId: String
-  firstName: String
-  lastName: String
-  middleName: String
-}
-
 input CreateUserInput {
+  departmentId: String
   email: String!
-  hashedPassword: String!
+  password: String!
   role: [Role!]
   username: String!
-}
-
-input CreateUserProfileInput {
-  profile: CreateProfileInput
-  user: CreateUserInput
 }
 
 """
@@ -66,11 +54,11 @@ type Department {
   id: ID!
   name: String!
   order: Int!
-  profile: [Profile!]
+  users: [User!]
 }
 
 type DepartmentCount {
-  profile: Int!
+  users: Int!
 }
 
 type DepartmentList {
@@ -91,7 +79,7 @@ input DepartmentWhereInput {
   id: StringFilter
   name: StringFilter
   order: IntFilter
-  profile: ProfileListRelationFilter
+  users: UserListRelationFilter
 }
 
 input EnumRoleNullableListFilter {
@@ -105,6 +93,29 @@ input EnumRoleNullableListFilter {
 type GeneralMsg {
   message: String!
   success: Boolean
+}
+
+type Images {
+  id: ID!
+  post: Posts!
+  postId: String!
+  url: String!
+}
+
+input ImagesListRelationFilter {
+  every: ImagesWhereInput
+  none: ImagesWhereInput
+  some: ImagesWhereInput
+}
+
+input ImagesWhereInput {
+  AND: [ImagesWhereInput!]
+  NOT: [ImagesWhereInput!]
+  OR: [ImagesWhereInput!]
+  id: StringFilter
+  post: PostsScalarRelationFilter
+  postId: StringFilter
+  url: StringFilter
 }
 
 input IntFilter {
@@ -129,33 +140,6 @@ input IntNullableFilter {
   notIn: [Int!]
 }
 
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-
-input JsonNullableFilter {
-  array_contains: JSON
-  array_ends_with: JSON
-  array_starts_with: JSON
-  equals: JSON
-  gt: JSON
-  gte: JSON
-  lt: JSON
-  lte: JSON
-  mode: QueryMode
-  not: JSON
-  path: [String!]
-  string_contains: String
-  string_ends_with: String
-  string_starts_with: String
-}
-
-type MeQuery {
-  isSignedIn: Boolean!
-  user: User!
-}
-
 type Meta {
   currentPage: Float!
   lastPage: Float!
@@ -167,11 +151,11 @@ type Meta {
 
 type Mutation {
   createDepartment(payload: CreateDepartmentInput!): GeneralMsg!
-  createSuperAdmin(createUserInput: CreateUserProfileInput!): GeneralMsg!
+  createUser(payload: CreateUserInput!): GeneralMsg!
   deleteDepartment(id: String!): GeneralMsg!
+  deleteUser(id: String!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
-  signup(signUpInput: SignUpInput!): SignResponse!
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
 }
 
@@ -252,16 +236,48 @@ input NestedStringNullableFilter {
   startsWith: String
 }
 
+type Posts {
+  _count: PostsCount!
+  content: String!
+  id: ID!
+  images: [Images!]
+  user: User
+  userId: String
+}
+
+type PostsCount {
+  images: Int!
+}
+
+input PostsListRelationFilter {
+  every: PostsWhereInput
+  none: PostsWhereInput
+  some: PostsWhereInput
+}
+
+input PostsScalarRelationFilter {
+  is: PostsWhereInput
+  isNot: PostsWhereInput
+}
+
+input PostsWhereInput {
+  AND: [PostsWhereInput!]
+  NOT: [PostsWhereInput!]
+  OR: [PostsWhereInput!]
+  content: StringFilter
+  id: StringFilter
+  images: ImagesListRelationFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
+}
+
 type Profile {
-  address: JSON
+  address: String
   birthDate: DateTime
-  contact: JSON
+  contact: String
   createdAt: DateTime!
   createdBy: String
   dateHired: DateTime
-  department: Department
-  departmentId: String
-  designation: String
   employeeID: Int
   firstName: String
   id: ID!
@@ -273,12 +289,6 @@ type Profile {
   userId: String
 }
 
-input ProfileListRelationFilter {
-  every: ProfileWhereInput
-  none: ProfileWhereInput
-  some: ProfileWhereInput
-}
-
 input ProfileNullableScalarRelationFilter {
   is: ProfileWhereInput
   isNot: ProfileWhereInput
@@ -288,15 +298,12 @@ input ProfileWhereInput {
   AND: [ProfileWhereInput!]
   NOT: [ProfileWhereInput!]
   OR: [ProfileWhereInput!]
-  address: JsonNullableFilter
+  address: StringNullableFilter
   birthDate: DateTimeNullableFilter
-  contact: JsonNullableFilter
+  contact: StringNullableFilter
   createdAt: DateTimeFilter
   createdBy: StringNullableFilter
   dateHired: DateTimeNullableFilter
-  department: DepartmentNullableScalarRelationFilter
-  departmentId: StringNullableFilter
-  designation: StringNullableFilter
   employeeID: IntNullableFilter
   firstName: StringNullableFilter
   id: StringFilter
@@ -310,9 +317,7 @@ input ProfileWhereInput {
 
 type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
-  findAllUsers(page: Int, perPage: Int, where: ProfileWhereInput): UserList!
-  findOneUser(profileId: String!): Profile!
-  meQuery: MeQuery!
+  findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
 }
 
 enum QueryMode {
@@ -336,16 +341,6 @@ type SignResponse {
   isSignedIn: Boolean!
   refreshToken: String!
   user: User!
-}
-
-input SignUpInput {
-  designation: String
-  email: String!
-  firstName: String
-  lastName: String
-  middleName: String
-  password: String!
-  username: String!
 }
 
 input StringFilter {
@@ -385,8 +380,11 @@ input UpdateDepartmentInput {
 }
 
 type User {
+  _count: UserCount!
   createdAt: DateTime!
   createdBy: String
+  department: Department
+  departmentId: String
 
   """@Validator.@IsEmail()"""
   email: String!
@@ -394,6 +392,7 @@ type User {
   id: ID!
   isActive: Boolean!
   isApprove: Boolean!
+  posts: [Posts!]
   profile: Profile
   role: [Role!]
   tenantId: String
@@ -402,9 +401,19 @@ type User {
   username: String!
 }
 
+type UserCount {
+  posts: Int!
+}
+
 type UserList {
   data: [Profile!]!
   meta: Meta
+}
+
+input UserListRelationFilter {
+  every: UserWhereInput
+  none: UserWhereInput
+  some: UserWhereInput
 }
 
 input UserNullableScalarRelationFilter {
@@ -418,12 +427,15 @@ input UserWhereInput {
   OR: [UserWhereInput!]
   createdAt: DateTimeFilter
   createdBy: StringNullableFilter
+  department: DepartmentNullableScalarRelationFilter
+  departmentId: StringNullableFilter
   email: StringFilter
   hashedPassword: StringFilter
   hashedRefreshToken: StringNullableFilter
   id: StringFilter
   isActive: BoolFilter
   isApprove: BoolFilter
+  posts: PostsListRelationFilter
   profile: ProfileNullableScalarRelationFilter
   role: EnumRoleNullableListFilter
   tenantId: StringNullableFilter

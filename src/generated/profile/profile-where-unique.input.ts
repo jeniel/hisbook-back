@@ -1,12 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 import { ProfileWhereInput } from './profile-where.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
-import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { DepartmentNullableScalarRelationFilter } from '../department/department-nullable-scalar-relation-filter.input';
 import { UserNullableScalarRelationFilter } from '../user/user-nullable-scalar-relation-filter.input';
 
 @InputType()
@@ -14,6 +12,9 @@ export class ProfileWhereUniqueInput {
 
     @Field(() => String, {nullable:true})
     id?: string;
+
+    @Field(() => Int, {nullable:true})
+    employeeID?: number;
 
     @Field(() => String, {nullable:true})
     userId?: string;
@@ -36,26 +37,17 @@ export class ProfileWhereUniqueInput {
     @Field(() => StringNullableFilter, {nullable:true})
     lastName?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    designation?: StringNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    employeeID?: IntNullableFilter;
-
     @Field(() => DateTimeNullableFilter, {nullable:true})
     dateHired?: DateTimeNullableFilter;
 
     @Field(() => DateTimeNullableFilter, {nullable:true})
     birthDate?: DateTimeNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    address?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    contact?: JsonNullableFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    address?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
-    departmentId?: StringNullableFilter;
+    contact?: StringNullableFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;
@@ -68,9 +60,6 @@ export class ProfileWhereUniqueInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     updatedBy?: StringNullableFilter;
-
-    @Field(() => DepartmentNullableScalarRelationFilter, {nullable:true})
-    department?: DepartmentNullableScalarRelationFilter;
 
     @Field(() => UserNullableScalarRelationFilter, {nullable:true})
     user?: UserNullableScalarRelationFilter;

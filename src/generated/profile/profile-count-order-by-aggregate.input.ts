@@ -18,9 +18,6 @@ export class ProfileCountOrderByAggregateInput {
     lastName?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    designation?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
     employeeID?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
@@ -36,12 +33,6 @@ export class ProfileCountOrderByAggregateInput {
     contact?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    departmentId?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    userId?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
@@ -52,4 +43,7 @@ export class ProfileCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     updatedBy?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    userId?: `${SortOrder}`;
 }

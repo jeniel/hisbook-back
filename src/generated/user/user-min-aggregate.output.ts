@@ -40,4 +40,7 @@ export class UserMinAggregate {
 
     @Field(() => String, {nullable:true})
     tenantId?: string;
+
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
 }

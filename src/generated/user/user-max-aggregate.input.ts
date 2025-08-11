@@ -39,4 +39,7 @@ export class UserMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     tenantId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    departmentId?: true;
 }

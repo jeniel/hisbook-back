@@ -18,9 +18,6 @@ export class ProfileMaxOrderByAggregateInput {
     lastName?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    designation?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
     employeeID?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
@@ -30,10 +27,10 @@ export class ProfileMaxOrderByAggregateInput {
     birthDate?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    departmentId?: `${SortOrder}`;
+    address?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    userId?: `${SortOrder}`;
+    contact?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
@@ -46,4 +43,7 @@ export class ProfileMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     updatedBy?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    userId?: `${SortOrder}`;
 }

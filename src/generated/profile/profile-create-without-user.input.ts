@@ -1,8 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { GraphQLJSON } from 'graphql-type-json';
-import { DepartmentCreateNestedOneWithoutProfileInput } from '../department/department-create-nested-one-without-profile.input';
 
 @InputType()
 export class ProfileCreateWithoutUserInput {
@@ -19,9 +17,6 @@ export class ProfileCreateWithoutUserInput {
     @Field(() => String, {nullable:true})
     lastName?: string;
 
-    @Field(() => String, {nullable:true})
-    designation?: string;
-
     @Field(() => Int, {nullable:true})
     employeeID?: number;
 
@@ -31,11 +26,11 @@ export class ProfileCreateWithoutUserInput {
     @Field(() => Date, {nullable:true})
     birthDate?: Date | string;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    address?: any;
+    @Field(() => String, {nullable:true})
+    address?: string;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    contact?: any;
+    @Field(() => String, {nullable:true})
+    contact?: string;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
@@ -48,7 +43,4 @@ export class ProfileCreateWithoutUserInput {
 
     @Field(() => String, {nullable:true})
     updatedBy?: string;
-
-    @Field(() => DepartmentCreateNestedOneWithoutProfileInput, {nullable:true})
-    department?: DepartmentCreateNestedOneWithoutProfileInput;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { UserCreateroleInput } from './user-createrole.input';
+import { PostsUncheckedCreateNestedManyWithoutUserInput } from '../posts/posts-unchecked-create-nested-many-without-user.input';
 
 @InputType()
 export class UserUncheckedCreateWithoutProfileInput {
@@ -19,9 +20,6 @@ export class UserUncheckedCreateWithoutProfileInput {
 
     @Field(() => String, {nullable:true})
     hashedRefreshToken?: string;
-
-    @Field(() => UserCreateroleInput, {nullable:true})
-    role?: UserCreateroleInput;
 
     @Field(() => Boolean, {nullable:true})
     isActive?: boolean;
@@ -43,4 +41,13 @@ export class UserUncheckedCreateWithoutProfileInput {
 
     @Field(() => String, {nullable:true})
     tenantId?: string;
+
+    @Field(() => UserCreateroleInput, {nullable:true})
+    role?: UserCreateroleInput;
+
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
+
+    @Field(() => PostsUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    posts?: PostsUncheckedCreateNestedManyWithoutUserInput;
 }

@@ -12,11 +12,11 @@ import { Request, Response } from 'express';
 export class AuthResolver {
   constructor(private authService: AuthService) {}
 
-  @Public()
-  @Mutation(() => SignResponse)
-  signup(@Args('signUpInput') signUpInput: SignUpInput) {
-    return this.authService.signup(signUpInput);
-  }
+  // @Public()
+  // @Mutation(() => SignResponse)
+  // signup(@Args('signUpInput') signUpInput: SignUpInput) {
+  //   return this.authService.signup(signUpInput);
+  // }
 
   @Public()
   @Mutation(() => SignResponse)
@@ -36,8 +36,8 @@ export class AuthResolver {
     return this.authService.logOut(context);
   }
 
-  @Query(() => MeQuery)
-  meQuery(@Context() context: { res: Response; req: Request }) {
-    return this.authService.meQuery(context);
-  }
+  // @Query(() => MeQuery)
+  // meQuery(@Context() context: { res: Response; req: Request }) {
+  //   return this.authService.meQuery(context);
+  // }
 }

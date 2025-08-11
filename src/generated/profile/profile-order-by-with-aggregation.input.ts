@@ -24,9 +24,6 @@ export class ProfileOrderByWithAggregationInput {
     lastName?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
-    designation?: SortOrderInput;
-
-    @Field(() => SortOrderInput, {nullable:true})
     employeeID?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
@@ -41,12 +38,6 @@ export class ProfileOrderByWithAggregationInput {
     @Field(() => SortOrderInput, {nullable:true})
     contact?: SortOrderInput;
 
-    @Field(() => SortOrderInput, {nullable:true})
-    departmentId?: SortOrderInput;
-
-    @Field(() => SortOrderInput, {nullable:true})
-    userId?: SortOrderInput;
-
     @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
 
@@ -58,6 +49,9 @@ export class ProfileOrderByWithAggregationInput {
 
     @Field(() => SortOrderInput, {nullable:true})
     updatedBy?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    userId?: SortOrderInput;
 
     @Field(() => ProfileCountOrderByAggregateInput, {nullable:true})
     _count?: ProfileCountOrderByAggregateInput;

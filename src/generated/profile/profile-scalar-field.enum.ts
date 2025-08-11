@@ -5,18 +5,16 @@ export enum ProfileScalarFieldEnum {
     firstName = "firstName",
     middleName = "middleName",
     lastName = "lastName",
-    designation = "designation",
     employeeID = "employeeID",
     dateHired = "dateHired",
     birthDate = "birthDate",
     address = "address",
     contact = "contact",
-    departmentId = "departmentId",
-    userId = "userId",
     createdAt = "createdAt",
     createdBy = "createdBy",
     updatedAt = "updatedAt",
-    updatedBy = "updatedBy"
+    updatedBy = "updatedBy",
+    userId = "userId"
 }
 
 

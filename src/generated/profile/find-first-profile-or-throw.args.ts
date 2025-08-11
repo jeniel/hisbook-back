@@ -19,7 +19,7 @@ export class FindFirstProfileOrThrowArgs {
     orderBy?: Array<ProfileOrderByWithRelationInput>;
 
     @Field(() => ProfileWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
+    cursor?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'employeeID' | 'userId'>;
 
     @Field(() => Int, {nullable:true})
     take?: number;

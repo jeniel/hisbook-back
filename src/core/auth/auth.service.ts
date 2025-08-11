@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
 import { SignInInput } from '@/core/auth/dto/signin-input';
 import { SignUpInput } from '@/core/auth/dto/signup-input';
 import { PrismaService } from '@/core/database/prisma/prisma.service';
@@ -18,61 +20,62 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
-  async signup(signUpInput: SignUpInput) {
-    try {
-      const hashedPassword = await argon.hash(signUpInput.password);
-      const user = await this.prisma.user.create({
-        data: {
-          username: signUpInput.username,
-          hashedPassword,
-          email: signUpInput.email,
-          profile: {
-            create: {
-              firstName: signUpInput.firstName,
-              middleName: signUpInput.middleName,
-              lastName: signUpInput.lastName,
-              designation: signUpInput.designation,
-            },
-          },
-        },
-        include: {
-          profile: true,
-        },
-      });
+  // Sign Up but IT staff only Create Users?? - Ash
+  // async signup(signUpInput: SignUpInput) {
+  //   try {
+  //     const hashedPassword = await argon.hash(signUpInput.password);
+  //     const user = await this.prisma.user.create({
+  //       data: {
+  //         username: signUpInput.username,
+  //         hashedPassword,
+  //         email: signUpInput.email,
+  //         profile: {
+  //           create: {
+  //             firstName: signUpInput.firstName,
+  //             middleName: signUpInput.middleName,
+  //             lastName: signUpInput.lastName,
 
-      const { accessToken, refreshToken } = await this.createTokens(
-        user.id,
-        user.email,
-        user.username,
-        user.profile.id,
-        user.profile.departmentId,
-        user.role as Role[],
-      );
-      await this.updateRefresh(user.id, refreshToken);
-      ``;
-      return { accessToken, refreshToken, user };
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new ForbiddenException('Credetials Taken');
-        }
-      }
-      throw error;
-    }
-  }
+  //           },
+  //         },
+  //       },
+  //       include: {
+  //         profile: true,
+  //       },
+  //     });
 
+  //     const { accessToken, refreshToken } = await this.createTokens(
+  //       user.id,
+  //       user.email,
+  //       user.username,
+  //       user.profile.id,
+  //       user.departmentId,
+  //       user.role as Role[],
+  //     );
+  //     await this.updateRefresh(user.id, refreshToken);
+  //     return { accessToken, refreshToken, user };
+  //   } catch (error) {
+  //     if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  //       if (error.code === 'P2002') {
+  //         throw new ForbiddenException('Credetials Taken');
+  //       }
+  //     }
+  //     throw error;
+  //   }
+  // }
+
+  // Sign In Function
   async signin(
     signInInput: SignInInput,
     context: { res: Response; req: Request },
   ) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findFirst({
       where: {
-        email: signInInput.email,
-        username: signInInput.username,
+        OR: [
+          { email: signInInput.email },
+          { username: signInInput.username }
+        ]
       },
-      include: {
-        profile: true,
-      },
+      include: { profile: true }
     });
 
     if (!user) throw new ForbiddenException('Email or User Not Registered');
@@ -86,12 +89,14 @@ export class AuthService {
     // if (!user.isApprove)
     //   throw new ForbiddenException('You Account Is Waiting For Approval');
 
+    const profileId = user.profile?.id ?? null;
+    
     const { accessToken, refreshToken } = await this.createTokens(
       user.id,
-      user.email,
+      user.email, 
       user.username,
-      user.profile.id,
-      user.profile.departmentId,
+      profileId,
+      user.departmentId,
       user.role as Role[],
     );
 
@@ -108,17 +113,19 @@ export class AuthService {
     return { accessToken, refreshToken, user, isSignedIn: true };
   }
 
+  // Logout Function
   async logOut(context: { res: Response; req: Request }) {
     context.res.clearCookie(this.config.get('TOKEN_NAME'));
     return { message: 'Logged Out' };
   }
 
+  // Clear Cookie Function
   async clearCookie(response: any) {
     response.clearCookie(this.config.get('TOKEN_NAME'));
     return { message: 'Logged Out' };
   }
 
-  // ! Helper function
+  // Helper function
   async createTokens(
     userId: string,
     email: string,
@@ -182,29 +189,29 @@ export class AuthService {
   // ! Helper function
 
   // ? END
-  async meQuery(context: { res: Response; req: Request }) {
-    const token = context.req.cookies[this.config.get('TOKEN_NAME')];
+  // async meQuery(context: { res: Response; req: Request }) {
+  //   const token = context.req.cookies[this.config.get('TOKEN_NAME')];
 
-    const currentUser = this.jwt.verify(token, {
-      secret: this.config.get('JWT_SECRET'),
-    });
+  //   const currentUser = this.jwt.verify(token, {
+  //     secret: this.config.get('JWT_SECRET'),
+  //   });
 
-    const me = await this.prisma.user.findUnique({
-      where: {
-        id: currentUser.userId,
-      },
-      include: {
-        profile: {
-          include: {
-            department: true,
-          },
-        },
-      },
-    });
+  //   const me = await this.prisma.user.findUnique({
+  //     where: {
+  //       id: currentUser.userId,
+  //     },
+  //     include: {
+  //       profile: {
+  //         include: {
+  //           department: true,
+  //         },
+  //       },
+  //     },
+  //   });
 
-    return {
-      user: me,
-      isSignedIn: true,
-    };
-  }
+  //   return {
+  //     user: me,
+  //     isSignedIn: true,
+  //   };
+  // }
 }
