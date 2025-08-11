@@ -46,4 +46,7 @@ export class ProfileMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     userId?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    departmentId?: `${SortOrder}`;
 }

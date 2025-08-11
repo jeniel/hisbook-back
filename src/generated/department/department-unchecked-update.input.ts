@@ -2,7 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { UserUncheckedUpdateManyWithoutDepartmentNestedInput } from '../user/user-unchecked-update-many-without-department-nested.input';
+import { ProfileUncheckedUpdateManyWithoutDepartmentNestedInput } from '../profile/profile-unchecked-update-many-without-department-nested.input';
 
 @InputType()
 export class DepartmentUncheckedUpdateInput {
@@ -19,6 +19,6 @@ export class DepartmentUncheckedUpdateInput {
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     order?: IntFieldUpdateOperationsInput;
 
-    @Field(() => UserUncheckedUpdateManyWithoutDepartmentNestedInput, {nullable:true})
-    users?: UserUncheckedUpdateManyWithoutDepartmentNestedInput;
+    @Field(() => ProfileUncheckedUpdateManyWithoutDepartmentNestedInput, {nullable:true})
+    Profile?: ProfileUncheckedUpdateManyWithoutDepartmentNestedInput;
 }

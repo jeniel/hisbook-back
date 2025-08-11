@@ -6,6 +6,7 @@ import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { UserNullableScalarRelationFilter } from '../user/user-nullable-scalar-relation-filter.input';
+import { DepartmentNullableScalarRelationFilter } from '../department/department-nullable-scalar-relation-filter.input';
 
 @InputType()
 export class ProfileWhereInput {
@@ -61,6 +62,12 @@ export class ProfileWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     userId?: StringNullableFilter;
 
+    @Field(() => StringNullableFilter, {nullable:true})
+    departmentId?: StringNullableFilter;
+
     @Field(() => UserNullableScalarRelationFilter, {nullable:true})
     user?: UserNullableScalarRelationFilter;
+
+    @Field(() => DepartmentNullableScalarRelationFilter, {nullable:true})
+    department?: DepartmentNullableScalarRelationFilter;
 }

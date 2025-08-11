@@ -7,6 +7,7 @@ import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-up
 import { UserUpdateroleInput } from './user-updaterole.input';
 import { ProfileUpdateOneWithoutUserNestedInput } from '../profile/profile-update-one-without-user-nested.input';
 import { PostsUpdateManyWithoutUserNestedInput } from '../posts/posts-update-many-without-user-nested.input';
+import { MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput } from '../missed-logout-ticket/missed-logout-ticket-update-many-without-created-by-nested.input';
 
 @InputType()
 export class UserUpdateWithoutDepartmentInput {
@@ -55,4 +56,7 @@ export class UserUpdateWithoutDepartmentInput {
 
     @Field(() => PostsUpdateManyWithoutUserNestedInput, {nullable:true})
     posts?: PostsUpdateManyWithoutUserNestedInput;
+
+    @Field(() => MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput, {nullable:true})
+    MissedLogoutTicket?: MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput;
 }

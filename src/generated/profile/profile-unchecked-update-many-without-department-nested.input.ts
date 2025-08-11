@@ -32,19 +32,19 @@ export class ProfileUncheckedUpdateManyWithoutDepartmentNestedInput {
 
     @Field(() => [ProfileWhereUniqueInput], {nullable:true})
     @Type(() => ProfileWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>>;
+    set?: Array<Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'employeeID' | 'userId'>>;
 
     @Field(() => [ProfileWhereUniqueInput], {nullable:true})
     @Type(() => ProfileWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>>;
+    disconnect?: Array<Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'employeeID' | 'userId'>>;
 
     @Field(() => [ProfileWhereUniqueInput], {nullable:true})
     @Type(() => ProfileWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>>;
+    delete?: Array<Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'employeeID' | 'userId'>>;
 
     @Field(() => [ProfileWhereUniqueInput], {nullable:true})
     @Type(() => ProfileWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>>;
+    connect?: Array<Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'employeeID' | 'userId'>>;
 
     @Field(() => [ProfileUpdateWithWhereUniqueWithoutDepartmentInput], {nullable:true})
     @Type(() => ProfileUpdateWithWhereUniqueWithoutDepartmentInput)

@@ -1,7 +1,7 @@
 import { PrismaService } from '@/core/database/prisma/prisma.service';
 import { UserArgs } from '@/modules/global/user/args/user.args';
 import { CreateUserInput } from '@/modules/global/user/dto/create-user.input';
-import { UpdateUserInput } from '@/modules/global/user/dto/update-user.input';
+// import { UpdateUserInput } from '@/modules/global/user/dto/update-user.input';
 
 // import { CreateUserProfileInput } from '@/modules/global/user/dto/create-user.input';
 // ForbiddenException
@@ -28,7 +28,6 @@ export class UserService {
         username: dto.username,
         hashedPassword,
         role: dto.role ? dto.role : ['USER'],
-        departmentId: dto.departmentId ?? null,
       },
     });
 
@@ -48,12 +47,9 @@ export class UserService {
       this.prisma.user.count({ where: args.where }),
       this.prisma.user.findMany({
         where: args.where,
-        include: {
-          department: true, // <-- fetch department relation
-        },
         take: perPage,
         skip,
-      })
+      }),
     ]);
 
     const lastPage = Math.ceil(total / perPage);

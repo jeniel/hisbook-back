@@ -4,7 +4,6 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
-import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 
 @InputType()
@@ -31,9 +30,6 @@ export class ProfileScalarWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     lastName?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    designation?: StringNullableFilter;
-
     @Field(() => IntNullableFilter, {nullable:true})
     employeeID?: IntNullableFilter;
 
@@ -43,17 +39,11 @@ export class ProfileScalarWhereInput {
     @Field(() => DateTimeNullableFilter, {nullable:true})
     birthDate?: DateTimeNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    address?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    contact?: JsonNullableFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    address?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
-    departmentId?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    userId?: StringNullableFilter;
+    contact?: StringNullableFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;
@@ -66,4 +56,10 @@ export class ProfileScalarWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     updatedBy?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    userId?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    departmentId?: StringNullableFilter;
 }

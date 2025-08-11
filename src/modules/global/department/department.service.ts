@@ -81,22 +81,4 @@ export class DepartmentService {
       success: true,
     };
   }
-
-  // Upsert Department
-  // async upsert(payload: CreateDepartmentInput, id?: string) {
-  //   await this.prisma.department.upsert({
-  //     where: { id: id || '' },
-  //     update: {
-  //       name: payload.name,
-  //       description: payload.description ?? null,
-  //     },
-  //     create: {
-  //       name: payload.name,
-  //       description: payload.description ?? null,
-  //     },
-  //   });
-  //   return {
-  //     message: 'Department upserted successfully',
-  //   };
-  // }
 }

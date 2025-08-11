@@ -24,32 +24,8 @@ export class UserGroupBy {
     @Field(() => String, {nullable:true})
     hashedRefreshToken?: string;
 
-    @Field(() => Boolean, {nullable:false})
-    isActive!: boolean;
-
-    @Field(() => Boolean, {nullable:false})
-    isApprove!: boolean;
-
-    @Field(() => Date, {nullable:false})
-    createdAt!: Date | string;
-
-    @Field(() => String, {nullable:true})
-    createdBy?: string;
-
-    @Field(() => Date, {nullable:false})
-    updatedAt!: Date | string;
-
-    @Field(() => String, {nullable:true})
-    updatedBy?: string;
-
-    @Field(() => String, {nullable:true})
-    tenantId?: string;
-
     @Field(() => [Role], {nullable:true})
     role?: Array<`${Role}`>;
-
-    @Field(() => String, {nullable:true})
-    departmentId?: string;
 
     @Field(() => UserCountAggregate, {nullable:true})
     _count?: UserCountAggregate;

@@ -5,7 +5,7 @@ import { HideField } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
 import { Profile } from '../profile/profile.model';
 import { Posts } from '../posts/posts.model';
-import { Department } from '../department/department.model';
+import { MissedLogoutTicket } from '../missed-logout-ticket/missed-logout-ticket.model';
 import { UserCount } from './user-count.output';
 
 @ObjectType()
@@ -29,32 +29,8 @@ export class User {
     @Field(() => String, {nullable:true})
     hashedRefreshToken!: string | null;
 
-    @Field(() => Boolean, {defaultValue:true,nullable:false})
-    isActive!: boolean;
-
-    @Field(() => Boolean, {defaultValue:false,nullable:false})
-    isApprove!: boolean;
-
-    @Field(() => Date, {nullable:false})
-    createdAt!: Date;
-
-    @Field(() => String, {nullable:true})
-    createdBy!: string | null;
-
-    @Field(() => Date, {nullable:false})
-    updatedAt!: Date;
-
-    @Field(() => String, {nullable:true})
-    updatedBy!: string | null;
-
-    @Field(() => String, {nullable:true})
-    tenantId!: string | null;
-
     @Field(() => [Role], {nullable:true})
     role!: Array<`${Role}`>;
-
-    @Field(() => String, {nullable:true})
-    departmentId!: string | null;
 
     @Field(() => Profile, {nullable:true})
     profile?: Profile | null;
@@ -62,8 +38,8 @@ export class User {
     @Field(() => [Posts], {nullable:true})
     posts?: Array<Posts>;
 
-    @Field(() => Department, {nullable:true})
-    department?: Department | null;
+    @Field(() => [MissedLogoutTicket], {nullable:true})
+    MissedLogoutTicket?: Array<MissedLogoutTicket>;
 
     @Field(() => UserCount, {nullable:false})
     _count?: UserCount;

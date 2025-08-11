@@ -14,7 +14,8 @@ export enum ProfileScalarFieldEnum {
     createdBy = "createdBy",
     updatedAt = "updatedAt",
     updatedBy = "updatedBy",
-    userId = "userId"
+    userId = "userId",
+    departmentId = "departmentId"
 }
 
 

@@ -39,13 +39,4 @@ export class DepartmentResolver {
   deleteDepartment(@Args('id') id: string) {
     return this.departmentService.delete(id);
   }
-
-  // Upsert (create or update)
-  // @Mutation(() => GeneralMsg)
-  // upsertDepartment(
-  //   @Args('payload') payload: UpsertDepartmentInput,
-  //   @Args('deptId', { nullable: true }) deptId?: string,
-  // ) {
-  //   return this.departmentService.upsert(payload, deptId);
-  // }
 }

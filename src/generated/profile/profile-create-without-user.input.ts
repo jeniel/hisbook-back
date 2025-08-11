@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { DepartmentCreateNestedOneWithoutProfileInput } from '../department/department-create-nested-one-without-profile.input';
 
 @InputType()
 export class ProfileCreateWithoutUserInput {
@@ -43,4 +44,7 @@ export class ProfileCreateWithoutUserInput {
 
     @Field(() => String, {nullable:true})
     updatedBy?: string;
+
+    @Field(() => DepartmentCreateNestedOneWithoutProfileInput, {nullable:true})
+    department?: DepartmentCreateNestedOneWithoutProfileInput;
 }

@@ -43,4 +43,7 @@ export class ProfileUncheckedCreateWithoutUserInput {
 
     @Field(() => String, {nullable:true})
     updatedBy?: string;
+
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
 }

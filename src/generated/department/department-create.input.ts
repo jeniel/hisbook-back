@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { UserCreateNestedManyWithoutDepartmentInput } from '../user/user-create-nested-many-without-department.input';
+import { ProfileCreateNestedManyWithoutDepartmentInput } from '../profile/profile-create-nested-many-without-department.input';
 
 @InputType()
 export class DepartmentCreateInput {
@@ -18,6 +18,6 @@ export class DepartmentCreateInput {
     @Field(() => Int, {nullable:true})
     order?: number;
 
-    @Field(() => UserCreateNestedManyWithoutDepartmentInput, {nullable:true})
-    users?: UserCreateNestedManyWithoutDepartmentInput;
+    @Field(() => ProfileCreateNestedManyWithoutDepartmentInput, {nullable:true})
+    Profile?: ProfileCreateNestedManyWithoutDepartmentInput;
 }

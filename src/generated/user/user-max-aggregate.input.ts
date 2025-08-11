@@ -18,28 +18,4 @@ export class UserMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     hashedRefreshToken?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    isActive?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    isApprove?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    createdAt?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    createdBy?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    updatedAt?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    updatedBy?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    tenantId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    departmentId?: true;
 }

@@ -3,7 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { UserCreateroleInput } from './user-createrole.input';
 import { ProfileCreateNestedOneWithoutUserInput } from '../profile/profile-create-nested-one-without-user.input';
 import { PostsCreateNestedManyWithoutUserInput } from '../posts/posts-create-nested-many-without-user.input';
-import { DepartmentCreateNestedOneWithoutUsersInput } from '../department/department-create-nested-one-without-users.input';
+import { MissedLogoutTicketCreateNestedManyWithoutCreatedByInput } from '../missed-logout-ticket/missed-logout-ticket-create-nested-many-without-created-by.input';
 
 @InputType()
 export class UserCreateInput {
@@ -23,27 +23,6 @@ export class UserCreateInput {
     @Field(() => String, {nullable:true})
     hashedRefreshToken?: string;
 
-    @Field(() => Boolean, {nullable:true})
-    isActive?: boolean;
-
-    @Field(() => Boolean, {nullable:true})
-    isApprove?: boolean;
-
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => String, {nullable:true})
-    createdBy?: string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-
-    @Field(() => String, {nullable:true})
-    updatedBy?: string;
-
-    @Field(() => String, {nullable:true})
-    tenantId?: string;
-
     @Field(() => UserCreateroleInput, {nullable:true})
     role?: UserCreateroleInput;
 
@@ -53,6 +32,6 @@ export class UserCreateInput {
     @Field(() => PostsCreateNestedManyWithoutUserInput, {nullable:true})
     posts?: PostsCreateNestedManyWithoutUserInput;
 
-    @Field(() => DepartmentCreateNestedOneWithoutUsersInput, {nullable:true})
-    department?: DepartmentCreateNestedOneWithoutUsersInput;
+    @Field(() => MissedLogoutTicketCreateNestedManyWithoutCreatedByInput, {nullable:true})
+    MissedLogoutTicket?: MissedLogoutTicketCreateNestedManyWithoutCreatedByInput;
 }

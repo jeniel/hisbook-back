@@ -1,7 +1,7 @@
 import { AuthService } from '@/core/auth/auth.service';
 import { SignResponse } from '@/core/auth/dto/sign-response';
 import { SignInInput } from '@/core/auth/dto/signin-input';
-import { SignUpInput } from '@/core/auth/dto/signup-input';
+// import { SignUpInput } from '@/core/auth/dto/signup-input';
 import { MeQuery } from '@/core/auth/entities/me.entities';
 import { Public } from '@/shared/common/decorator/public.decorator';
 import { GeneralMsg } from '@/shared/common/entities/general-msg.entities';
@@ -36,8 +36,8 @@ export class AuthResolver {
     return this.authService.logOut(context);
   }
 
-  // @Query(() => MeQuery)
-  // meQuery(@Context() context: { res: Response; req: Request }) {
-  //   return this.authService.meQuery(context);
-  // }
+  @Query(() => MeQuery)
+  meQuery(@Context() context: { res: Response; req: Request }) {
+    return this.authService.meQuery(context);
+  }
 }

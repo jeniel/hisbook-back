@@ -6,22 +6,20 @@ model User {
   /// @HideField()
   hashedPassword     String   @map("hashed_password")
   hashedRefreshToken String?  @map("hashed_refresh_token")
-  isActive           Boolean  @default(true) @map("is_active")
-  isApprove          Boolean  @default(false) @map("is_approve")
-  createdAt          DateTime @default(now()) @map("created_at")
-  createdBy          String?  @map("created_by")
-  updatedAt          DateTime @default(now()) @updatedAt @map("updated_at")
-  updatedBy          String?  @map("updated_by")
-  tenantId           String?
-
-  role Role[] @default([USER])
+  // isActive           Boolean  @default(true) @map("is_active")
+  // isApprove          Boolean  @default(false) @map("is_approve")
+  // createdAt          DateTime @default(now()) @map("created_at")
+  // createdBy          String?  @map("created_by")
+  // updatedAt          DateTime @default(now()) @updatedAt @map("updated_at")
+  // updatedBy          String?  @map("updated_by")
+  // tenantId           String?
 
   // Relations
+  role Role[] @default([USER])
   profile      Profile?
   posts        Posts[]
-  departmentId String?     @map("department_id")
-  department   Department? @relation(fields: [departmentId], references: [id])
-
+  MissedLogoutTicket MissedLogoutTicket[] @relation("CreatedBy")
+  
   @@map("user")
   @@schema("global")
 }
@@ -44,6 +42,9 @@ model Profile {
   userId String? @unique @map("user_id")
   user   User?   @relation(fields: [userId], references: [id])
 
+  departmentId String?     @map("department_id")
+  department   Department? @relation(fields: [departmentId], references: [id])
+
   @@map("profile")
   @@schema("global")
 }
@@ -55,7 +56,7 @@ model Department {
   order       Int    @default(autoincrement())
 
   // Relations
-  users User[]
+  Profile Profile[]
 
   @@map("department")
   @@schema("global")
@@ -71,7 +72,7 @@ enum Role {
 model Posts {
   id      String   @id @default(uuid())
   content String
-  images  Images[]
+  images  Images[]  // Array of Images in a Single Post
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id])
@@ -91,5 +92,25 @@ model Images {
 }
 
 model MissedLogoutTicket {
-  id String @id @default(uuid())
+  id          String    @id @default(uuid())
+  missedAt    DateTime    // Date and Time
+  floor       String?     // B1 Biometrics
+  screenshot  String?     
+  status      Status?     // Approved
+  updatedBy   String?     // Sir IT department
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  createdById String? 
+  createdBy   User?     @relation("CreatedBy", fields: [createdById], references: [id])
+
+  @@map("missedlogoutticket")
+  @@schema("global")
+}
+
+enum Status {
+  Pending
+  Approved
+  Completed
+
+  @@schema("global")
 }

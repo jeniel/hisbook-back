@@ -7,6 +7,7 @@ import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-up
 import { UserUpdateroleInput } from './user-updaterole.input';
 import { ProfileUncheckedUpdateOneWithoutUserNestedInput } from '../profile/profile-unchecked-update-one-without-user-nested.input';
 import { PostsUncheckedUpdateManyWithoutUserNestedInput } from '../posts/posts-unchecked-update-many-without-user-nested.input';
+import { MissedLogoutTicketUncheckedUpdateManyWithoutCreatedByNestedInput } from '../missed-logout-ticket/missed-logout-ticket-unchecked-update-many-without-created-by-nested.input';
 
 @InputType()
 export class UserUncheckedUpdateWithoutDepartmentInput {
@@ -55,4 +56,7 @@ export class UserUncheckedUpdateWithoutDepartmentInput {
 
     @Field(() => PostsUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
     posts?: PostsUncheckedUpdateManyWithoutUserNestedInput;
+
+    @Field(() => MissedLogoutTicketUncheckedUpdateManyWithoutCreatedByNestedInput, {nullable:true})
+    MissedLogoutTicket?: MissedLogoutTicketUncheckedUpdateManyWithoutCreatedByNestedInput;
 }

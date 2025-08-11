@@ -13,8 +13,6 @@ async function main() {
       username: 'admin',
       hashedPassword: password,
       role: ['ADMIN'],
-      isActive: true,
-      isApprove: true,
       profile: {
         create: {
           firstName: 'JOE MARK',

@@ -19,28 +19,4 @@ export class UserMinAggregate {
 
     @Field(() => String, {nullable:true})
     hashedRefreshToken?: string;
-
-    @Field(() => Boolean, {nullable:true})
-    isActive?: boolean;
-
-    @Field(() => Boolean, {nullable:true})
-    isApprove?: boolean;
-
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => String, {nullable:true})
-    createdBy?: string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-
-    @Field(() => String, {nullable:true})
-    updatedBy?: string;
-
-    @Field(() => String, {nullable:true})
-    tenantId?: string;
-
-    @Field(() => String, {nullable:true})
-    departmentId?: string;
 }

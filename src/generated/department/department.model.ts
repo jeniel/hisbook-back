@@ -2,7 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { User } from '../user/user.model';
+import { Profile } from '../profile/profile.model';
 import { DepartmentCount } from './department-count.output';
 
 @ObjectType()
@@ -20,8 +20,8 @@ export class Department {
     @Field(() => Int, {nullable:false})
     order!: number;
 
-    @Field(() => [User], {nullable:true})
-    users?: Array<User>;
+    @Field(() => [Profile], {nullable:true})
+    Profile?: Array<Profile>;
 
     @Field(() => DepartmentCount, {nullable:false})
     _count?: DepartmentCount;

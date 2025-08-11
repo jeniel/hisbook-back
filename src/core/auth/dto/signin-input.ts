@@ -3,8 +3,8 @@ import { IsNotEmpty, IsEmail } from 'class-validator';
 
 @InputType()
 export class SignInInput {
-  // @IsEmail()
-  // @IsNotEmpty()
+  @IsEmail()
+  @IsNotEmpty()
   @Field(() => String, { nullable: true })
   email: string;
 

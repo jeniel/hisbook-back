@@ -19,28 +19,4 @@ export class UserMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     hashedRefreshToken?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    isActive?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    isApprove?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    createdBy?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    updatedBy?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    tenantId?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    departmentId?: `${SortOrder}`;
 }

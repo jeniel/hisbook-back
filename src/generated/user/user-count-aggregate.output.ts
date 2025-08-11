@@ -22,31 +22,7 @@ export class UserCountAggregate {
     hashedRefreshToken!: number;
 
     @Field(() => Int, {nullable:false})
-    isActive!: number;
-
-    @Field(() => Int, {nullable:false})
-    isApprove!: number;
-
-    @Field(() => Int, {nullable:false})
-    createdAt!: number;
-
-    @Field(() => Int, {nullable:false})
-    createdBy!: number;
-
-    @Field(() => Int, {nullable:false})
-    updatedAt!: number;
-
-    @Field(() => Int, {nullable:false})
-    updatedBy!: number;
-
-    @Field(() => Int, {nullable:false})
-    tenantId!: number;
-
-    @Field(() => Int, {nullable:false})
     role!: number;
-
-    @Field(() => Int, {nullable:false})
-    departmentId!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

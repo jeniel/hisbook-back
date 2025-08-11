@@ -24,5 +24,5 @@ export class ProfileUncheckedCreateNestedManyWithoutDepartmentInput {
 
     @Field(() => [ProfileWhereUniqueInput], {nullable:true})
     @Type(() => ProfileWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>>;
+    connect?: Array<Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'employeeID' | 'userId'>>;
 }

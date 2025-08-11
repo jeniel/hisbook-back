@@ -2,11 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input BoolFilter {
-  equals: Boolean
-  not: NestedBoolFilter
-}
-
 input CreateDepartmentInput {
   description: String
   name: String!
@@ -49,16 +44,16 @@ input DateTimeNullableFilter {
 }
 
 type Department {
+  Profile: [Profile!]
   _count: DepartmentCount!
   description: String!
   id: ID!
   name: String!
   order: Int!
-  users: [User!]
 }
 
 type DepartmentCount {
-  users: Int!
+  Profile: Int!
 }
 
 type DepartmentList {
@@ -75,11 +70,11 @@ input DepartmentWhereInput {
   AND: [DepartmentWhereInput!]
   NOT: [DepartmentWhereInput!]
   OR: [DepartmentWhereInput!]
+  Profile: ProfileListRelationFilter
   description: StringFilter
   id: StringFilter
   name: StringFilter
   order: IntFilter
-  users: UserListRelationFilter
 }
 
 input EnumRoleNullableListFilter {
@@ -88,6 +83,13 @@ input EnumRoleNullableListFilter {
   hasEvery: [Role!]
   hasSome: [Role!]
   isEmpty: Boolean
+}
+
+input EnumStatusNullableFilter {
+  equals: Status
+  in: [Status!]
+  not: NestedEnumStatusNullableFilter
+  notIn: [Status!]
 }
 
 type GeneralMsg {
@@ -140,6 +142,11 @@ input IntNullableFilter {
   notIn: [Int!]
 }
 
+type MeQuery {
+  isSignedIn: Boolean!
+  user: User!
+}
+
 type Meta {
   currentPage: Float!
   lastPage: Float!
@@ -147,6 +154,39 @@ type Meta {
   perPage: Float!
   prev: Float
   total: Float!
+}
+
+type MissedLogoutTicket {
+  createdAt: DateTime!
+  createdBy: User
+  createdById: String
+  floor: String
+  id: ID!
+  missedAt: DateTime!
+  screenshot: String
+  status: Status
+  updatedBy: String
+}
+
+input MissedLogoutTicketListRelationFilter {
+  every: MissedLogoutTicketWhereInput
+  none: MissedLogoutTicketWhereInput
+  some: MissedLogoutTicketWhereInput
+}
+
+input MissedLogoutTicketWhereInput {
+  AND: [MissedLogoutTicketWhereInput!]
+  NOT: [MissedLogoutTicketWhereInput!]
+  OR: [MissedLogoutTicketWhereInput!]
+  createdAt: DateTimeFilter
+  createdBy: UserNullableScalarRelationFilter
+  createdById: StringNullableFilter
+  floor: StringNullableFilter
+  id: StringFilter
+  missedAt: DateTimeFilter
+  screenshot: StringNullableFilter
+  status: EnumStatusNullableFilter
+  updatedBy: StringNullableFilter
 }
 
 type Mutation {
@@ -157,11 +197,6 @@ type Mutation {
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
-}
-
-input NestedBoolFilter {
-  equals: Boolean
-  not: NestedBoolFilter
 }
 
 input NestedDateTimeFilter {
@@ -184,6 +219,13 @@ input NestedDateTimeNullableFilter {
   lte: DateTime
   not: NestedDateTimeNullableFilter
   notIn: [DateTime!]
+}
+
+input NestedEnumStatusNullableFilter {
+  equals: Status
+  in: [Status!]
+  not: NestedEnumStatusNullableFilter
+  notIn: [Status!]
 }
 
 input NestedIntFilter {
@@ -278,6 +320,8 @@ type Profile {
   createdAt: DateTime!
   createdBy: String
   dateHired: DateTime
+  department: Department
+  departmentId: String
   employeeID: Int
   firstName: String
   id: ID!
@@ -287,6 +331,12 @@ type Profile {
   updatedBy: String
   user: User
   userId: String
+}
+
+input ProfileListRelationFilter {
+  every: ProfileWhereInput
+  none: ProfileWhereInput
+  some: ProfileWhereInput
 }
 
 input ProfileNullableScalarRelationFilter {
@@ -304,6 +354,8 @@ input ProfileWhereInput {
   createdAt: DateTimeFilter
   createdBy: StringNullableFilter
   dateHired: DateTimeNullableFilter
+  department: DepartmentNullableScalarRelationFilter
+  departmentId: StringNullableFilter
   employeeID: IntNullableFilter
   firstName: StringNullableFilter
   id: StringFilter
@@ -318,6 +370,7 @@ input ProfileWhereInput {
 type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
+  meQuery: MeQuery!
 }
 
 enum QueryMode {
@@ -341,6 +394,12 @@ type SignResponse {
   isSignedIn: Boolean!
   refreshToken: String!
   user: User!
+}
+
+enum Status {
+  Approved
+  Completed
+  Pending
 }
 
 input StringFilter {
@@ -380,40 +439,27 @@ input UpdateDepartmentInput {
 }
 
 type User {
+  MissedLogoutTicket: [MissedLogoutTicket!]
   _count: UserCount!
-  createdAt: DateTime!
-  createdBy: String
-  department: Department
-  departmentId: String
 
   """@Validator.@IsEmail()"""
   email: String!
   hashedRefreshToken: String
   id: ID!
-  isActive: Boolean!
-  isApprove: Boolean!
   posts: [Posts!]
   profile: Profile
   role: [Role!]
-  tenantId: String
-  updatedAt: DateTime!
-  updatedBy: String
   username: String!
 }
 
 type UserCount {
+  MissedLogoutTicket: Int!
   posts: Int!
 }
 
 type UserList {
   data: [Profile!]!
   meta: Meta
-}
-
-input UserListRelationFilter {
-  every: UserWhereInput
-  none: UserWhereInput
-  some: UserWhereInput
 }
 
 input UserNullableScalarRelationFilter {
@@ -423,23 +469,15 @@ input UserNullableScalarRelationFilter {
 
 input UserWhereInput {
   AND: [UserWhereInput!]
+  MissedLogoutTicket: MissedLogoutTicketListRelationFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
-  createdAt: DateTimeFilter
-  createdBy: StringNullableFilter
-  department: DepartmentNullableScalarRelationFilter
-  departmentId: StringNullableFilter
   email: StringFilter
   hashedPassword: StringFilter
   hashedRefreshToken: StringNullableFilter
   id: StringFilter
-  isActive: BoolFilter
-  isApprove: BoolFilter
   posts: PostsListRelationFilter
   profile: ProfileNullableScalarRelationFilter
   role: EnumRoleNullableListFilter
-  tenantId: StringNullableFilter
-  updatedAt: DateTimeFilter
-  updatedBy: StringNullableFilter
   username: StringFilter
 }

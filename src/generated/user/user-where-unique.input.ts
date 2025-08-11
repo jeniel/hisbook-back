@@ -3,12 +3,10 @@ import { InputType } from '@nestjs/graphql';
 import { UserWhereInput } from './user-where.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
-import { BoolFilter } from '../prisma/bool-filter.input';
-import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { EnumRoleNullableListFilter } from '../prisma/enum-role-nullable-list-filter.input';
 import { ProfileNullableScalarRelationFilter } from '../profile/profile-nullable-scalar-relation-filter.input';
 import { PostsListRelationFilter } from '../posts/posts-list-relation-filter.input';
-import { DepartmentNullableScalarRelationFilter } from '../department/department-nullable-scalar-relation-filter.input';
+import { MissedLogoutTicketListRelationFilter } from '../missed-logout-ticket/missed-logout-ticket-list-relation-filter.input';
 
 @InputType()
 export class UserWhereUniqueInput {
@@ -37,32 +35,8 @@ export class UserWhereUniqueInput {
     @Field(() => StringNullableFilter, {nullable:true})
     hashedRefreshToken?: StringNullableFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    isActive?: BoolFilter;
-
-    @Field(() => BoolFilter, {nullable:true})
-    isApprove?: BoolFilter;
-
-    @Field(() => DateTimeFilter, {nullable:true})
-    createdAt?: DateTimeFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    createdBy?: StringNullableFilter;
-
-    @Field(() => DateTimeFilter, {nullable:true})
-    updatedAt?: DateTimeFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    updatedBy?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    tenantId?: StringNullableFilter;
-
     @Field(() => EnumRoleNullableListFilter, {nullable:true})
     role?: EnumRoleNullableListFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    departmentId?: StringNullableFilter;
 
     @Field(() => ProfileNullableScalarRelationFilter, {nullable:true})
     profile?: ProfileNullableScalarRelationFilter;
@@ -70,6 +44,6 @@ export class UserWhereUniqueInput {
     @Field(() => PostsListRelationFilter, {nullable:true})
     posts?: PostsListRelationFilter;
 
-    @Field(() => DepartmentNullableScalarRelationFilter, {nullable:true})
-    department?: DepartmentNullableScalarRelationFilter;
+    @Field(() => MissedLogoutTicketListRelationFilter, {nullable:true})
+    MissedLogoutTicket?: MissedLogoutTicketListRelationFilter;
 }
