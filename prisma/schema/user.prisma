@@ -93,7 +93,7 @@ model Images {
 
 model MissedLogoutTicket {
   id          String    @id @default(uuid())
-  missedAt    DateTime    // Date and Time
+  missedAt    DateTime?    // Date and Time
   floor       String?     // B1 Biometrics
   screenshot  String?     
   status      Status?     // Approved

@@ -11,8 +11,8 @@ export class MissedLogoutTicketGroupBy {
     @Field(() => String, {nullable:false})
     id!: string;
 
-    @Field(() => Date, {nullable:false})
-    missedAt!: Date | string;
+    @Field(() => Date, {nullable:true})
+    missedAt?: Date | string;
 
     @Field(() => String, {nullable:true})
     floor?: string;

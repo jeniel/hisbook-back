@@ -6,7 +6,7 @@ import { Type } from 'class-transformer';
 @ArgsType()
 export class CreateOneMissedLogoutTicketArgs {
 
-    @Field(() => MissedLogoutTicketCreateInput, {nullable:false})
+    @Field(() => MissedLogoutTicketCreateInput, {nullable:true})
     @Type(() => MissedLogoutTicketCreateInput)
-    data!: MissedLogoutTicketCreateInput;
+    data?: MissedLogoutTicketCreateInput;
 }

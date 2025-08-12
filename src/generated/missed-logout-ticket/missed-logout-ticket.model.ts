@@ -10,8 +10,8 @@ export class MissedLogoutTicket {
     @Field(() => ID, {nullable:false})
     id!: string;
 
-    @Field(() => Date, {nullable:false})
-    missedAt!: Date;
+    @Field(() => Date, {nullable:true})
+    missedAt!: Date | null;
 
     @Field(() => String, {nullable:true})
     floor!: string | null;

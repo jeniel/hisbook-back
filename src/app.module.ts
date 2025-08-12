@@ -13,8 +13,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
 import { join } from 'path';
-// import { TicketModule } from './global/ticket/ticket.module';
-// import { Service } from './global/ticket/modules/.service';
 
 @Module({
   imports: [
@@ -32,13 +30,11 @@ import { join } from 'path';
     SequentialIdModule,
     GlobalModule,
     ToolsModule,
-    // TicketModule,
   ],
   providers: [
     JwtService,
     { provide: APP_GUARD, useClass: AccessTokenGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
-    // Service,
   ],
 })
 export class AppModule {}

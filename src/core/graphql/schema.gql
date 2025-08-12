@@ -8,6 +8,15 @@ input CreateDepartmentInput {
   order: Float!
 }
 
+input CreateMissedLogoutTicketInput {
+  createdById: String
+  floor: String
+  missedAt: DateTime!
+  screenshot: String
+  status: Status
+  updatedBy: String
+}
+
 input CreateUserInput {
   departmentId: String
   email: String!
@@ -162,10 +171,15 @@ type MissedLogoutTicket {
   createdById: String
   floor: String
   id: ID!
-  missedAt: DateTime!
+  missedAt: DateTime
   screenshot: String
   status: Status
   updatedBy: String
+}
+
+type MissedLogoutTicketList {
+  data: [MissedLogoutTicket!]!
+  meta: Meta
 }
 
 input MissedLogoutTicketListRelationFilter {
@@ -183,7 +197,7 @@ input MissedLogoutTicketWhereInput {
   createdById: StringNullableFilter
   floor: StringNullableFilter
   id: StringFilter
-  missedAt: DateTimeFilter
+  missedAt: DateTimeNullableFilter
   screenshot: StringNullableFilter
   status: EnumStatusNullableFilter
   updatedBy: StringNullableFilter
@@ -191,12 +205,15 @@ input MissedLogoutTicketWhereInput {
 
 type Mutation {
   createDepartment(payload: CreateDepartmentInput!): GeneralMsg!
+  createMissedLogoutTicket(payload: CreateMissedLogoutTicketInput!): GeneralMsg!
   createUser(payload: CreateUserInput!): GeneralMsg!
   deleteDepartment(id: String!): GeneralMsg!
+  deleteMissedLogoutTicket(id: String!): GeneralMsg!
   deleteUser(id: String!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
+  updateMissedLogoutTicket(id: String!, payload: UpdateMissedLogoutTicketInput!): GeneralMsg!
 }
 
 input NestedDateTimeFilter {
@@ -369,6 +386,7 @@ input ProfileWhereInput {
 
 type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
+  findAllMissedLogoutTickets(page: Int, perPage: Int, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
   meQuery: MeQuery!
 }
@@ -436,6 +454,15 @@ input UpdateDepartmentInput {
   description: String
   name: String!
   order: Float!
+}
+
+input UpdateMissedLogoutTicketInput {
+  createdById: String
+  floor: String
+  missedAt: DateTime!
+  screenshot: String
+  status: Status
+  updatedBy: String
 }
 
 type User {

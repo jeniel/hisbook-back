@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
-import { DateTimeFilter } from '../prisma/date-time-filter.input';
+import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { EnumStatusNullableFilter } from '../prisma/enum-status-nullable-filter.input';
+import { DateTimeFilter } from '../prisma/date-time-filter.input';
 
 @InputType()
 export class MissedLogoutTicketScalarWhereInput {
@@ -20,8 +21,8 @@ export class MissedLogoutTicketScalarWhereInput {
     @Field(() => StringFilter, {nullable:true})
     id?: StringFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    missedAt?: DateTimeFilter;
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    missedAt?: DateTimeNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     floor?: StringNullableFilter;

@@ -8,8 +8,8 @@ export class MissedLogoutTicketCreateManyCreatedByInput {
     @Field(() => String, {nullable:true})
     id?: string;
 
-    @Field(() => Date, {nullable:false})
-    missedAt!: Date | string;
+    @Field(() => Date, {nullable:true})
+    missedAt?: Date | string;
 
     @Field(() => String, {nullable:true})
     floor?: string;
