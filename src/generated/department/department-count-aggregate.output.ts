@@ -15,8 +15,5 @@ export class DepartmentCountAggregate {
     description!: number;
 
     @Field(() => Int, {nullable:false})
-    order!: number;
-
-    @Field(() => Int, {nullable:false})
     _all!: number;
 }

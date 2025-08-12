@@ -19,7 +19,7 @@ export class MissedLogoutTicket {
     @Field(() => String, {nullable:true})
     screenshot!: string | null;
 
-    @Field(() => Status, {nullable:true})
+    @Field(() => Status, {defaultValue:'Pending',nullable:true})
     status!: `${Status}` | null;
 
     @Field(() => String, {nullable:true})

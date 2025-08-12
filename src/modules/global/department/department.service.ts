@@ -16,7 +16,6 @@ export class DepartmentService {
       data: {
         name: dto.name,
         description: dto.description,
-        order: dto.order,
       },
     });
 
@@ -36,7 +35,6 @@ export class DepartmentService {
       this.prisma.department.count({ where: args.where }),
       this.prisma.department.findMany({
         where: args.where,
-        orderBy: { order: 'desc' }, // asc or desc order
         take: perPage,
         skip,
       }),

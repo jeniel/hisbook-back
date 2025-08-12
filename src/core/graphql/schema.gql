@@ -5,7 +5,6 @@
 input CreateDepartmentInput {
   description: String
   name: String!
-  order: Float!
 }
 
 input CreateMissedLogoutTicketInput {
@@ -15,6 +14,21 @@ input CreateMissedLogoutTicketInput {
   screenshot: String
   status: Status
   updatedBy: String
+}
+
+input CreateProfileInput {
+  address: String
+  avatar: String
+  birthDate: DateTime
+  contact: String
+  departmentId: String
+  employeeID: Int
+  firstName: String
+  gender: Gender
+  lastName: String
+  middleName: String
+  title: String
+  userId: String
 }
 
 input CreateUserInput {
@@ -53,16 +67,15 @@ input DateTimeNullableFilter {
 }
 
 type Department {
-  Profile: [Profile!]
   _count: DepartmentCount!
   description: String!
   id: ID!
   name: String!
-  order: Int!
+  profiles: [Profile!]
 }
 
 type DepartmentCount {
-  Profile: Int!
+  profiles: Int!
 }
 
 type DepartmentList {
@@ -79,11 +92,17 @@ input DepartmentWhereInput {
   AND: [DepartmentWhereInput!]
   NOT: [DepartmentWhereInput!]
   OR: [DepartmentWhereInput!]
-  Profile: ProfileListRelationFilter
   description: StringFilter
   id: StringFilter
   name: StringFilter
-  order: IntFilter
+  profiles: ProfileListRelationFilter
+}
+
+input EnumGenderNullableFilter {
+  equals: Gender
+  in: [Gender!]
+  not: NestedEnumGenderNullableFilter
+  notIn: [Gender!]
 }
 
 input EnumRoleNullableListFilter {
@@ -99,6 +118,12 @@ input EnumStatusNullableFilter {
   in: [Status!]
   not: NestedEnumStatusNullableFilter
   notIn: [Status!]
+}
+
+enum Gender {
+  Female
+  Male
+  Others
 }
 
 type GeneralMsg {
@@ -127,17 +152,6 @@ input ImagesWhereInput {
   post: PostsScalarRelationFilter
   postId: StringFilter
   url: StringFilter
-}
-
-input IntFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntFilter
-  notIn: [Int!]
 }
 
 input IntNullableFilter {
@@ -206,14 +220,17 @@ input MissedLogoutTicketWhereInput {
 type Mutation {
   createDepartment(payload: CreateDepartmentInput!): GeneralMsg!
   createMissedLogoutTicket(payload: CreateMissedLogoutTicketInput!): GeneralMsg!
+  createProfile(payload: CreateProfileInput!): GeneralMsg!
   createUser(payload: CreateUserInput!): GeneralMsg!
   deleteDepartment(id: String!): GeneralMsg!
   deleteMissedLogoutTicket(id: String!): GeneralMsg!
+  deleteProfile(id: String!): GeneralMsg!
   deleteUser(id: String!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
   updateMissedLogoutTicket(id: String!, payload: UpdateMissedLogoutTicketInput!): GeneralMsg!
+  updateProfile(id: String!, payload: UpdateProfileInput!): GeneralMsg!
 }
 
 input NestedDateTimeFilter {
@@ -238,22 +255,18 @@ input NestedDateTimeNullableFilter {
   notIn: [DateTime!]
 }
 
+input NestedEnumGenderNullableFilter {
+  equals: Gender
+  in: [Gender!]
+  not: NestedEnumGenderNullableFilter
+  notIn: [Gender!]
+}
+
 input NestedEnumStatusNullableFilter {
   equals: Status
   in: [Status!]
   not: NestedEnumStatusNullableFilter
   notIn: [Status!]
-}
-
-input NestedIntFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntFilter
-  notIn: [Int!]
 }
 
 input NestedIntNullableFilter {
@@ -332,22 +345,27 @@ input PostsWhereInput {
 
 type Profile {
   address: String
+  avatar: String
   birthDate: DateTime
   contact: String
   createdAt: DateTime!
-  createdBy: String
-  dateHired: DateTime
   department: Department
   departmentId: String
   employeeID: Int
   firstName: String
+  gender: Gender
   id: ID!
   lastName: String
   middleName: String
+  title: String
   updatedAt: DateTime!
-  updatedBy: String
   user: User
   userId: String
+}
+
+type ProfileList {
+  data: [Profile!]!
+  meta: Meta
 }
 
 input ProfileListRelationFilter {
@@ -366,20 +384,20 @@ input ProfileWhereInput {
   NOT: [ProfileWhereInput!]
   OR: [ProfileWhereInput!]
   address: StringNullableFilter
+  avatar: StringNullableFilter
   birthDate: DateTimeNullableFilter
   contact: StringNullableFilter
   createdAt: DateTimeFilter
-  createdBy: StringNullableFilter
-  dateHired: DateTimeNullableFilter
   department: DepartmentNullableScalarRelationFilter
   departmentId: StringNullableFilter
   employeeID: IntNullableFilter
   firstName: StringNullableFilter
+  gender: EnumGenderNullableFilter
   id: StringFilter
   lastName: StringNullableFilter
   middleName: StringNullableFilter
+  title: StringNullableFilter
   updatedAt: DateTimeFilter
-  updatedBy: StringNullableFilter
   user: UserNullableScalarRelationFilter
   userId: StringNullableFilter
 }
@@ -387,7 +405,9 @@ input ProfileWhereInput {
 type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllMissedLogoutTickets(page: Int, perPage: Int, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
+  findAllProfiles(page: Int, perPage: Int, where: ProfileWhereInput): ProfileList!
   findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
+  findProfile(id: String!): Profile!
   findTicketsByUser(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   meQuery: MeQuery!
 }
@@ -454,7 +474,6 @@ input StringNullableFilter {
 input UpdateDepartmentInput {
   description: String
   name: String!
-  order: Float!
 }
 
 input UpdateMissedLogoutTicketInput {
@@ -464,6 +483,21 @@ input UpdateMissedLogoutTicketInput {
   screenshot: String
   status: Status
   updatedBy: String
+}
+
+input UpdateProfileInput {
+  address: String
+  avatar: String
+  birthDate: DateTime
+  contact: String
+  departmentId: String
+  employeeID: Int
+  firstName: String
+  gender: Gender
+  lastName: String
+  middleName: String
+  title: String
+  userId: String
 }
 
 type User {

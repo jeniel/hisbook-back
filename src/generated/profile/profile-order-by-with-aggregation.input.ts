@@ -24,13 +24,13 @@ export class ProfileOrderByWithAggregationInput {
     lastName?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
-    employeeID?: SortOrderInput;
-
-    @Field(() => SortOrderInput, {nullable:true})
-    dateHired?: SortOrderInput;
-
-    @Field(() => SortOrderInput, {nullable:true})
     birthDate?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    gender?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    title?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
     address?: SortOrderInput;
@@ -38,17 +38,17 @@ export class ProfileOrderByWithAggregationInput {
     @Field(() => SortOrderInput, {nullable:true})
     contact?: SortOrderInput;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    avatar?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    employeeID?: SortOrderInput;
+
     @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
 
-    @Field(() => SortOrderInput, {nullable:true})
-    createdBy?: SortOrderInput;
-
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: `${SortOrder}`;
-
-    @Field(() => SortOrderInput, {nullable:true})
-    updatedBy?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
     userId?: SortOrderInput;

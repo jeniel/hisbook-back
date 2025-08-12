@@ -1,11 +1,11 @@
 model User {
-  id                 String   @id @default(uuid())
+  id                 String  @id @default(uuid())
   /// @Validator.@IsEmail()
-  email              String   @unique
-  username           String   @unique
+  email              String  @unique
+  username           String  @unique
   /// @HideField()
-  hashedPassword     String   @map("hashed_password")
-  hashedRefreshToken String?  @map("hashed_refresh_token")
+  hashedPassword     String  @map("hashed_password")
+  hashedRefreshToken String? @map("hashed_refresh_token")
   // isActive           Boolean  @default(true) @map("is_active")
   // isApprove          Boolean  @default(false) @map("is_approve")
   // createdAt          DateTime @default(now()) @map("created_at")
@@ -15,11 +15,11 @@ model User {
   // tenantId           String?
 
   // Relations
-  role Role[] @default([USER])
-  profile      Profile?
-  posts        Posts[]
+  role               Role[]               @default([USER])
+  profile            Profile?
+  posts              Posts[]
   MissedLogoutTicket MissedLogoutTicket[] @relation("CreatedBy")
-  
+
   @@map("user")
   @@schema("global")
 }
@@ -29,16 +29,17 @@ model Profile {
   firstName  String?   @map("first_name")
   middleName String?   @map("middle_name")
   lastName   String?   @map("last_name")
-  employeeID Int?      @unique @default(autoincrement()) @map("employee_id")
-  dateHired  DateTime? @map("date_hired")
   birthDate  DateTime? @map("birth_date")
+  gender     Gender?   @map("gender")
+  title      String?   @map("title")
   address    String?
   contact    String?
+  avatar     String?
+  employeeID Int?      @unique @map("employee_id")
   createdAt  DateTime  @default(now()) @map("created_at")
-  createdBy  String?   @map("created_by")
   updatedAt  DateTime  @default(now()) @updatedAt @map("updated_at")
-  updatedBy  String?   @map("updated_by")
 
+  // Relations
   userId String? @unique @map("user_id")
   user   User?   @relation(fields: [userId], references: [id])
 
@@ -53,10 +54,9 @@ model Department {
   id          String @id @default(uuid())
   name        String
   description String
-  order       Int    @default(autoincrement())
 
   // Relations
-  Profile Profile[]
+  profiles Profile[]
 
   @@map("department")
   @@schema("global")
@@ -69,10 +69,18 @@ enum Role {
   @@schema("global")
 }
 
+enum Gender {
+  Male
+  Female
+  Others
+
+  @@schema("global")
+}
+
 model Posts {
   id      String   @id @default(uuid())
   content String
-  images  Images[]  // Array of Images in a Single Post
+  images  Images[] // Array of Images in a Single Post
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id])
@@ -92,16 +100,16 @@ model Images {
 }
 
 model MissedLogoutTicket {
-  id          String    @id @default(uuid())
-  missedAt    DateTime?    // Date and Time
-  floor       String?     // B1 Biometrics
-  screenshot  String?     
-  status      Status?     // Approved
-  updatedBy   String?     // Sir IT department
-  createdAt   DateTime  @default(now()) @map("created_at")
+  id         String    @id @default(uuid())
+  missedAt   DateTime? // Date and Time
+  floor      String? // B1 Biometrics
+  screenshot String?
+  status     Status?  @default(Pending)
+  updatedBy  String? // Sir IT department
+  createdAt  DateTime  @default(now()) @map("created_at")
 
-  createdById String? 
-  createdBy   User?     @relation("CreatedBy", fields: [createdById], references: [id])
+  createdById String?
+  createdBy   User?   @relation("CreatedBy", fields: [createdById], references: [id])
 
   @@map("missedlogoutticket")
   @@schema("global")

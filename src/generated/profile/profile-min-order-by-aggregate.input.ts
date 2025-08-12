@@ -18,13 +18,13 @@ export class ProfileMinOrderByAggregateInput {
     lastName?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    employeeID?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    dateHired?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
     birthDate?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    gender?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    title?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
     address?: `${SortOrder}`;
@@ -33,16 +33,16 @@ export class ProfileMinOrderByAggregateInput {
     contact?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    avatar?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    employeeID?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
-    createdBy?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
     updatedAt?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    updatedBy?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
     userId?: `${SortOrder}`;

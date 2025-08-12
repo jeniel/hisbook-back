@@ -7,7 +7,4 @@ export class CreateDepartmentInput {
 
   @Field(() => String, { nullable: true })
   description?: string;
-
-  @Field(() => Number)
-  order: number;
 }

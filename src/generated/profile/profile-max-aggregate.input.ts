@@ -17,13 +17,13 @@ export class ProfileMaxAggregateInput {
     lastName?: true;
 
     @Field(() => Boolean, {nullable:true})
-    employeeID?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    dateHired?: true;
-
-    @Field(() => Boolean, {nullable:true})
     birthDate?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    gender?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    title?: true;
 
     @Field(() => Boolean, {nullable:true})
     address?: true;
@@ -32,16 +32,16 @@ export class ProfileMaxAggregateInput {
     contact?: true;
 
     @Field(() => Boolean, {nullable:true})
+    avatar?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    employeeID?: true;
+
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
 
     @Field(() => Boolean, {nullable:true})
-    createdBy?: true;
-
-    @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    updatedBy?: true;
 
     @Field(() => Boolean, {nullable:true})
     userId?: true;

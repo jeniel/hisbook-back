@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Gender } from '../prisma/gender.enum';
 import { Int } from '@nestjs/graphql';
 import { UserCreateNestedOneWithoutProfileInput } from '../user/user-create-nested-one-without-profile.input';
 
@@ -18,14 +19,14 @@ export class ProfileCreateWithoutDepartmentInput {
     @Field(() => String, {nullable:true})
     lastName?: string;
 
-    @Field(() => Int, {nullable:true})
-    employeeID?: number;
-
-    @Field(() => Date, {nullable:true})
-    dateHired?: Date | string;
-
     @Field(() => Date, {nullable:true})
     birthDate?: Date | string;
+
+    @Field(() => Gender, {nullable:true})
+    gender?: `${Gender}`;
+
+    @Field(() => String, {nullable:true})
+    title?: string;
 
     @Field(() => String, {nullable:true})
     address?: string;
@@ -33,17 +34,17 @@ export class ProfileCreateWithoutDepartmentInput {
     @Field(() => String, {nullable:true})
     contact?: string;
 
+    @Field(() => String, {nullable:true})
+    avatar?: string;
+
+    @Field(() => Int, {nullable:true})
+    employeeID?: number;
+
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
-    @Field(() => String, {nullable:true})
-    createdBy?: string;
-
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-
-    @Field(() => String, {nullable:true})
-    updatedBy?: string;
 
     @Field(() => UserCreateNestedOneWithoutProfileInput, {nullable:true})
     user?: UserCreateNestedOneWithoutProfileInput;

@@ -13,7 +13,4 @@ export class DepartmentCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     description?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    order?: `${SortOrder}`;
 }

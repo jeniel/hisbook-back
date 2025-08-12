@@ -8,7 +8,4 @@ export class UpdateDepartmentInput extends PartialType(CreateDepartmentInput) {
 
   @Field(() => String, { nullable: true })
   description?: string;
-
-  @Field(() => Number)
-  order: number;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Gender } from '../prisma/gender.enum';
 import { Int } from '@nestjs/graphql';
 
 @InputType()
@@ -17,14 +18,14 @@ export class ProfileUncheckedCreateWithoutUserInput {
     @Field(() => String, {nullable:true})
     lastName?: string;
 
-    @Field(() => Int, {nullable:true})
-    employeeID?: number;
-
-    @Field(() => Date, {nullable:true})
-    dateHired?: Date | string;
-
     @Field(() => Date, {nullable:true})
     birthDate?: Date | string;
+
+    @Field(() => Gender, {nullable:true})
+    gender?: `${Gender}`;
+
+    @Field(() => String, {nullable:true})
+    title?: string;
 
     @Field(() => String, {nullable:true})
     address?: string;
@@ -32,17 +33,17 @@ export class ProfileUncheckedCreateWithoutUserInput {
     @Field(() => String, {nullable:true})
     contact?: string;
 
+    @Field(() => String, {nullable:true})
+    avatar?: string;
+
+    @Field(() => Int, {nullable:true})
+    employeeID?: number;
+
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
-    @Field(() => String, {nullable:true})
-    createdBy?: string;
-
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-
-    @Field(() => String, {nullable:true})
-    updatedBy?: string;
 
     @Field(() => String, {nullable:true})
     departmentId?: string;

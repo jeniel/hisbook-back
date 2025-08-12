@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
-import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 
 @InputType()
 export class DepartmentScalarWhereWithAggregatesInput {
@@ -23,7 +22,4 @@ export class DepartmentScalarWhereWithAggregatesInput {
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     description?: StringWithAggregatesFilter;
-
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    order?: IntWithAggregatesFilter;
 }
