@@ -64,13 +64,40 @@ export class TicketService {
     };
   }
 
-  // Find one Ticket by id
-  async findOne(id: string) {
-    const ticket = await this.prisma.missedLogoutTicket.findUnique({
-      where: { id },
-    });
+  async findByUser(userId: string, args: MissedLogoutTicketArgs) {
+    const page = args.page || 1;
+    const perPage = args.perPage || 10;
+    const skip = page > 0 ? perPage * (page - 1) : 0;
 
-    return ticket;
+    const where = {
+      ...args.where,
+      createdById: userId,
+    };
+
+    const [total, data] = await Promise.all([
+      this.prisma.missedLogoutTicket.count({ where }),
+      this.prisma.missedLogoutTicket.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        take: perPage,
+        skip,
+        include: { createdBy: true },
+      }),
+    ]);
+
+    const lastPage = Math.ceil(total / perPage);
+
+    return {
+      data,
+      meta: {
+        total,
+        lastPage,
+        currentPage: page,
+        perPage,
+        prev: page > 1 ? page - 1 : null,
+        next: page < lastPage ? page + 1 : null,
+      },
+    };
   }
 
   // Update a Ticket by id

@@ -388,6 +388,7 @@ type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllMissedLogoutTickets(page: Int, perPage: Int, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
+  findTicketsByUser(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   meQuery: MeQuery!
 }
 

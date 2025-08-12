@@ -27,6 +27,15 @@ export class TicketResolver {
     return await this.ticketService.findAll(args);
   }
 
+  // Find all Ticket to
+  @Query(() => MissedLogoutTicketList)
+  findTicketsByUser(
+    @Args('userId') userId: string,
+    @Args() args: MissedLogoutTicketArgs,
+  ) {
+    return this.ticketService.findByUser(userId, args);
+  }
+
   // Update
   @Mutation(() => GeneralMsg)
   updateMissedLogoutTicket(
