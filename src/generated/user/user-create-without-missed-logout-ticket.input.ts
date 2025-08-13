@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { UserCreateroleInput } from './user-createrole.input';
 import { ProfileCreateNestedOneWithoutUserInput } from '../profile/profile-create-nested-one-without-user.input';
 import { PostsCreateNestedManyWithoutUserInput } from '../posts/posts-create-nested-many-without-user.input';
+import { DepartmentCreateNestedOneWithoutProfilesInput } from '../department/department-create-nested-one-without-profiles.input';
 
 @InputType()
 export class UserCreateWithoutMissedLogoutTicketInput {
@@ -30,4 +31,7 @@ export class UserCreateWithoutMissedLogoutTicketInput {
 
     @Field(() => PostsCreateNestedManyWithoutUserInput, {nullable:true})
     posts?: PostsCreateNestedManyWithoutUserInput;
+
+    @Field(() => DepartmentCreateNestedOneWithoutProfilesInput, {nullable:true})
+    department?: DepartmentCreateNestedOneWithoutProfilesInput;
 }

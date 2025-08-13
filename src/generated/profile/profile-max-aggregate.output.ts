@@ -47,7 +47,4 @@ export class ProfileMaxAggregate {
 
     @Field(() => String, {nullable:true})
     userId?: string;
-
-    @Field(() => String, {nullable:true})
-    departmentId?: string;
 }

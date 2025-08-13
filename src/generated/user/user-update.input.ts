@@ -6,6 +6,7 @@ import { UserUpdateroleInput } from './user-updaterole.input';
 import { ProfileUpdateOneWithoutUserNestedInput } from '../profile/profile-update-one-without-user-nested.input';
 import { PostsUpdateManyWithoutUserNestedInput } from '../posts/posts-update-many-without-user-nested.input';
 import { MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput } from '../missed-logout-ticket/missed-logout-ticket-update-many-without-created-by-nested.input';
+import { DepartmentUpdateOneWithoutProfilesNestedInput } from '../department/department-update-one-without-profiles-nested.input';
 
 @InputType()
 export class UserUpdateInput {
@@ -36,4 +37,7 @@ export class UserUpdateInput {
 
     @Field(() => MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput, {nullable:true})
     MissedLogoutTicket?: MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput;
+
+    @Field(() => DepartmentUpdateOneWithoutProfilesNestedInput, {nullable:true})
+    department?: DepartmentUpdateOneWithoutProfilesNestedInput;
 }

@@ -46,7 +46,4 @@ export class ProfileCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     userId?: `${SortOrder}`;
-
-    @Field(() => SortOrder, {nullable:true})
-    departmentId?: `${SortOrder}`;
 }

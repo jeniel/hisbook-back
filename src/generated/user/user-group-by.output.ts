@@ -27,6 +27,9 @@ export class UserGroupBy {
     @Field(() => [Role], {nullable:true})
     role?: Array<`${Role}`>;
 
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
+
     @Field(() => UserCountAggregate, {nullable:true})
     _count?: UserCountAggregate;
 

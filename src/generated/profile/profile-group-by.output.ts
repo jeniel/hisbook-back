@@ -53,9 +53,6 @@ export class ProfileGroupBy {
     @Field(() => String, {nullable:true})
     userId?: string;
 
-    @Field(() => String, {nullable:true})
-    departmentId?: string;
-
     @Field(() => ProfileCountAggregate, {nullable:true})
     _count?: ProfileCountAggregate;
 

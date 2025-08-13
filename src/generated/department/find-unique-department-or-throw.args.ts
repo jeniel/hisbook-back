@@ -9,5 +9,5 @@ export class FindUniqueDepartmentOrThrowArgs {
 
     @Field(() => DepartmentWhereUniqueInput, {nullable:false})
     @Type(() => DepartmentWhereUniqueInput)
-    where!: Prisma.AtLeast<DepartmentWhereUniqueInput, 'id'>;
+    where!: Prisma.AtLeast<DepartmentWhereUniqueInput, 'id' | 'name'>;
 }

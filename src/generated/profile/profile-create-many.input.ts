@@ -47,7 +47,4 @@ export class ProfileCreateManyInput {
 
     @Field(() => String, {nullable:true})
     userId?: string;
-
-    @Field(() => String, {nullable:true})
-    departmentId?: string;
 }

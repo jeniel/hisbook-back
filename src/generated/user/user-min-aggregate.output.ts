@@ -19,4 +19,7 @@ export class UserMinAggregate {
 
     @Field(() => String, {nullable:true})
     hashedRefreshToken?: string;
+
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
 }

@@ -18,4 +18,7 @@ export class UserMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     hashedRefreshToken?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    departmentId?: true;
 }

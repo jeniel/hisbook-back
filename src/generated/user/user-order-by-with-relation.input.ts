@@ -5,6 +5,7 @@ import { SortOrderInput } from '../prisma/sort-order.input';
 import { ProfileOrderByWithRelationInput } from '../profile/profile-order-by-with-relation.input';
 import { PostsOrderByRelationAggregateInput } from '../posts/posts-order-by-relation-aggregate.input';
 import { MissedLogoutTicketOrderByRelationAggregateInput } from '../missed-logout-ticket/missed-logout-ticket-order-by-relation-aggregate.input';
+import { DepartmentOrderByWithRelationInput } from '../department/department-order-by-with-relation.input';
 
 @InputType()
 export class UserOrderByWithRelationInput {
@@ -27,6 +28,9 @@ export class UserOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     role?: `${SortOrder}`;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    departmentId?: SortOrderInput;
+
     @Field(() => ProfileOrderByWithRelationInput, {nullable:true})
     profile?: ProfileOrderByWithRelationInput;
 
@@ -35,4 +39,7 @@ export class UserOrderByWithRelationInput {
 
     @Field(() => MissedLogoutTicketOrderByRelationAggregateInput, {nullable:true})
     MissedLogoutTicket?: MissedLogoutTicketOrderByRelationAggregateInput;
+
+    @Field(() => DepartmentOrderByWithRelationInput, {nullable:true})
+    department?: DepartmentOrderByWithRelationInput;
 }

@@ -9,6 +9,10 @@ import { TicketService } from './ticket.service';
 import { CreateMissedLogoutTicketInput } from './dto/create-ticket.input';
 import { UpdateMissedLogoutTicketInput } from './dto/update-ticket.input';
 
+// Import Roles
+import { Roles } from '@/shared/common/decorator/roles.decorator';
+import { Role } from '@/generated/prisma/role.enum';
+
 @Resolver(() => MissedLogoutTicket)
 export class TicketResolver {
   constructor(private readonly ticketService: TicketService) {}
@@ -22,12 +26,13 @@ export class TicketResolver {
   }
 
   // Find All
+  @Roles([Role.ADMIN]) // For Admin Only
   @Query(() => MissedLogoutTicketList)
   async findAllMissedLogoutTickets(@Args() args: MissedLogoutTicketArgs) {
     return await this.ticketService.findAll(args);
   }
 
-  // Find all Ticket to
+  // Find Ticket by User
   @Query(() => MissedLogoutTicketList)
   findTicketsByUser(
     @Args('userId') userId: string,
@@ -37,6 +42,7 @@ export class TicketResolver {
   }
 
   // Update
+  @Roles([Role.ADMIN])
   @Mutation(() => GeneralMsg)
   updateMissedLogoutTicket(
     @Args('id') id: string,

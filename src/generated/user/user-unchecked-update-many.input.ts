@@ -24,4 +24,7 @@ export class UserUncheckedUpdateManyInput {
 
     @Field(() => UserUpdateroleInput, {nullable:true})
     role?: UserUpdateroleInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    departmentId?: NullableStringFieldUpdateOperationsInput;
 }

@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
-import { ProfileListRelationFilter } from '../profile/profile-list-relation-filter.input';
+import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 
 @InputType()
 export class DepartmentWhereInput {
@@ -24,6 +24,6 @@ export class DepartmentWhereInput {
     @Field(() => StringFilter, {nullable:true})
     description?: StringFilter;
 
-    @Field(() => ProfileListRelationFilter, {nullable:true})
-    profiles?: ProfileListRelationFilter;
+    @Field(() => UserListRelationFilter, {nullable:true})
+    profiles?: UserListRelationFilter;
 }

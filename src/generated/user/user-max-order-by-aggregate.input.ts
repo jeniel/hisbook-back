@@ -19,4 +19,7 @@ export class UserMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     hashedRefreshToken?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    departmentId?: `${SortOrder}`;
 }

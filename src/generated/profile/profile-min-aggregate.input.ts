@@ -45,7 +45,4 @@ export class ProfileMinAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     userId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    departmentId?: true;
 }

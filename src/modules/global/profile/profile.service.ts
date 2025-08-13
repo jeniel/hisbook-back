@@ -26,7 +26,6 @@ export class ProfileService {
         avatar: dto.avatar,
         employeeID: dto.employeeID,
         userId: dto.userId,
-        departmentId: dto.departmentId,
       },
     });
 

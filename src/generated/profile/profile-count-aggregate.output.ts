@@ -48,8 +48,5 @@ export class ProfileCountAggregate {
     userId!: number;
 
     @Field(() => Int, {nullable:false})
-    departmentId!: number;
-
-    @Field(() => Int, {nullable:false})
     _all!: number;
 }

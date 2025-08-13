@@ -48,7 +48,4 @@ export class ProfileUncheckedUpdateWithoutUserInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    departmentId?: NullableStringFieldUpdateOperationsInput;
 }

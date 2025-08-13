@@ -27,6 +27,9 @@ export class UserOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     role?: `${SortOrder}`;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    departmentId?: SortOrderInput;
+
     @Field(() => UserCountOrderByAggregateInput, {nullable:true})
     _count?: UserCountOrderByAggregateInput;
 

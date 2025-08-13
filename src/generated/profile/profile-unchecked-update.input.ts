@@ -51,7 +51,4 @@ export class ProfileUncheckedUpdateInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     userId?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    departmentId?: NullableStringFieldUpdateOperationsInput;
 }

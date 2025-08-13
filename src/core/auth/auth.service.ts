@@ -19,48 +19,47 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
-  // async signup(signUpInput: SignUpInput) {
-  //   try {
-  //     const hashedPassword = await argon.hash(signUpInput.password);
-  //     const user = await this.prisma.user.create({
-  //       data: {
-  //         username: signUpInput.username,
-  //         hashedPassword,
-  //         email: signUpInput.email,
-  //         profile: {
-  //           create: {
-  //             firstName: signUpInput.firstName,
-  //             middleName: signUpInput.middleName,
-  //             lastName: signUpInput.lastName,
-  //             designation: signUpInput.designation,
-  //           },
-  //         },
-  //       },
-  //       include: {
-  //         profile: true,
-  //       },
-  //     });
+  async signup(signUpInput: SignUpInput) {
+    try {
+      const hashedPassword = await argon.hash(signUpInput.password);
+      const user = await this.prisma.user.create({
+        data: {
+          username: signUpInput.username,
+          hashedPassword,
+          email: signUpInput.email,
+          profile: {
+            create: {
+              firstName: signUpInput.firstName,
+              middleName: signUpInput.middleName,
+              lastName: signUpInput.lastName,
+              // designation: signUpInput.designation,
+            },
+          },
+        },
+        include: {
+          profile: true,
+        },
+      });
 
-  //     const { accessToken, refreshToken } = await this.createTokens(
-  //       user.id,
-  //       user.email,
-  //       user.username,
-  //       user.profile.id,
-  //       user.profile.departmentId,
-  //       user.role as Role[],
-  //     );
-  //     await this.updateRefresh(user.id, refreshToken);
-  //     ``;
-  //     return { accessToken, refreshToken, user };
-  //   } catch (error) {
-  //     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-  //       if (error.code === 'P2002') {
-  //         throw new ForbiddenException('Credetials Taken');
-  //       }
-  //     }
-  //     throw error;
-  //   }
-  // }
+      const { accessToken, refreshToken } = await this.createTokens(
+        user.id,
+        user.email,
+        user.username,
+        user.profile.id,
+        user.departmentId,
+        user.role as Role[],
+      );
+      await this.updateRefresh(user.id, refreshToken);
+      return { accessToken, refreshToken, user };
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ForbiddenException('Credetials Taken');
+        }
+      }
+      throw error;
+    }
+  }
 
   async signin(
     signInInput: SignInInput,
@@ -92,7 +91,7 @@ export class AuthService {
       user.email,
       user.username,
       user.profile.id,
-      user.profile.departmentId,
+      user.departmentId,
       user.role as Role[],
     );
 
@@ -195,11 +194,8 @@ export class AuthService {
         id: currentUser.userId,
       },
       include: {
-        profile: {
-          include: {
-            department: true,
-          },
-        },
+        profile: true,
+        department: true,
       },
     });
 

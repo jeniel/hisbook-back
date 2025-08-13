@@ -22,4 +22,7 @@ export class UserCreateManyInput {
 
     @Field(() => UserCreateroleInput, {nullable:true})
     role?: UserCreateroleInput;
+
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
 }

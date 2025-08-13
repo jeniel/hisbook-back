@@ -8,5 +8,5 @@ export class MissedLogoutTicketList {
   data: MissedLogoutTicket[];
 
   @Field(() => Meta, { nullable: true })
-  meta?: Meta;
+  meta: Meta;
 }

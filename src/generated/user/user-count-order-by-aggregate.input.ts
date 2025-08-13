@@ -22,4 +22,7 @@ export class UserCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     role?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    departmentId?: `${SortOrder}`;
 }

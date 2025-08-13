@@ -2,8 +2,6 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
-import { BoolFilter } from '../prisma/bool-filter.input';
-import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { EnumRoleNullableListFilter } from '../prisma/enum-role-nullable-list-filter.input';
 
 @InputType()
@@ -32,27 +30,6 @@ export class UserScalarWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     hashedRefreshToken?: StringNullableFilter;
-
-    @Field(() => BoolFilter, {nullable:true})
-    isActive?: BoolFilter;
-
-    @Field(() => BoolFilter, {nullable:true})
-    isApprove?: BoolFilter;
-
-    @Field(() => DateTimeFilter, {nullable:true})
-    createdAt?: DateTimeFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    createdBy?: StringNullableFilter;
-
-    @Field(() => DateTimeFilter, {nullable:true})
-    updatedAt?: DateTimeFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    updatedBy?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    tenantId?: StringNullableFilter;
 
     @Field(() => EnumRoleNullableListFilter, {nullable:true})
     role?: EnumRoleNullableListFilter;

@@ -25,6 +25,9 @@ export class UserUncheckedCreateWithoutPostsInput {
     @Field(() => UserCreateroleInput, {nullable:true})
     role?: UserCreateroleInput;
 
+    @Field(() => String, {nullable:true})
+    departmentId?: string;
+
     @Field(() => ProfileUncheckedCreateNestedOneWithoutUserInput, {nullable:true})
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput;
 

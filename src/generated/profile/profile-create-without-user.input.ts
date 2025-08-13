@@ -2,7 +2,6 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Gender } from '../prisma/gender.enum';
 import { Int } from '@nestjs/graphql';
-import { DepartmentCreateNestedOneWithoutProfilesInput } from '../department/department-create-nested-one-without-profiles.input';
 
 @InputType()
 export class ProfileCreateWithoutUserInput {
@@ -45,7 +44,4 @@ export class ProfileCreateWithoutUserInput {
 
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-
-    @Field(() => DepartmentCreateNestedOneWithoutProfilesInput, {nullable:true})
-    department?: DepartmentCreateNestedOneWithoutProfilesInput;
 }

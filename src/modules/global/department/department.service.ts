@@ -55,18 +55,6 @@ export class DepartmentService {
     };
   }
 
-  // Delete Department
-  async delete(id: string) {
-    await this.prisma.department.delete({
-      where: { id },
-    });
-
-    return {
-      message: 'Department deleted successfully',
-      success: true,
-    };
-  }
-
   // Update Department
   async update(id: string, data: UpdateDepartmentInput) {
     await this.prisma.department.update({
@@ -76,6 +64,18 @@ export class DepartmentService {
 
     return {
       message: 'Department updated successfully',
+      success: true,
+    };
+  }
+
+  // Delete Department
+  async delete(id: string) {
+    await this.prisma.department.delete({
+      where: { id },
+    });
+
+    return {
+      message: 'Department deleted successfully',
       success: true,
     };
   }

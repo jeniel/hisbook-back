@@ -7,6 +7,7 @@ import { EnumRoleNullableListFilter } from '../prisma/enum-role-nullable-list-fi
 import { ProfileNullableScalarRelationFilter } from '../profile/profile-nullable-scalar-relation-filter.input';
 import { PostsListRelationFilter } from '../posts/posts-list-relation-filter.input';
 import { MissedLogoutTicketListRelationFilter } from '../missed-logout-ticket/missed-logout-ticket-list-relation-filter.input';
+import { DepartmentNullableScalarRelationFilter } from '../department/department-nullable-scalar-relation-filter.input';
 
 @InputType()
 export class UserWhereUniqueInput {
@@ -38,6 +39,9 @@ export class UserWhereUniqueInput {
     @Field(() => EnumRoleNullableListFilter, {nullable:true})
     role?: EnumRoleNullableListFilter;
 
+    @Field(() => StringNullableFilter, {nullable:true})
+    departmentId?: StringNullableFilter;
+
     @Field(() => ProfileNullableScalarRelationFilter, {nullable:true})
     profile?: ProfileNullableScalarRelationFilter;
 
@@ -46,4 +50,7 @@ export class UserWhereUniqueInput {
 
     @Field(() => MissedLogoutTicketListRelationFilter, {nullable:true})
     MissedLogoutTicket?: MissedLogoutTicketListRelationFilter;
+
+    @Field(() => DepartmentNullableScalarRelationFilter, {nullable:true})
+    department?: DepartmentNullableScalarRelationFilter;
 }

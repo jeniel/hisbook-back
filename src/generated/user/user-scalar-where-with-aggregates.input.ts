@@ -33,4 +33,7 @@ export class UserScalarWhereWithAggregatesInput {
 
     @Field(() => EnumRoleNullableListFilter, {nullable:true})
     role?: EnumRoleNullableListFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    departmentId?: StringNullableWithAggregatesFilter;
 }

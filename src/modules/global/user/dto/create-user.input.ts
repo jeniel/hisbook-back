@@ -16,7 +16,7 @@ export class CreateUserInput {
   role?: Role[];
 
   @Field({ nullable: true })
-  departmentId?: string;
+  departmentName?: string;
 }
 
 // @InputType()

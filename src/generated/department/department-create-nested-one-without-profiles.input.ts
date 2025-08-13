@@ -19,5 +19,5 @@ export class DepartmentCreateNestedOneWithoutProfilesInput {
 
     @Field(() => DepartmentWhereUniqueInput, {nullable:true})
     @Type(() => DepartmentWhereUniqueInput)
-    connect?: Prisma.AtLeast<DepartmentWhereUniqueInput, 'id'>;
+    connect?: Prisma.AtLeast<DepartmentWhereUniqueInput, 'id' | 'name'>;
 }

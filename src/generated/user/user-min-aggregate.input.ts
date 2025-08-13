@@ -18,4 +18,7 @@ export class UserMinAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     hashedRefreshToken?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    departmentId?: true;
 }

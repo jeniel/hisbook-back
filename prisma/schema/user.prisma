@@ -20,6 +20,9 @@ model User {
   posts              Posts[]
   MissedLogoutTicket MissedLogoutTicket[] @relation("CreatedBy")
 
+  departmentId String?     @map("department_id")
+  department   Department? @relation(fields: [departmentId], references: [id])
+
   @@map("user")
   @@schema("global")
 }
@@ -43,20 +46,17 @@ model Profile {
   userId String? @unique @map("user_id")
   user   User?   @relation(fields: [userId], references: [id])
 
-  departmentId String?     @map("department_id")
-  department   Department? @relation(fields: [departmentId], references: [id])
-
   @@map("profile")
   @@schema("global")
 }
 
 model Department {
   id          String @id @default(uuid())
-  name        String
+  name        String @unique
   description String
 
   // Relations
-  profiles Profile[]
+  profiles User[]
 
   @@map("department")
   @@schema("global")

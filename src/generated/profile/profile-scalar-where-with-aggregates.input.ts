@@ -60,7 +60,4 @@ export class ProfileScalarWhereWithAggregatesInput {
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     userId?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    departmentId?: StringNullableWithAggregatesFilter;
 }

@@ -27,6 +27,9 @@ export class UserUncheckedUpdateWithoutPostsInput {
     @Field(() => UserUpdateroleInput, {nullable:true})
     role?: UserUpdateroleInput;
 
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    departmentId?: NullableStringFieldUpdateOperationsInput;
+
     @Field(() => ProfileUncheckedUpdateOneWithoutUserNestedInput, {nullable:true})
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput;
 

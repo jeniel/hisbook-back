@@ -19,7 +19,7 @@ export class FindFirstDepartmentOrThrowArgs {
     orderBy?: Array<DepartmentOrderByWithRelationInput>;
 
     @Field(() => DepartmentWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<DepartmentWhereUniqueInput, 'id'>;
+    cursor?: Prisma.AtLeast<DepartmentWhereUniqueInput, 'id' | 'name'>;
 
     @Field(() => Int, {nullable:true})
     take?: number;

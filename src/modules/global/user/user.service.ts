@@ -1,15 +1,13 @@
 import { PrismaService } from '@/core/database/prisma/prisma.service';
-import { UserArgs } from '@/modules/global/user/args/user.args';
-import { CreateUserInput } from '@/modules/global/user/dto/create-user.input';
-// import { UpdateUserInput } from '@/modules/global/user/dto/update-user.input';
-
-// import { CreateUserProfileInput } from '@/modules/global/user/dto/create-user.input';
-// ForbiddenException
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-// import { Prisma } from '@prisma/client';
 
-import * as argon2 from 'argon2'; // Argon2 Secure Password Hashing Algorithm
+import * as argon2 from 'argon2'; // Password Hashing
+
+// Impor DTO and Args
+import { CreateUserInput } from '@/modules/global/user/dto/create-user.input';
+import { UpdateUserInput } from '@/modules/global/user/dto/update-user.input';
+import { UserArgs } from '@/modules/global/user/args/user.args';
 
 @Injectable()
 export class UserService {
@@ -27,6 +25,9 @@ export class UserService {
         email: dto.email,
         username: dto.username,
         hashedPassword,
+        department: dto.departmentName
+          ? { connect: { name: dto.departmentName } }
+          : undefined,
         role: dto.role ? dto.role : ['USER'],
       },
     });
@@ -49,6 +50,10 @@ export class UserService {
         where: args.where,
         take: perPage,
         skip,
+        include: {
+          profile: true,
+          department: true,
+        },
       }),
     ]);
 
@@ -68,21 +73,32 @@ export class UserService {
   }
 
   // Update User
-  // async update(id: string, data: UpdateUserInput) {
-  //   await this.prisma.user.update({
-  //     where: { id },
-  //     data: {
-  //       department: {
-  //         connect: { id: departmentId },
-  //       },
-  //     }
-  //   });
+  async update(id: string, dto: UpdateUserInput) {
+    const data: any = {
+      email: dto.email,
+      username: dto.username,
+      role: dto.role || 'USER',
+    };
 
-  //   return {
-  //     message: 'User updated successfully',
-  //     success: true,
-  //   };
-  // }
+    if (dto.password) {
+      data.hashedPassword = await argon2.hash(dto.password);
+    }
+    if (dto.departmentName) {
+      data.department = {
+        connect: { name: dto.departmentName },
+      };
+    }
+
+    await this.prisma.user.update({
+      where: { id },
+      data,
+    });
+
+    return {
+      message: 'User updated successfully',
+      success: true,
+    };
+  }
 
   // Delete User
   async delete(id: string) {

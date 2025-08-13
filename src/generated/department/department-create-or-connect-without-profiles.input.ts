@@ -10,7 +10,7 @@ export class DepartmentCreateOrConnectWithoutProfilesInput {
 
     @Field(() => DepartmentWhereUniqueInput, {nullable:false})
     @Type(() => DepartmentWhereUniqueInput)
-    where!: Prisma.AtLeast<DepartmentWhereUniqueInput, 'id'>;
+    where!: Prisma.AtLeast<DepartmentWhereUniqueInput, 'id' | 'name'>;
 
     @Field(() => DepartmentCreateWithoutProfilesInput, {nullable:false})
     @Type(() => DepartmentCreateWithoutProfilesInput)

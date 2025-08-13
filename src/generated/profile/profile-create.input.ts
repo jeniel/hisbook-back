@@ -3,7 +3,6 @@ import { InputType } from '@nestjs/graphql';
 import { Gender } from '../prisma/gender.enum';
 import { Int } from '@nestjs/graphql';
 import { UserCreateNestedOneWithoutProfileInput } from '../user/user-create-nested-one-without-profile.input';
-import { DepartmentCreateNestedOneWithoutProfilesInput } from '../department/department-create-nested-one-without-profiles.input';
 
 @InputType()
 export class ProfileCreateInput {
@@ -49,7 +48,4 @@ export class ProfileCreateInput {
 
     @Field(() => UserCreateNestedOneWithoutProfileInput, {nullable:true})
     user?: UserCreateNestedOneWithoutProfileInput;
-
-    @Field(() => DepartmentCreateNestedOneWithoutProfilesInput, {nullable:true})
-    department?: DepartmentCreateNestedOneWithoutProfilesInput;
 }

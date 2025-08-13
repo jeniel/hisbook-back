@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ProfileCreateNestedManyWithoutDepartmentInput } from '../profile/profile-create-nested-many-without-department.input';
+import { UserCreateNestedManyWithoutDepartmentInput } from '../user/user-create-nested-many-without-department.input';
 
 @InputType()
 export class DepartmentCreateInput {
@@ -14,6 +14,6 @@ export class DepartmentCreateInput {
     @Field(() => String, {nullable:false})
     description!: string;
 
-    @Field(() => ProfileCreateNestedManyWithoutDepartmentInput, {nullable:true})
-    profiles?: ProfileCreateNestedManyWithoutDepartmentInput;
+    @Field(() => UserCreateNestedManyWithoutDepartmentInput, {nullable:true})
+    profiles?: UserCreateNestedManyWithoutDepartmentInput;
 }

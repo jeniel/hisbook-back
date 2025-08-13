@@ -44,7 +44,4 @@ export class ProfileUncheckedCreateWithoutUserInput {
 
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-
-    @Field(() => String, {nullable:true})
-    departmentId?: string;
 }

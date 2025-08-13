@@ -4,7 +4,6 @@ import { ID } from '@nestjs/graphql';
 import { Gender } from '../prisma/gender.enum';
 import { Int } from '@nestjs/graphql';
 import { User } from '../user/user.model';
-import { Department } from '../department/department.model';
 
 @ObjectType()
 export class Profile {
@@ -51,12 +50,6 @@ export class Profile {
     @Field(() => String, {nullable:true})
     userId!: string | null;
 
-    @Field(() => String, {nullable:true})
-    departmentId!: string | null;
-
     @Field(() => User, {nullable:true})
     user?: User | null;
-
-    @Field(() => Department, {nullable:true})
-    department?: Department | null;
 }

@@ -32,7 +32,7 @@ input CreateProfileInput {
 }
 
 input CreateUserInput {
-  departmentId: String
+  departmentName: String
   email: String!
   password: String!
   role: [Role!]
@@ -71,7 +71,7 @@ type Department {
   description: String!
   id: ID!
   name: String!
-  profiles: [Profile!]
+  profiles: [User!]
 }
 
 type DepartmentCount {
@@ -95,7 +95,7 @@ input DepartmentWhereInput {
   description: StringFilter
   id: StringFilter
   name: StringFilter
-  profiles: ProfileListRelationFilter
+  profiles: UserListRelationFilter
 }
 
 input EnumGenderNullableFilter {
@@ -228,9 +228,11 @@ type Mutation {
   deleteUser(id: String!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
+  signup(signUpInput: SignUpInput!): SignResponse!
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
   updateMissedLogoutTicket(id: String!, payload: UpdateMissedLogoutTicketInput!): GeneralMsg!
   updateProfile(id: String!, payload: UpdateProfileInput!): GeneralMsg!
+  updateUser(id: String!, payload: UpdateUserInput!): GeneralMsg!
 }
 
 input NestedDateTimeFilter {
@@ -349,8 +351,6 @@ type Profile {
   birthDate: DateTime
   contact: String
   createdAt: DateTime!
-  department: Department
-  departmentId: String
   employeeID: Int
   firstName: String
   gender: Gender
@@ -368,12 +368,6 @@ type ProfileList {
   meta: Meta
 }
 
-input ProfileListRelationFilter {
-  every: ProfileWhereInput
-  none: ProfileWhereInput
-  some: ProfileWhereInput
-}
-
 input ProfileNullableScalarRelationFilter {
   is: ProfileWhereInput
   isNot: ProfileWhereInput
@@ -388,8 +382,6 @@ input ProfileWhereInput {
   birthDate: DateTimeNullableFilter
   contact: StringNullableFilter
   createdAt: DateTimeFilter
-  department: DepartmentNullableScalarRelationFilter
-  departmentId: StringNullableFilter
   employeeID: IntNullableFilter
   firstName: StringNullableFilter
   gender: EnumGenderNullableFilter
@@ -433,6 +425,16 @@ type SignResponse {
   isSignedIn: Boolean!
   refreshToken: String!
   user: User!
+}
+
+input SignUpInput {
+  designation: String
+  email: String!
+  firstName: String
+  lastName: String
+  middleName: String
+  password: String!
+  username: String!
 }
 
 enum Status {
@@ -500,9 +502,19 @@ input UpdateProfileInput {
   userId: String
 }
 
+input UpdateUserInput {
+  departmentName: String
+  email: String
+  password: String!
+  role: [Role!]
+  username: String!
+}
+
 type User {
   MissedLogoutTicket: [MissedLogoutTicket!]
   _count: UserCount!
+  department: Department
+  departmentId: String
 
   """@Validator.@IsEmail()"""
   email: String!
@@ -520,8 +532,14 @@ type UserCount {
 }
 
 type UserList {
-  data: [Profile!]!
+  data: [User!]!
   meta: Meta
+}
+
+input UserListRelationFilter {
+  every: UserWhereInput
+  none: UserWhereInput
+  some: UserWhereInput
 }
 
 input UserNullableScalarRelationFilter {
@@ -534,6 +552,8 @@ input UserWhereInput {
   MissedLogoutTicket: MissedLogoutTicketListRelationFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
+  department: DepartmentNullableScalarRelationFilter
+  departmentId: StringNullableFilter
   email: StringFilter
   hashedPassword: StringFilter
   hashedRefreshToken: StringNullableFilter

@@ -7,7 +7,6 @@ import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.inpu
 import { EnumGenderNullableFilter } from '../prisma/enum-gender-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { UserNullableScalarRelationFilter } from '../user/user-nullable-scalar-relation-filter.input';
-import { DepartmentNullableScalarRelationFilter } from '../department/department-nullable-scalar-relation-filter.input';
 
 @InputType()
 export class ProfileWhereUniqueInput {
@@ -63,12 +62,6 @@ export class ProfileWhereUniqueInput {
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    departmentId?: StringNullableFilter;
-
     @Field(() => UserNullableScalarRelationFilter, {nullable:true})
     user?: UserNullableScalarRelationFilter;
-
-    @Field(() => DepartmentNullableScalarRelationFilter, {nullable:true})
-    department?: DepartmentNullableScalarRelationFilter;
 }

@@ -47,8 +47,5 @@ export class ProfileCountAggregateInput {
     userId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    departmentId?: true;
-
-    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }

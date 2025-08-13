@@ -5,6 +5,7 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 import { UserUpdateroleInput } from './user-updaterole.input';
 import { ProfileUpdateOneWithoutUserNestedInput } from '../profile/profile-update-one-without-user-nested.input';
 import { PostsUpdateManyWithoutUserNestedInput } from '../posts/posts-update-many-without-user-nested.input';
+import { DepartmentUpdateOneWithoutProfilesNestedInput } from '../department/department-update-one-without-profiles-nested.input';
 
 @InputType()
 export class UserUpdateWithoutMissedLogoutTicketInput {
@@ -32,4 +33,7 @@ export class UserUpdateWithoutMissedLogoutTicketInput {
 
     @Field(() => PostsUpdateManyWithoutUserNestedInput, {nullable:true})
     posts?: PostsUpdateManyWithoutUserNestedInput;
+
+    @Field(() => DepartmentUpdateOneWithoutProfilesNestedInput, {nullable:true})
+    department?: DepartmentUpdateOneWithoutProfilesNestedInput;
 }
