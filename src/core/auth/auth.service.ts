@@ -65,10 +65,9 @@ export class AuthService {
     signInInput: SignInInput,
     context: { res: Response; req: Request },
   ) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findFirst({
       where: {
-        email: signInInput.email,
-        username: signInInput.username,
+        OR: [{ email: signInInput.email }, { username: signInInput.username }],
       },
       include: {
         profile: true,
@@ -90,7 +89,7 @@ export class AuthService {
       user.id,
       user.email,
       user.username,
-      user.profile.id,
+      user.profile?.id ?? null,
       user.departmentId,
       user.role as Role[],
     );
@@ -123,8 +122,8 @@ export class AuthService {
     userId: string,
     email: string,
     username: string,
-    profileId: string,
-    departmentId: string,
+    profileId: string | null,
+    departmentId: string | null,
     role: Role[],
   ) {
     const accessToken = await this.jwt.sign(

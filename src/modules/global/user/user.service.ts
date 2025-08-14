@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 
 import * as argon2 from 'argon2'; // Password Hashing
 
-// Impor DTO and Args
+// Import DTO and Args
 import { CreateUserInput } from '@/modules/global/user/dto/create-user.input';
 import { UpdateUserInput } from '@/modules/global/user/dto/update-user.input';
 import { UserArgs } from '@/modules/global/user/args/user.args';
@@ -29,6 +29,10 @@ export class UserService {
           ? { connect: { name: dto.departmentName } }
           : undefined,
         role: dto.role ? dto.role : ['USER'],
+        profile: { create: {} },
+      },
+      include: {
+        profile: true,
       },
     });
 

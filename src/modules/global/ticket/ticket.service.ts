@@ -44,7 +44,9 @@ export class TicketService {
         take: perPage,
         skip,
         include: {
-          createdBy: true,
+          createdBy: {
+            include: { profile: true },
+          },
         },
       }),
     ]);
@@ -81,7 +83,11 @@ export class TicketService {
         orderBy: { createdAt: 'desc' },
         take: perPage,
         skip,
-        include: { createdBy: true },
+        include: {
+          createdBy: {
+            include: { profile: true },
+          },
+        },
       }),
     ]);
 
