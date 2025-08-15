@@ -11,6 +11,9 @@ export class PostsCreateWithoutUserInput {
     @Field(() => String, {nullable:false})
     content!: string;
 
+    @Field(() => Date, {nullable:true})
+    datePosted?: Date | string;
+
     @Field(() => ImagesCreateNestedManyWithoutPostInput, {nullable:true})
     images?: ImagesCreateNestedManyWithoutPostInput;
 }

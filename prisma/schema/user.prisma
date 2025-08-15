@@ -80,6 +80,7 @@ enum Gender {
 model Posts {
   id      String   @id @default(uuid())
   content String
+  datePosted DateTime @default(now()) @map("date_posted")
   images  Images[] // Array of Images in a Single Post
 
   userId String?

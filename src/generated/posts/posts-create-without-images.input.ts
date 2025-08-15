@@ -11,6 +11,9 @@ export class PostsCreateWithoutImagesInput {
     @Field(() => String, {nullable:false})
     content!: string;
 
+    @Field(() => Date, {nullable:true})
+    datePosted?: Date | string;
+
     @Field(() => UserCreateNestedOneWithoutPostsInput, {nullable:true})
     user?: UserCreateNestedOneWithoutPostsInput;
 }

@@ -16,6 +16,11 @@ input CreateMissedLogoutTicketInput {
   updatedBy: String
 }
 
+input CreatePostInput {
+  content: String!
+  images: [String!]
+}
+
 input CreateProfileInput {
   address: String
   avatar: String
@@ -220,10 +225,12 @@ input MissedLogoutTicketWhereInput {
 type Mutation {
   createDepartment(payload: CreateDepartmentInput!): GeneralMsg!
   createMissedLogoutTicket(payload: CreateMissedLogoutTicketInput!): GeneralMsg!
+  createPost(payload: CreatePostInput!): GeneralMsg!
   createProfile(payload: CreateProfileInput!): GeneralMsg!
   createUser(payload: CreateUserInput!): GeneralMsg!
   deleteDepartment(id: String!): GeneralMsg!
   deleteMissedLogoutTicket(id: String!): GeneralMsg!
+  deletePost(id: String!): GeneralMsg!
   deleteProfile(id: String!): GeneralMsg!
   deleteUser(id: String!): GeneralMsg!
   logOut: GeneralMsg!
@@ -313,6 +320,7 @@ input NestedStringNullableFilter {
 type Posts {
   _count: PostsCount!
   content: String!
+  datePosted: DateTime!
   id: ID!
   images: [Images!]
   user: User
@@ -321,6 +329,11 @@ type Posts {
 
 type PostsCount {
   images: Int!
+}
+
+type PostsList {
+  data: [Posts!]!
+  meta: Meta
 }
 
 input PostsListRelationFilter {
@@ -339,6 +352,7 @@ input PostsWhereInput {
   NOT: [PostsWhereInput!]
   OR: [PostsWhereInput!]
   content: StringFilter
+  datePosted: DateTimeFilter
   id: StringFilter
   images: ImagesListRelationFilter
   user: UserNullableScalarRelationFilter
@@ -397,6 +411,7 @@ input ProfileWhereInput {
 type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllMissedLogoutTickets(page: Int, perPage: Int, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
+  findAllPosts(page: Int, perPage: Int, where: PostsWhereInput): PostsList!
   findAllProfiles(page: Int, perPage: Int, where: ProfileWhereInput): ProfileList!
   findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
   findProfile(id: String!): Profile!

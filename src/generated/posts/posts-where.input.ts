@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
+import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { ImagesListRelationFilter } from '../images/images-list-relation-filter.input';
 import { UserNullableScalarRelationFilter } from '../user/user-nullable-scalar-relation-filter.input';
@@ -22,6 +23,9 @@ export class PostsWhereInput {
 
     @Field(() => StringFilter, {nullable:true})
     content?: StringFilter;
+
+    @Field(() => DateTimeFilter, {nullable:true})
+    datePosted?: DateTimeFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     userId?: StringNullableFilter;

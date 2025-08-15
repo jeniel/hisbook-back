@@ -12,6 +12,9 @@ export class PostsCountAggregate {
     content!: number;
 
     @Field(() => Int, {nullable:false})
+    datePosted!: number;
+
+    @Field(() => Int, {nullable:false})
     userId!: number;
 
     @Field(() => Int, {nullable:false})

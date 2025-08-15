@@ -1,11 +1,18 @@
-import { Module } from '@nestjs/common';
 import { DepartmentModule } from '@/modules/global/department/department.module';
+import { PostModule } from '@/modules/global/post/post.module';
 import { UserModule } from '@/modules/global/user/user.module';
-import { TicketModule } from './ticket/ticket.module';
+import { Module } from '@nestjs/common';
 import { ProfileModule } from './profile/profile.module';
+import { TicketModule } from './ticket/ticket.module';
 
 @Module({
-  imports: [DepartmentModule, UserModule, TicketModule, ProfileModule],
+  imports: [
+    DepartmentModule,
+    UserModule,
+    TicketModule,
+    ProfileModule,
+    PostModule,
+  ],
   controllers: [],
   providers: [],
   exports: [],

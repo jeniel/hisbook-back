@@ -13,6 +13,9 @@ export class PostsGroupBy {
     @Field(() => String, {nullable:false})
     content!: string;
 
+    @Field(() => Date, {nullable:false})
+    datePosted!: Date | string;
+
     @Field(() => String, {nullable:true})
     userId?: string;
 

@@ -11,5 +11,8 @@ export class PostsMinAggregateInput {
     content?: true;
 
     @Field(() => Boolean, {nullable:true})
+    datePosted?: true;
+
+    @Field(() => Boolean, {nullable:true})
     userId?: true;
 }

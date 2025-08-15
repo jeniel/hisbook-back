@@ -11,6 +11,9 @@ export class PostsUncheckedCreateInput {
     @Field(() => String, {nullable:false})
     content!: string;
 
+    @Field(() => Date, {nullable:true})
+    datePosted?: Date | string;
+
     @Field(() => String, {nullable:true})
     userId?: string;
 

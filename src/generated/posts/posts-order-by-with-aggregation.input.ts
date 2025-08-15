@@ -15,6 +15,9 @@ export class PostsOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     content?: `${SortOrder}`;
 
+    @Field(() => SortOrder, {nullable:true})
+    datePosted?: `${SortOrder}`;
+
     @Field(() => SortOrderInput, {nullable:true})
     userId?: SortOrderInput;
 
