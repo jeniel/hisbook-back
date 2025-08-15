@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { AuthService } from '@/core/auth/auth.service';
 import {
-  Injectable,
   ExecutionContext,
-  HttpException,
-  HttpStatus,
-  ForbiddenException,
+  Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -11,7 +10,6 @@ import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthService } from '@/core/auth/auth.service';
 
 @Injectable()
 export class AccessTokenGuard extends AuthGuard('jwt') {

@@ -2,14 +2,16 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateUserInput } from './dto/create-user.input';
 
 import { AuthService } from '@/core/auth/auth.service';
-// import { Profile } from '@/generated/profile/profile.model';
 import { User } from '@/generated/user/user.model';
+import { UpdateUserInput } from '@/modules/global/user/dto/update-user.input';
+import { UserList } from '@/modules/global/user/entities/user.entity';
 import { GeneralMsg } from '@/shared/common/entities/general-msg.entities';
 import { UserArgs } from './args/user.args';
-// import { UserList } from './entities/user.entity';
 import { UserService } from './user.service';
-import { UserList } from '@/modules/global/user/entities/user.entity';
-import { UpdateUserInput } from '@/modules/global/user/dto/update-user.input';
+
+// Import Roles
+import { Role } from '@/generated/prisma/role.enum';
+import { Roles } from '@/shared/common/decorator/roles.decorator';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -21,18 +23,21 @@ export class UserResolver {
 
   // Create User
   @Mutation(() => GeneralMsg)
+  @Roles([Role.ADMIN])
   createUser(@Args('payload') payload: CreateUserInput) {
     return this.userService.createUser(payload);
   }
 
   // Find All
   @Query(() => UserList)
+  @Roles([Role.ADMIN])
   async findAllUsers(@Args() args: UserArgs) {
     return await this.userService.findAll(args);
   }
 
   // Update
   @Mutation(() => GeneralMsg)
+  @Roles([Role.ADMIN])
   async updateUser(
     @Args('id') id: string,
     @Args('payload') payload: UpdateUserInput,
@@ -42,6 +47,7 @@ export class UserResolver {
 
   // Delete User
   @Mutation(() => GeneralMsg)
+  @Roles([Role.ADMIN])
   deleteUser(@Args('id') id: string) {
     return this.userService.delete(id);
   }

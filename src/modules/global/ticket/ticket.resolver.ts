@@ -26,7 +26,7 @@ export class TicketResolver {
   }
 
   // Find All
-  @Roles([Role.ADMIN]) // For Admin Only
+  @Roles([Role.ADMIN])
   @Query(() => MissedLogoutTicketList)
   async findAllMissedLogoutTickets(@Args() args: MissedLogoutTicketArgs) {
     return await this.ticketService.findAll(args);
@@ -42,8 +42,8 @@ export class TicketResolver {
   }
 
   // Update
-  @Roles([Role.ADMIN])
   @Mutation(() => GeneralMsg)
+  @Roles([Role.ADMIN])
   updateMissedLogoutTicket(
     @Args('id') id: string,
     @Args('payload') payload: UpdateMissedLogoutTicketInput,
@@ -52,6 +52,7 @@ export class TicketResolver {
   }
 
   // Delete
+  @Roles([Role.ADMIN])
   @Mutation(() => GeneralMsg)
   deleteMissedLogoutTicket(@Args('id') id: string) {
     return this.ticketService.delete(id);
