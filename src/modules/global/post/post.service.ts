@@ -1,5 +1,9 @@
 import { PrismaService } from '@/core/database/prisma/prisma.service';
-import { Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 // Import DTO and ARGS
 import { PostsArgs } from '@/modules/global/post/args/post.args';
@@ -46,7 +50,7 @@ export class PostService {
         skip,
         include: {
           user: {
-            include: { profile: true },
+            include: { profile: true, department: true },
           },
         },
         orderBy: {
@@ -71,42 +75,50 @@ export class PostService {
   }
 
   // Update Post
-  async update(id: string, dto: UpdatePostInput) {
-    const updatedPost = await this.prisma.posts.update({
-      where: { id },
+  async update(postId: string, data: UpdatePostInput, userId: string) {
+    const post = await this.prisma.posts.findUnique({ where: { id: postId } });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    if (post.userId !== userId) {
+      throw new ForbiddenException('You do not own this post');
+    }
+
+    return this.prisma.posts.update({
+      where: { id: postId },
       data: {
-        content: dto.content,
-        datePosted: dto.datePosted,
-        ...(dto.images
+        content: data.content,
+        images: data.images
           ? {
-              images: {
-                deleteMany: {}, // remove existing images
-                create: dto.images.map((url) => ({ url })), // add new ones
-              },
+              deleteMany: {},
+              create: data.images.map((url) => ({ url })),
             }
-          : {}),
-      },
-      include: {
-        images: true, // return updated images
+          : undefined,
       },
     });
-
-    return {
-      message: 'Post updated successfully',
-      success: true,
-      data: updatedPost,
-    };
   }
 
   // Delete Post
-  async delete(id: string) {
-    await this.prisma.posts.delete({
-      where: { id },
+  async delete(postId: string, currentUserId: string) {
+    const post = await this.prisma.posts.findUnique({
+      where: { id: postId },
     });
 
-    return {
-      message: 'Post deleted successfully',
-      success: true,
-    };
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    // console.log('JWT user id:', currentUserId);
+    // console.log('Post owner:', post.userId);
+
+    if (post.userId !== currentUserId) {
+      throw new ForbiddenException('You do not own this post');
+    }
+
+    await this.prisma.posts.delete({ where: { id: postId } });
+
+    return { message: 'Post deleted successfully' };
   }
 }

@@ -5,6 +5,9 @@ import { PostsArgs } from '@/modules/global/post/args/post.args';
 import { PostsList } from '@/modules/global/post/entities/post.entity';
 import { GeneralMsg } from '@/shared/common/entities/general-msg.entities';
 
+import { CurrentUser } from '@/shared/common/decorator/currentUser.decorator';
+import { AccessTokenGuard } from '@/shared/common/guards/accessToken.guard';
+import { UseGuards } from '@nestjs/common/decorators/core/use-guards.decorator';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
 import { PostService } from './post.service';
@@ -26,17 +29,23 @@ export class PostResolver {
   }
 
   // Update Post
-  @Mutation(() => GeneralMsg)
+  @Mutation(() => Posts)
+  @UseGuards(AccessTokenGuard)
   async updatePost(
-    @Args('id') id: string,
-    @Args('payload') payload: UpdatePostInput,
+    @Args('postId') postId: string,
+    @Args('data') data: UpdatePostInput,
+    @CurrentUser() user: { userId: string },
   ) {
-    return this.postService.update(id, payload);
+    return this.postService.update(postId, data, user.userId);
   }
 
   // Delete Post
   @Mutation(() => GeneralMsg)
-  deletePost(@Args('id') id: string) {
-    return this.postService.delete(id);
+  @UseGuards(AccessTokenGuard)
+  deletePost(
+    @Args('postId') postId: string,
+    @CurrentUser() user: { userId: string },
+  ) {
+    return this.postService.delete(postId, user.userId);
   }
 }

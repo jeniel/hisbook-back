@@ -237,7 +237,7 @@ type Mutation {
   createUser(payload: CreateUserInput!): GeneralMsg!
   deleteDepartment(id: String!): GeneralMsg!
   deleteMissedLogoutTicket(id: String!): GeneralMsg!
-  deletePost(id: String!): GeneralMsg!
+  deletePost(postId: String!): GeneralMsg!
   deleteProfile(id: String!): GeneralMsg!
   deleteUser(id: String!): GeneralMsg!
   logOut: GeneralMsg!
@@ -245,7 +245,7 @@ type Mutation {
   signup(signUpInput: SignUpInput!): SignResponse!
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
   updateMissedLogoutTicket(id: String!, payload: UpdateMissedLogoutTicketInput!): GeneralMsg!
-  updatePost(id: String!, payload: UpdatePostInput!): GeneralMsg!
+  updatePost(data: UpdatePostInput!, postId: String!): Posts!
   updateProfile(id: String!, payload: UpdateProfileInput!): GeneralMsg!
   updateUser(id: String!, payload: UpdateUserInput!): GeneralMsg!
 }
@@ -514,7 +514,6 @@ input UpdateMissedLogoutTicketInput {
 
 input UpdatePostInput {
   content: String
-  datePosted: DateTime
   images: [String!]
   userId: String
 }
