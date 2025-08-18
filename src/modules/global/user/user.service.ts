@@ -5,9 +5,9 @@ import { ConfigService } from '@nestjs/config';
 import * as argon2 from 'argon2'; // Password Hashing
 
 // Import DTO and Args
+import { UserArgs } from '@/modules/global/user/args/user.args';
 import { CreateUserInput } from '@/modules/global/user/dto/create-user.input';
 import { UpdateUserInput } from '@/modules/global/user/dto/update-user.input';
-import { UserArgs } from '@/modules/global/user/args/user.args';
 
 @Injectable()
 export class UserService {
@@ -58,6 +58,10 @@ export class UserService {
           profile: true,
           department: true,
         },
+        orderBy: [
+          { profile: { lastName: 'desc' } },
+          { profile: { firstName: 'desc' } },
+        ],
       }),
     ]);
 

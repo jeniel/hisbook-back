@@ -11,6 +11,9 @@ export class MissedLogoutTicketOrderByWithRelationInput {
     id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
+    subject?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
     missedAt?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
@@ -21,6 +24,9 @@ export class MissedLogoutTicketOrderByWithRelationInput {
 
     @Field(() => SortOrderInput, {nullable:true})
     status?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    remarks?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
     updatedBy?: SortOrderInput;

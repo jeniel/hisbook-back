@@ -9,6 +9,9 @@ export class MissedLogoutTicketCountAggregate {
     id!: number;
 
     @Field(() => Int, {nullable:false})
+    subject!: number;
+
+    @Field(() => Int, {nullable:false})
     missedAt!: number;
 
     @Field(() => Int, {nullable:false})
@@ -19,6 +22,9 @@ export class MissedLogoutTicketCountAggregate {
 
     @Field(() => Int, {nullable:false})
     status!: number;
+
+    @Field(() => Int, {nullable:false})
+    remarks!: number;
 
     @Field(() => Int, {nullable:false})
     updatedBy!: number;

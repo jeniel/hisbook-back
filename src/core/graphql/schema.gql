@@ -11,14 +11,17 @@ input CreateMissedLogoutTicketInput {
   createdById: String
   floor: String
   missedAt: DateTime!
+  remarks: String
   screenshot: String
   status: Status
+  subject: String
   updatedBy: String
 }
 
 input CreatePostInput {
   content: String!
   images: [String!]
+  userId: String
 }
 
 input CreateProfileInput {
@@ -191,8 +194,10 @@ type MissedLogoutTicket {
   floor: String
   id: ID!
   missedAt: DateTime
+  remarks: String
   screenshot: String
   status: Status
+  subject: String
   updatedBy: String
 }
 
@@ -217,8 +222,10 @@ input MissedLogoutTicketWhereInput {
   floor: StringNullableFilter
   id: StringFilter
   missedAt: DateTimeNullableFilter
+  remarks: StringNullableFilter
   screenshot: StringNullableFilter
   status: EnumStatusNullableFilter
+  subject: StringNullableFilter
   updatedBy: StringNullableFilter
 }
 
@@ -238,6 +245,7 @@ type Mutation {
   signup(signUpInput: SignUpInput!): SignResponse!
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
   updateMissedLogoutTicket(id: String!, payload: UpdateMissedLogoutTicketInput!): GeneralMsg!
+  updatePost(id: String!, payload: UpdatePostInput!): GeneralMsg!
   updateProfile(id: String!, payload: UpdateProfileInput!): GeneralMsg!
   updateUser(id: String!, payload: UpdateUserInput!): GeneralMsg!
 }
@@ -497,9 +505,18 @@ input UpdateMissedLogoutTicketInput {
   createdById: String
   floor: String
   missedAt: DateTime!
+  remarks: String
   screenshot: String
   status: Status
+  subject: String
   updatedBy: String
+}
+
+input UpdatePostInput {
+  content: String
+  datePosted: DateTime
+  images: [String!]
+  userId: String
 }
 
 input UpdateProfileInput {

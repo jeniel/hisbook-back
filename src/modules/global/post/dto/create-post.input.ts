@@ -7,4 +7,7 @@ export class CreatePostInput {
 
   @Field(() => [String], { nullable: true })
   images?: string[];
+
+  @Field(() => String, { nullable: true })
+  userId?: string;
 }

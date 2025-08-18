@@ -8,6 +8,9 @@ export class MissedLogoutTicketCountAggregateInput {
     id?: true;
 
     @Field(() => Boolean, {nullable:true})
+    subject?: true;
+
+    @Field(() => Boolean, {nullable:true})
     missedAt?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -18,6 +21,9 @@ export class MissedLogoutTicketCountAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     status?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    remarks?: true;
 
     @Field(() => Boolean, {nullable:true})
     updatedBy?: true;

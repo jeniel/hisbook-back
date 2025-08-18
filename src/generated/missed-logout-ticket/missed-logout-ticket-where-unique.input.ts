@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { MissedLogoutTicketWhereInput } from './missed-logout-ticket-where.input';
-import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { EnumStatusNullableFilter } from '../prisma/enum-status-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { UserNullableScalarRelationFilter } from '../user/user-nullable-scalar-relation-filter.input';
@@ -22,6 +22,9 @@ export class MissedLogoutTicketWhereUniqueInput {
     @Field(() => [MissedLogoutTicketWhereInput], {nullable:true})
     NOT?: Array<MissedLogoutTicketWhereInput>;
 
+    @Field(() => StringNullableFilter, {nullable:true})
+    subject?: StringNullableFilter;
+
     @Field(() => DateTimeNullableFilter, {nullable:true})
     missedAt?: DateTimeNullableFilter;
 
@@ -33,6 +36,9 @@ export class MissedLogoutTicketWhereUniqueInput {
 
     @Field(() => EnumStatusNullableFilter, {nullable:true})
     status?: EnumStatusNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    remarks?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     updatedBy?: StringNullableFilter;

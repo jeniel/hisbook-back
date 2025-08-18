@@ -6,6 +6,7 @@ import { PostsList } from '@/modules/global/post/entities/post.entity';
 import { GeneralMsg } from '@/shared/common/entities/general-msg.entities';
 
 import { CreatePostInput } from './dto/create-post.input';
+import { UpdatePostInput } from './dto/update-post.input';
 import { PostService } from './post.service';
 
 @Resolver(() => Posts)
@@ -22,6 +23,15 @@ export class PostResolver {
   @Query(() => PostsList)
   async findAllPosts(@Args() args: PostsArgs) {
     return await this.postService.findAll(args);
+  }
+
+  // Update Post
+  @Mutation(() => GeneralMsg)
+  async updatePost(
+    @Args('id') id: string,
+    @Args('payload') payload: UpdatePostInput,
+  ) {
+    return this.postService.update(id, payload);
   }
 
   // Delete Post

@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 // Import DTO and ARGS
 import { PostsArgs } from '@/modules/global/post/args/post.args';
 import { CreatePostInput } from '@/modules/global/post/dto/create-post.input';
+import { UpdatePostInput } from '@/modules/global/post/dto/update-post.input';
 
 @Injectable()
 export class PostService {
@@ -14,15 +15,14 @@ export class PostService {
     const posts = await this.prisma.posts.create({
       data: {
         content: dto.content,
-        images:
-          dto.images && dto.images.length > 0
-            ? {
-                create: dto.images.map((url) => ({ url })),
-              }
-            : undefined,
+        userId: dto.userId,
+        images: dto.images?.length
+          ? { create: dto.images.map((url) => ({ url })) }
+          : undefined,
       },
       include: {
-        images: true, // return images in response
+        user: { include: { profile: true } },
+        images: true,
       },
     });
 
@@ -44,6 +44,11 @@ export class PostService {
         where: args.where,
         take: perPage,
         skip,
+        include: {
+          user: {
+            include: { profile: true },
+          },
+        },
         orderBy: {
           datePosted: 'desc',
         },
@@ -62,6 +67,34 @@ export class PostService {
         prev: page > 1 ? page - 1 : null,
         next: page < lastPage ? page + 1 : null,
       },
+    };
+  }
+
+  // Update Post
+  async update(id: string, dto: UpdatePostInput) {
+    const updatedPost = await this.prisma.posts.update({
+      where: { id },
+      data: {
+        content: dto.content,
+        datePosted: dto.datePosted,
+        ...(dto.images
+          ? {
+              images: {
+                deleteMany: {}, // remove existing images
+                create: dto.images.map((url) => ({ url })), // add new ones
+              },
+            }
+          : {}),
+      },
+      include: {
+        images: true, // return updated images
+      },
+    });
+
+    return {
+      message: 'Post updated successfully',
+      success: true,
+      data: updatedPost,
     };
   }
 

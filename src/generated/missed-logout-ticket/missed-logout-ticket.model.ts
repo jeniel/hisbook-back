@@ -10,6 +10,9 @@ export class MissedLogoutTicket {
     @Field(() => ID, {nullable:false})
     id!: string;
 
+    @Field(() => String, {nullable:true})
+    subject!: string | null;
+
     @Field(() => Date, {nullable:true})
     missedAt!: Date | null;
 
@@ -21,6 +24,9 @@ export class MissedLogoutTicket {
 
     @Field(() => Status, {defaultValue:'Pending',nullable:true})
     status!: `${Status}` | null;
+
+    @Field(() => String, {nullable:true})
+    remarks!: string | null;
 
     @Field(() => String, {nullable:true})
     updatedBy!: string | null;

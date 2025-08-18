@@ -1,8 +1,11 @@
 import { Status } from '@/generated/prisma/status.enum';
-import { InputType, Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class CreateMissedLogoutTicketInput {
+  @Field({ nullable: true })
+  subject?: string;
+
   @Field()
   missedAt?: Date;
 
@@ -20,4 +23,7 @@ export class CreateMissedLogoutTicketInput {
 
   @Field({ nullable: true })
   createdById?: string;
+
+  @Field({ nullable: true })
+  remarks?: string;
 }

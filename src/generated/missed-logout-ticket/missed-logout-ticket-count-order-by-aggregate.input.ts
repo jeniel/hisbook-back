@@ -9,6 +9,9 @@ export class MissedLogoutTicketCountOrderByAggregateInput {
     id?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    subject?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     missedAt?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
@@ -19,6 +22,9 @@ export class MissedLogoutTicketCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     status?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    remarks?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
     updatedBy?: `${SortOrder}`;

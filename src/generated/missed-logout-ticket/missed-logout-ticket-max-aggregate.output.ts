@@ -8,6 +8,9 @@ export class MissedLogoutTicketMaxAggregate {
     @Field(() => String, {nullable:true})
     id?: string;
 
+    @Field(() => String, {nullable:true})
+    subject?: string;
+
     @Field(() => Date, {nullable:true})
     missedAt?: Date | string;
 
@@ -19,6 +22,9 @@ export class MissedLogoutTicketMaxAggregate {
 
     @Field(() => Status, {nullable:true})
     status?: `${Status}`;
+
+    @Field(() => String, {nullable:true})
+    remarks?: string;
 
     @Field(() => String, {nullable:true})
     updatedBy?: string;

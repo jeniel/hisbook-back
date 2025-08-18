@@ -11,6 +11,9 @@ export class MissedLogoutTicketGroupBy {
     @Field(() => String, {nullable:false})
     id!: string;
 
+    @Field(() => String, {nullable:true})
+    subject?: string;
+
     @Field(() => Date, {nullable:true})
     missedAt?: Date | string;
 
@@ -22,6 +25,9 @@ export class MissedLogoutTicketGroupBy {
 
     @Field(() => Status, {nullable:true})
     status?: `${Status}`;
+
+    @Field(() => String, {nullable:true})
+    remarks?: string;
 
     @Field(() => String, {nullable:true})
     updatedBy?: string;

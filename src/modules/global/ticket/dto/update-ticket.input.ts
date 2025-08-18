@@ -1,11 +1,14 @@
 import { Status } from '@/generated/prisma/status.enum';
+import { Field, InputType, PartialType } from '@nestjs/graphql';
 import { CreateMissedLogoutTicketInput } from './create-ticket.input';
-import { InputType, Field, PartialType } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateMissedLogoutTicketInput extends PartialType(
   CreateMissedLogoutTicketInput,
 ) {
+  @Field({ nullable: true })
+  subject?: string;
+
   @Field()
   missedAt?: Date;
 
@@ -23,4 +26,7 @@ export class UpdateMissedLogoutTicketInput extends PartialType(
 
   @Field({ nullable: true })
   createdById?: string;
+
+  @Field({ nullable: true })
+  remarks?: string;
 }

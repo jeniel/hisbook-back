@@ -8,6 +8,9 @@ export class MissedLogoutTicketMaxAggregateInput {
     id?: true;
 
     @Field(() => Boolean, {nullable:true})
+    subject?: true;
+
+    @Field(() => Boolean, {nullable:true})
     missedAt?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -18,6 +21,9 @@ export class MissedLogoutTicketMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     status?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    remarks?: true;
 
     @Field(() => Boolean, {nullable:true})
     updatedBy?: true;

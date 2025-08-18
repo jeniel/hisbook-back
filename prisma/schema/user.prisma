@@ -102,10 +102,12 @@ model Images {
 
 model MissedLogoutTicket {
   id         String    @id @default(uuid())
+  subject    String? // Subject of the Ticket
   missedAt   DateTime? // Date and Time
   floor      String? // B1 Biometrics
-  screenshot String?
-  status     Status?  @default(Pending)
+  screenshot String? // Screenshot of the ticket
+  status     Status?  @default(Pending)   // Status of the Ticket
+  remarks   String? // Any additional information
   updatedBy  String? // Sir IT department
   createdAt  DateTime  @default(now()) @map("created_at")
 

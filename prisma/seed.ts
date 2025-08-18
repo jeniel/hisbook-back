@@ -15,8 +15,8 @@ async function main() {
       role: ['ADMIN'],
       profile: {
         create: {
-          firstName: 'JOE MARK',
-          lastName: 'GIMENO',
+          firstName: 'Joe Mark',
+          lastName: 'Gimeno',
         },
       },
     },

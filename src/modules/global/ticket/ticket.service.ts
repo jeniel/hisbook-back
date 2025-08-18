@@ -15,12 +15,14 @@ export class TicketService {
   async create(dto: CreateMissedLogoutTicketInput) {
     const ticket = await this.prisma.missedLogoutTicket.create({
       data: {
+        subject: dto.subject,
         missedAt: dto.missedAt,
         floor: dto.floor,
         screenshot: dto.screenshot,
         status: dto.status as Status,
         updatedBy: dto.updatedBy,
         createdById: dto.createdById,
+        remarks: dto.remarks,
       },
     });
 
@@ -66,6 +68,7 @@ export class TicketService {
     };
   }
 
+  // Find Tickets by User
   async findByUser(userId: string, args: MissedLogoutTicketArgs) {
     const page = args.page || 1;
     const perPage = args.perPage || 10;
@@ -111,11 +114,13 @@ export class TicketService {
     await this.prisma.missedLogoutTicket.update({
       where: { id },
       data: {
+        subject: dto.subject,
         missedAt: dto.missedAt,
         floor: dto.floor,
         screenshot: dto.screenshot,
         status: dto.status as Status,
         updatedBy: dto.updatedBy,
+        remarks: dto.remarks,
       },
     });
 
