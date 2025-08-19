@@ -245,7 +245,7 @@ type Mutation {
   signup(signUpInput: SignUpInput!): SignResponse!
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
   updateMissedLogoutTicket(id: String!, payload: UpdateMissedLogoutTicketInput!): GeneralMsg!
-  updatePost(data: UpdatePostInput!, postId: String!): Posts!
+  updatePost(data: UpdatePostInput!, postId: String!): GeneralMsg!
   updateProfile(id: String!, payload: UpdateProfileInput!): GeneralMsg!
   updateUser(id: String!, payload: UpdateUserInput!): GeneralMsg!
 }

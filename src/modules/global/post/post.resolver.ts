@@ -29,7 +29,7 @@ export class PostResolver {
   }
 
   // Update Post
-  @Mutation(() => Posts)
+  @Mutation(() => GeneralMsg)
   @UseGuards(AccessTokenGuard)
   async updatePost(
     @Args('postId') postId: string,

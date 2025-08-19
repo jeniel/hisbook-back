@@ -74,6 +74,7 @@ export class PostService {
     };
   }
 
+  // Authentication + Ownership Check on Delete and Update
   // Update Post
   async update(postId: string, data: UpdatePostInput, userId: string) {
     const post = await this.prisma.posts.findUnique({ where: { id: postId } });
@@ -86,18 +87,20 @@ export class PostService {
       throw new ForbiddenException('You do not own this post');
     }
 
-    return this.prisma.posts.update({
+    await this.prisma.posts.update({
       where: { id: postId },
       data: {
         content: data.content,
-        images: data.images
-          ? {
-              deleteMany: {},
-              create: data.images.map((url) => ({ url })),
-            }
-          : undefined,
+        // images: data.images
+        //   ? {
+        //       deleteMany: {},
+        //       create: data.images.map((url) => ({ url })),
+        //     }
+        //   : undefined,
       },
     });
+
+    return { message: 'Post updated successfully' };
   }
 
   // Delete Post
