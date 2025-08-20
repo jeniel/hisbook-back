@@ -49,6 +49,7 @@ export class PostService {
         take: perPage,
         skip,
         include: {
+          images: true,
           user: {
             include: { profile: true, department: true },
           },
@@ -103,25 +104,31 @@ export class PostService {
     return { message: 'Post updated successfully' };
   }
 
-  // Delete Post
+  // Delete Post with manual image cleanup
   async delete(postId: string, currentUserId: string) {
     const post = await this.prisma.posts.findUnique({
       where: { id: postId },
+      include: { images: true }, // fetch related images
     });
 
     if (!post) {
       throw new NotFoundException('Post not found');
     }
 
-    // console.log('JWT user id:', currentUserId);
-    // console.log('Post owner:', post.userId);
-
     if (post.userId !== currentUserId) {
       throw new ForbiddenException('You do not own this post');
     }
 
-    await this.prisma.posts.delete({ where: { id: postId } });
+    // Delete related PostImage records
+    await this.prisma.images.deleteMany({
+      where: { postId },
+    });
 
-    return { message: 'Post deleted successfully' };
+    // Delete the post itself
+    await this.prisma.posts.delete({
+      where: { id: postId },
+    });
+
+    return { message: 'Post and its images deleted successfully' };
   }
 }
