@@ -20,13 +20,10 @@ export class PostService {
       data: {
         content: dto.content,
         userId: dto.userId,
-        images: dto.images?.length
-          ? { create: dto.images.map((url) => ({ url })) }
-          : undefined,
+        images: dto.images && dto.images.length > 0 ? dto.images : [],
       },
       include: {
         user: { include: { profile: true } },
-        images: true,
       },
     });
 
@@ -49,7 +46,6 @@ export class PostService {
         take: perPage,
         skip,
         include: {
-          images: true,
           user: {
             include: { profile: true, department: true },
           },
@@ -88,27 +84,27 @@ export class PostService {
       throw new ForbiddenException('You do not own this post');
     }
 
-    await this.prisma.posts.update({
+    const updatedPost = await this.prisma.posts.update({
       where: { id: postId },
       data: {
-        content: data.content,
-        // images: data.images
-        //   ? {
-        //       deleteMany: {},
-        //       create: data.images.map((url) => ({ url })),
-        //     }
-        //   : undefined,
+        content: data.content ?? post.content, // keep old content if none provided
+        images: data.images ?? post.images, // keep old images if none provided
+      },
+      include: {
+        user: { include: { profile: true } },
       },
     });
 
-    return { message: 'Post updated successfully' };
+    return {
+      message: 'Post updated successfully',
+      data: updatedPost,
+    };
   }
 
   // Delete Post with manual image cleanup
   async delete(postId: string, currentUserId: string) {
     const post = await this.prisma.posts.findUnique({
       where: { id: postId },
-      include: { images: true }, // fetch related images
     });
 
     if (!post) {
@@ -118,11 +114,6 @@ export class PostService {
     if (post.userId !== currentUserId) {
       throw new ForbiddenException('You do not own this post');
     }
-
-    // Delete related PostImage records
-    await this.prisma.images.deleteMany({
-      where: { postId },
-    });
 
     // Delete the post itself
     await this.prisma.posts.delete({

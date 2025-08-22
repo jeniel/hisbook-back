@@ -15,5 +15,8 @@ export class PostsCountOrderByAggregateInput {
     datePosted?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    images?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     userId?: `${SortOrder}`;
 }

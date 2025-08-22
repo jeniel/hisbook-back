@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { PostsCreateimagesInput } from './posts-createimages.input';
 
 @InputType()
 export class PostsCreateManyUserInput {
@@ -12,4 +13,7 @@ export class PostsCreateManyUserInput {
 
     @Field(() => Date, {nullable:true})
     datePosted?: Date | string;
+
+    @Field(() => PostsCreateimagesInput, {nullable:true})
+    images?: PostsCreateimagesInput;
 }

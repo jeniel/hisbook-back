@@ -16,6 +16,9 @@ export class PostsGroupBy {
     @Field(() => Date, {nullable:false})
     datePosted!: Date | string;
 
+    @Field(() => [String], {nullable:true})
+    images?: Array<string>;
+
     @Field(() => String, {nullable:true})
     userId?: string;
 

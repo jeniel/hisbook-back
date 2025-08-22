@@ -139,29 +139,6 @@ type GeneralMsg {
   success: Boolean
 }
 
-type Images {
-  id: ID!
-  post: Posts!
-  postId: String!
-  url: String!
-}
-
-input ImagesListRelationFilter {
-  every: ImagesWhereInput
-  none: ImagesWhereInput
-  some: ImagesWhereInput
-}
-
-input ImagesWhereInput {
-  AND: [ImagesWhereInput!]
-  NOT: [ImagesWhereInput!]
-  OR: [ImagesWhereInput!]
-  id: StringFilter
-  post: PostsScalarRelationFilter
-  postId: StringFilter
-  url: StringFilter
-}
-
 input IntNullableFilter {
   equals: Int
   gt: Int
@@ -326,17 +303,12 @@ input NestedStringNullableFilter {
 }
 
 type Posts {
-  _count: PostsCount!
   content: String!
   datePosted: DateTime!
   id: ID!
-  images: [Images!]
+  images: [String!]
   user: User
   userId: String
-}
-
-type PostsCount {
-  images: Int!
 }
 
 type PostsList {
@@ -350,11 +322,6 @@ input PostsListRelationFilter {
   some: PostsWhereInput
 }
 
-input PostsScalarRelationFilter {
-  is: PostsWhereInput
-  isNot: PostsWhereInput
-}
-
 input PostsWhereInput {
   AND: [PostsWhereInput!]
   NOT: [PostsWhereInput!]
@@ -362,7 +329,7 @@ input PostsWhereInput {
   content: StringFilter
   datePosted: DateTimeFilter
   id: StringFilter
-  images: ImagesListRelationFilter
+  images: StringNullableListFilter
   user: UserNullableScalarRelationFilter
   userId: StringNullableFilter
 }
@@ -494,6 +461,14 @@ input StringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
+}
+
+input StringNullableListFilter {
+  equals: [String!]
+  has: String
+  hasEvery: [String!]
+  hasSome: [String!]
+  isEmpty: Boolean
 }
 
 input UpdateDepartmentInput {

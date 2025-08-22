@@ -4,6 +4,7 @@ export enum PostsScalarFieldEnum {
     id = "id",
     content = "content",
     datePosted = "datePosted",
+    images = "images",
     userId = "userId"
 }
 

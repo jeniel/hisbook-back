@@ -14,6 +14,9 @@ export class PostsCountAggregateInput {
     datePosted?: true;
 
     @Field(() => Boolean, {nullable:true})
+    images?: true;
+
+    @Field(() => Boolean, {nullable:true})
     userId?: true;
 
     @Field(() => Boolean, {nullable:true})

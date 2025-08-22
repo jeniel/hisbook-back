@@ -2,7 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { ImagesUpdateManyWithoutPostNestedInput } from '../images/images-update-many-without-post-nested.input';
+import { PostsUpdateimagesInput } from './posts-updateimages.input';
 import { UserUpdateOneWithoutPostsNestedInput } from '../user/user-update-one-without-posts-nested.input';
 
 @InputType()
@@ -17,8 +17,8 @@ export class PostsUpdateInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     datePosted?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => ImagesUpdateManyWithoutPostNestedInput, {nullable:true})
-    images?: ImagesUpdateManyWithoutPostNestedInput;
+    @Field(() => PostsUpdateimagesInput, {nullable:true})
+    images?: PostsUpdateimagesInput;
 
     @Field(() => UserUpdateOneWithoutPostsNestedInput, {nullable:true})
     user?: UserUpdateOneWithoutPostsNestedInput;

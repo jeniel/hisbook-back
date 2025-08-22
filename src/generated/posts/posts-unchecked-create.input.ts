@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ImagesUncheckedCreateNestedManyWithoutPostInput } from '../images/images-unchecked-create-nested-many-without-post.input';
+import { PostsCreateimagesInput } from './posts-createimages.input';
 
 @InputType()
 export class PostsUncheckedCreateInput {
@@ -14,9 +14,9 @@ export class PostsUncheckedCreateInput {
     @Field(() => Date, {nullable:true})
     datePosted?: Date | string;
 
+    @Field(() => PostsCreateimagesInput, {nullable:true})
+    images?: PostsCreateimagesInput;
+
     @Field(() => String, {nullable:true})
     userId?: string;
-
-    @Field(() => ImagesUncheckedCreateNestedManyWithoutPostInput, {nullable:true})
-    images?: ImagesUncheckedCreateNestedManyWithoutPostInput;
 }

@@ -15,6 +15,9 @@ export class PostsCountAggregate {
     datePosted!: number;
 
     @Field(() => Int, {nullable:false})
+    images!: number;
+
+    @Field(() => Int, {nullable:false})
     userId!: number;
 
     @Field(() => Int, {nullable:false})

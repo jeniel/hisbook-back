@@ -78,25 +78,14 @@ enum Gender {
 }
 
 model Posts {
-  id      String   @id @default(uuid())
-  content String
-  datePosted DateTime @default(now()) @map("date_posted")
-  images  Images[] // Array of Images in a Single Post
-
-  userId String?
-  user   User?   @relation(fields: [userId], references: [id])
+  id         String   @id @default(uuid())
+  content    String
+  datePosted DateTime @default(now())
+  images     String[]   // store image URLs directly
+  userId     String?
+  user       User?   @relation(fields: [userId], references: [id])
 
   @@map("posts")
-  @@schema("global")
-}
-
-model Images {
-  id     String @id @default(uuid())
-  url    String
-  postId String
-  post   Posts  @relation(fields: [postId], references: [id])
-
-  @@map("images")
   @@schema("global")
 }
 
