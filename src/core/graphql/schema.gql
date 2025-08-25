@@ -251,22 +251,22 @@ input MissedLogoutTicketWhereInput {
 
 type Mutation {
   createDepartment(payload: CreateDepartmentInput!): GeneralMsg!
-  createMissedLogoutTicket(payload: CreateMissedLogoutTicketInput!): GeneralMsg!
   createPost(payload: CreatePostInput!): GeneralMsg!
   createProfile(payload: CreateProfileInput!): GeneralMsg!
+  createTicket(payload: CreateMissedLogoutTicketInput!): GeneralMsg!
   createUser(payload: CreateUserInput!): GeneralMsg!
   deleteDepartment(id: String!): GeneralMsg!
-  deleteMissedLogoutTicket(id: String!): GeneralMsg!
   deletePost(postId: String!): GeneralMsg!
   deleteProfile(id: String!): GeneralMsg!
+  deleteTicket(id: String!): GeneralMsg!
   deleteUser(id: String!): GeneralMsg!
   logOut: GeneralMsg!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
-  updateMissedLogoutTicket(id: String!, payload: UpdateMissedLogoutTicketInput!): GeneralMsg!
   updatePost(data: UpdatePostInput!, postId: String!): GeneralMsg!
   updateProfile(id: String!, payload: UpdateProfileInput!): GeneralMsg!
+  updateTicket(id: String!, payload: UpdateMissedLogoutTicketInput!): GeneralMsg!
   updateUser(id: String!, payload: UpdateUserInput!): GeneralMsg!
 }
 
@@ -428,12 +428,14 @@ input ProfileWhereInput {
 
 type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
-  findAllMissedLogoutTickets(page: Int, perPage: Int, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   findAllPosts(page: Int, perPage: Int, where: PostsWhereInput): PostsList!
   findAllProfiles(page: Int, perPage: Int, where: ProfileWhereInput): ProfileList!
+  findAllTickets(page: Int, perPage: Int, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
   findProfile(id: String!): Profile!
+  findTicketbyID(id: String!): MissedLogoutTicket
   findTicketsByUser(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
+  getMyWorkedTickets(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   meQuery: MeQuery!
 }
 

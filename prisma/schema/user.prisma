@@ -119,7 +119,7 @@ model AuditLog {
 
 enum Status {
   Pending
-  Approved
+  Approvedgita
   Completed
 
   @@schema("global")
