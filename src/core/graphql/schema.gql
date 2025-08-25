@@ -33,6 +33,14 @@ input AuditLogWhereInput {
   userId: StringNullableFilter
 }
 
+type CensusSummary {
+  departmentsWithUserCount: [DepartmentUserCount!]!
+  ticketsByStatus: [TicketStatusCount!]!
+  totalDepartments: Int!
+  totalTickets: Int!
+  totalUsers: Int!
+}
+
 input CreateDepartmentInput {
   description: String
   name: String!
@@ -125,6 +133,12 @@ type DepartmentList {
 input DepartmentNullableScalarRelationFilter {
   is: DepartmentWhereInput
   isNot: DepartmentWhereInput
+}
+
+type DepartmentUserCount {
+  departmentId: String!
+  departmentName: String!
+  userCount: Int!
 }
 
 input DepartmentWhereInput {
@@ -435,6 +449,7 @@ type Query {
   findProfile(id: String!): Profile!
   findTicketbyID(id: String!): MissedLogoutTicket
   findTicketsByUser(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
+  getCensusSummary: CensusSummary!
   getMyWorkedTickets(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   meQuery: MeQuery!
 }
@@ -514,6 +529,11 @@ input StringNullableListFilter {
   hasEvery: [String!]
   hasSome: [String!]
   isEmpty: Boolean
+}
+
+type TicketStatusCount {
+  count: Int!
+  status: Status!
 }
 
 input UpdateDepartmentInput {

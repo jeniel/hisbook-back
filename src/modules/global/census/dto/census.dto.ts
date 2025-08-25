@@ -1,0 +1,41 @@
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Status } from '@/generated/prisma/status.enum';
+
+@ObjectType()
+export class TicketStatusCount {
+  @Field(() => Status)
+  status: Status;
+
+  @Field(() => Int)
+  count: number;
+}
+
+@ObjectType()
+export class DepartmentUserCount {
+  @Field()
+  departmentId: string;
+
+  @Field()
+  departmentName: string;
+
+  @Field(() => Int)
+  userCount: number;
+}
+
+@ObjectType()
+export class CensusSummary {
+  @Field(() => Int)
+  totalUsers: number;
+
+  @Field(() => Int)
+  totalTickets: number;
+
+  @Field(() => [TicketStatusCount])
+  ticketsByStatus: TicketStatusCount[];
+
+  @Field(() => Int)
+  totalDepartments: number;
+
+  @Field(() => [DepartmentUserCount])
+  departmentsWithUserCount: DepartmentUserCount[];
+}
