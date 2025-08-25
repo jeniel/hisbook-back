@@ -10,4 +10,7 @@ export class UserCount {
 
     @Field(() => Int, {nullable:false})
     MissedLogoutTicket?: number;
+
+    @Field(() => Int, {nullable:false})
+    auditLogs?: number;
 }

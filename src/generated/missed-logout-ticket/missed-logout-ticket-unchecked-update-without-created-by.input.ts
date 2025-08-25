@@ -5,6 +5,7 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { NullableEnumStatusFieldUpdateOperationsInput } from '../prisma/nullable-enum-status-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { AuditLogUncheckedUpdateManyWithoutTicketNestedInput } from '../audit-log/audit-log-unchecked-update-many-without-ticket-nested.input';
 
 @InputType()
 export class MissedLogoutTicketUncheckedUpdateWithoutCreatedByInput {
@@ -35,4 +36,7 @@ export class MissedLogoutTicketUncheckedUpdateWithoutCreatedByInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => AuditLogUncheckedUpdateManyWithoutTicketNestedInput, {nullable:true})
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTicketNestedInput;
 }

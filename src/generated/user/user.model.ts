@@ -6,6 +6,7 @@ import { Role } from '../prisma/role.enum';
 import { Profile } from '../profile/profile.model';
 import { Posts } from '../posts/posts.model';
 import { MissedLogoutTicket } from '../missed-logout-ticket/missed-logout-ticket.model';
+import { AuditLog } from '../audit-log/audit-log.model';
 import { Department } from '../department/department.model';
 import { UserCount } from './user-count.output';
 
@@ -44,6 +45,9 @@ export class User {
 
     @Field(() => [MissedLogoutTicket], {nullable:true})
     MissedLogoutTicket?: Array<MissedLogoutTicket>;
+
+    @Field(() => [AuditLog], {nullable:true})
+    auditLogs?: Array<AuditLog>;
 
     @Field(() => Department, {nullable:true})
     department?: Department | null;

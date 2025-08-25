@@ -2,6 +2,37 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AuditLog {
+  action: String
+  id: ID!
+  ticket: MissedLogoutTicket
+  ticketId: String
+  timestamp: DateTime!
+  updatedBy: String
+  user: User
+  userId: String
+}
+
+input AuditLogListRelationFilter {
+  every: AuditLogWhereInput
+  none: AuditLogWhereInput
+  some: AuditLogWhereInput
+}
+
+input AuditLogWhereInput {
+  AND: [AuditLogWhereInput!]
+  NOT: [AuditLogWhereInput!]
+  OR: [AuditLogWhereInput!]
+  action: StringNullableFilter
+  id: StringFilter
+  ticket: MissedLogoutTicketNullableScalarRelationFilter
+  ticketId: StringNullableFilter
+  timestamp: DateTimeFilter
+  updatedBy: StringNullableFilter
+  user: UserNullableScalarRelationFilter
+  userId: StringNullableFilter
+}
+
 input CreateDepartmentInput {
   description: String
   name: String!
@@ -165,6 +196,8 @@ type Meta {
 }
 
 type MissedLogoutTicket {
+  _count: MissedLogoutTicketCount!
+  auditLogs: [AuditLog!]
   createdAt: DateTime!
   createdBy: User
   createdById: String
@@ -178,6 +211,10 @@ type MissedLogoutTicket {
   updatedBy: String
 }
 
+type MissedLogoutTicketCount {
+  auditLogs: Int!
+}
+
 type MissedLogoutTicketList {
   data: [MissedLogoutTicket!]!
   meta: Meta
@@ -189,10 +226,16 @@ input MissedLogoutTicketListRelationFilter {
   some: MissedLogoutTicketWhereInput
 }
 
+input MissedLogoutTicketNullableScalarRelationFilter {
+  is: MissedLogoutTicketWhereInput
+  isNot: MissedLogoutTicketWhereInput
+}
+
 input MissedLogoutTicketWhereInput {
   AND: [MissedLogoutTicketWhereInput!]
   NOT: [MissedLogoutTicketWhereInput!]
   OR: [MissedLogoutTicketWhereInput!]
+  auditLogs: AuditLogListRelationFilter
   createdAt: DateTimeFilter
   createdBy: UserNullableScalarRelationFilter
   createdById: StringNullableFilter
@@ -519,6 +562,7 @@ input UpdateUserInput {
 type User {
   MissedLogoutTicket: [MissedLogoutTicket!]
   _count: UserCount!
+  auditLogs: [AuditLog!]
   department: Department
   departmentId: String
 
@@ -534,6 +578,7 @@ type User {
 
 type UserCount {
   MissedLogoutTicket: Int!
+  auditLogs: Int!
   posts: Int!
 }
 
@@ -558,6 +603,7 @@ input UserWhereInput {
   MissedLogoutTicket: MissedLogoutTicketListRelationFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
+  auditLogs: AuditLogListRelationFilter
   department: DepartmentNullableScalarRelationFilter
   departmentId: StringNullableFilter
   email: StringFilter

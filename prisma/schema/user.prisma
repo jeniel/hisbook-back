@@ -6,19 +6,13 @@ model User {
   /// @HideField()
   hashedPassword     String  @map("hashed_password")
   hashedRefreshToken String? @map("hashed_refresh_token")
-  // isActive           Boolean  @default(true) @map("is_active")
-  // isApprove          Boolean  @default(false) @map("is_approve")
-  // createdAt          DateTime @default(now()) @map("created_at")
-  // createdBy          String?  @map("created_by")
-  // updatedAt          DateTime @default(now()) @updatedAt @map("updated_at")
-  // updatedBy          String?  @map("updated_by")
-  // tenantId           String?
 
   // Relations
   role               Role[]               @default([USER])
   profile            Profile?
   posts              Posts[]
   MissedLogoutTicket MissedLogoutTicket[] @relation("CreatedBy")
+  auditLogs         AuditLog[]
 
   departmentId String?     @map("department_id")
   department   Department? @relation(fields: [departmentId], references: [id])
@@ -88,22 +82,38 @@ model Posts {
   @@map("posts")
   @@schema("global")
 }
-
 model MissedLogoutTicket {
-  id         String    @id @default(uuid())
-  subject    String? // Subject of the Ticket
-  missedAt   DateTime? // Date and Time
-  floor      String? // B1 Biometrics
-  screenshot String? // Screenshot of the ticket
-  status     Status?  @default(Pending)   // Status of the Ticket
-  remarks   String? // Any additional information
-  updatedBy  String? // Sir IT department
-  createdAt  DateTime  @default(now()) @map("created_at")
+  id          String    @id @default(uuid())
+  subject     String?   // Subject of the Ticket
+  missedAt    DateTime? // Date and Time
+  floor       String?   // Example: "B1 Biometrics"
+  screenshot  String?   // Screenshot URL or path
+  status      Status?   @default(Pending) // Status of the Ticket
+  remarks     String?   // Any additional information
+  updatedBy   String?   // Who last updated the ticket
+  createdAt   DateTime  @default(now()) @map("created_at")
 
   createdById String?
-  createdBy   User?   @relation("CreatedBy", fields: [createdById], references: [id])
+  createdBy   User?     @relation("CreatedBy", fields: [createdById], references: [id])
+
+  auditLogs   AuditLog[]
 
   @@map("missedlogoutticket")
+  @@schema("global")
+}
+
+model AuditLog {
+  id          String    @id @default(uuid())
+  action      String?    // Description of action (ex: "Updated status to Resolved")
+  timestamp   DateTime  @default(now()) // Timestamp of the action
+  updatedBy   String?   // User's name or identifier
+  userId      String?   // ID of the user who performed the action
+  user        User?     @relation(fields: [userId], references: [id])
+
+  ticketId    String?
+  ticket      MissedLogoutTicket? @relation(fields: [ticketId], references: [id])
+
+  @@map("auditlog")
   @@schema("global")
 }
 

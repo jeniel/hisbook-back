@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relation.input';
+import { AuditLogOrderByRelationAggregateInput } from '../audit-log/audit-log-order-by-relation-aggregate.input';
 
 @InputType()
 export class MissedLogoutTicketOrderByWithRelationInput {
@@ -39,4 +40,7 @@ export class MissedLogoutTicketOrderByWithRelationInput {
 
     @Field(() => UserOrderByWithRelationInput, {nullable:true})
     createdBy?: UserOrderByWithRelationInput;
+
+    @Field(() => AuditLogOrderByRelationAggregateInput, {nullable:true})
+    auditLogs?: AuditLogOrderByRelationAggregateInput;
 }

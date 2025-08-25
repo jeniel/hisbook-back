@@ -3,6 +3,8 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Status } from '../prisma/status.enum';
 import { User } from '../user/user.model';
+import { AuditLog } from '../audit-log/audit-log.model';
+import { MissedLogoutTicketCount } from './missed-logout-ticket-count.output';
 
 @ObjectType()
 export class MissedLogoutTicket {
@@ -39,4 +41,10 @@ export class MissedLogoutTicket {
 
     @Field(() => User, {nullable:true})
     createdBy?: User | null;
+
+    @Field(() => [AuditLog], {nullable:true})
+    auditLogs?: Array<AuditLog>;
+
+    @Field(() => MissedLogoutTicketCount, {nullable:false})
+    _count?: MissedLogoutTicketCount;
 }

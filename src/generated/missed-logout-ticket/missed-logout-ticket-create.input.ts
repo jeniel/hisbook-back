@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Status } from '../prisma/status.enum';
 import { UserCreateNestedOneWithoutMissedLogoutTicketInput } from '../user/user-create-nested-one-without-missed-logout-ticket.input';
+import { AuditLogCreateNestedManyWithoutTicketInput } from '../audit-log/audit-log-create-nested-many-without-ticket.input';
 
 @InputType()
 export class MissedLogoutTicketCreateInput {
@@ -35,4 +36,7 @@ export class MissedLogoutTicketCreateInput {
 
     @Field(() => UserCreateNestedOneWithoutMissedLogoutTicketInput, {nullable:true})
     createdBy?: UserCreateNestedOneWithoutMissedLogoutTicketInput;
+
+    @Field(() => AuditLogCreateNestedManyWithoutTicketInput, {nullable:true})
+    auditLogs?: AuditLogCreateNestedManyWithoutTicketInput;
 }

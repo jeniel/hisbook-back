@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { UserCreateroleInput } from './user-createrole.input';
 import { PostsUncheckedCreateNestedManyWithoutUserInput } from '../posts/posts-unchecked-create-nested-many-without-user.input';
 import { MissedLogoutTicketUncheckedCreateNestedManyWithoutCreatedByInput } from '../missed-logout-ticket/missed-logout-ticket-unchecked-create-nested-many-without-created-by.input';
+import { AuditLogUncheckedCreateNestedManyWithoutUserInput } from '../audit-log/audit-log-unchecked-create-nested-many-without-user.input';
 
 @InputType()
 export class UserUncheckedCreateWithoutProfileInput {
@@ -33,4 +34,7 @@ export class UserUncheckedCreateWithoutProfileInput {
 
     @Field(() => MissedLogoutTicketUncheckedCreateNestedManyWithoutCreatedByInput, {nullable:true})
     MissedLogoutTicket?: MissedLogoutTicketUncheckedCreateNestedManyWithoutCreatedByInput;
+
+    @Field(() => AuditLogUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput;
 }

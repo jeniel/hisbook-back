@@ -5,6 +5,7 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 import { UserUpdateroleInput } from './user-updaterole.input';
 import { PostsUncheckedUpdateManyWithoutUserNestedInput } from '../posts/posts-unchecked-update-many-without-user-nested.input';
 import { MissedLogoutTicketUncheckedUpdateManyWithoutCreatedByNestedInput } from '../missed-logout-ticket/missed-logout-ticket-unchecked-update-many-without-created-by-nested.input';
+import { AuditLogUncheckedUpdateManyWithoutUserNestedInput } from '../audit-log/audit-log-unchecked-update-many-without-user-nested.input';
 
 @InputType()
 export class UserUncheckedUpdateWithoutProfileInput {
@@ -35,4 +36,7 @@ export class UserUncheckedUpdateWithoutProfileInput {
 
     @Field(() => MissedLogoutTicketUncheckedUpdateManyWithoutCreatedByNestedInput, {nullable:true})
     MissedLogoutTicket?: MissedLogoutTicketUncheckedUpdateManyWithoutCreatedByNestedInput;
+
+    @Field(() => AuditLogUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Status } from '../prisma/status.enum';
+import { AuditLogUncheckedCreateNestedManyWithoutTicketInput } from '../audit-log/audit-log-unchecked-create-nested-many-without-ticket.input';
 
 @InputType()
 export class MissedLogoutTicketUncheckedCreateWithoutCreatedByInput {
@@ -31,4 +32,7 @@ export class MissedLogoutTicketUncheckedCreateWithoutCreatedByInput {
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
+
+    @Field(() => AuditLogUncheckedCreateNestedManyWithoutTicketInput, {nullable:true})
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTicketInput;
 }

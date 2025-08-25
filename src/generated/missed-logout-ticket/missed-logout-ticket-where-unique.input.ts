@@ -6,6 +6,7 @@ import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.inpu
 import { EnumStatusNullableFilter } from '../prisma/enum-status-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { UserNullableScalarRelationFilter } from '../user/user-nullable-scalar-relation-filter.input';
+import { AuditLogListRelationFilter } from '../audit-log/audit-log-list-relation-filter.input';
 
 @InputType()
 export class MissedLogoutTicketWhereUniqueInput {
@@ -51,4 +52,7 @@ export class MissedLogoutTicketWhereUniqueInput {
 
     @Field(() => UserNullableScalarRelationFilter, {nullable:true})
     createdBy?: UserNullableScalarRelationFilter;
+
+    @Field(() => AuditLogListRelationFilter, {nullable:true})
+    auditLogs?: AuditLogListRelationFilter;
 }
