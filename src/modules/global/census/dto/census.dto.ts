@@ -18,6 +18,9 @@ export class DepartmentUserCount {
   @Field()
   departmentName: string;
 
+  @Field()
+  departmentDescription: string;
+
   @Field(() => Int)
   userCount: number;
 }
@@ -29,6 +32,9 @@ export class CensusSummary {
 
   @Field(() => Int)
   totalTickets: number;
+
+  @Field(() => Int)
+  totalPosts: number;
 
   @Field(() => [TicketStatusCount])
   ticketsByStatus: TicketStatusCount[];

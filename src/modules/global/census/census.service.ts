@@ -14,6 +14,9 @@ export class CensusService {
     // Total Tickets
     const totalTickets = await this.prisma.missedLogoutTicket.count();
 
+    // Total Posts
+    const totalPosts = await this.prisma.posts.count();
+
     // Tickets grouped by Status
     const ticketsByStatusRaw = await this.prisma.missedLogoutTicket.groupBy({
       by: ['status'],
@@ -33,6 +36,7 @@ export class CensusService {
     const departmentsWithUserCount = departments.map((dep) => ({
       departmentId: dep.id,
       departmentName: dep.name,
+      departmentDescription: dep.description,
       userCount: dep.profiles.length,
     }));
 
@@ -40,6 +44,7 @@ export class CensusService {
       totalUsers,
       totalTickets,
       ticketsByStatus,
+      totalPosts,
       totalDepartments: departments.length,
       departmentsWithUserCount,
     };

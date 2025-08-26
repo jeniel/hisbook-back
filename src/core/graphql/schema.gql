@@ -37,6 +37,7 @@ type CensusSummary {
   departmentsWithUserCount: [DepartmentUserCount!]!
   ticketsByStatus: [TicketStatusCount!]!
   totalDepartments: Int!
+  totalPosts: Int!
   totalTickets: Int!
   totalUsers: Int!
 }
@@ -136,6 +137,7 @@ input DepartmentNullableScalarRelationFilter {
 }
 
 type DepartmentUserCount {
+  departmentDescription: String!
   departmentId: String!
   departmentName: String!
   userCount: Int!
