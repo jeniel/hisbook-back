@@ -5,8 +5,8 @@ import { GeneralMsg } from '@/shared/common/entities/general-msg.entities';
 import { MissedLogoutTicketArgs } from './args/ticket.args';
 import { MissedLogoutTicketList } from './entities/ticket.entity';
 
-import { CreateMissedLogoutTicketInput } from './dto/create-ticket.input';
-import { UpdateMissedLogoutTicketInput } from './dto/update-ticket.input';
+import { CreateTicketInput } from './dto/create-ticket.input';
+import { UpdateTicketInput } from './dto/update-ticket.input';
 import { TicketService } from './ticket.service';
 
 // Import Roles
@@ -20,7 +20,7 @@ export class TicketResolver {
 
   // Create
   @Mutation(() => GeneralMsg)
-  createTicket(@Args('payload') payload: CreateMissedLogoutTicketInput) {
+  createTicket(@Args('payload') payload: CreateTicketInput) {
     return this.ticketService.create(payload);
   }
 
@@ -59,7 +59,7 @@ export class TicketResolver {
   @Roles([Role.ADMIN])
   updateTicket(
     @Args('id') id: string,
-    @Args('payload') payload: UpdateMissedLogoutTicketInput,
+    @Args('payload') payload: UpdateTicketInput,
     @CurrentUser() user: { userId: string },
   ) {
     return this.ticketService.update(id, payload, user.userId);

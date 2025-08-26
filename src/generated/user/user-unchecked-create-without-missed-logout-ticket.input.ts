@@ -23,6 +23,9 @@ export class UserUncheckedCreateWithoutMissedLogoutTicketInput {
     @Field(() => String, {nullable:true})
     hashedRefreshToken?: string;
 
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
     @Field(() => UserCreateroleInput, {nullable:true})
     role?: UserCreateroleInput;
 

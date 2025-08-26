@@ -10,6 +10,9 @@ export class PostsArgs {
   @Field(() => Int, { nullable: true })
   perPage?: number;
 
+  @Field(() => String, { nullable: true })
+  userId?: string;
+
   @Field(() => PostsWhereInput, { nullable: true })
   @Type(() => PostsWhereInput)
   where?: PostsWhereInput;

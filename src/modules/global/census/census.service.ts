@@ -7,7 +7,9 @@ import { CensusSummary } from './dto/census.dto';
 export class CensusService {
   constructor(private prisma: PrismaService) {}
 
-  async getSummary(): Promise<CensusSummary> {
+  async getSummary(
+    userId?: string,
+  ): Promise<CensusSummary & { totalTicketsByUserId?: number }> {
     // Total Users
     const totalUsers = await this.prisma.user.count();
 
@@ -24,7 +26,7 @@ export class CensusService {
     });
 
     const ticketsByStatus = ticketsByStatusRaw.map((t) => ({
-      status: t.status as Status, // ✅ cast to Prisma enum
+      status: t.status as Status,
       count: t._count.status,
     }));
 
@@ -40,13 +42,37 @@ export class CensusService {
       userCount: dep.profiles.length,
     }));
 
+    // Tickets by specific User ID
+    let ticketByUserId: { status: Status; count: number }[] = [];
+    let totalTicketsByUserId: number | undefined;
+
+    if (userId) {
+      const ticketsByUserRaw = await this.prisma.missedLogoutTicket.groupBy({
+        by: ['status'],
+        where: { createdById: userId },
+        _count: { status: true },
+      });
+
+      ticketByUserId = ticketsByUserRaw.map((t) => ({
+        status: t.status as Status,
+        count: t._count.status,
+      }));
+
+      totalTicketsByUserId = ticketByUserId.reduce(
+        (sum, t) => sum + t.count,
+        0,
+      );
+    }
+
     return {
       totalUsers,
       totalTickets,
-      ticketsByStatus,
       totalPosts,
+      ticketsByStatus,
       totalDepartments: departments.length,
       departmentsWithUserCount,
+      ticketByUserId,
+      totalTicketsByUserId,
     };
   }
 }

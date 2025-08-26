@@ -2,7 +2,7 @@ import { Status } from '@/generated/prisma/status.enum';
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class CreateMissedLogoutTicketInput {
+export class CreateTicketInput {
   @Field({ nullable: true })
   subject?: string;
 

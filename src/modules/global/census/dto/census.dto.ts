@@ -1,5 +1,5 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Status } from '@/generated/prisma/status.enum';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class TicketStatusCount {
@@ -44,4 +44,10 @@ export class CensusSummary {
 
   @Field(() => [DepartmentUserCount])
   departmentsWithUserCount: DepartmentUserCount[];
+
+  @Field(() => [TicketStatusCount], { nullable: true })
+  ticketByUserId?: TicketStatusCount[];
+
+  @Field(() => Int, { nullable: true })
+  totalTicketsByUserId?: number;
 }

@@ -12,4 +12,7 @@ export class DepartmentMinAggregate {
 
     @Field(() => String, {nullable:true})
     description?: string;
+
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
 }

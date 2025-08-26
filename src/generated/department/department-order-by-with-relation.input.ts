@@ -15,6 +15,9 @@ export class DepartmentOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     description?: `${SortOrder}`;
 
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: `${SortOrder}`;
+
     @Field(() => UserOrderByRelationAggregateInput, {nullable:true})
     profiles?: UserOrderByRelationAggregateInput;
 }

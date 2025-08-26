@@ -31,6 +31,9 @@ export class User {
     @Field(() => String, {nullable:true})
     hashedRefreshToken!: string | null;
 
+    @Field(() => Date, {nullable:true})
+    createdAt!: Date | null;
+
     @Field(() => [Role], {nullable:true})
     role!: Array<`${Role}`>;
 

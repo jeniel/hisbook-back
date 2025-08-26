@@ -4,15 +4,15 @@ import { Status } from '@prisma/client';
 
 // Dto and Args
 import { MissedLogoutTicketArgs } from '@/modules/global/ticket/args/ticket.args';
-import { CreateMissedLogoutTicketInput } from '@/modules/global/ticket/dto/create-ticket.input';
-import { UpdateMissedLogoutTicketInput } from '@/modules/global/ticket/dto/update-ticket.input';
+import { CreateTicketInput } from '@/modules/global/ticket/dto/create-ticket.input';
+import { UpdateTicketInput } from '@/modules/global/ticket/dto/update-ticket.input';
 
 @Injectable()
 export class TicketService {
   constructor(private readonly prisma: PrismaService) {}
 
   // Create a new Ticket
-  async create(dto: CreateMissedLogoutTicketInput) {
+  async create(dto: CreateTicketInput) {
     const ticket = await this.prisma.missedLogoutTicket.create({
       data: {
         subject: dto.subject,
@@ -179,7 +179,7 @@ export class TicketService {
   }
 
   // Update a Ticket by id
-  async update(id: string, dto: UpdateMissedLogoutTicketInput, userId: string) {
+  async update(id: string, dto: UpdateTicketInput, userId: string) {
     await this.prisma.missedLogoutTicket.update({
       where: { id },
       data: {

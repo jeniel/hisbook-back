@@ -16,6 +16,9 @@ export class Department {
     @Field(() => String, {nullable:false})
     description!: string;
 
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date;
+
     @Field(() => [User], {nullable:true})
     profiles?: Array<User>;
 

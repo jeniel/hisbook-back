@@ -13,4 +13,7 @@ export class DepartmentMinOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     description?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: `${SortOrder}`;
 }

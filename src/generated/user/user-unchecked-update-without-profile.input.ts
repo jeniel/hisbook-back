@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { UserUpdateroleInput } from './user-updaterole.input';
 import { PostsUncheckedUpdateManyWithoutUserNestedInput } from '../posts/posts-unchecked-update-many-without-user-nested.input';
 import { MissedLogoutTicketUncheckedUpdateManyWithoutCreatedByNestedInput } from '../missed-logout-ticket/missed-logout-ticket-unchecked-update-many-without-created-by-nested.input';
@@ -24,6 +25,9 @@ export class UserUncheckedUpdateWithoutProfileInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     hashedRefreshToken?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput;
 
     @Field(() => UserUpdateroleInput, {nullable:true})
     role?: UserUpdateroleInput;

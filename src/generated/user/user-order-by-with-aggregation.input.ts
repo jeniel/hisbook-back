@@ -24,6 +24,9 @@ export class UserOrderByWithAggregationInput {
     @Field(() => SortOrderInput, {nullable:true})
     hashedRefreshToken?: SortOrderInput;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    createdAt?: SortOrderInput;
+
     @Field(() => SortOrder, {nullable:true})
     role?: `${SortOrder}`;
 

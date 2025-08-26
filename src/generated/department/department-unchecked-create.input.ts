@@ -14,6 +14,9 @@ export class DepartmentUncheckedCreateInput {
     @Field(() => String, {nullable:false})
     description!: string;
 
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
     @Field(() => UserUncheckedCreateNestedManyWithoutDepartmentInput, {nullable:true})
     profiles?: UserUncheckedCreateNestedManyWithoutDepartmentInput;
 }

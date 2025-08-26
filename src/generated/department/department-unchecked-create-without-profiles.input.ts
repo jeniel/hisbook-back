@@ -12,4 +12,7 @@ export class DepartmentUncheckedCreateWithoutProfilesInput {
 
     @Field(() => String, {nullable:false})
     description!: string;
+
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
 }

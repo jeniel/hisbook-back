@@ -35,27 +35,18 @@ input AuditLogWhereInput {
 
 type CensusSummary {
   departmentsWithUserCount: [DepartmentUserCount!]!
+  ticketByUserId: [TicketStatusCount!]
   ticketsByStatus: [TicketStatusCount!]!
   totalDepartments: Int!
   totalPosts: Int!
   totalTickets: Int!
+  totalTicketsByUserId: Int
   totalUsers: Int!
 }
 
 input CreateDepartmentInput {
   description: String
   name: String!
-}
-
-input CreateMissedLogoutTicketInput {
-  createdById: String
-  floor: String
-  missedAt: DateTime!
-  remarks: String
-  screenshot: String
-  status: Status
-  subject: String
-  updatedBy: String
 }
 
 input CreatePostInput {
@@ -77,6 +68,17 @@ input CreateProfileInput {
   middleName: String
   title: String
   userId: String
+}
+
+input CreateTicketInput {
+  createdById: String
+  floor: String
+  missedAt: DateTime!
+  remarks: String
+  screenshot: String
+  status: Status
+  subject: String
+  updatedBy: String
 }
 
 input CreateUserInput {
@@ -116,6 +118,7 @@ input DateTimeNullableFilter {
 
 type Department {
   _count: DepartmentCount!
+  createdAt: DateTime!
   description: String!
   id: ID!
   name: String!
@@ -147,6 +150,7 @@ input DepartmentWhereInput {
   AND: [DepartmentWhereInput!]
   NOT: [DepartmentWhereInput!]
   OR: [DepartmentWhereInput!]
+  createdAt: DateTimeFilter
   description: StringFilter
   id: StringFilter
   name: StringFilter
@@ -269,7 +273,7 @@ type Mutation {
   createDepartment(payload: CreateDepartmentInput!): GeneralMsg!
   createPost(payload: CreatePostInput!): GeneralMsg!
   createProfile(payload: CreateProfileInput!): GeneralMsg!
-  createTicket(payload: CreateMissedLogoutTicketInput!): GeneralMsg!
+  createTicket(payload: CreateTicketInput!): GeneralMsg!
   createUser(payload: CreateUserInput!): GeneralMsg!
   deleteDepartment(id: String!): GeneralMsg!
   deletePost(postId: String!): GeneralMsg!
@@ -282,7 +286,7 @@ type Mutation {
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
   updatePost(data: UpdatePostInput!, postId: String!): GeneralMsg!
   updateProfile(id: String!, payload: UpdateProfileInput!): GeneralMsg!
-  updateTicket(id: String!, payload: UpdateMissedLogoutTicketInput!): GeneralMsg!
+  updateTicket(id: String!, payload: UpdateTicketInput!): GeneralMsg!
   updateUser(id: String!, payload: UpdateUserInput!): GeneralMsg!
 }
 
@@ -444,14 +448,15 @@ input ProfileWhereInput {
 
 type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
-  findAllPosts(page: Int, perPage: Int, where: PostsWhereInput): PostsList!
+  findAllPosts(page: Int, perPage: Int, userId: String, where: PostsWhereInput): PostsList!
+  findAllPostsCreatedByUser(page: Float, perPage: Float, userId: String!, where: PostsWhereInput): PostsList!
   findAllProfiles(page: Int, perPage: Int, where: ProfileWhereInput): ProfileList!
   findAllTickets(page: Int, perPage: Int, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
   findProfile(id: String!): Profile!
   findTicketbyID(id: String!): MissedLogoutTicket
   findTicketsByUser(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
-  getCensusSummary: CensusSummary!
+  getCensusSummary(userId: String): CensusSummary!
   getMyWorkedTickets(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   meQuery: MeQuery!
 }
@@ -543,17 +548,6 @@ input UpdateDepartmentInput {
   name: String!
 }
 
-input UpdateMissedLogoutTicketInput {
-  createdById: String
-  floor: String
-  missedAt: DateTime!
-  remarks: String
-  screenshot: String
-  status: Status
-  subject: String
-  updatedBy: String
-}
-
 input UpdatePostInput {
   content: String
   images: [String!]
@@ -575,6 +569,17 @@ input UpdateProfileInput {
   userId: String
 }
 
+input UpdateTicketInput {
+  createdById: String
+  floor: String
+  missedAt: DateTime!
+  remarks: String
+  screenshot: String
+  status: Status
+  subject: String
+  updatedBy: String
+}
+
 input UpdateUserInput {
   departmentName: String
   email: String
@@ -587,6 +592,7 @@ type User {
   MissedLogoutTicket: [MissedLogoutTicket!]
   _count: UserCount!
   auditLogs: [AuditLog!]
+  createdAt: DateTime
   department: Department
   departmentId: String
 
@@ -628,6 +634,7 @@ input UserWhereInput {
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   auditLogs: AuditLogListRelationFilter
+  createdAt: DateTimeNullableFilter
   department: DepartmentNullableScalarRelationFilter
   departmentId: StringNullableFilter
   email: StringFilter

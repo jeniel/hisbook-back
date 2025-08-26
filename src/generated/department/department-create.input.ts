@@ -14,6 +14,9 @@ export class DepartmentCreateInput {
     @Field(() => String, {nullable:false})
     description!: string;
 
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
     @Field(() => UserCreateNestedManyWithoutDepartmentInput, {nullable:true})
     profiles?: UserCreateNestedManyWithoutDepartmentInput;
 }

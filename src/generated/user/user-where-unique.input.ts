@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { UserWhereInput } from './user-where.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { EnumRoleNullableListFilter } from '../prisma/enum-role-nullable-list-filter.input';
 import { ProfileNullableScalarRelationFilter } from '../profile/profile-nullable-scalar-relation-filter.input';
 import { PostsListRelationFilter } from '../posts/posts-list-relation-filter.input';
@@ -36,6 +37,9 @@ export class UserWhereUniqueInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     hashedRefreshToken?: StringNullableFilter;
+
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    createdAt?: DateTimeNullableFilter;
 
     @Field(() => EnumRoleNullableListFilter, {nullable:true})
     role?: EnumRoleNullableListFilter;

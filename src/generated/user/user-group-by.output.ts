@@ -24,6 +24,9 @@ export class UserGroupBy {
     @Field(() => String, {nullable:true})
     hashedRefreshToken?: string;
 
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
     @Field(() => [Role], {nullable:true})
     role?: Array<`${Role}`>;
 

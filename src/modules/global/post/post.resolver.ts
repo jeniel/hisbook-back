@@ -5,6 +5,7 @@ import { PostsArgs } from '@/modules/global/post/args/post.args';
 import { PostsList } from '@/modules/global/post/entities/post.entity';
 import { GeneralMsg } from '@/shared/common/entities/general-msg.entities';
 
+import { PostsWhereInput } from '@/generated/posts/posts-where.input';
 import { CurrentUser } from '@/shared/common/decorator/currentUser.decorator';
 import { AccessTokenGuard } from '@/shared/common/guards/accessToken.guard';
 import { UseGuards } from '@nestjs/common/decorators/core/use-guards.decorator';
@@ -26,6 +27,22 @@ export class PostResolver {
   @Query(() => PostsList)
   async findAllPosts(@Args() args: PostsArgs) {
     return await this.postService.findAll(args);
+  }
+
+  // Find All Posts Created By User
+  @Query(() => PostsList)
+  async findAllPostsCreatedByUser(
+    @Args('userId') userId: string,
+    @Args('page', { nullable: true }) page?: number,
+    @Args('perPage', { nullable: true }) perPage?: number,
+    @Args('where', { nullable: true }) where?: PostsWhereInput,
+  ) {
+    return await this.postService.findAllPostsCreatedByUser({
+      userId,
+      page,
+      perPage,
+      where,
+    });
   }
 
   // Update Post

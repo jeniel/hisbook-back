@@ -35,6 +35,7 @@ export class DepartmentService {
       this.prisma.department.count({ where: args.where }),
       this.prisma.department.findMany({
         where: args.where,
+        orderBy: { createdAt: 'asc' },
         take: perPage,
         skip,
       }),

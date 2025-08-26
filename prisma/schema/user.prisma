@@ -6,6 +6,7 @@ model User {
   /// @HideField()
   hashedPassword     String  @map("hashed_password")
   hashedRefreshToken String? @map("hashed_refresh_token")
+  createdAt  DateTime?  @default(now())
 
   // Relations
   role               Role[]               @default([USER])
@@ -48,6 +49,7 @@ model Department {
   id          String @id @default(uuid())
   name        String @unique
   description String
+  createdAt  DateTime  @default(now())
 
   // Relations
   profiles User[]
@@ -82,6 +84,7 @@ model Posts {
   @@map("posts")
   @@schema("global")
 }
+
 model MissedLogoutTicket {
   id          String    @id @default(uuid())
   subject     String?   // Subject of the Ticket
