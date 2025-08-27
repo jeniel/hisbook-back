@@ -1,4 +1,5 @@
 import { DepartmentModule } from '@/modules/global/department/department.module';
+import { EventModule } from '@/modules/global/events/event.module';
 import { PostModule } from '@/modules/global/post/post.module';
 import { UserModule } from '@/modules/global/user/user.module';
 import { Module } from '@nestjs/common';
@@ -14,6 +15,7 @@ import { TicketModule } from './ticket/ticket.module';
     ProfileModule,
     PostModule,
     CensusModule,
+    EventModule,
   ],
   controllers: [],
   providers: [],

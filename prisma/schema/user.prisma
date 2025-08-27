@@ -127,3 +127,16 @@ enum Status {
 
   @@schema("global")
 }
+
+model Event {
+  id        String   @id @default(uuid())
+  title     String
+  startDate DateTime?
+  endDate   DateTime?
+  location  String
+  detailsUrl String?
+  createdAt DateTime @default(now())
+
+  @@map("event")
+  @@schema("global")
+}

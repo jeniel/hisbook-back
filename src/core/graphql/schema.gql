@@ -49,6 +49,14 @@ input CreateDepartmentInput {
   name: String!
 }
 
+input CreateEventInput {
+  detailsUrl: String
+  endDate: DateTime
+  location: String!
+  startDate: DateTime
+  title: String!
+}
+
 input CreatePostInput {
   content: String!
   images: [String!]
@@ -179,6 +187,34 @@ input EnumStatusNullableFilter {
   notIn: [Status!]
 }
 
+type Event {
+  createdAt: DateTime!
+  detailsUrl: String
+  endDate: DateTime
+  id: ID!
+  location: String!
+  startDate: DateTime
+  title: String!
+}
+
+type EventList {
+  data: [Event!]!
+  meta: Meta
+}
+
+input EventWhereInput {
+  AND: [EventWhereInput!]
+  NOT: [EventWhereInput!]
+  OR: [EventWhereInput!]
+  createdAt: DateTimeFilter
+  detailsUrl: StringNullableFilter
+  endDate: DateTimeNullableFilter
+  id: StringFilter
+  location: StringFilter
+  startDate: DateTimeNullableFilter
+  title: StringFilter
+}
+
 enum Gender {
   Female
   Male
@@ -271,11 +307,13 @@ input MissedLogoutTicketWhereInput {
 
 type Mutation {
   createDepartment(payload: CreateDepartmentInput!): GeneralMsg!
+  createEvent(payload: CreateEventInput!): GeneralMsg!
   createPost(payload: CreatePostInput!): GeneralMsg!
   createProfile(payload: CreateProfileInput!): GeneralMsg!
   createTicket(payload: CreateTicketInput!): GeneralMsg!
   createUser(payload: CreateUserInput!): GeneralMsg!
   deleteDepartment(id: String!): GeneralMsg!
+  deleteEvent(id: String!): GeneralMsg!
   deletePost(postId: String!): GeneralMsg!
   deleteProfile(id: String!): GeneralMsg!
   deleteTicket(id: String!): GeneralMsg!
@@ -284,6 +322,7 @@ type Mutation {
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
+  updateEvent(id: String!, payload: UpdateEventInput!): GeneralMsg!
   updatePost(data: UpdatePostInput!, postId: String!): GeneralMsg!
   updateProfile(id: String!, payload: UpdateProfileInput!): GeneralMsg!
   updateTicket(id: String!, payload: UpdateTicketInput!): GeneralMsg!
@@ -448,6 +487,7 @@ input ProfileWhereInput {
 
 type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
+  findAllEvents(page: Int, perPage: Int, where: EventWhereInput): EventList!
   findAllPosts(page: Int, perPage: Int, userId: String, where: PostsWhereInput): PostsList!
   findAllPostsCreatedByUser(page: Float, perPage: Float, userId: String!, where: PostsWhereInput): PostsList!
   findAllProfiles(page: Int, perPage: Int, where: ProfileWhereInput): ProfileList!
@@ -546,6 +586,14 @@ type TicketStatusCount {
 input UpdateDepartmentInput {
   description: String
   name: String!
+}
+
+input UpdateEventInput {
+  detailsUrl: String
+  endDate: DateTime
+  location: String!
+  startDate: DateTime
+  title: String!
 }
 
 input UpdatePostInput {
