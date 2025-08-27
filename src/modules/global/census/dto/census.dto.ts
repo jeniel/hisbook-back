@@ -36,6 +36,9 @@ export class CensusSummary {
   @Field(() => Int)
   totalPosts: number;
 
+  @Field(() => Int)
+  totalEvents: number;
+
   @Field(() => [TicketStatusCount])
   ticketsByStatus: TicketStatusCount[];
 

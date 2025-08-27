@@ -38,6 +38,7 @@ type CensusSummary {
   ticketByUserId: [TicketStatusCount!]
   ticketsByStatus: [TicketStatusCount!]!
   totalDepartments: Int!
+  totalEvents: Int!
   totalPosts: Int!
   totalTickets: Int!
   totalTicketsByUserId: Int
