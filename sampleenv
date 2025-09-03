@@ -1,6 +1,0 @@
-DATABASE_URL="postgresql://postgres:1234@localhost:5432/acebookv2"
-JWT_SECRET="ec20x52x2xd4c5xbd7378bde"
-JWT_REFRESH_TOKEN="asddasd12352224cx5bd73"
-NODE_ENV='development'
-TZ=Asia/Manila
-TOKEN_NAME='access_token'
