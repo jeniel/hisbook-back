@@ -16,6 +16,9 @@ RUN npx prisma generate
 # Build the NestJS project
 RUN yarn build
 
+# Run Prisma seed
+RUN npx prisma db seed
+
 # Expose port
 EXPOSE 3001
 
