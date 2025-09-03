@@ -1,26 +1,22 @@
 FROM node:20-alpine
 
-# Set working directory
 WORKDIR /app
 
 # Install dependencies
 COPY package*.json yarn.lock ./
 RUN yarn
 
-# Copy all source
+# Copy source code
 COPY . .
 
 # Generate Prisma client
 RUN npx prisma generate
 
-# Build the NestJS project
+# Build NestJS app
 RUN yarn build
-
-# Run Prisma seed
-RUN npx prisma db seed
 
 # Expose port
 EXPOSE 3001
 
-# Start the app
+# Seed DB & start app at runtime
 CMD ["yarn", "start:prod"]
