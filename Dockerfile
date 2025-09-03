@@ -10,6 +10,9 @@ RUN yarn
 # Copy all source
 COPY . .
 
+# Generate Prisma client
+RUN npx prisma generate
+
 # Build the NestJS project
 RUN yarn build
 
