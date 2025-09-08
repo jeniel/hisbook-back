@@ -4,10 +4,8 @@ import { SignInInput } from '@/core/auth/dto/signin-input';
 import { SignUpInput } from '@/core/auth/dto/signup-input';
 import { MeQuery } from '@/core/auth/entities/me.entities';
 import { Public } from '@/shared/common/decorator/public.decorator';
-// import { Roles } from '@/shared/common/decorator/roles.decorator';
 import { GeneralMsg } from '@/shared/common/entities/general-msg.entities';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
-// import { Role } from '@/generated/prisma/role.enum';
 import { Request, Response } from 'express';
 
 @Resolver()
@@ -26,9 +24,6 @@ export class AuthResolver {
     @Args('signInInput') signInInput: SignInInput,
     @Context() context: { res: Response; req: Request },
   ) {
-    // const csrfToken = context.req.headers['x-csrf-token'];
-    // console.log('CSRF Token:', csrfToken);
-    // console.log(context.req.headers);
     return this.authService.signin(signInInput, context);
   }
 

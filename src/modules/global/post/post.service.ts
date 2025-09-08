@@ -146,8 +146,8 @@ export class PostService {
     };
   }
 
-  // Delete Post with manual image cleanup
-  async delete(postId: string, currentUserId: string) {
+  // Delete Post with ownership + admin check
+  async delete(postId: string, currentUser: { userId: string; role: string }) {
     const post = await this.prisma.posts.findUnique({
       where: { id: postId },
     });
@@ -156,15 +156,20 @@ export class PostService {
       throw new NotFoundException('Post not found');
     }
 
-    if (post.userId !== currentUserId) {
-      throw new ForbiddenException('You do not own this post');
+    // Only allow if user is owner OR admin
+    if (
+      post.userId !== currentUser.userId &&
+      !currentUser.role.includes('ADMIN')
+    ) {
+      throw new ForbiddenException(
+        'You are not authorized to delete this post',
+      );
     }
 
-    // Delete the post itself
     await this.prisma.posts.delete({
       where: { id: postId },
     });
 
-    return { message: 'Post and its images deleted successfully' };
+    return { message: 'Post deleted successfully' };
   }
 }

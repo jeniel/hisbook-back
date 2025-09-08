@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { SignInInput } from '@/core/auth/dto/signin-input';
 import { SignUpInput } from '@/core/auth/dto/signup-input';
 import { PrismaService } from '@/core/database/prisma/prisma.service';
@@ -32,7 +31,6 @@ export class AuthService {
               firstName: signUpInput.firstName,
               middleName: signUpInput.middleName,
               lastName: signUpInput.lastName,
-              // designation: signUpInput.designation,
             },
           },
         },
@@ -67,14 +65,14 @@ export class AuthService {
   ) {
     const user = await this.prisma.user.findFirst({
       where: {
-        OR: [{ email: signInInput.email }, { username: signInInput.username }],
+        username: signInInput.username,
       },
       include: {
         profile: true,
       },
     });
 
-    if (!user) throw new ForbiddenException('Email or User Not Registered');
+    if (!user) throw new ForbiddenException('Username not registered');
 
     const pwMatches = await argon.verify(
       user.hashedPassword,
@@ -98,8 +96,6 @@ export class AuthService {
       secure: true,
       sameSite: 'none',
     });
-
-    // response.cookie('token', accessToken, {});
 
     return { accessToken, refreshToken, user, isSignedIn: true };
   }
@@ -163,6 +159,7 @@ export class AuthService {
       });
       return true;
     } catch (error) {
+      console.log(error);
       return false;
     }
   }

@@ -61,8 +61,8 @@ export class PostResolver {
   @UseGuards(AccessTokenGuard)
   deletePost(
     @Args('postId') postId: string,
-    @CurrentUser() user: { userId: string },
+    @CurrentUser() user: { userId: string; role: string },
   ) {
-    return this.postService.delete(postId, user.userId);
+    return this.postService.delete(postId, user);
   }
 }

@@ -21,7 +21,6 @@ export class LoggingInterceptor implements NestInterceptor {
     const now = Date.now();
 
     console.log(`GraphQL Query: ${query}`);
-    
 
     return next
       .handle()
