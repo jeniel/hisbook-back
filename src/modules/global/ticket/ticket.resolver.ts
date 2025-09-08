@@ -47,11 +47,11 @@ export class TicketResolver {
   }
 
   @Query(() => MissedLogoutTicketList)
-  getMyWorkedTickets(
+  findTicketsWorkedByUser(
     @Args('userId') userId: string,
     @Args() args: MissedLogoutTicketArgs,
   ) {
-    return this.ticketService.findWorkedTickets(userId, args);
+    return this.ticketService.findTicketsWorkedByUser(userId, args);
   }
 
   // Update

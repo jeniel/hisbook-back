@@ -497,8 +497,8 @@ type Query {
   findProfile(id: String!): Profile!
   findTicketbyID(id: String!): MissedLogoutTicket
   findTicketsByUser(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
+  findTicketsWorkedByUser(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   getCensusSummary(userId: String): CensusSummary!
-  getMyWorkedTickets(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
   meQuery: MeQuery!
 }
 

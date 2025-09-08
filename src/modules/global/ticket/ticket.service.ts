@@ -135,28 +135,38 @@ export class TicketService {
   }
 
   // Find Tickets a User has worked on (via Audit Logs)
-  async findWorkedTickets(userId: string, args: MissedLogoutTicketArgs) {
+  async findTicketsWorkedByUser(userId: string, args: MissedLogoutTicketArgs) {
     const page = args.page || 1;
     const perPage = args.perPage || 10;
     const skip = page > 0 ? perPage * (page - 1) : 0;
 
-    // Get logs where user is involved
-    const [total, logs] = await Promise.all([
-      this.prisma.auditLog.count({
-        where: { userId },
+    // Count unique tickets where user has audit logs
+    const [total, tickets] = await Promise.all([
+      this.prisma.missedLogoutTicket.count({
+        where: {
+          auditLogs: {
+            some: { userId },
+          },
+        },
       }),
-      this.prisma.auditLog.findMany({
-        where: { userId },
+      this.prisma.missedLogoutTicket.findMany({
+        where: {
+          auditLogs: {
+            some: { userId },
+          },
+        },
         take: perPage,
         skip,
+        orderBy: { createdAt: 'desc' },
         include: {
-          ticket: {
+          createdBy: {
             include: {
-              auditLogs: {
-                include: {
-                  user: true, // who performed the action
-                },
-              },
+              profile: true, // 👈 make sure this is included
+            },
+          },
+          auditLogs: {
+            include: {
+              user: true, // include user info for each action
             },
           },
         },
@@ -166,7 +176,7 @@ export class TicketService {
     const lastPage = Math.ceil(total / perPage);
 
     return {
-      data: logs,
+      data: tickets,
       meta: {
         total,
         lastPage,
@@ -177,6 +187,7 @@ export class TicketService {
       },
     };
   }
+  a;
 
   // Update a Ticket by id
   async update(id: string, dto: UpdateTicketInput, userId: string) {
