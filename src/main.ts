@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: ['http://localhost:4173', 'https://acebookv2.172.16.10.70.nip.io'], // Replace with your frontend URL
+    origin: ['http://localhost:4173', 'https://acebook.acemcbohol.ph/'], // Replace with your frontend URL
     credentials: true, // Allow cookies to be sent
     //allowedHeaders: ['Content-Type', 'X-CSRF-Token'], // Allow CSRF token header
   });
