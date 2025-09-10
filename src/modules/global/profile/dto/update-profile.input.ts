@@ -1,4 +1,4 @@
-import { InputType, Field, PartialType, Int } from '@nestjs/graphql';
+import { InputType, Field, PartialType } from '@nestjs/graphql';
 import { CreateProfileInput } from './create-profile.input';
 import { Gender } from '@/generated/prisma/gender.enum';
 
@@ -31,8 +31,8 @@ export class UpdateProfileInput extends PartialType(CreateProfileInput) {
   @Field(() => String, { nullable: true })
   avatar?: string;
 
-  @Field(() => Int, { nullable: true })
-  employeeID?: number;
+  @Field(() => String, { nullable: true })
+  employeeID?: string;
 
   @Field(() => String, { nullable: true })
   userId?: string;

@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Gender } from '../prisma/gender.enum';
-import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class ProfileMaxAggregate {
@@ -36,8 +35,8 @@ export class ProfileMaxAggregate {
     @Field(() => String, {nullable:true})
     avatar?: string;
 
-    @Field(() => Int, {nullable:true})
-    employeeID?: number;
+    @Field(() => String, {nullable:true})
+    employeeID?: string;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;

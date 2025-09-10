@@ -12,8 +12,8 @@ export class UserOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     id?: `${SortOrder}`;
 
-    @Field(() => SortOrder, {nullable:true})
-    email?: `${SortOrder}`;
+    @Field(() => SortOrderInput, {nullable:true})
+    email?: SortOrderInput;
 
     @Field(() => SortOrder, {nullable:true})
     username?: `${SortOrder}`;

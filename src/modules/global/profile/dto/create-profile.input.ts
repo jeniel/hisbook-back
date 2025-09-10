@@ -1,4 +1,4 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 import { Gender } from '@/generated/prisma/gender.enum';
 
 @InputType()
@@ -30,8 +30,8 @@ export class CreateProfileInput {
   @Field(() => String, { nullable: true })
   avatar?: string;
 
-  @Field(() => Int, { nullable: true })
-  employeeID?: number;
+  @Field(() => String, { nullable: true })
+  employeeID?: string;
 
   @Field(() => String, { nullable: true })
   userId?: string;

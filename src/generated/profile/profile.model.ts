@@ -2,7 +2,6 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Gender } from '../prisma/gender.enum';
-import { Int } from '@nestjs/graphql';
 import { User } from '../user/user.model';
 
 @ObjectType()
@@ -38,8 +37,8 @@ export class Profile {
     @Field(() => String, {nullable:true})
     avatar!: string | null;
 
-    @Field(() => Int, {nullable:true})
-    employeeID!: number | null;
+    @Field(() => String, {nullable:true})
+    employeeID!: string | null;
 
     @Field(() => Date, {nullable:false})
     createdAt!: Date;

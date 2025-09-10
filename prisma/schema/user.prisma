@@ -1,7 +1,7 @@
 model User {
   id                 String  @id @default(uuid())
   /// @Validator.@IsEmail()
-  email              String  @unique
+  email              String?  @unique
   username           String  @unique
   /// @HideField()
   hashedPassword     String  @map("hashed_password")
@@ -33,7 +33,7 @@ model Profile {
   address    String?
   contact    String?
   avatar     String?
-  employeeID Int?      @unique @map("employee_id")
+  employeeID String? @unique @map("employee_id")
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @default(now()) @updatedAt @map("updated_at")
 

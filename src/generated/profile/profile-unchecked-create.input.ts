@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Gender } from '../prisma/gender.enum';
-import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class ProfileUncheckedCreateInput {
@@ -36,8 +35,8 @@ export class ProfileUncheckedCreateInput {
     @Field(() => String, {nullable:true})
     avatar?: string;
 
-    @Field(() => Int, {nullable:true})
-    employeeID?: number;
+    @Field(() => String, {nullable:true})
+    employeeID?: string;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;

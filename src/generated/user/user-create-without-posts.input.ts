@@ -12,8 +12,8 @@ export class UserCreateWithoutPostsInput {
     @Field(() => String, {nullable:true})
     id?: string;
 
-    @Field(() => String, {nullable:false})
-    email!: string;
+    @Field(() => String, {nullable:true})
+    email?: string;
 
     @Field(() => String, {nullable:false})
     username!: string;

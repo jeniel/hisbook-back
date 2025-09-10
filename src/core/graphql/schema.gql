@@ -70,7 +70,7 @@ input CreateProfileInput {
   birthDate: DateTime
   contact: String
   departmentId: String
-  employeeID: Int
+  employeeID: String
   firstName: String
   gender: Gender
   lastName: String
@@ -92,7 +92,7 @@ input CreateTicketInput {
 
 input CreateUserInput {
   departmentName: String
-  email: String!
+  email: String
   password: String!
   role: [Role!]
   username: String!
@@ -227,17 +227,6 @@ type GeneralMsg {
   success: Boolean
 }
 
-input IntNullableFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntNullableFilter
-  notIn: [Int!]
-}
-
 type MeQuery {
   isSignedIn: Boolean!
   user: User!
@@ -366,17 +355,6 @@ input NestedEnumStatusNullableFilter {
   notIn: [Status!]
 }
 
-input NestedIntNullableFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntNullableFilter
-  notIn: [Int!]
-}
-
 input NestedStringFilter {
   contains: String
   endsWith: String
@@ -443,7 +421,7 @@ type Profile {
   birthDate: DateTime
   contact: String
   createdAt: DateTime!
-  employeeID: Int
+  employeeID: String
   firstName: String
   gender: Gender
   id: ID!
@@ -474,7 +452,7 @@ input ProfileWhereInput {
   birthDate: DateTimeNullableFilter
   contact: StringNullableFilter
   createdAt: DateTimeFilter
-  employeeID: IntNullableFilter
+  employeeID: StringNullableFilter
   firstName: StringNullableFilter
   gender: EnumGenderNullableFilter
   id: StringFilter
@@ -609,7 +587,7 @@ input UpdateProfileInput {
   birthDate: DateTime
   contact: String
   departmentId: String
-  employeeID: Int
+  employeeID: String
   firstName: String
   gender: Gender
   lastName: String
@@ -646,7 +624,7 @@ type User {
   departmentId: String
 
   """@Validator.@IsEmail()"""
-  email: String!
+  email: String
   hashedRefreshToken: String
   id: ID!
   posts: [Posts!]
@@ -686,7 +664,7 @@ input UserWhereInput {
   createdAt: DateTimeNullableFilter
   department: DepartmentNullableScalarRelationFilter
   departmentId: StringNullableFilter
-  email: StringFilter
+  email: StringNullableFilter
   hashedPassword: StringFilter
   hashedRefreshToken: StringNullableFilter
   id: StringFilter

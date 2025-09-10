@@ -20,8 +20,8 @@ export class UserScalarWhereInput {
     @Field(() => StringFilter, {nullable:true})
     id?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    email?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    email?: StringNullableFilter;
 
     @Field(() => StringFilter, {nullable:true})
     username?: StringFilter;

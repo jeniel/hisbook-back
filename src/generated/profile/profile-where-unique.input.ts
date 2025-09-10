@@ -1,6 +1,5 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Int } from '@nestjs/graphql';
 import { ProfileWhereInput } from './profile-where.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
@@ -14,8 +13,8 @@ export class ProfileWhereUniqueInput {
     @Field(() => String, {nullable:true})
     id?: string;
 
-    @Field(() => Int, {nullable:true})
-    employeeID?: number;
+    @Field(() => String, {nullable:true})
+    employeeID?: string;
 
     @Field(() => String, {nullable:true})
     userId?: string;

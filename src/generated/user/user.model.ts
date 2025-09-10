@@ -19,8 +19,8 @@ export class User {
     /**
      * @Validator.@IsEmail()
      */
-    @Field(() => String, {description:'@Validator.@IsEmail()',nullable:false})
-    email!: string;
+    @Field(() => String, {description:'@Validator.@IsEmail()',nullable:true})
+    email!: string | null;
 
     @Field(() => String, {nullable:false})
     username!: string;

@@ -4,7 +4,6 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { EnumGenderNullableFilter } from '../prisma/enum-gender-nullable-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { UserNullableScalarRelationFilter } from '../user/user-nullable-scalar-relation-filter.input';
 
@@ -50,8 +49,8 @@ export class ProfileWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     avatar?: StringNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    employeeID?: IntNullableFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    employeeID?: StringNullableFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;
