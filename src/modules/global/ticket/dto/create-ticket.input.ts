@@ -3,10 +3,10 @@ import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class CreateTicketInput {
-  @Field({ nullable: true })
-  subject?: string;
-
   @Field()
+  subject: string;
+
+  @Field({ nullable: true })
   missedAt?: Date;
 
   @Field({ nullable: true })
@@ -15,6 +15,9 @@ export class CreateTicketInput {
   @Field({ nullable: true })
   screenshot?: string;
 
+  @Field({ nullable: true })
+  message?: string;
+
   @Field(() => Status, { nullable: true })
   status?: Status;
 
@@ -22,8 +25,11 @@ export class CreateTicketInput {
   updatedBy?: string;
 
   @Field({ nullable: true })
-  createdById?: string;
-
-  @Field({ nullable: true })
   remarks?: string;
+
+  @Field()
+  createdById: string;
+
+  @Field()
+  departmentId: string;
 }

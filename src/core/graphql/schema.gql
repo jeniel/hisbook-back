@@ -5,7 +5,7 @@
 type AuditLog {
   action: String
   id: ID!
-  ticket: MissedLogoutTicket
+  ticket: Ticket
   ticketId: String
   timestamp: DateTime!
   updatedBy: String
@@ -25,7 +25,7 @@ input AuditLogWhereInput {
   OR: [AuditLogWhereInput!]
   action: StringNullableFilter
   id: StringFilter
-  ticket: MissedLogoutTicketNullableScalarRelationFilter
+  ticket: TicketNullableScalarRelationFilter
   ticketId: StringNullableFilter
   timestamp: DateTimeFilter
   updatedBy: StringNullableFilter
@@ -80,13 +80,15 @@ input CreateProfileInput {
 }
 
 input CreateTicketInput {
-  createdById: String
+  createdById: String!
+  departmentId: String!
   floor: String
-  missedAt: DateTime!
+  message: String
+  missedAt: DateTime
   remarks: String
   screenshot: String
   status: Status
-  subject: String
+  subject: String!
   updatedBy: String
 }
 
@@ -131,11 +133,13 @@ type Department {
   description: String!
   id: ID!
   name: String!
-  profiles: [User!]
+  tickets: [Ticket!]
+  users: [User!]
 }
 
 type DepartmentCount {
-  profiles: Int!
+  tickets: Int!
+  users: Int!
 }
 
 type DepartmentList {
@@ -144,6 +148,11 @@ type DepartmentList {
 }
 
 input DepartmentNullableScalarRelationFilter {
+  is: DepartmentWhereInput
+  isNot: DepartmentWhereInput
+}
+
+input DepartmentScalarRelationFilter {
   is: DepartmentWhereInput
   isNot: DepartmentWhereInput
 }
@@ -163,7 +172,8 @@ input DepartmentWhereInput {
   description: StringFilter
   id: StringFilter
   name: StringFilter
-  profiles: UserListRelationFilter
+  tickets: TicketListRelationFilter
+  users: UserListRelationFilter
 }
 
 input EnumGenderNullableFilter {
@@ -181,10 +191,10 @@ input EnumRoleNullableListFilter {
   isEmpty: Boolean
 }
 
-input EnumStatusNullableFilter {
+input EnumStatusFilter {
   equals: Status
   in: [Status!]
-  not: NestedEnumStatusNullableFilter
+  not: NestedEnumStatusFilter
   notIn: [Status!]
 }
 
@@ -241,60 +251,6 @@ type Meta {
   total: Float!
 }
 
-type MissedLogoutTicket {
-  _count: MissedLogoutTicketCount!
-  auditLogs: [AuditLog!]
-  createdAt: DateTime!
-  createdBy: User
-  createdById: String
-  floor: String
-  id: ID!
-  missedAt: DateTime
-  remarks: String
-  screenshot: String
-  status: Status
-  subject: String
-  updatedBy: String
-}
-
-type MissedLogoutTicketCount {
-  auditLogs: Int!
-}
-
-type MissedLogoutTicketList {
-  data: [MissedLogoutTicket!]!
-  meta: Meta
-}
-
-input MissedLogoutTicketListRelationFilter {
-  every: MissedLogoutTicketWhereInput
-  none: MissedLogoutTicketWhereInput
-  some: MissedLogoutTicketWhereInput
-}
-
-input MissedLogoutTicketNullableScalarRelationFilter {
-  is: MissedLogoutTicketWhereInput
-  isNot: MissedLogoutTicketWhereInput
-}
-
-input MissedLogoutTicketWhereInput {
-  AND: [MissedLogoutTicketWhereInput!]
-  NOT: [MissedLogoutTicketWhereInput!]
-  OR: [MissedLogoutTicketWhereInput!]
-  auditLogs: AuditLogListRelationFilter
-  createdAt: DateTimeFilter
-  createdBy: UserNullableScalarRelationFilter
-  createdById: StringNullableFilter
-  floor: StringNullableFilter
-  id: StringFilter
-  missedAt: DateTimeNullableFilter
-  remarks: StringNullableFilter
-  screenshot: StringNullableFilter
-  status: EnumStatusNullableFilter
-  subject: StringNullableFilter
-  updatedBy: StringNullableFilter
-}
-
 type Mutation {
   createDepartment(payload: CreateDepartmentInput!): GeneralMsg!
   createEvent(payload: CreateEventInput!): GeneralMsg!
@@ -348,10 +304,10 @@ input NestedEnumGenderNullableFilter {
   notIn: [Gender!]
 }
 
-input NestedEnumStatusNullableFilter {
+input NestedEnumStatusFilter {
   equals: Status
   in: [Status!]
-  not: NestedEnumStatusNullableFilter
+  not: NestedEnumStatusFilter
   notIn: [Status!]
 }
 
@@ -470,12 +426,13 @@ type Query {
   findAllPosts(page: Int, perPage: Int, userId: String, where: PostsWhereInput): PostsList!
   findAllPostsCreatedByUser(page: Float, perPage: Float, userId: String!, where: PostsWhereInput): PostsList!
   findAllProfiles(page: Int, perPage: Int, where: ProfileWhereInput): ProfileList!
-  findAllTickets(page: Int, perPage: Int, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
+  findAllTickets(page: Int, perPage: Int, search: String, where: TicketWhereInput): TicketList!
   findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
   findProfile(id: String!): Profile!
-  findTicketbyID(id: String!): MissedLogoutTicket
-  findTicketsByUser(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
-  findTicketsWorkedByUser(page: Int, perPage: Int, userId: String!, where: MissedLogoutTicketWhereInput): MissedLogoutTicketList!
+  findTicketbyID(id: String!): Ticket
+  findTicketsByDepartment(departmentId: String!, page: Int, perPage: Int, search: String, where: TicketWhereInput): TicketList!
+  findTicketsByUser(page: Int, perPage: Int, search: String, userId: String!, where: TicketWhereInput): TicketList!
+  findTicketsWorkedByUser(page: Int, perPage: Int, search: String, userId: String!, where: TicketWhereInput): TicketList!
   getCensusSummary(userId: String): CensusSummary!
   meQuery: MeQuery!
 }
@@ -516,6 +473,8 @@ input SignUpInput {
 enum Status {
   Approved
   Completed
+  InProgress
+  OnHold
   Pending
 }
 
@@ -557,9 +516,72 @@ input StringNullableListFilter {
   isEmpty: Boolean
 }
 
+type Ticket {
+  _count: TicketCount!
+  auditLogs: [AuditLog!]
+  createdAt: DateTime!
+  createdBy: User!
+  createdById: String!
+  department: Department!
+  departmentId: String!
+  floor: String
+  id: ID!
+  message: String
+  missedAt: DateTime
+  remarks: String
+  screenshot: String
+  status: Status!
+  statusFormatted: String!
+  subject: String!
+  updatedAt: DateTime!
+  updatedBy: String
+}
+
+type TicketCount {
+  auditLogs: Int!
+}
+
+type TicketList {
+  data: [Ticket!]!
+  meta: Meta
+}
+
+input TicketListRelationFilter {
+  every: TicketWhereInput
+  none: TicketWhereInput
+  some: TicketWhereInput
+}
+
+input TicketNullableScalarRelationFilter {
+  is: TicketWhereInput
+  isNot: TicketWhereInput
+}
+
 type TicketStatusCount {
   count: Int!
   status: Status!
+}
+
+input TicketWhereInput {
+  AND: [TicketWhereInput!]
+  NOT: [TicketWhereInput!]
+  OR: [TicketWhereInput!]
+  auditLogs: AuditLogListRelationFilter
+  createdAt: DateTimeFilter
+  createdBy: UserScalarRelationFilter
+  createdById: StringFilter
+  department: DepartmentScalarRelationFilter
+  departmentId: StringFilter
+  floor: StringNullableFilter
+  id: StringFilter
+  message: StringNullableFilter
+  missedAt: DateTimeNullableFilter
+  remarks: StringNullableFilter
+  screenshot: StringNullableFilter
+  status: EnumStatusFilter
+  subject: StringFilter
+  updatedAt: DateTimeFilter
+  updatedBy: StringNullableFilter
 }
 
 input UpdateDepartmentInput {
@@ -598,8 +620,10 @@ input UpdateProfileInput {
 
 input UpdateTicketInput {
   createdById: String
+  departmentId: String
   floor: String
-  missedAt: DateTime!
+  message: String
+  missedAt: DateTime
   remarks: String
   screenshot: String
   status: Status
@@ -616,7 +640,6 @@ input UpdateUserInput {
 }
 
 type User {
-  MissedLogoutTicket: [MissedLogoutTicket!]
   _count: UserCount!
   auditLogs: [AuditLog!]
   createdAt: DateTime
@@ -630,13 +653,14 @@ type User {
   posts: [Posts!]
   profile: Profile
   role: [Role!]
+  tickets: [Ticket!]
   username: String!
 }
 
 type UserCount {
-  MissedLogoutTicket: Int!
   auditLogs: Int!
   posts: Int!
+  tickets: Int!
 }
 
 type UserList {
@@ -655,9 +679,13 @@ input UserNullableScalarRelationFilter {
   isNot: UserWhereInput
 }
 
+input UserScalarRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
 input UserWhereInput {
   AND: [UserWhereInput!]
-  MissedLogoutTicket: MissedLogoutTicketListRelationFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   auditLogs: AuditLogListRelationFilter
@@ -671,5 +699,6 @@ input UserWhereInput {
   posts: PostsListRelationFilter
   profile: ProfileNullableScalarRelationFilter
   role: EnumRoleNullableListFilter
+  tickets: TicketListRelationFilter
   username: StringFilter
 }

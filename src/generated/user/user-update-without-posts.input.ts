@@ -5,9 +5,9 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { UserUpdateroleInput } from './user-updaterole.input';
 import { ProfileUpdateOneWithoutUserNestedInput } from '../profile/profile-update-one-without-user-nested.input';
-import { MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput } from '../missed-logout-ticket/missed-logout-ticket-update-many-without-created-by-nested.input';
+import { TicketUpdateManyWithoutCreatedByNestedInput } from '../ticket/ticket-update-many-without-created-by-nested.input';
 import { AuditLogUpdateManyWithoutUserNestedInput } from '../audit-log/audit-log-update-many-without-user-nested.input';
-import { DepartmentUpdateOneWithoutProfilesNestedInput } from '../department/department-update-one-without-profiles-nested.input';
+import { DepartmentUpdateOneWithoutUsersNestedInput } from '../department/department-update-one-without-users-nested.input';
 
 @InputType()
 export class UserUpdateWithoutPostsInput {
@@ -36,12 +36,12 @@ export class UserUpdateWithoutPostsInput {
     @Field(() => ProfileUpdateOneWithoutUserNestedInput, {nullable:true})
     profile?: ProfileUpdateOneWithoutUserNestedInput;
 
-    @Field(() => MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput, {nullable:true})
-    MissedLogoutTicket?: MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput;
+    @Field(() => TicketUpdateManyWithoutCreatedByNestedInput, {nullable:true})
+    tickets?: TicketUpdateManyWithoutCreatedByNestedInput;
 
     @Field(() => AuditLogUpdateManyWithoutUserNestedInput, {nullable:true})
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput;
 
-    @Field(() => DepartmentUpdateOneWithoutProfilesNestedInput, {nullable:true})
-    department?: DepartmentUpdateOneWithoutProfilesNestedInput;
+    @Field(() => DepartmentUpdateOneWithoutUsersNestedInput, {nullable:true})
+    department?: DepartmentUpdateOneWithoutUsersNestedInput;
 }

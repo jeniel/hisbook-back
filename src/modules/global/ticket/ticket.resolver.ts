@@ -1,10 +1,17 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 
-import { MissedLogoutTicket } from '@/generated/missed-logout-ticket/missed-logout-ticket.model';
 import { GeneralMsg } from '@/shared/common/entities/general-msg.entities';
-import { MissedLogoutTicketArgs } from './args/ticket.args';
-import { MissedLogoutTicketList } from './entities/ticket.entity';
+import { TicketArgs } from './args/ticket.args';
+import { TicketList } from './entities/ticket.entity';
 
+import { Ticket } from '@/generated/ticket/ticket.model';
 import { CreateTicketInput } from './dto/create-ticket.input';
 import { UpdateTicketInput } from './dto/update-ticket.input';
 import { TicketService } from './ticket.service';
@@ -14,7 +21,7 @@ import { Role } from '@/generated/prisma/role.enum';
 import { CurrentUser } from '@/shared/common/decorator/currentUser.decorator';
 import { Roles } from '@/shared/common/decorator/roles.decorator';
 
-@Resolver(() => MissedLogoutTicket)
+@Resolver(() => Ticket)
 export class TicketResolver {
   constructor(private readonly ticketService: TicketService) {}
 
@@ -26,30 +33,37 @@ export class TicketResolver {
 
   // Find All
   @Roles([Role.ADMIN])
-  @Query(() => MissedLogoutTicketList)
-  async findAllTickets(@Args() args: MissedLogoutTicketArgs) {
+  @Query(() => TicketList)
+  async findAllTickets(@Args() args: TicketArgs) {
     return await this.ticketService.findAll(args);
   }
 
   // Find by ID
-  @Query(() => MissedLogoutTicket, { nullable: true })
+  @Query(() => Ticket, { nullable: true })
   findTicketbyID(@Args('id') id: string) {
     return this.ticketService.findById(id);
   }
 
   // Find Ticket by User
-  @Query(() => MissedLogoutTicketList)
-  findTicketsByUser(
-    @Args('userId') userId: string,
-    @Args() args: MissedLogoutTicketArgs,
-  ) {
+  @Query(() => TicketList)
+  findTicketsByUser(@Args('userId') userId: string, @Args() args: TicketArgs) {
     return this.ticketService.findByUser(userId, args);
   }
 
-  @Query(() => MissedLogoutTicketList)
+  // Find Ticket by Department
+  @Query(() => TicketList)
+  findTicketsByDepartment(
+    @Args('departmentId') departmentId: string,
+    @Args() args: TicketArgs,
+  ) {
+    return this.ticketService.findByDepartment(departmentId, args);
+  }
+
+  // Find Tickets Worked by User
+  @Query(() => TicketList)
   findTicketsWorkedByUser(
     @Args('userId') userId: string,
-    @Args() args: MissedLogoutTicketArgs,
+    @Args() args: TicketArgs,
   ) {
     return this.ticketService.findTicketsWorkedByUser(userId, args);
   }
@@ -70,5 +84,11 @@ export class TicketResolver {
   @Mutation(() => GeneralMsg)
   deleteTicket(@Args('id') id: string) {
     return this.ticketService.delete(id);
+  }
+
+  // 👇 Computed field for formatted status
+  @ResolveField(() => String)
+  statusFormatted(@Parent() ticket: Ticket): string {
+    return ticket.status.replace(/([a-z])([A-Z])/g, '$1 $2');
   }
 }

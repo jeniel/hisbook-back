@@ -6,9 +6,9 @@ import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-d
 import { UserUpdateroleInput } from './user-updaterole.input';
 import { ProfileUpdateOneWithoutUserNestedInput } from '../profile/profile-update-one-without-user-nested.input';
 import { PostsUpdateManyWithoutUserNestedInput } from '../posts/posts-update-many-without-user-nested.input';
-import { MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput } from '../missed-logout-ticket/missed-logout-ticket-update-many-without-created-by-nested.input';
+import { TicketUpdateManyWithoutCreatedByNestedInput } from '../ticket/ticket-update-many-without-created-by-nested.input';
 import { AuditLogUpdateManyWithoutUserNestedInput } from '../audit-log/audit-log-update-many-without-user-nested.input';
-import { DepartmentUpdateOneWithoutProfilesNestedInput } from '../department/department-update-one-without-profiles-nested.input';
+import { DepartmentUpdateOneWithoutUsersNestedInput } from '../department/department-update-one-without-users-nested.input';
 
 @InputType()
 export class UserUpdateInput {
@@ -40,12 +40,12 @@ export class UserUpdateInput {
     @Field(() => PostsUpdateManyWithoutUserNestedInput, {nullable:true})
     posts?: PostsUpdateManyWithoutUserNestedInput;
 
-    @Field(() => MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput, {nullable:true})
-    MissedLogoutTicket?: MissedLogoutTicketUpdateManyWithoutCreatedByNestedInput;
+    @Field(() => TicketUpdateManyWithoutCreatedByNestedInput, {nullable:true})
+    tickets?: TicketUpdateManyWithoutCreatedByNestedInput;
 
     @Field(() => AuditLogUpdateManyWithoutUserNestedInput, {nullable:true})
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput;
 
-    @Field(() => DepartmentUpdateOneWithoutProfilesNestedInput, {nullable:true})
-    department?: DepartmentUpdateOneWithoutProfilesNestedInput;
+    @Field(() => DepartmentUpdateOneWithoutUsersNestedInput, {nullable:true})
+    department?: DepartmentUpdateOneWithoutUsersNestedInput;
 }

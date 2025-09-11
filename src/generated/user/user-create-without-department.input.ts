@@ -3,7 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { UserCreateroleInput } from './user-createrole.input';
 import { ProfileCreateNestedOneWithoutUserInput } from '../profile/profile-create-nested-one-without-user.input';
 import { PostsCreateNestedManyWithoutUserInput } from '../posts/posts-create-nested-many-without-user.input';
-import { MissedLogoutTicketCreateNestedManyWithoutCreatedByInput } from '../missed-logout-ticket/missed-logout-ticket-create-nested-many-without-created-by.input';
+import { TicketCreateNestedManyWithoutCreatedByInput } from '../ticket/ticket-create-nested-many-without-created-by.input';
 import { AuditLogCreateNestedManyWithoutUserInput } from '../audit-log/audit-log-create-nested-many-without-user.input';
 
 @InputType()
@@ -36,8 +36,8 @@ export class UserCreateWithoutDepartmentInput {
     @Field(() => PostsCreateNestedManyWithoutUserInput, {nullable:true})
     posts?: PostsCreateNestedManyWithoutUserInput;
 
-    @Field(() => MissedLogoutTicketCreateNestedManyWithoutCreatedByInput, {nullable:true})
-    MissedLogoutTicket?: MissedLogoutTicketCreateNestedManyWithoutCreatedByInput;
+    @Field(() => TicketCreateNestedManyWithoutCreatedByInput, {nullable:true})
+    tickets?: TicketCreateNestedManyWithoutCreatedByInput;
 
     @Field(() => AuditLogCreateNestedManyWithoutUserInput, {nullable:true})
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput;

@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { UserCreateNestedOneWithoutAuditLogsInput } from '../user/user-create-nested-one-without-audit-logs.input';
-import { MissedLogoutTicketCreateNestedOneWithoutAuditLogsInput } from '../missed-logout-ticket/missed-logout-ticket-create-nested-one-without-audit-logs.input';
+import { TicketCreateNestedOneWithoutAuditLogsInput } from '../ticket/ticket-create-nested-one-without-audit-logs.input';
 
 @InputType()
 export class AuditLogCreateInput {
@@ -21,6 +21,6 @@ export class AuditLogCreateInput {
     @Field(() => UserCreateNestedOneWithoutAuditLogsInput, {nullable:true})
     user?: UserCreateNestedOneWithoutAuditLogsInput;
 
-    @Field(() => MissedLogoutTicketCreateNestedOneWithoutAuditLogsInput, {nullable:true})
-    ticket?: MissedLogoutTicketCreateNestedOneWithoutAuditLogsInput;
+    @Field(() => TicketCreateNestedOneWithoutAuditLogsInput, {nullable:true})
+    ticket?: TicketCreateNestedOneWithoutAuditLogsInput;
 }

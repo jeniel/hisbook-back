@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Status } from '@prisma/client';
 
 // Dto and Args
-import { MissedLogoutTicketArgs } from '@/modules/global/ticket/args/ticket.args';
+import { TicketArgs } from '@/modules/global/ticket/args/ticket.args';
 import { CreateTicketInput } from '@/modules/global/ticket/dto/create-ticket.input';
 import { UpdateTicketInput } from '@/modules/global/ticket/dto/update-ticket.input';
 
@@ -13,34 +13,36 @@ export class TicketService {
 
   // Create a new Ticket
   async create(dto: CreateTicketInput) {
-    const ticket = await this.prisma.missedLogoutTicket.create({
+    const ticket = await this.prisma.ticket.create({
       data: {
         subject: dto.subject,
         missedAt: dto.missedAt,
         floor: dto.floor,
         screenshot: dto.screenshot,
+        message: dto.message,
         status: dto.status as Status,
+        remarks: dto.remarks,
         updatedBy: dto.updatedBy,
         createdById: dto.createdById,
-        remarks: dto.remarks,
+        departmentId: dto.departmentId,
       },
     });
 
     return {
-      message: 'Missed logout ticket created successfully',
+      message: 'Ticket created successfully',
       data: ticket,
     };
   }
 
   // Find all Tickets
-  async findAll(args: MissedLogoutTicketArgs) {
+  async findAll(args: TicketArgs) {
     const page = args.page || 1;
     const perPage = args.perPage || 10;
     const skip = page > 0 ? perPage * (page - 1) : 0;
 
     const [total, data] = await Promise.all([
-      this.prisma.missedLogoutTicket.count({ where: args.where }),
-      this.prisma.missedLogoutTicket.findMany({
+      this.prisma.ticket.count({ where: args.where }),
+      this.prisma.ticket.findMany({
         where: args.where,
         orderBy: { createdAt: 'desc' },
         take: perPage,
@@ -70,7 +72,7 @@ export class TicketService {
 
   // Find a Ticket by ID
   async findById(id: string) {
-    const ticket = await this.prisma.missedLogoutTicket.findUnique({
+    const ticket = await this.prisma.ticket.findUnique({
       where: { id },
       include: {
         createdBy: {
@@ -94,7 +96,7 @@ export class TicketService {
   }
 
   // Find Tickets by User
-  async findByUser(userId: string, args: MissedLogoutTicketArgs) {
+  async findByUser(userId: string, args: TicketArgs) {
     const page = args.page || 1;
     const perPage = args.perPage || 10;
     const skip = page > 0 ? perPage * (page - 1) : 0;
@@ -105,8 +107,8 @@ export class TicketService {
     };
 
     const [total, data] = await Promise.all([
-      this.prisma.missedLogoutTicket.count({ where }),
-      this.prisma.missedLogoutTicket.findMany({
+      this.prisma.ticket.count({ where }),
+      this.prisma.ticket.findMany({
         where,
         orderBy: { createdAt: 'desc' },
         take: perPage,
@@ -134,22 +136,64 @@ export class TicketService {
     };
   }
 
+  // Find Ticket by Department
+  async findByDepartment(departmentId: string, args: TicketArgs) {
+    const page = args.page || 1;
+    const perPage = args.perPage || 10;
+    const skip = page > 0 ? perPage * (page - 1) : 0;
+
+    const where = {
+      ...args.where,
+      departmentId, // 👈 filter tickets by department
+    };
+
+    const [total, data] = await Promise.all([
+      this.prisma.ticket.count({ where }),
+      this.prisma.ticket.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        take: perPage,
+        skip,
+        include: {
+          createdBy: {
+            include: { profile: true },
+          },
+          department: true, // 👈 include department info
+        },
+      }),
+    ]);
+
+    const lastPage = Math.ceil(total / perPage);
+
+    return {
+      data,
+      meta: {
+        total,
+        lastPage,
+        currentPage: page,
+        perPage,
+        prev: page > 1 ? page - 1 : null,
+        next: page < lastPage ? page + 1 : null,
+      },
+    };
+  }
+
   // Find Tickets a User has worked on (via Audit Logs)
-  async findTicketsWorkedByUser(userId: string, args: MissedLogoutTicketArgs) {
+  async findTicketsWorkedByUser(userId: string, args: TicketArgs) {
     const page = args.page || 1;
     const perPage = args.perPage || 10;
     const skip = page > 0 ? perPage * (page - 1) : 0;
 
     // Count unique tickets where user has audit logs
     const [total, tickets] = await Promise.all([
-      this.prisma.missedLogoutTicket.count({
+      this.prisma.ticket.count({
         where: {
           auditLogs: {
             some: { userId },
           },
         },
       }),
-      this.prisma.missedLogoutTicket.findMany({
+      this.prisma.ticket.findMany({
         where: {
           auditLogs: {
             some: { userId },
@@ -191,7 +235,7 @@ export class TicketService {
 
   // Update a Ticket by id
   async update(id: string, dto: UpdateTicketInput, userId: string) {
-    await this.prisma.missedLogoutTicket.update({
+    await this.prisma.ticket.update({
       where: { id },
       data: {
         subject: dto.subject,
@@ -222,7 +266,7 @@ export class TicketService {
 
   // Delete a Ticket by id
   async delete(id: string) {
-    await this.prisma.missedLogoutTicket.delete({
+    await this.prisma.ticket.delete({
       where: { id },
     });
 

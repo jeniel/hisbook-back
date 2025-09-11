@@ -6,7 +6,7 @@ import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.inpu
 import { EnumRoleNullableListFilter } from '../prisma/enum-role-nullable-list-filter.input';
 import { ProfileNullableScalarRelationFilter } from '../profile/profile-nullable-scalar-relation-filter.input';
 import { PostsListRelationFilter } from '../posts/posts-list-relation-filter.input';
-import { MissedLogoutTicketListRelationFilter } from '../missed-logout-ticket/missed-logout-ticket-list-relation-filter.input';
+import { TicketListRelationFilter } from '../ticket/ticket-list-relation-filter.input';
 import { AuditLogListRelationFilter } from '../audit-log/audit-log-list-relation-filter.input';
 import { DepartmentNullableScalarRelationFilter } from '../department/department-nullable-scalar-relation-filter.input';
 
@@ -52,8 +52,8 @@ export class UserWhereInput {
     @Field(() => PostsListRelationFilter, {nullable:true})
     posts?: PostsListRelationFilter;
 
-    @Field(() => MissedLogoutTicketListRelationFilter, {nullable:true})
-    MissedLogoutTicket?: MissedLogoutTicketListRelationFilter;
+    @Field(() => TicketListRelationFilter, {nullable:true})
+    tickets?: TicketListRelationFilter;
 
     @Field(() => AuditLogListRelationFilter, {nullable:true})
     auditLogs?: AuditLogListRelationFilter;

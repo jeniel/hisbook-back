@@ -5,7 +5,7 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { UserUpdateroleInput } from './user-updaterole.input';
 import { PostsUncheckedUpdateManyWithoutUserNestedInput } from '../posts/posts-unchecked-update-many-without-user-nested.input';
-import { MissedLogoutTicketUncheckedUpdateManyWithoutCreatedByNestedInput } from '../missed-logout-ticket/missed-logout-ticket-unchecked-update-many-without-created-by-nested.input';
+import { TicketUncheckedUpdateManyWithoutCreatedByNestedInput } from '../ticket/ticket-unchecked-update-many-without-created-by-nested.input';
 import { AuditLogUncheckedUpdateManyWithoutUserNestedInput } from '../audit-log/audit-log-unchecked-update-many-without-user-nested.input';
 
 @InputType()
@@ -38,8 +38,8 @@ export class UserUncheckedUpdateWithoutProfileInput {
     @Field(() => PostsUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
     posts?: PostsUncheckedUpdateManyWithoutUserNestedInput;
 
-    @Field(() => MissedLogoutTicketUncheckedUpdateManyWithoutCreatedByNestedInput, {nullable:true})
-    MissedLogoutTicket?: MissedLogoutTicketUncheckedUpdateManyWithoutCreatedByNestedInput;
+    @Field(() => TicketUncheckedUpdateManyWithoutCreatedByNestedInput, {nullable:true})
+    tickets?: TicketUncheckedUpdateManyWithoutCreatedByNestedInput;
 
     @Field(() => AuditLogUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput;

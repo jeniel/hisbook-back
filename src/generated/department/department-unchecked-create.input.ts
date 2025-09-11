@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { UserUncheckedCreateNestedManyWithoutDepartmentInput } from '../user/user-unchecked-create-nested-many-without-department.input';
+import { TicketUncheckedCreateNestedManyWithoutDepartmentInput } from '../ticket/ticket-unchecked-create-nested-many-without-department.input';
 
 @InputType()
 export class DepartmentUncheckedCreateInput {
@@ -18,5 +19,8 @@ export class DepartmentUncheckedCreateInput {
     createdAt?: Date | string;
 
     @Field(() => UserUncheckedCreateNestedManyWithoutDepartmentInput, {nullable:true})
-    profiles?: UserUncheckedCreateNestedManyWithoutDepartmentInput;
+    users?: UserUncheckedCreateNestedManyWithoutDepartmentInput;
+
+    @Field(() => TicketUncheckedCreateNestedManyWithoutDepartmentInput, {nullable:true})
+    tickets?: TicketUncheckedCreateNestedManyWithoutDepartmentInput;
 }

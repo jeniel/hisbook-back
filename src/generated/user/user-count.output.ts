@@ -9,7 +9,7 @@ export class UserCount {
     posts?: number;
 
     @Field(() => Int, {nullable:false})
-    MissedLogoutTicket?: number;
+    tickets?: number;
 
     @Field(() => Int, {nullable:false})
     auditLogs?: number;

@@ -3,7 +3,9 @@ import { registerEnumType } from '@nestjs/graphql';
 export enum Status {
     Pending = "Pending",
     Approved = "Approved",
-    Completed = "Completed"
+    Completed = "Completed",
+    OnHold = "OnHold",
+    InProgress = "InProgress"
 }
 
 

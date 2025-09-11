@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { UserUpdateManyWithoutDepartmentNestedInput } from '../user/user-update-many-without-department-nested.input';
+import { TicketUpdateManyWithoutDepartmentNestedInput } from '../ticket/ticket-update-many-without-department-nested.input';
 
 @InputType()
 export class DepartmentUpdateInput {
@@ -20,5 +21,8 @@ export class DepartmentUpdateInput {
     createdAt?: DateTimeFieldUpdateOperationsInput;
 
     @Field(() => UserUpdateManyWithoutDepartmentNestedInput, {nullable:true})
-    profiles?: UserUpdateManyWithoutDepartmentNestedInput;
+    users?: UserUpdateManyWithoutDepartmentNestedInput;
+
+    @Field(() => TicketUpdateManyWithoutDepartmentNestedInput, {nullable:true})
+    tickets?: TicketUpdateManyWithoutDepartmentNestedInput;
 }

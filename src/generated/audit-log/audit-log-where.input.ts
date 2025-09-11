@@ -4,7 +4,7 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { UserNullableScalarRelationFilter } from '../user/user-nullable-scalar-relation-filter.input';
-import { MissedLogoutTicketNullableScalarRelationFilter } from '../missed-logout-ticket/missed-logout-ticket-nullable-scalar-relation-filter.input';
+import { TicketNullableScalarRelationFilter } from '../ticket/ticket-nullable-scalar-relation-filter.input';
 
 @InputType()
 export class AuditLogWhereInput {
@@ -39,6 +39,6 @@ export class AuditLogWhereInput {
     @Field(() => UserNullableScalarRelationFilter, {nullable:true})
     user?: UserNullableScalarRelationFilter;
 
-    @Field(() => MissedLogoutTicketNullableScalarRelationFilter, {nullable:true})
-    ticket?: MissedLogoutTicketNullableScalarRelationFilter;
+    @Field(() => TicketNullableScalarRelationFilter, {nullable:true})
+    ticket?: TicketNullableScalarRelationFilter;
 }

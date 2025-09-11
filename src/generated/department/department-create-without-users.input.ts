@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Int } from '@nestjs/graphql';
+import { TicketCreateNestedManyWithoutDepartmentInput } from '../ticket/ticket-create-nested-many-without-department.input';
 
 @InputType()
 export class DepartmentCreateWithoutUsersInput {
@@ -14,6 +14,9 @@ export class DepartmentCreateWithoutUsersInput {
     @Field(() => String, {nullable:false})
     description!: string;
 
-    @Field(() => Int, {nullable:true})
-    order?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
+    @Field(() => TicketCreateNestedManyWithoutDepartmentInput, {nullable:true})
+    tickets?: TicketCreateNestedManyWithoutDepartmentInput;
 }

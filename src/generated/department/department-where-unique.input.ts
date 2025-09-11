@@ -4,6 +4,7 @@ import { DepartmentWhereInput } from './department-where.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
+import { TicketListRelationFilter } from '../ticket/ticket-list-relation-filter.input';
 
 @InputType()
 export class DepartmentWhereUniqueInput {
@@ -30,5 +31,8 @@ export class DepartmentWhereUniqueInput {
     createdAt?: DateTimeFilter;
 
     @Field(() => UserListRelationFilter, {nullable:true})
-    profiles?: UserListRelationFilter;
+    users?: UserListRelationFilter;
+
+    @Field(() => TicketListRelationFilter, {nullable:true})
+    tickets?: TicketListRelationFilter;
 }

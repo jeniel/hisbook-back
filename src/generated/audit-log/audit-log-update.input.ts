@@ -4,7 +4,7 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { UserUpdateOneWithoutAuditLogsNestedInput } from '../user/user-update-one-without-audit-logs-nested.input';
-import { MissedLogoutTicketUpdateOneWithoutAuditLogsNestedInput } from '../missed-logout-ticket/missed-logout-ticket-update-one-without-audit-logs-nested.input';
+import { TicketUpdateOneWithoutAuditLogsNestedInput } from '../ticket/ticket-update-one-without-audit-logs-nested.input';
 
 @InputType()
 export class AuditLogUpdateInput {
@@ -24,6 +24,6 @@ export class AuditLogUpdateInput {
     @Field(() => UserUpdateOneWithoutAuditLogsNestedInput, {nullable:true})
     user?: UserUpdateOneWithoutAuditLogsNestedInput;
 
-    @Field(() => MissedLogoutTicketUpdateOneWithoutAuditLogsNestedInput, {nullable:true})
-    ticket?: MissedLogoutTicketUpdateOneWithoutAuditLogsNestedInput;
+    @Field(() => TicketUpdateOneWithoutAuditLogsNestedInput, {nullable:true})
+    ticket?: TicketUpdateOneWithoutAuditLogsNestedInput;
 }

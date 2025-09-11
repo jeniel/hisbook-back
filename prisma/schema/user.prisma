@@ -6,14 +6,14 @@ model User {
   /// @HideField()
   hashedPassword     String  @map("hashed_password")
   hashedRefreshToken String? @map("hashed_refresh_token")
-  createdAt  DateTime?  @default(now())
+  createdAt          DateTime?  @default(now())
 
   // Relations
   role               Role[]               @default([USER])
   profile            Profile?
   posts              Posts[]
-  MissedLogoutTicket MissedLogoutTicket[] @relation("CreatedBy")
-  auditLogs         AuditLog[]
+  tickets            Ticket[]             @relation("TicketCreatedBy")
+  auditLogs          AuditLog[]
 
   departmentId String?     @map("department_id")
   department   Department? @relation(fields: [departmentId], references: [id])
@@ -49,10 +49,11 @@ model Department {
   id          String @id @default(uuid())
   name        String @unique
   description String
-  createdAt  DateTime  @default(now())
+  createdAt   DateTime  @default(now())
 
   // Relations
-  profiles User[]
+  users   User[]
+  tickets Ticket[]
 
   @@map("department")
   @@schema("global")
@@ -85,36 +86,42 @@ model Posts {
   @@schema("global")
 }
 
-model MissedLogoutTicket {
-  id          String    @id @default(uuid())
-  subject     String?   // Subject of the Ticket
-  missedAt    DateTime? // Date and Time
-  floor       String?   // Example: "B1 Biometrics"
-  screenshot  String?   // Screenshot URL or path
-  status      Status?   @default(Pending) // Status of the Ticket
-  remarks     String?   // Any additional information
-  updatedBy   String?   // Who last updated the ticket
-  createdAt   DateTime  @default(now()) @map("created_at")
+model Ticket {
+  id          String     @id @default(uuid())
+  subject     String     // Short title of the ticket
+  missedAt    DateTime?  // Optional: for missed logout cases
+  floor       String?    // Optional: Example "B1 Biometrics"
+  screenshot  String?    // Optional: Screenshot URL or path
+  message     String?    // Detailed message/request
+  status      Status     @default(Pending)
+  remarks     String?
+  createdAt   DateTime   @default(now())
+  updatedBy String?
+  updatedAt   DateTime   @updatedAt
 
-  createdById String?
-  createdBy   User?     @relation("CreatedBy", fields: [createdById], references: [id])
+  // Relations
+  createdById String
+  createdBy   User        @relation("TicketCreatedBy", fields: [createdById], references: [id])
 
-  auditLogs   AuditLog[]
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
 
-  @@map("missedlogoutticket")
+  auditLogs    AuditLog[]
+
+  @@map("ticket")
   @@schema("global")
 }
 
 model AuditLog {
   id          String    @id @default(uuid())
-  action      String?    // Description of action (ex: "Updated status to Resolved")
+  action      String?   // Description of action (ex: "Updated status to Resolved")
   timestamp   DateTime  @default(now()) // Timestamp of the action
   updatedBy   String?   // User's name or identifier
   userId      String?   // ID of the user who performed the action
   user        User?     @relation(fields: [userId], references: [id])
 
   ticketId    String?
-  ticket      MissedLogoutTicket? @relation(fields: [ticketId], references: [id])
+  ticket      Ticket?   @relation(fields: [ticketId], references: [id])
 
   @@map("auditlog")
   @@schema("global")
@@ -124,6 +131,8 @@ enum Status {
   Pending
   Approved
   Completed
+  OnHold
+  InProgress
 
   @@schema("global")
 }

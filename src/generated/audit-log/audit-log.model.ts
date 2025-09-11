@@ -2,7 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { User } from '../user/user.model';
-import { MissedLogoutTicket } from '../missed-logout-ticket/missed-logout-ticket.model';
+import { Ticket } from '../ticket/ticket.model';
 
 @ObjectType()
 export class AuditLog {
@@ -28,6 +28,6 @@ export class AuditLog {
     @Field(() => User, {nullable:true})
     user?: User | null;
 
-    @Field(() => MissedLogoutTicket, {nullable:true})
-    ticket?: MissedLogoutTicket | null;
+    @Field(() => Ticket, {nullable:true})
+    ticket?: Ticket | null;
 }

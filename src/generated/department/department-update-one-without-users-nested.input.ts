@@ -34,7 +34,7 @@ export class DepartmentUpdateOneWithoutUsersNestedInput {
 
     @Field(() => DepartmentWhereUniqueInput, {nullable:true})
     @Type(() => DepartmentWhereUniqueInput)
-    connect?: Prisma.AtLeast<DepartmentWhereUniqueInput, 'id'>;
+    connect?: Prisma.AtLeast<DepartmentWhereUniqueInput, 'id' | 'name'>;
 
     @Field(() => DepartmentUpdateToOneWithWhereWithoutUsersInput, {nullable:true})
     @Type(() => DepartmentUpdateToOneWithWhereWithoutUsersInput)

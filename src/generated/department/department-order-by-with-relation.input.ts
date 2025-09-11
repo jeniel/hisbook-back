@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { UserOrderByRelationAggregateInput } from '../user/user-order-by-relation-aggregate.input';
+import { TicketOrderByRelationAggregateInput } from '../ticket/ticket-order-by-relation-aggregate.input';
 
 @InputType()
 export class DepartmentOrderByWithRelationInput {
@@ -19,5 +20,8 @@ export class DepartmentOrderByWithRelationInput {
     createdAt?: `${SortOrder}`;
 
     @Field(() => UserOrderByRelationAggregateInput, {nullable:true})
-    profiles?: UserOrderByRelationAggregateInput;
+    users?: UserOrderByRelationAggregateInput;
+
+    @Field(() => TicketOrderByRelationAggregateInput, {nullable:true})
+    tickets?: TicketOrderByRelationAggregateInput;
 }
