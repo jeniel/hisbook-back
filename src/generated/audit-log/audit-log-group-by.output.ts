@@ -13,6 +13,9 @@ export class AuditLogGroupBy {
     @Field(() => String, {nullable:true})
     action?: string;
 
+    @Field(() => String, {nullable:true})
+    remarks?: string;
+
     @Field(() => Date, {nullable:false})
     timestamp!: Date | string;
 

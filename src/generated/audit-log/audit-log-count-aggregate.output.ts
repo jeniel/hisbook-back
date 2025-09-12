@@ -12,6 +12,9 @@ export class AuditLogCountAggregate {
     action!: number;
 
     @Field(() => Int, {nullable:false})
+    remarks!: number;
+
+    @Field(() => Int, {nullable:false})
     timestamp!: number;
 
     @Field(() => Int, {nullable:false})

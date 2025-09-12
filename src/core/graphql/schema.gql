@@ -5,6 +5,7 @@
 type AuditLog {
   action: String
   id: ID!
+  remarks: String
   ticket: Ticket
   ticketId: String
   timestamp: DateTime!
@@ -25,6 +26,7 @@ input AuditLogWhereInput {
   OR: [AuditLogWhereInput!]
   action: StringNullableFilter
   id: StringFilter
+  remarks: StringNullableFilter
   ticket: TicketNullableScalarRelationFilter
   ticketId: StringNullableFilter
   timestamp: DateTimeFilter

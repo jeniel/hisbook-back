@@ -11,6 +11,9 @@ export class AuditLogCountAggregateInput {
     action?: true;
 
     @Field(() => Boolean, {nullable:true})
+    remarks?: true;
+
+    @Field(() => Boolean, {nullable:true})
     timestamp?: true;
 
     @Field(() => Boolean, {nullable:true})

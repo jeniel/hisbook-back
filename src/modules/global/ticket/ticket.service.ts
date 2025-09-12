@@ -51,6 +51,7 @@ export class TicketService {
           createdBy: {
             include: { profile: true },
           },
+          department: true, // 👈 include department info
         },
       }),
     ]);
@@ -117,6 +118,7 @@ export class TicketService {
           createdBy: {
             include: { profile: true },
           },
+          department: true,
         },
       }),
     ]);
@@ -245,6 +247,7 @@ export class TicketService {
         status: dto.status as Status,
         updatedBy: dto.updatedBy,
         remarks: dto.remarks,
+        departmentId: dto.departmentId,
       },
     });
 
@@ -252,6 +255,7 @@ export class TicketService {
     await this.prisma.auditLog.create({
       data: {
         action: `Ticket updated: ${dto.status ?? 'No status change'}`, // customize message
+        remarks: dto.remarks,
         updatedBy: dto.updatedBy, // or currentUser.username
         userId: userId, // who did the action
         ticketId: id,

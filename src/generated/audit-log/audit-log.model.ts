@@ -13,6 +13,9 @@ export class AuditLog {
     @Field(() => String, {nullable:true})
     action!: string | null;
 
+    @Field(() => String, {nullable:true})
+    remarks!: string | null;
+
     @Field(() => Date, {nullable:false})
     timestamp!: Date;
 

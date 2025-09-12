@@ -12,6 +12,9 @@ export class AuditLogMinOrderByAggregateInput {
     action?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    remarks?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     timestamp?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})

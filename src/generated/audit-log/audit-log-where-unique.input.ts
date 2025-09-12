@@ -24,6 +24,9 @@ export class AuditLogWhereUniqueInput {
     @Field(() => StringNullableFilter, {nullable:true})
     action?: StringNullableFilter;
 
+    @Field(() => StringNullableFilter, {nullable:true})
+    remarks?: StringNullableFilter;
+
     @Field(() => DateTimeFilter, {nullable:true})
     timestamp?: DateTimeFilter;
 

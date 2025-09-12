@@ -15,6 +15,9 @@ export class AuditLogUpdateInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     action?: NullableStringFieldUpdateOperationsInput;
 
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    remarks?: NullableStringFieldUpdateOperationsInput;
+
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     timestamp?: DateTimeFieldUpdateOperationsInput;
 

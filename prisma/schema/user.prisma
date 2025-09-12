@@ -115,6 +115,7 @@ model Ticket {
 model AuditLog {
   id          String    @id @default(uuid())
   action      String?   // Description of action (ex: "Updated status to Resolved")
+  remarks String?
   timestamp   DateTime  @default(now()) // Timestamp of the action
   updatedBy   String?   // User's name or identifier
   userId      String?   // ID of the user who performed the action

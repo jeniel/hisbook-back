@@ -14,6 +14,9 @@ export class AuditLogOrderByWithRelationInput {
     @Field(() => SortOrderInput, {nullable:true})
     action?: SortOrderInput;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    remarks?: SortOrderInput;
+
     @Field(() => SortOrder, {nullable:true})
     timestamp?: `${SortOrder}`;
 

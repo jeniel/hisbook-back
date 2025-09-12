@@ -11,6 +11,9 @@ export class AuditLogCreateWithoutUserInput {
     @Field(() => String, {nullable:true})
     action?: string;
 
+    @Field(() => String, {nullable:true})
+    remarks?: string;
+
     @Field(() => Date, {nullable:true})
     timestamp?: Date | string;
 
