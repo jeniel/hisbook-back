@@ -17,5 +17,5 @@ RUN yarn build
 
 EXPOSE 3001
 
-# Run migrations, seed (optional), then start app
-CMD sh -c "npx prisma migrate deploy && yarn start:prod"
+# Seed DB & start app at runtime
+CMD ["yarn", "start:prod"]
