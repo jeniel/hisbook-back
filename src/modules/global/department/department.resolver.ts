@@ -26,7 +26,6 @@ export class DepartmentResolver {
 
   // Find All
   @Query(() => DepartmentList)
-  @Roles([Role.ADMIN])
   async findAllDepartments(@Args() args: DepartmentArgs) {
     return await this.departmentService.findAll(args);
   }
