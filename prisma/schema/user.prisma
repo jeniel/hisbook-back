@@ -50,6 +50,7 @@ model Department {
   name        String @unique
   description String
   createdAt   DateTime  @default(now())
+  isSupport  Boolean   @default(false) @map("is_support")
 
   // Relations
   users   User[]
