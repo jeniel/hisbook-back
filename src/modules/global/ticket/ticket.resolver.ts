@@ -19,6 +19,7 @@ import { TicketService } from './ticket.service';
 // Import Roles
 import { Role } from '@/generated/prisma/role.enum';
 import { CurrentUser } from '@/shared/common/decorator/currentUser.decorator';
+import { CurrentUserId } from '@/shared/common/decorator/currentUserId.decorator';
 import { Roles } from '@/shared/common/decorator/roles.decorator';
 
 @Resolver(() => Ticket)
@@ -53,8 +54,9 @@ export class TicketResolver {
   // Find Ticket by Department
   @Query(() => TicketList)
   findTicketsByDepartment(
-    @Args('departmentId') departmentId: string,
+    // @Args('departmentId') departmentId: string,
     @Args() args: TicketArgs,
+    @CurrentUserId() departmentId: string,
   ) {
     return this.ticketService.findByDepartment(departmentId, args);
   }

@@ -432,7 +432,7 @@ type Query {
   findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
   findProfile(id: String!): Profile!
   findTicketbyID(id: String!): Ticket
-  findTicketsByDepartment(departmentId: String!, page: Int, perPage: Int, search: String, where: TicketWhereInput): TicketList!
+  findTicketsByDepartment(page: Int, perPage: Int, search: String, where: TicketWhereInput): TicketList!
   findTicketsByUser(page: Int, perPage: Int, search: String, userId: String!, where: TicketWhereInput): TicketList!
   findTicketsWorkedByUser(page: Int, perPage: Int, search: String, userId: String!, where: TicketWhereInput): TicketList!
   getCensusSummary(userId: String): CensusSummary!
