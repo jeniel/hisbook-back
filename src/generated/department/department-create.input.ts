@@ -18,6 +18,9 @@ export class DepartmentCreateInput {
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
+    @Field(() => Boolean, {nullable:true})
+    isSupport?: boolean;
+
     @Field(() => UserCreateNestedManyWithoutDepartmentInput, {nullable:true})
     users?: UserCreateNestedManyWithoutDepartmentInput;
 

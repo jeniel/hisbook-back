@@ -35,6 +35,11 @@ input AuditLogWhereInput {
   userId: StringNullableFilter
 }
 
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
 type CensusSummary {
   departmentsWithUserCount: [DepartmentUserCount!]!
   ticketByUserId: [TicketStatusCount!]
@@ -134,6 +139,7 @@ type Department {
   createdAt: DateTime!
   description: String!
   id: ID!
+  isSupport: Boolean!
   name: String!
   tickets: [Ticket!]
   users: [User!]
@@ -142,6 +148,12 @@ type Department {
 type DepartmentCount {
   tickets: Int!
   users: Int!
+}
+
+type DepartmentDropdown {
+  description: String!
+  id: String!
+  name: String!
 }
 
 type DepartmentList {
@@ -173,6 +185,7 @@ input DepartmentWhereInput {
   createdAt: DateTimeFilter
   description: StringFilter
   id: StringFilter
+  isSupport: BoolFilter
   name: StringFilter
   tickets: TicketListRelationFilter
   users: UserListRelationFilter
@@ -275,6 +288,11 @@ type Mutation {
   updateProfile(id: String!, payload: UpdateProfileInput!): GeneralMsg!
   updateTicket(id: String!, payload: UpdateTicketInput!): GeneralMsg!
   updateUser(id: String!, payload: UpdateUserInput!): GeneralMsg!
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
 }
 
 input NestedDateTimeFilter {
@@ -425,6 +443,7 @@ input ProfileWhereInput {
 type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
   findAllEvents(page: Int, perPage: Int, where: EventWhereInput): EventList!
+  findAllForDropdown: [DepartmentDropdown!]!
   findAllPosts(page: Int, perPage: Int, userId: String, where: PostsWhereInput): PostsList!
   findAllPostsCreatedByUser(page: Float, perPage: Float, userId: String!, where: PostsWhereInput): PostsList!
   findAllProfiles(page: Int, perPage: Int, where: ProfileWhereInput): ProfileList!

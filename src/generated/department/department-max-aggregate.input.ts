@@ -15,4 +15,7 @@ export class DepartmentMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     createdAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    isSupport?: true;
 }

@@ -4,7 +4,8 @@ export enum DepartmentScalarFieldEnum {
     id = "id",
     name = "name",
     description = "description",
-    createdAt = "createdAt"
+    createdAt = "createdAt",
+    isSupport = "isSupport"
 }
 
 

@@ -20,6 +20,9 @@ export class Department {
     @Field(() => Date, {nullable:false})
     createdAt!: Date;
 
+    @Field(() => Boolean, {defaultValue:false,nullable:false})
+    isSupport!: boolean;
+
     @Field(() => [User], {nullable:true})
     users?: Array<User>;
 

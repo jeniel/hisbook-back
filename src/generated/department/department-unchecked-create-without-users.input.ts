@@ -17,6 +17,9 @@ export class DepartmentUncheckedCreateWithoutUsersInput {
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
+    @Field(() => Boolean, {nullable:true})
+    isSupport?: boolean;
+
     @Field(() => TicketUncheckedCreateNestedManyWithoutDepartmentInput, {nullable:true})
     tickets?: TicketUncheckedCreateNestedManyWithoutDepartmentInput;
 }

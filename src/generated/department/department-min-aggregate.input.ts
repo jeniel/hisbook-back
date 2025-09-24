@@ -15,4 +15,7 @@ export class DepartmentMinAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     createdAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    isSupport?: true;
 }

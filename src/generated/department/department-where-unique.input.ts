@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { DepartmentWhereInput } from './department-where.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
+import { BoolFilter } from '../prisma/bool-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 import { TicketListRelationFilter } from '../ticket/ticket-list-relation-filter.input';
 
@@ -29,6 +30,9 @@ export class DepartmentWhereUniqueInput {
 
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;
+
+    @Field(() => BoolFilter, {nullable:true})
+    isSupport?: BoolFilter;
 
     @Field(() => UserListRelationFilter, {nullable:true})
     users?: UserListRelationFilter;

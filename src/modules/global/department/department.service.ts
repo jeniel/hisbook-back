@@ -35,7 +35,7 @@ export class DepartmentService {
       this.prisma.department.count({ where: args.where }),
       this.prisma.department.findMany({
         where: args.where,
-        orderBy: { createdAt: 'asc' },
+        orderBy: { name: 'asc' },
         take: perPage,
         skip,
       }),
@@ -54,6 +54,13 @@ export class DepartmentService {
         next: page < lastPage ? page + 1 : null,
       },
     };
+  }
+
+  async findAllForDropdown() {
+    return this.prisma.department.findMany({
+      orderBy: { name: 'asc' },
+      select: { id: true, name: true, description: true },
+    });
   }
 
   // Update Department

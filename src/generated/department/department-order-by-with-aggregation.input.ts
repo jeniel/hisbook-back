@@ -20,6 +20,9 @@ export class DepartmentOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
 
+    @Field(() => SortOrder, {nullable:true})
+    isSupport?: `${SortOrder}`;
+
     @Field(() => DepartmentCountOrderByAggregateInput, {nullable:true})
     _count?: DepartmentCountOrderByAggregateInput;
 

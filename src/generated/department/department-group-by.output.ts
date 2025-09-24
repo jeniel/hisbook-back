@@ -19,6 +19,9 @@ export class DepartmentGroupBy {
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
 
+    @Field(() => Boolean, {nullable:false})
+    isSupport!: boolean;
+
     @Field(() => DepartmentCountAggregate, {nullable:true})
     _count?: DepartmentCountAggregate;
 

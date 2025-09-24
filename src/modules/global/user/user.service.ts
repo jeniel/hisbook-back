@@ -58,10 +58,7 @@ export class UserService {
           profile: true,
           department: true,
         },
-        orderBy: [
-          { profile: { lastName: 'desc' } },
-          { profile: { firstName: 'desc' } },
-        ],
+        orderBy: [{ profile: { lastName: 'asc' } }],
       }),
     ]);
 

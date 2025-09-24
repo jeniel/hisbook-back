@@ -15,4 +15,7 @@ export class DepartmentCreateManyInput {
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
+
+    @Field(() => Boolean, {nullable:true})
+    isSupport?: boolean;
 }
