@@ -41,6 +41,9 @@ export class TicketGroupBy {
     @Field(() => Date, {nullable:false})
     updatedAt!: Date | string;
 
+    @Field(() => Date, {nullable:true})
+    deletedAt?: Date | string;
+
     @Field(() => String, {nullable:false})
     createdById!: string;
 

@@ -55,6 +55,9 @@ export class TicketWhereUniqueInput {
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
 
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    deletedAt?: DateTimeNullableFilter;
+
     @Field(() => StringFilter, {nullable:true})
     createdById?: StringFilter;
 

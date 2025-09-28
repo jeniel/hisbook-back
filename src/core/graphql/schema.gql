@@ -550,6 +550,7 @@ type Ticket {
   createdAt: DateTime!
   createdBy: User!
   createdById: String!
+  deletedAt: DateTime
   department: Department!
   departmentId: String!
   floor: String
@@ -598,6 +599,7 @@ input TicketWhereInput {
   createdAt: DateTimeFilter
   createdBy: UserScalarRelationFilter
   createdById: StringFilter
+  deletedAt: DateTimeNullableFilter
   department: DepartmentScalarRelationFilter
   departmentId: StringFilter
   floor: StringNullableFilter

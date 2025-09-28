@@ -12,6 +12,7 @@ export enum TicketScalarFieldEnum {
     createdAt = "createdAt",
     updatedBy = "updatedBy",
     updatedAt = "updatedAt",
+    deletedAt = "deletedAt",
     createdById = "createdById",
     departmentId = "departmentId"
 }

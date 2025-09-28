@@ -39,6 +39,9 @@ export class TicketMinOrderByAggregateInput {
     updatedAt?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    deletedAt?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     createdById?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})

@@ -42,6 +42,9 @@ export class TicketOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: `${SortOrder}`;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    deletedAt?: SortOrderInput;
+
     @Field(() => SortOrder, {nullable:true})
     createdById?: `${SortOrder}`;
 

@@ -39,6 +39,9 @@ export class TicketCountAggregate {
     updatedAt!: number;
 
     @Field(() => Int, {nullable:false})
+    deletedAt!: number;
+
+    @Field(() => Int, {nullable:false})
     createdById!: number;
 
     @Field(() => Int, {nullable:false})
