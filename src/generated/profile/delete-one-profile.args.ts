@@ -9,5 +9,5 @@ export class DeleteOneProfileArgs {
 
     @Field(() => ProfileWhereUniqueInput, {nullable:false})
     @Type(() => ProfileWhereUniqueInput)
-    where!: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'employeeID' | 'userId'>;
+    where!: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
 }

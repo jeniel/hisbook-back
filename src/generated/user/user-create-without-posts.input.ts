@@ -27,6 +27,9 @@ export class UserCreateWithoutPostsInput {
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
+    @Field(() => Date, {nullable:true})
+    deletedAt?: Date | string;
+
     @Field(() => UserCreateroleInput, {nullable:true})
     role?: UserCreateroleInput;
 

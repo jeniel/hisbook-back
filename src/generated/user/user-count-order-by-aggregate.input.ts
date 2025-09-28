@@ -24,6 +24,9 @@ export class UserCountOrderByAggregateInput {
     createdAt?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    deletedAt?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     role?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})

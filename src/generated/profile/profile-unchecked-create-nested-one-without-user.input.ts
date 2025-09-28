@@ -19,5 +19,5 @@ export class ProfileUncheckedCreateNestedOneWithoutUserInput {
 
     @Field(() => ProfileWhereUniqueInput, {nullable:true})
     @Type(() => ProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'employeeID' | 'userId'>;
+    connect?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
 }

@@ -7,6 +7,7 @@ model User {
   hashedPassword     String  @map("hashed_password")
   hashedRefreshToken String? @map("hashed_refresh_token")
   createdAt          DateTime?  @default(now())
+  deletedAt   DateTime?
 
   // Relations
   role               Role[]               @default([USER])
@@ -33,7 +34,7 @@ model Profile {
   address    String?
   contact    String?
   avatar     String?
-  employeeID String? @unique @map("employee_id")
+  employeeID String?  @map("employee_id")
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @default(now()) @updatedAt @map("updated_at")
 
@@ -50,7 +51,7 @@ model Department {
   name        String   @unique
   description String
   createdAt   DateTime @default(now())
-  deletedAt   DateTime? // Soft delete
+  deletedAt   DateTime?
   isSupport   Boolean  @default(false) @map("is_support")
 
   users   User[]

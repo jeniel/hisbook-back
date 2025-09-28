@@ -74,6 +74,11 @@ export class AuthService {
 
     if (!user) throw new ForbiddenException('Username not registered');
 
+    // Check for soft-deleted account
+    if (user.deletedAt) {
+      throw new ForbiddenException('This account has been deleted');
+    }
+
     const pwMatches = await argon.verify(
       user.hashedPassword,
       signInInput.password,

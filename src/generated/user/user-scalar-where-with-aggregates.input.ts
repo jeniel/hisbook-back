@@ -35,6 +35,9 @@ export class UserScalarWhereWithAggregatesInput {
     @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
     createdAt?: DateTimeNullableWithAggregatesFilter;
 
+    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
+    deletedAt?: DateTimeNullableWithAggregatesFilter;
+
     @Field(() => EnumRoleNullableListFilter, {nullable:true})
     role?: EnumRoleNullableListFilter;
 

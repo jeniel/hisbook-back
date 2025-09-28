@@ -14,9 +14,6 @@ export class ProfileWhereUniqueInput {
     id?: string;
 
     @Field(() => String, {nullable:true})
-    employeeID?: string;
-
-    @Field(() => String, {nullable:true})
     userId?: string;
 
     @Field(() => [ProfileWhereInput], {nullable:true})
@@ -54,6 +51,9 @@ export class ProfileWhereUniqueInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     avatar?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    employeeID?: StringNullableFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;

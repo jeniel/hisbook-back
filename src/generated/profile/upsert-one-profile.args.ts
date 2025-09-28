@@ -11,7 +11,7 @@ export class UpsertOneProfileArgs {
 
     @Field(() => ProfileWhereUniqueInput, {nullable:false})
     @Type(() => ProfileWhereUniqueInput)
-    where!: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'employeeID' | 'userId'>;
+    where!: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
 
     @Field(() => ProfileCreateInput, {nullable:false})
     @Type(() => ProfileCreateInput)

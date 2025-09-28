@@ -24,5 +24,8 @@ export class UserMinOrderByAggregateInput {
     createdAt?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    deletedAt?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     departmentId?: `${SortOrder}`;
 }

@@ -23,6 +23,9 @@ export class UserMaxAggregate {
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
+    @Field(() => Date, {nullable:true})
+    deletedAt?: Date | string;
+
     @Field(() => String, {nullable:true})
     departmentId?: string;
 }

@@ -455,7 +455,7 @@ type Query {
   findAllPostsCreatedByUser(page: Float, perPage: Float, userId: String!, where: PostsWhereInput): PostsList!
   findAllProfiles(page: Int, perPage: Int, where: ProfileWhereInput): ProfileList!
   findAllTickets(page: Int, perPage: Int, search: String, where: TicketWhereInput): TicketList!
-  findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
+  findAllUsers(employeeID: String, page: Int, perPage: Int, search: String, where: UserWhereInput): UserList!
   findProfile(id: String!): Profile!
   findTicketbyID(id: String!): Ticket
   findTicketsByDepartment(page: Int, perPage: Int, search: String, where: TicketWhereInput): TicketList!
@@ -672,6 +672,7 @@ type User {
   _count: UserCount!
   auditLogs: [AuditLog!]
   createdAt: DateTime
+  deletedAt: DateTime
   department: Department
   departmentId: String
 
@@ -719,6 +720,7 @@ input UserWhereInput {
   OR: [UserWhereInput!]
   auditLogs: AuditLogListRelationFilter
   createdAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
   department: DepartmentNullableScalarRelationFilter
   departmentId: StringNullableFilter
   email: StringNullableFilter

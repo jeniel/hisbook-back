@@ -23,5 +23,8 @@ export class UserMinAggregateInput {
     createdAt?: true;
 
     @Field(() => Boolean, {nullable:true})
+    deletedAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
     departmentId?: true;
 }

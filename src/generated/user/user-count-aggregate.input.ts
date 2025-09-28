@@ -23,6 +23,9 @@ export class UserCountAggregateInput {
     createdAt?: true;
 
     @Field(() => Boolean, {nullable:true})
+    deletedAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
     role?: true;
 
     @Field(() => Boolean, {nullable:true})
