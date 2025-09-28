@@ -25,4 +25,7 @@ export class Event {
 
     @Field(() => Date, {nullable:false})
     createdAt!: Date;
+
+    @Field(() => Date, {nullable:true})
+    deletedAt!: Date | null;
 }

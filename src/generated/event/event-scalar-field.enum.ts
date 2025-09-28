@@ -7,7 +7,8 @@ export enum EventScalarFieldEnum {
     endDate = "endDate",
     location = "location",
     detailsUrl = "detailsUrl",
-    createdAt = "createdAt"
+    createdAt = "createdAt",
+    deletedAt = "deletedAt"
 }
 
 

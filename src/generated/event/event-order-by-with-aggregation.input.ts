@@ -30,6 +30,9 @@ export class EventOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    deletedAt?: SortOrderInput;
+
     @Field(() => EventCountOrderByAggregateInput, {nullable:true})
     _count?: EventCountOrderByAggregateInput;
 

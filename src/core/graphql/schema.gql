@@ -215,6 +215,7 @@ input EnumStatusFilter {
 
 type Event {
   createdAt: DateTime!
+  deletedAt: DateTime
   detailsUrl: String
   endDate: DateTime
   id: ID!
@@ -233,6 +234,7 @@ input EventWhereInput {
   NOT: [EventWhereInput!]
   OR: [EventWhereInput!]
   createdAt: DateTimeFilter
+  deletedAt: DateTimeNullableFilter
   detailsUrl: StringNullableFilter
   endDate: DateTimeNullableFilter
   id: StringFilter
@@ -442,7 +444,7 @@ input ProfileWhereInput {
 
 type Query {
   findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
-  findAllEvents(page: Int, perPage: Int, where: EventWhereInput): EventList!
+  findAllEvents(page: Int, perPage: Int, search: String, where: EventWhereInput): EventList!
   findAllForDropdown: [DepartmentDropdown!]!
   findAllPosts(page: Int, perPage: Int, userId: String, where: PostsWhereInput): PostsList!
   findAllPostsCreatedByUser(page: Float, perPage: Float, userId: String!, where: PostsWhereInput): PostsList!
