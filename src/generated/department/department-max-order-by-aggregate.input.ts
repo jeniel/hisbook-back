@@ -18,5 +18,8 @@ export class DepartmentMaxOrderByAggregateInput {
     createdAt?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    deletedAt?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     isSupport?: `${SortOrder}`;
 }

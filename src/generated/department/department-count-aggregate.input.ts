@@ -17,6 +17,9 @@ export class DepartmentCountAggregateInput {
     createdAt?: true;
 
     @Field(() => Boolean, {nullable:true})
+    deletedAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
     isSupport?: true;
 
     @Field(() => Boolean, {nullable:true})

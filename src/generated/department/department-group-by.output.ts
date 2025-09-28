@@ -19,6 +19,9 @@ export class DepartmentGroupBy {
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
 
+    @Field(() => Date, {nullable:true})
+    deletedAt?: Date | string;
+
     @Field(() => Boolean, {nullable:false})
     isSupport!: boolean;
 

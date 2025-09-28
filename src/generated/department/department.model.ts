@@ -20,6 +20,9 @@ export class Department {
     @Field(() => Date, {nullable:false})
     createdAt!: Date;
 
+    @Field(() => Date, {nullable:true})
+    deletedAt!: Date | null;
+
     @Field(() => Boolean, {defaultValue:false,nullable:false})
     isSupport!: boolean;
 

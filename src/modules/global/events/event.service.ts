@@ -13,13 +13,7 @@ export class EventService {
   // Create Event
   async create(dto: CreateEventInput) {
     const event = await this.prisma.event.create({
-      data: {
-        title: dto.title,
-        startDate: dto.startDate,
-        endDate: dto.endDate,
-        location: dto.location,
-        detailsUrl: dto.detailsUrl,
-      },
+      data: dto,
     });
 
     return {

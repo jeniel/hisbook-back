@@ -10,4 +10,7 @@ export class DepartmentDropdown {
 
   @Field()
   description: string;
+
+  @Field({ nullable: true })
+  isSupport?: boolean;
 }

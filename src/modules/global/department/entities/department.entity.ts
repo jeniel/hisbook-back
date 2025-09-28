@@ -9,4 +9,7 @@ export class DepartmentList {
 
   @Field(() => Meta, { nullable: true })
   meta: Meta;
+
+  @Field()
+  isSupport: boolean;
 }

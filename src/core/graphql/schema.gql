@@ -53,7 +53,8 @@ type CensusSummary {
 }
 
 input CreateDepartmentInput {
-  description: String
+  description: String!
+  isSupport: Boolean
   name: String!
 }
 
@@ -137,6 +138,7 @@ input DateTimeNullableFilter {
 type Department {
   _count: DepartmentCount!
   createdAt: DateTime!
+  deletedAt: DateTime
   description: String!
   id: ID!
   isSupport: Boolean!
@@ -153,11 +155,13 @@ type DepartmentCount {
 type DepartmentDropdown {
   description: String!
   id: String!
+  isSupport: Boolean
   name: String!
 }
 
 type DepartmentList {
   data: [Department!]!
+  isSupport: Boolean!
   meta: Meta
 }
 
@@ -183,6 +187,7 @@ input DepartmentWhereInput {
   NOT: [DepartmentWhereInput!]
   OR: [DepartmentWhereInput!]
   createdAt: DateTimeFilter
+  deletedAt: DateTimeNullableFilter
   description: StringFilter
   id: StringFilter
   isSupport: BoolFilter
@@ -443,7 +448,7 @@ input ProfileWhereInput {
 }
 
 type Query {
-  findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
+  findAllDepartments(page: Int, perPage: Int, search: String, where: DepartmentWhereInput): DepartmentList!
   findAllEvents(page: Int, perPage: Int, search: String, where: EventWhereInput): EventList!
   findAllForDropdown: [DepartmentDropdown!]!
   findAllPosts(page: Int, perPage: Int, userId: String, where: PostsWhereInput): PostsList!
@@ -609,6 +614,7 @@ input TicketWhereInput {
 
 input UpdateDepartmentInput {
   description: String
+  isSupport: Boolean
   name: String!
 }
 

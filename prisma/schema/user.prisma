@@ -46,13 +46,13 @@ model Profile {
 }
 
 model Department {
-  id          String @id @default(uuid())
-  name        String @unique
+  id          String   @id @default(uuid())
+  name        String   @unique
   description String
-  createdAt   DateTime  @default(now())
-  isSupport  Boolean   @default(false) @map("is_support")
+  createdAt   DateTime @default(now())
+  deletedAt   DateTime? // Soft delete
+  isSupport   Boolean  @default(false) @map("is_support")
 
-  // Relations
   users   User[]
   tickets Ticket[]
 

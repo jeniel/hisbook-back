@@ -10,6 +10,9 @@ export class DepartmentArgs {
   @Field(() => Int, { nullable: true })
   perPage?: number;
 
+  @Field(() => String, { nullable: true })
+  search?: string;
+
   @Field(() => DepartmentWhereInput, { nullable: true })
   @Type(() => DepartmentWhereInput)
   where?: DepartmentWhereInput;
