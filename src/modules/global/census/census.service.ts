@@ -18,7 +18,11 @@ export class CensusService {
     });
 
     // Total Tickets
-    const totalTickets = await this.prisma.ticket.count();
+    const totalTickets = await this.prisma.ticket.count({
+      where: {
+        deletedAt: null, // this excludes soft-deleted users
+      },
+    });
 
     // Total Posts
     const totalPosts = await this.prisma.posts.count();

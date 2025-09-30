@@ -14,18 +14,7 @@ export class TicketService {
   // Create a new Ticket
   async create(dto: CreateTicketInput) {
     const ticket = await this.prisma.ticket.create({
-      data: {
-        subject: dto.subject,
-        missedAt: dto.missedAt,
-        floor: dto.floor,
-        screenshot: dto.screenshot,
-        message: dto.message,
-        status: dto.status as Status,
-        remarks: dto.remarks,
-        updatedBy: dto.updatedBy,
-        createdById: dto.createdById,
-        departmentId: dto.departmentId,
-      },
+      data: dto,
     });
 
     return {
@@ -41,6 +30,25 @@ export class TicketService {
           OR: [
             { subject: { contains: args.search, mode: 'insensitive' } },
             { message: { contains: args.search, mode: 'insensitive' } },
+            {
+              createdBy: {
+                username: { contains: args.search, mode: 'insensitive' },
+              },
+            },
+            {
+              createdBy: {
+                profile: {
+                  firstName: { contains: args.search, mode: 'insensitive' },
+                },
+              },
+            },
+            {
+              createdBy: {
+                profile: {
+                  lastName: { contains: args.search, mode: 'insensitive' },
+                },
+              },
+            },
           ],
         }
       : {};
