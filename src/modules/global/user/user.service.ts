@@ -74,11 +74,6 @@ export class UserService {
               lastName: { contains: args.search, mode: 'insensitive' },
             },
           },
-          {
-            employeeId: {
-              lastName: { contains: args.search, mode: 'insensitive' },
-            },
-          },
         ],
       };
     }
