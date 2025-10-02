@@ -22,20 +22,20 @@ export class UserService {
   async createUser(dto: CreateUserInput) {
     const hashedPassword = await argon2.hash(dto.password);
 
+    const departmentConnect = dto.departmentId
+      ? { connect: { id: dto.departmentId } }
+      : undefined;
+
     const user = await this.prisma.user.create({
       data: {
         email: dto.email,
         username: dto.username,
         hashedPassword,
-        department: dto.departmentName
-          ? { connect: { name: dto.departmentName } }
-          : undefined,
-        role: dto.role ? dto.role : ['USER'],
+        department: departmentConnect,
+        role: dto.role ?? ['USER'],
         profile: { create: {} },
       },
-      include: {
-        profile: true,
-      },
+      include: { profile: true },
     });
 
     return { message: 'User created successfully', data: user };
@@ -121,8 +121,8 @@ export class UserService {
 
     if (dto.password) data.hashedPassword = await argon2.hash(dto.password);
 
-    if (dto.departmentName) {
-      data.department = { connect: { name: dto.departmentName } };
+    if (dto.departmentId) {
+      data.department = { connect: { id: dto.departmentId } };
     }
 
     await this.prisma.user.update({

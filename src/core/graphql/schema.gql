@@ -101,7 +101,7 @@ input CreateTicketInput {
 }
 
 input CreateUserInput {
-  departmentName: String
+  departmentId: String
   email: String
   password: String!
   role: [Role!]
@@ -663,7 +663,7 @@ input UpdateTicketInput {
 }
 
 input UpdateUserInput {
-  departmentName: String
+  departmentId: String
   email: String
   password: String!
   role: [Role!]

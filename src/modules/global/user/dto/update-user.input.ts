@@ -1,6 +1,6 @@
-import { CreateUserInput } from '@/modules/global/user/dto/create-user.input';
-import { InputType, Field, PartialType } from '@nestjs/graphql';
 import { Role } from '@/generated/prisma/role.enum';
+import { CreateUserInput } from '@/modules/global/user/dto/create-user.input';
+import { Field, InputType, PartialType } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateUserInput extends PartialType(CreateUserInput) {
@@ -14,5 +14,5 @@ export class UpdateUserInput extends PartialType(CreateUserInput) {
   role?: Role[];
 
   @Field({ nullable: true })
-  departmentName?: string;
+  departmentId?: string;
 }
