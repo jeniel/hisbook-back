@@ -53,10 +53,13 @@ export class TicketService {
         }
       : {};
 
+    const statusFilter = args.status ? { status: args.status } : {};
+
     return {
       deletedAt: null,
       ...args.where,
       ...extra,
+      ...statusFilter,
       ...searchFilter,
     };
   }

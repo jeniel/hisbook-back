@@ -454,13 +454,13 @@ type Query {
   findAllPosts(page: Int, perPage: Int, userId: String, where: PostsWhereInput): PostsList!
   findAllPostsCreatedByUser(page: Float, perPage: Float, userId: String!, where: PostsWhereInput): PostsList!
   findAllProfiles(page: Int, perPage: Int, where: ProfileWhereInput): ProfileList!
-  findAllTickets(page: Int, perPage: Int, search: String, where: TicketWhereInput): TicketList!
+  findAllTickets(page: Int, perPage: Int, search: String, status: Status, where: TicketWhereInput): TicketList!
   findAllUsers(employeeID: String, page: Int, perPage: Int, search: String, where: UserWhereInput): UserList!
   findProfile(id: String!): Profile!
   findTicketbyID(id: String!): Ticket
-  findTicketsByDepartment(page: Int, perPage: Int, search: String, where: TicketWhereInput): TicketList!
-  findTicketsByUser(page: Int, perPage: Int, search: String, userId: String!, where: TicketWhereInput): TicketList!
-  findTicketsWorkedByUser(page: Int, perPage: Int, search: String, userId: String!, where: TicketWhereInput): TicketList!
+  findTicketsByDepartment(page: Int, perPage: Int, search: String, status: Status, where: TicketWhereInput): TicketList!
+  findTicketsByUser(page: Int, perPage: Int, search: String, status: Status, userId: String!, where: TicketWhereInput): TicketList!
+  findTicketsWorkedByUser(page: Int, perPage: Int, search: String, status: Status, userId: String!, where: TicketWhereInput): TicketList!
   getCensusSummary(userId: String): CensusSummary!
   meQuery: MeQuery!
 }
