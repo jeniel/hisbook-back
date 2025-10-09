@@ -286,6 +286,21 @@ export class QdrantService implements OnModuleInit {
   }
 
   /**
+   * Check if we should use HTTP client directly (faster than trying QdrantClient first)
+   */
+  private shouldUseHttpClientFirst(): boolean {
+    // If we only have HTTP client, use it directly
+    if (!this.client && this.httpClient) {
+      return true;
+    }
+
+    // If the URL contains HTTPS and we've seen QdrantClient failures before,
+    // prefer HTTP client for faster execution
+    const url = this.configService.get<string>('QDRANT_URL', '');
+    return url.includes('https://') && this.httpClient !== null;
+  }
+
+  /**
    * Health check for Qdrant connection
    */
   async healthCheck(): Promise<{ status: 'healthy' | 'unhealthy'; message: string }> {
@@ -346,21 +361,42 @@ export class QdrantService implements OnModuleInit {
    * Get all collections
    */
   async getCollections() {
+    this.ensureClientInitialized();
+
+    // Use HTTP client first for HTTPS URLs (faster)
+    if (this.shouldUseHttpClientFirst()) {
+      try {
+        const response = await this.httpClient.get('/collections');
+        return response.data;
+      } catch (httpError) {
+        this.logger.warn(`HTTP client failed for getCollections: ${httpError.message}`);
+
+        // Fallback to QdrantClient if available
+        if (this.client) {
+          try {
+            return await this.client.getCollections();
+          } catch (clientError) {
+            this.logger.error('Both HTTP client and QdrantClient failed for getCollections', clientError);
+            return { collections: [] };
+          }
+        }
+        return { collections: [] };
+      }
+    }
+
+    // Use QdrantClient first
     try {
-      this.ensureClientInitialized();
       return await this.client.getCollections();
     } catch (error) {
       this.logger.warn(`QdrantClient failed for getCollections: ${error.message}`);
 
-      // Try HTTP client as fallback
+      // Fallback to HTTP client
       if (this.httpClient) {
         try {
-          this.logger.log('Trying HTTP client as fallback for getCollections...');
           const response = await this.httpClient.get('/collections');
-          this.logger.log('✓ HTTP client getCollections successful');
           return response.data;
         } catch (httpError) {
-          this.logger.error(`Both QdrantClient and HTTP client failed for getCollections`, httpError);
+          this.logger.error('Both QdrantClient and HTTP client failed for getCollections', httpError);
         }
       }
 
@@ -371,46 +407,66 @@ export class QdrantService implements OnModuleInit {
       }
       throw error;
     }
-  }
-
-  /**
+  }  /**
    * Create a new collection
    */
   async createCollection(
     collectionName: string,
     params: CreateCollectionParams,
   ) {
+    this.ensureClientInitialized();
+
+    const collectionConfig = {
+      vectors: {
+        size: params.size,
+        distance: params.distance || 'Cosine',
+      },
+    };
+
+    // Use HTTP client first for HTTPS URLs (faster)
+    if (this.shouldUseHttpClientFirst()) {
+      try {
+        const response = await this.httpClient.put(`/collections/${collectionName}`, collectionConfig);
+        this.logger.log(`✓ Created collection via HTTP client: ${collectionName}`);
+        return response.data;
+      } catch (httpError) {
+        this.logger.warn(`HTTP client failed for createCollection: ${httpError.message}`);
+
+        // Fallback to QdrantClient if available
+        if (this.client) {
+          try {
+            const result = await this.client.createCollection(collectionName, collectionConfig);
+            this.logger.log(`Created collection via QdrantClient fallback: ${collectionName}`);
+            return result;
+          } catch (clientError) {
+            this.logger.error(`Both HTTP client and QdrantClient failed for createCollection: ${collectionName}`, clientError);
+            throw httpError; // Throw original error
+          }
+        }
+        throw httpError;
+      }
+    }
+
+    // Use QdrantClient first (for non-HTTPS or when preferred)
     try {
-      this.ensureClientInitialized();
-      const result = await this.client.createCollection(collectionName, {
-        vectors: {
-          size: params.size,
-          distance: params.distance || 'Cosine',
-        },
-      });
-      this.logger.log(`Created collection: ${collectionName}`);
+      const result = await this.client.createCollection(collectionName, collectionConfig);
+      this.logger.log(`Created collection via QdrantClient: ${collectionName}`);
       return result;
     } catch (error) {
       this.logger.warn(`QdrantClient failed for createCollection: ${error.message}`);
-      
-      // Try HTTP client as fallback
+
+      // Fallback to HTTP client
       if (this.httpClient) {
         try {
-          this.logger.log('Trying HTTP client as fallback for createCollection...');
-          const response = await this.httpClient.put(`/collections/${collectionName}`, {
-            vectors: {
-              size: params.size,
-              distance: params.distance || 'Cosine',
-            },
-          });
-          this.logger.log(`✓ Created collection via HTTP client: ${collectionName}`);
+          const response = await this.httpClient.put(`/collections/${collectionName}`, collectionConfig);
+          this.logger.log(`✓ Created collection via HTTP client fallback: ${collectionName}`);
           return response.data;
         } catch (httpError) {
           this.logger.error(`Both QdrantClient and HTTP client failed for createCollection: ${collectionName}`, httpError);
           throw error; // Throw original error
         }
       }
-      
+
       this.logger.error(`Failed to create collection: ${collectionName}`, error);
       throw error;
     }
@@ -426,7 +482,7 @@ export class QdrantService implements OnModuleInit {
       return result;
     } catch (error) {
       this.logger.warn(`QdrantClient failed for deleteCollection: ${error.message}`);
-      
+
       // Try HTTP client as fallback
       if (this.httpClient) {
         try {
@@ -439,7 +495,7 @@ export class QdrantService implements OnModuleInit {
           throw error; // Throw original error
         }
       }
-      
+
       this.logger.error(`Failed to delete collection: ${collectionName}`, error);
       throw error;
     }
@@ -467,23 +523,44 @@ export class QdrantService implements OnModuleInit {
    * Get collection info
    */
   async getCollectionInfo(collectionName: string) {
+    // Use HTTP client first for HTTPS URLs (faster)
+    if (this.shouldUseHttpClientFirst()) {
+      try {
+        const response = await this.httpClient.get(`/collections/${collectionName}`);
+        return response.data;
+      } catch (httpError) {
+        this.logger.warn(`HTTP client failed for getCollectionInfo: ${httpError.message}`);
+
+        // Fallback to QdrantClient if available
+        if (this.client) {
+          try {
+            return await this.client.getCollection(collectionName);
+          } catch (clientError) {
+            this.logger.error(`Both HTTP client and QdrantClient failed for getCollectionInfo: ${collectionName}`, clientError);
+            throw httpError;
+          }
+        }
+        throw httpError;
+      }
+    }
+
+    // Use QdrantClient first
     try {
       return await this.client.getCollection(collectionName);
     } catch (error) {
       this.logger.warn(`QdrantClient failed for getCollectionInfo: ${error.message}`);
-      
-      // Try HTTP client as fallback
+
+      // Fallback to HTTP client
       if (this.httpClient) {
         try {
-          this.logger.log('Trying HTTP client as fallback for getCollectionInfo...');
           const response = await this.httpClient.get(`/collections/${collectionName}`);
           return response.data;
         } catch (httpError) {
           this.logger.error(`Both QdrantClient and HTTP client failed for getCollectionInfo: ${collectionName}`, httpError);
-          throw error; // Throw original error
+          throw error;
         }
       }
-      
+
       this.logger.error(`Failed to get collection info: ${collectionName}`, error);
       throw error;
     }
