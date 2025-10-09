@@ -569,6 +569,7 @@ type Query {
   qdrantCollectionAnalytics(collectionName: String! = "documents"): String!
   qdrantCollectionExists(name: String!): Boolean!
   qdrantCollections: [QdrantCollectionType!]!
+  qdrantConnectivityTest: String!
   qdrantHealth: QdrantHealthStatusType!
   qdrantPoint(collectionName: String!, id: ID!): QdrantPointType
   qdrantPoints(collectionName: String!, ids: [ID!]!): [QdrantPointType!]!

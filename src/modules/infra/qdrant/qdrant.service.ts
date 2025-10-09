@@ -282,7 +282,7 @@ export class QdrantService implements OnModuleInit {
    * Check if Qdrant is available
    */
   public isAvailable(): boolean {
-    return this.client !== null;
+    return this.client !== null || this.httpClient !== null;
   }
 
   /**
@@ -290,16 +290,54 @@ export class QdrantService implements OnModuleInit {
    */
   async healthCheck(): Promise<{ status: 'healthy' | 'unhealthy'; message: string }> {
     try {
-      if (!this.client) {
-        return { status: 'unhealthy', message: 'Qdrant client not initialized' };
+      if (!this.client && !this.httpClient) {
+        return { status: 'unhealthy', message: 'Neither Qdrant client nor HTTP client initialized' };
       }
 
-      await this.client.getCollections();
-      return { status: 'healthy', message: 'Qdrant connection is healthy' };
+      // Try QdrantClient first
+      if (this.client) {
+        try {
+          await this.client.getCollections();
+          return { status: 'healthy', message: 'Qdrant connection is healthy (via QdrantClient)' };
+        } catch (clientError) {
+          this.logger.debug(`QdrantClient health check failed: ${clientError.message}`);
+
+          // Try HTTP client as fallback
+          if (this.httpClient) {
+            try {
+              await this.httpClient.get('/collections');
+              return { status: 'healthy', message: 'Qdrant connection is healthy (via HTTP client)' };
+            } catch (httpError) {
+              return {
+                status: 'unhealthy',
+                message: `Both QdrantClient and HTTP client health checks failed: ${clientError.message}`
+              };
+            }
+          } else {
+            return {
+              status: 'unhealthy',
+              message: `QdrantClient health check failed: ${clientError.message}`
+            };
+          }
+        }
+      } else if (this.httpClient) {
+        // Only HTTP client available
+        try {
+          await this.httpClient.get('/collections');
+          return { status: 'healthy', message: 'Qdrant connection is healthy (via HTTP client only)' };
+        } catch (httpError) {
+          return {
+            status: 'unhealthy',
+            message: `HTTP client health check failed: ${httpError.message}`
+          };
+        }
+      }
+
+      return { status: 'unhealthy', message: 'No available clients' };
     } catch (error) {
       return {
         status: 'unhealthy',
-        message: `Qdrant health check failed: ${error.message}`
+        message: `Unexpected health check error: ${error.message}`
       };
     }
   }

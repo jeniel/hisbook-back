@@ -293,4 +293,70 @@ export class QdrantResolver {
       },
     }, null, 2);
   }
+
+  @Query(() => String, { name: 'qdrantConnectivityTest' })
+  async testQdrantConnectivity() {
+    try {
+      // Test both clients if available
+      const results = {
+        timestamp: new Date().toISOString(),
+        qdrantClient: { available: false, error: null, collections: null },
+        httpClient: { available: false, error: null, collections: null },
+        summary: { overallStatus: 'unhealthy', workingClients: [] }
+      };
+
+      // Test QdrantClient
+      if (this.qdrantService.getClient()) {
+        try {
+          const collections = await this.qdrantService.getClient().getCollections();
+          results.qdrantClient = {
+            available: true,
+            error: null,
+            collections: collections.collections?.length || 0
+          };
+          results.summary.workingClients.push('QdrantClient');
+        } catch (error) {
+          results.qdrantClient = {
+            available: false,
+            error: error.message,
+            collections: null
+          };
+        }
+      }
+
+      // Test HTTP Client by trying to get collections through our service
+      // (which will use HTTP client as fallback)
+      try {
+        const collections = await this.qdrantService.getCollections();
+        if (collections && collections.collections) {
+          results.httpClient = {
+            available: true,
+            error: null,
+            collections: collections.collections.length
+          };
+          if (!results.summary.workingClients.includes('QdrantClient')) {
+            results.summary.workingClients.push('HTTPClient');
+          }
+        }
+      } catch (error) {
+        if (!results.qdrantClient.available) {
+          results.httpClient = {
+            available: false,
+            error: error.message,
+            collections: null
+          };
+        }
+      }
+
+      // Determine overall status
+      results.summary.overallStatus = results.summary.workingClients.length > 0 ? 'healthy' : 'unhealthy';
+
+      return JSON.stringify(results, null, 2);
+    } catch (error) {
+      return JSON.stringify({
+        error: `Connectivity test failed: ${error.message}`,
+        timestamp: new Date().toISOString()
+      }, null, 2);
+    }
+  }
 }
