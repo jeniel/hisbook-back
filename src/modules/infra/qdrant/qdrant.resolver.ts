@@ -1,24 +1,27 @@
-import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
+import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
-import { QdrantService } from './qdrant.service';
-import { VectorSearchService } from './vector-search.service';
 import { DocumentEmbeddingService } from './document-embedding.service';
 import {
-  QdrantCollectionType,
-  QdrantPointType,
-  QdrantCollectionInfoType,
-  QdrantSearchResultType,
-  QdrantCountResultType,
-  QdrantScrollResultType,
+  BatchSearchInput,
   CreateCollectionInput,
-  UpsertPointsInput,
-  SearchPointsInput,
   CreateIndexInput,
-  ScrollPointsInput,
-  SemanticSearchInput,
   ProcessDocumentsInput,
+  QdrantBatchSearchResultType,
+  QdrantCollectionInfoType,
+  QdrantCollectionType,
+  QdrantCountResultType,
+  QdrantHealthStatusType,
+  QdrantPointType,
+  QdrantScrollResultType,
+  QdrantSearchResultType,
+  ScrollPointsInput,
+  SearchPointsInput,
+  SemanticSearchInput,
+  UpsertPointsInput,
 } from './dto/qdrant.types';
-import { Public } from '@/shared/common/decorator/public.decorator';
+import { EmbeddingService } from './embedding.service';
+import { QdrantService } from './qdrant.service';
+import { VectorSearchService } from './vector-search.service';
 
 
 @Resolver()
@@ -27,12 +30,23 @@ export class QdrantResolver {
     private readonly qdrantService: QdrantService,
     private readonly vectorSearchService: VectorSearchService,
     private readonly documentEmbeddingService: DocumentEmbeddingService,
-  ) {}
+    private readonly embeddingService: EmbeddingService,
+  ) { }
 
   @Query(() => [QdrantCollectionType], { name: 'qdrantCollections' })
   async getCollections() {
     const result = await this.qdrantService.getCollections();
     return result.collections;
+  }
+
+  @Query(() => QdrantHealthStatusType, { name: 'qdrantHealth' })
+  async getQdrantHealth() {
+    const health = await this.qdrantService.healthCheck();
+    return {
+      status: health.status,
+      message: health.message,
+      isAvailable: this.qdrantService.isAvailable(),
+    };
   }
 
   @Query(() => QdrantCollectionInfoType, { name: 'qdrantCollection' })
@@ -102,6 +116,20 @@ export class QdrantResolver {
       with_payload: input.withPayload,
       with_vector: input.withVector,
     });
+  }
+
+  @Query(() => QdrantBatchSearchResultType, { name: 'qdrantBatchSearch' })
+  async batchSearch(@Args('input') input: BatchSearchInput) {
+    const searchParams = input.searches.map(search => ({
+      vector: search.vector,
+      limit: search.limit,
+      filter: search.filter,
+      with_payload: search.withPayload,
+      with_vector: search.withVector,
+    }));
+
+    const results = await this.qdrantService.searchBatch(input.collectionName, searchParams);
+    return { results };
   }
 
   @Query(() => [QdrantSearchResultType], { name: 'semanticSearch' })
@@ -235,5 +263,34 @@ export class QdrantResolver {
         collectionName,
       );
     return JSON.stringify(stats, null, 2);
+  }
+
+  @Query(() => Boolean, { name: 'isEmbeddingServiceAvailable' })
+  async isEmbeddingServiceAvailable() {
+    try {
+      // Test if the embedding service can generate a simple embedding
+      await this.embeddingService.generateEmbedding('test');
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  @Query(() => String, { name: 'qdrantServiceStatus' })
+  async getQdrantServiceStatus() {
+    const health = await this.qdrantService.healthCheck();
+    const isEmbeddingAvailable = await this.isEmbeddingServiceAvailable();
+
+    return JSON.stringify({
+      qdrant: {
+        status: health.status,
+        message: health.message,
+        isAvailable: this.qdrantService.isAvailable(),
+      },
+      embedding: {
+        isAvailable: isEmbeddingAvailable,
+        status: isEmbeddingAvailable ? 'healthy' : 'unhealthy',
+      },
+    }, null, 2);
   }
 }

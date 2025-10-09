@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, Int, Float, InputType } from '@nestjs/graphql';
+import { Field, Float, ID, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 
 @ObjectType()
@@ -80,6 +80,18 @@ export class QdrantScrollResultType {
 
   @Field({ nullable: true })
   next_page_offset?: string;
+}
+
+@ObjectType()
+export class QdrantHealthStatusType {
+  @Field()
+  status: string;
+
+  @Field()
+  message: string;
+
+  @Field()
+  isAvailable: boolean;
 }
 
 // Input Types
@@ -210,4 +222,19 @@ export class ProcessDocumentsInput {
 
   @Field({ defaultValue: 'documents' })
   collectionName?: string;
+}
+
+@InputType()
+export class BatchSearchInput {
+  @Field()
+  collectionName: string;
+
+  @Field(() => [SearchPointsInput])
+  searches: SearchPointsInput[];
+}
+
+@ObjectType()
+export class QdrantBatchSearchResultType {
+  @Field(() => [[QdrantSearchResultType]])
+  results: QdrantSearchResultType[][];
 }

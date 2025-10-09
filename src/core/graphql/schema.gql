@@ -35,6 +35,11 @@ input AuditLogWhereInput {
   userId: StringNullableFilter
 }
 
+input BatchSearchInput {
+  collectionName: String!
+  searches: [SearchPointsInput!]!
+}
+
 input BoolFilter {
   equals: Boolean
   not: NestedBoolFilter
@@ -485,6 +490,10 @@ input ProfileWhereInput {
   userId: StringNullableFilter
 }
 
+type QdrantBatchSearchResultType {
+  results: [[QdrantSearchResultType!]!]!
+}
+
 type QdrantCollectionInfoType {
   config: JSON
   indexed_vectors_count: Int!
@@ -500,6 +509,12 @@ type QdrantCollectionType {
 
 type QdrantCountResultType {
   count: Int!
+}
+
+type QdrantHealthStatusType {
+  isAvailable: Boolean!
+  message: String!
+  status: String!
 }
 
 input QdrantPointInput {
@@ -547,17 +562,21 @@ type Query {
   findTicketsWorkedByUser(page: Int, perPage: Int, search: String, status: Status, userId: String!, where: TicketWhereInput): TicketList!
   getCensusSummary(userId: String): CensusSummary!
   hybridSearch(collectionName: String! = "documents", keywords: [String!]!, limit: Float! = 10, query: String!, tenantId: String!): [QdrantSearchResultType!]!
+  isEmbeddingServiceAvailable: Boolean!
   meQuery: MeQuery!
+  qdrantBatchSearch(input: BatchSearchInput!): QdrantBatchSearchResultType!
   qdrantCollection(name: String!): QdrantCollectionInfoType!
   qdrantCollectionAnalytics(collectionName: String! = "documents"): String!
   qdrantCollectionExists(name: String!): Boolean!
   qdrantCollections: [QdrantCollectionType!]!
+  qdrantHealth: QdrantHealthStatusType!
   qdrantPoint(collectionName: String!, id: ID!): QdrantPointType
   qdrantPoints(collectionName: String!, ids: [ID!]!): [QdrantPointType!]!
   qdrantPointsCount(collectionName: String!, filter: JSON): QdrantCountResultType!
   qdrantQueryPoints(input: SearchPointsInput!): [QdrantSearchResultType!]!
   qdrantScrollPoints(input: ScrollPointsInput!): QdrantScrollResultType!
   qdrantSearchPoints(input: SearchPointsInput!): [QdrantSearchResultType!]!
+  qdrantServiceStatus: String!
   semanticSearch(input: SemanticSearchInput!): [QdrantSearchResultType!]!
 }
 
