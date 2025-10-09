@@ -14,18 +14,7 @@ export class TicketService {
   // Create a new Ticket
   async create(dto: CreateTicketInput) {
     const ticket = await this.prisma.ticket.create({
-      data: {
-        subject: dto.subject,
-        missedAt: dto.missedAt,
-        floor: dto.floor,
-        screenshot: dto.screenshot,
-        message: dto.message,
-        status: dto.status as Status,
-        remarks: dto.remarks,
-        updatedBy: dto.updatedBy,
-        createdById: dto.createdById,
-        departmentId: dto.departmentId,
-      },
+      data: dto,
     });
 
     return {
@@ -34,24 +23,70 @@ export class TicketService {
     };
   }
 
-  // Find all Tickets
-  async findAll(args: TicketArgs) {
+  // Generic method to handle search & soft delete filtering
+  private buildWhere(args: TicketArgs, extra?: any) {
+    const searchFilter = args.search
+      ? {
+          OR: [
+            { subject: { contains: args.search, mode: 'insensitive' } },
+            { message: { contains: args.search, mode: 'insensitive' } },
+            {
+              createdBy: {
+                username: { contains: args.search, mode: 'insensitive' },
+              },
+            },
+            {
+              createdBy: {
+                profile: {
+                  firstName: { contains: args.search, mode: 'insensitive' },
+                },
+              },
+            },
+            {
+              createdBy: {
+                profile: {
+                  lastName: { contains: args.search, mode: 'insensitive' },
+                },
+              },
+            },
+          ],
+        }
+      : {};
+
+    const statusFilter = args.status ? { status: args.status } : {};
+
+    return {
+      deletedAt: null,
+      ...args.where,
+      ...extra,
+      ...statusFilter,
+      ...searchFilter,
+    };
+  }
+
+  // Pagination helper
+  private getPagination(args: TicketArgs) {
     const page = args.page || 1;
     const perPage = args.perPage || 10;
     const skip = page > 0 ? perPage * (page - 1) : 0;
+    return { page, perPage, skip };
+  }
+
+  // Find all Tickets
+  async findAll(args: TicketArgs) {
+    const { page, perPage, skip } = this.getPagination(args);
+    const where = this.buildWhere(args);
 
     const [total, data] = await Promise.all([
-      this.prisma.ticket.count({ where: args.where }),
+      this.prisma.ticket.count({ where }),
       this.prisma.ticket.findMany({
-        where: args.where,
+        where,
         orderBy: { createdAt: 'desc' },
         take: perPage,
         skip,
         include: {
-          createdBy: {
-            include: { profile: true },
-          },
-          department: true, // 👈 include department info
+          createdBy: { include: { profile: true } },
+          department: true,
         },
       }),
     ]);
@@ -76,21 +111,13 @@ export class TicketService {
     const ticket = await this.prisma.ticket.findUnique({
       where: { id },
       include: {
-        createdBy: {
-          include: { profile: true },
-        },
-        auditLogs: {
-          include: {
-            user: {
-              include: { profile: true },
-            },
-          },
-        },
+        createdBy: { include: { profile: true } },
+        auditLogs: { include: { user: { include: { profile: true } } } },
       },
     });
 
-    if (!ticket) {
-      throw new Error(`Missed logout ticket with id ${id} not found`);
+    if (!ticket || ticket.deletedAt) {
+      throw new Error(`Ticket with id ${id} not found`);
     }
 
     return ticket;
@@ -98,14 +125,8 @@ export class TicketService {
 
   // Find Tickets by User
   async findByUser(userId: string, args: TicketArgs) {
-    const page = args.page || 1;
-    const perPage = args.perPage || 10;
-    const skip = page > 0 ? perPage * (page - 1) : 0;
-
-    const where = {
-      ...args.where,
-      createdById: userId,
-    };
+    const { page, perPage, skip } = this.getPagination(args);
+    const where = this.buildWhere(args, { createdById: userId });
 
     const [total, data] = await Promise.all([
       this.prisma.ticket.count({ where }),
@@ -115,9 +136,7 @@ export class TicketService {
         take: perPage,
         skip,
         include: {
-          createdBy: {
-            include: { profile: true },
-          },
+          createdBy: { include: { profile: true } },
           department: true,
         },
       }),
@@ -140,14 +159,8 @@ export class TicketService {
 
   // Find Ticket by Department
   async findByDepartment(departmentId: string, args: TicketArgs) {
-    const page = args.page || 1;
-    const perPage = args.perPage || 10;
-    const skip = page > 0 ? perPage * (page - 1) : 0;
-
-    const where = {
-      ...args.where,
-      departmentId, // 👈 filter tickets by department
-    };
+    const { page, perPage, skip } = this.getPagination(args);
+    const where = this.buildWhere(args, { departmentId });
 
     const [total, data] = await Promise.all([
       this.prisma.ticket.count({ where }),
@@ -157,10 +170,8 @@ export class TicketService {
         take: perPage,
         skip,
         include: {
-          createdBy: {
-            include: { profile: true },
-          },
-          department: true, // 👈 include department info
+          createdBy: { include: { profile: true } },
+          department: true,
         },
       }),
     ]);
@@ -182,39 +193,19 @@ export class TicketService {
 
   // Find Tickets a User has worked on (via Audit Logs)
   async findTicketsWorkedByUser(userId: string, args: TicketArgs) {
-    const page = args.page || 1;
-    const perPage = args.perPage || 10;
-    const skip = page > 0 ? perPage * (page - 1) : 0;
+    const { page, perPage, skip } = this.getPagination(args);
+    const where = this.buildWhere(args, { auditLogs: { some: { userId } } });
 
-    // Count unique tickets where user has audit logs
-    const [total, tickets] = await Promise.all([
-      this.prisma.ticket.count({
-        where: {
-          auditLogs: {
-            some: { userId },
-          },
-        },
-      }),
+    const [total, data] = await Promise.all([
+      this.prisma.ticket.count({ where }),
       this.prisma.ticket.findMany({
-        where: {
-          auditLogs: {
-            some: { userId },
-          },
-        },
+        where,
         take: perPage,
         skip,
         orderBy: { createdAt: 'desc' },
         include: {
-          createdBy: {
-            include: {
-              profile: true, // 👈 make sure this is included
-            },
-          },
-          auditLogs: {
-            include: {
-              user: true, // include user info for each action
-            },
-          },
+          createdBy: { include: { profile: true } },
+          auditLogs: { include: { user: { include: { profile: true } } } },
         },
       }),
     ]);
@@ -222,7 +213,7 @@ export class TicketService {
     const lastPage = Math.ceil(total / perPage);
 
     return {
-      data: tickets,
+      data,
       meta: {
         total,
         lastPage,
@@ -233,7 +224,6 @@ export class TicketService {
       },
     };
   }
-  a;
 
   // Update a Ticket by id
   async update(id: string, dto: UpdateTicketInput, userId: string) {
@@ -251,32 +241,30 @@ export class TicketService {
       },
     });
 
-    // Create audit log entry
     await this.prisma.auditLog.create({
       data: {
-        action: `Ticket updated: ${dto.status ?? 'No status change'}`, // customize message
+        action: `Ticket updated: ${dto.status ?? 'No status change'}`,
         remarks: dto.remarks,
-        updatedBy: dto.updatedBy, // or currentUser.username
-        userId: userId, // who did the action
+        updatedBy: dto.updatedBy,
+        userId,
         ticketId: id,
       },
     });
 
-    return {
-      message: 'Missed logout ticket updated successfully',
-      success: true,
-    };
+    return { message: 'Ticket updated successfully', success: true };
   }
 
-  // Delete a Ticket by id
+  // Soft Delete a Ticket by id
   async delete(id: string) {
-    await this.prisma.ticket.delete({
+    const ticket = await this.prisma.ticket.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
 
     return {
-      message: 'Missed logout ticket deleted successfully',
+      message: 'Ticket soft-deleted successfully',
       success: true,
+      data: ticket,
     };
   }
 }

@@ -28,4 +28,7 @@ export class EventUpdateInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
 }

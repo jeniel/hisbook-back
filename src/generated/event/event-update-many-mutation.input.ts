@@ -28,4 +28,7 @@ export class EventUpdateManyMutationInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
 }

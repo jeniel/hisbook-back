@@ -10,6 +10,12 @@ export class UserArgs {
   @Field(() => Int, { nullable: true })
   perPage?: number;
 
+  @Field(() => String, { nullable: true })
+  search?: string;
+
+  @Field(() => String, { nullable: true })
+  employeeID?: string;
+
   @Field(() => UserWhereInput, { nullable: true })
   where?: Prisma.UserWhereInput;
 }

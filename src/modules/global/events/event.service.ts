@@ -13,13 +13,7 @@ export class EventService {
   // Create Event
   async create(dto: CreateEventInput) {
     const event = await this.prisma.event.create({
-      data: {
-        title: dto.title,
-        startDate: dto.startDate,
-        endDate: dto.endDate,
-        location: dto.location,
-        detailsUrl: dto.detailsUrl,
-      },
+      data: dto,
     });
 
     return {
@@ -34,10 +28,25 @@ export class EventService {
     const perPage = args.perPage || 10;
     const skip = page > 0 ? perPage * (page - 1) : 0;
 
+    let where: any = { deletedAt: null }; // 👈 only active events
+    if (args.where) {
+      where = { ...args.where, deletedAt: null };
+    }
+
+    if (args.search) {
+      where = {
+        ...where,
+        OR: [
+          { title: { contains: args.search, mode: 'insensitive' } },
+          { location: { contains: args.search, mode: 'insensitive' } },
+        ],
+      };
+    }
+
     const [total, data] = await Promise.all([
-      this.prisma.event.count({ where: args.where }),
+      this.prisma.event.count({ where }),
       this.prisma.event.findMany({
-        where: args.where,
+        where,
         orderBy: { createdAt: 'desc' },
         take: perPage,
         skip,
@@ -74,8 +83,9 @@ export class EventService {
 
   // Delete Department
   async delete(id: string) {
-    await this.prisma.event.delete({
+    await this.prisma.event.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
 
     return {

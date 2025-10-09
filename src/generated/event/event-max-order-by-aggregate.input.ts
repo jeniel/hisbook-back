@@ -25,4 +25,7 @@ export class EventMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    deletedAt?: `${SortOrder}`;
 }

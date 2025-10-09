@@ -27,5 +27,8 @@ export class EventCountAggregate {
     createdAt!: number;
 
     @Field(() => Int, {nullable:false})
+    deletedAt!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

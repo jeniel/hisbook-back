@@ -10,13 +10,9 @@ import { UpdateDepartmentInput } from '@/modules/global/department/dto/update-de
 export class DepartmentService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // Create Department
   async create(dto: CreateDepartmentInput) {
     const department = await this.prisma.department.create({
-      data: {
-        name: dto.name,
-        description: dto.description,
-      },
+      data: dto,
     });
 
     return {
@@ -25,17 +21,36 @@ export class DepartmentService {
     };
   }
 
-  // Find all Departments (with pagination)
   async findAll(args: DepartmentArgs) {
     const page = args.page || 1;
     const perPage = args.perPage || 10;
     const skip = page > 0 ? perPage * (page - 1) : 0;
 
+    // Base filter: start with empty filter
+    let where: any = {};
+
+    // Merge optional filters from args.where
+    if (args.where) {
+      where = { ...where, ...args.where };
+    }
+
+    // Search filter by name or description
+    if (args.search) {
+      where = {
+        ...where,
+        OR: [
+          { name: { contains: args.search, mode: 'insensitive' } },
+          { description: { contains: args.search, mode: 'insensitive' } },
+        ],
+      };
+    }
+
+    // Fetch total count and paginated data
     const [total, data] = await Promise.all([
-      this.prisma.department.count({ where: args.where }),
+      this.prisma.department.count({ where }),
       this.prisma.department.findMany({
-        where: args.where,
-        orderBy: { createdAt: 'asc' },
+        where,
+        orderBy: { name: 'asc' },
         take: perPage,
         skip,
       }),
@@ -56,28 +71,27 @@ export class DepartmentService {
     };
   }
 
-  // Update Department
   async update(id: string, data: UpdateDepartmentInput) {
-    await this.prisma.department.update({
-      where: { id },
-      data,
-    });
-
-    return {
-      message: 'Department updated successfully',
-      success: true,
-    };
+    await this.prisma.department.update({ where: { id }, data });
+    return { message: 'Department updated successfully', success: true };
   }
 
-  // Delete Department
   async delete(id: string) {
     await this.prisma.department.delete({
       where: { id },
     });
+    return { message: 'Department deleted successfully', success: true };
+  }
 
-    return {
-      message: 'Department deleted successfully',
-      success: true,
-    };
+  async findAllForDropdown() {
+    return this.prisma.department.findMany({
+      orderBy: { name: 'asc' },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        isSupport: true,
+      },
+    });
   }
 }

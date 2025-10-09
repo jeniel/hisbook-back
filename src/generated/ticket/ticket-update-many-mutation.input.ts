@@ -41,4 +41,7 @@ export class TicketUpdateManyMutationInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
 }

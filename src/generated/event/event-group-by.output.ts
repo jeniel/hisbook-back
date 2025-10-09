@@ -28,6 +28,9 @@ export class EventGroupBy {
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
 
+    @Field(() => Date, {nullable:true})
+    deletedAt?: Date | string;
+
     @Field(() => EventCountAggregate, {nullable:true})
     _count?: EventCountAggregate;
 

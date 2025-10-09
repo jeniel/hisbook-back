@@ -34,6 +34,9 @@ export class User {
     @Field(() => Date, {nullable:true})
     createdAt!: Date | null;
 
+    @Field(() => Date, {nullable:true})
+    deletedAt!: Date | null;
+
     @Field(() => [Role], {nullable:true})
     role!: Array<`${Role}`>;
 

@@ -35,6 +35,11 @@ input AuditLogWhereInput {
   userId: StringNullableFilter
 }
 
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
 type CensusSummary {
   departmentsWithUserCount: [DepartmentUserCount!]!
   ticketByUserId: [TicketStatusCount!]
@@ -48,7 +53,8 @@ type CensusSummary {
 }
 
 input CreateDepartmentInput {
-  description: String
+  description: String!
+  isSupport: Boolean
   name: String!
 }
 
@@ -95,7 +101,7 @@ input CreateTicketInput {
 }
 
 input CreateUserInput {
-  departmentName: String
+  departmentId: String
   email: String
   password: String!
   role: [Role!]
@@ -132,8 +138,10 @@ input DateTimeNullableFilter {
 type Department {
   _count: DepartmentCount!
   createdAt: DateTime!
+  deletedAt: DateTime
   description: String!
   id: ID!
+  isSupport: Boolean!
   name: String!
   tickets: [Ticket!]
   users: [User!]
@@ -144,8 +152,16 @@ type DepartmentCount {
   users: Int!
 }
 
+type DepartmentDropdown {
+  description: String!
+  id: String!
+  isSupport: Boolean
+  name: String!
+}
+
 type DepartmentList {
   data: [Department!]!
+  isSupport: Boolean!
   meta: Meta
 }
 
@@ -171,8 +187,10 @@ input DepartmentWhereInput {
   NOT: [DepartmentWhereInput!]
   OR: [DepartmentWhereInput!]
   createdAt: DateTimeFilter
+  deletedAt: DateTimeNullableFilter
   description: StringFilter
   id: StringFilter
+  isSupport: BoolFilter
   name: StringFilter
   tickets: TicketListRelationFilter
   users: UserListRelationFilter
@@ -202,6 +220,7 @@ input EnumStatusFilter {
 
 type Event {
   createdAt: DateTime!
+  deletedAt: DateTime
   detailsUrl: String
   endDate: DateTime
   id: ID!
@@ -220,6 +239,7 @@ input EventWhereInput {
   NOT: [EventWhereInput!]
   OR: [EventWhereInput!]
   createdAt: DateTimeFilter
+  deletedAt: DateTimeNullableFilter
   detailsUrl: StringNullableFilter
   endDate: DateTimeNullableFilter
   id: StringFilter
@@ -275,6 +295,11 @@ type Mutation {
   updateProfile(id: String!, payload: UpdateProfileInput!): GeneralMsg!
   updateTicket(id: String!, payload: UpdateTicketInput!): GeneralMsg!
   updateUser(id: String!, payload: UpdateUserInput!): GeneralMsg!
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
 }
 
 input NestedDateTimeFilter {
@@ -423,18 +448,19 @@ input ProfileWhereInput {
 }
 
 type Query {
-  findAllDepartments(page: Int, perPage: Int, where: DepartmentWhereInput): DepartmentList!
-  findAllEvents(page: Int, perPage: Int, where: EventWhereInput): EventList!
+  findAllDepartments(page: Int, perPage: Int, search: String, where: DepartmentWhereInput): DepartmentList!
+  findAllEvents(page: Int, perPage: Int, search: String, where: EventWhereInput): EventList!
+  findAllForDropdown: [DepartmentDropdown!]!
   findAllPosts(page: Int, perPage: Int, userId: String, where: PostsWhereInput): PostsList!
   findAllPostsCreatedByUser(page: Float, perPage: Float, userId: String!, where: PostsWhereInput): PostsList!
   findAllProfiles(page: Int, perPage: Int, where: ProfileWhereInput): ProfileList!
-  findAllTickets(page: Int, perPage: Int, search: String, where: TicketWhereInput): TicketList!
-  findAllUsers(page: Int, perPage: Int, where: UserWhereInput): UserList!
+  findAllTickets(page: Int, perPage: Int, search: String, status: Status, where: TicketWhereInput): TicketList!
+  findAllUsers(employeeID: String, page: Int, perPage: Int, search: String, where: UserWhereInput): UserList!
   findProfile(id: String!): Profile!
   findTicketbyID(id: String!): Ticket
-  findTicketsByDepartment(page: Int, perPage: Int, search: String, where: TicketWhereInput): TicketList!
-  findTicketsByUser(page: Int, perPage: Int, search: String, userId: String!, where: TicketWhereInput): TicketList!
-  findTicketsWorkedByUser(page: Int, perPage: Int, search: String, userId: String!, where: TicketWhereInput): TicketList!
+  findTicketsByDepartment(page: Int, perPage: Int, search: String, status: Status, where: TicketWhereInput): TicketList!
+  findTicketsByUser(page: Int, perPage: Int, search: String, status: Status, userId: String!, where: TicketWhereInput): TicketList!
+  findTicketsWorkedByUser(page: Int, perPage: Int, search: String, status: Status, userId: String!, where: TicketWhereInput): TicketList!
   getCensusSummary(userId: String): CensusSummary!
   meQuery: MeQuery!
 }
@@ -524,6 +550,7 @@ type Ticket {
   createdAt: DateTime!
   createdBy: User!
   createdById: String!
+  deletedAt: DateTime
   department: Department!
   departmentId: String!
   floor: String
@@ -572,6 +599,7 @@ input TicketWhereInput {
   createdAt: DateTimeFilter
   createdBy: UserScalarRelationFilter
   createdById: StringFilter
+  deletedAt: DateTimeNullableFilter
   department: DepartmentScalarRelationFilter
   departmentId: StringFilter
   floor: StringNullableFilter
@@ -588,6 +616,7 @@ input TicketWhereInput {
 
 input UpdateDepartmentInput {
   description: String
+  isSupport: Boolean
   name: String!
 }
 
@@ -634,7 +663,7 @@ input UpdateTicketInput {
 }
 
 input UpdateUserInput {
-  departmentName: String
+  departmentId: String
   email: String
   password: String!
   role: [Role!]
@@ -645,6 +674,7 @@ type User {
   _count: UserCount!
   auditLogs: [AuditLog!]
   createdAt: DateTime
+  deletedAt: DateTime
   department: Department
   departmentId: String
 
@@ -692,6 +722,7 @@ input UserWhereInput {
   OR: [UserWhereInput!]
   auditLogs: AuditLogListRelationFilter
   createdAt: DateTimeNullableFilter
+  deletedAt: DateTimeNullableFilter
   department: DepartmentNullableScalarRelationFilter
   departmentId: StringNullableFilter
   email: StringNullableFilter

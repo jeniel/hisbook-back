@@ -34,7 +34,7 @@ export class ProfileUpdateOneWithoutUserNestedInput {
 
     @Field(() => ProfileWhereUniqueInput, {nullable:true})
     @Type(() => ProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'employeeID' | 'userId'>;
+    connect?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
 
     @Field(() => ProfileUpdateToOneWithWhereWithoutUserInput, {nullable:true})
     @Type(() => ProfileUpdateToOneWithWhereWithoutUserInput)

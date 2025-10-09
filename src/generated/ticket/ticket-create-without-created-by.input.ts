@@ -40,6 +40,9 @@ export class TicketCreateWithoutCreatedByInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
+    @Field(() => Date, {nullable:true})
+    deletedAt?: Date | string;
+
     @Field(() => DepartmentCreateNestedOneWithoutTicketsInput, {nullable:false})
     department!: DepartmentCreateNestedOneWithoutTicketsInput;
 

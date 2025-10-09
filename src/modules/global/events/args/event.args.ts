@@ -10,6 +10,9 @@ export class EventArgs {
   @Field(() => Int, { nullable: true })
   perPage?: number;
 
+  @Field(() => String, { nullable: true })
+  search?: string;
+
   @Field(() => EventWhereInput, { nullable: true })
   @Type(() => EventWhereInput)
   where?: EventWhereInput;

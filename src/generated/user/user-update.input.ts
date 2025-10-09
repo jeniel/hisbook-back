@@ -31,6 +31,9 @@ export class UserUpdateInput {
     @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: NullableDateTimeFieldUpdateOperationsInput;
 
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
+
     @Field(() => UserUpdateroleInput, {nullable:true})
     role?: UserUpdateroleInput;
 

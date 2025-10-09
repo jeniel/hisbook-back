@@ -45,6 +45,9 @@ export class TicketUpdateInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
+
     @Field(() => UserUpdateOneRequiredWithoutTicketsNestedInput, {nullable:true})
     createdBy?: UserUpdateOneRequiredWithoutTicketsNestedInput;
 

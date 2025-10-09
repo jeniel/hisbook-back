@@ -23,5 +23,8 @@ export class UserMaxAggregateInput {
     createdAt?: true;
 
     @Field(() => Boolean, {nullable:true})
+    deletedAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
     departmentId?: true;
 }

@@ -38,6 +38,9 @@ export class TicketMaxAggregateInput {
     updatedAt?: true;
 
     @Field(() => Boolean, {nullable:true})
+    deletedAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
     createdById?: true;
 
     @Field(() => Boolean, {nullable:true})

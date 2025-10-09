@@ -11,6 +11,8 @@ import { UpdateDepartmentInput } from './dto/update-department.input';
 
 // Import Roles
 import { Role } from '@/generated/prisma/role.enum';
+import { DepartmentDropdown } from '@/modules/global/department/entities/department-dropdown';
+import { Public } from '@/shared/common/decorator/public.decorator';
 import { Roles } from '@/shared/common/decorator/roles.decorator';
 
 @Resolver(() => Department)
@@ -26,9 +28,15 @@ export class DepartmentResolver {
 
   // Find All
   @Query(() => DepartmentList)
-  @Roles([Role.ADMIN])
+  @Public()
   async findAllDepartments(@Args() args: DepartmentArgs) {
     return await this.departmentService.findAll(args);
+  }
+
+  @Query(() => [DepartmentDropdown])
+  @Public()
+  async findAllForDropdown() {
+    return await this.departmentService.findAllForDropdown();
   }
 
   // Update

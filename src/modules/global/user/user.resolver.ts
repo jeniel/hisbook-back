@@ -11,6 +11,7 @@ import { UserService } from './user.service';
 
 // Import Roles
 import { Role } from '@/generated/prisma/role.enum';
+import { Public } from '@/shared/common/decorator/public.decorator';
 import { Roles } from '@/shared/common/decorator/roles.decorator';
 
 @Resolver(() => User)
@@ -23,7 +24,7 @@ export class UserResolver {
 
   // Create User
   @Mutation(() => GeneralMsg)
-  @Roles([Role.ADMIN])
+  @Public()
   createUser(@Args('payload') payload: CreateUserInput) {
     return this.userService.createUser(payload);
   }

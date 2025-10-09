@@ -41,6 +41,9 @@ export class UserWhereUniqueInput {
     @Field(() => DateTimeNullableFilter, {nullable:true})
     createdAt?: DateTimeNullableFilter;
 
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    deletedAt?: DateTimeNullableFilter;
+
     @Field(() => EnumRoleNullableListFilter, {nullable:true})
     role?: EnumRoleNullableListFilter;
 

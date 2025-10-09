@@ -2,6 +2,8 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
+import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
+import { BoolFilter } from '../prisma/bool-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 import { TicketListRelationFilter } from '../ticket/ticket-list-relation-filter.input';
 
@@ -28,6 +30,12 @@ export class DepartmentWhereInput {
 
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;
+
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    deletedAt?: DateTimeNullableFilter;
+
+    @Field(() => BoolFilter, {nullable:true})
+    isSupport?: BoolFilter;
 
     @Field(() => UserListRelationFilter, {nullable:true})
     users?: UserListRelationFilter;

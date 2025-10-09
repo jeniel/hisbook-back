@@ -11,10 +11,18 @@ export class CensusService {
     userId?: string,
   ): Promise<CensusSummary & { totalTicketsByUserId?: number }> {
     // Total Users
-    const totalUsers = await this.prisma.user.count();
+    const totalUsers = await this.prisma.user.count({
+      where: {
+        deletedAt: null, // this excludes soft-deleted users
+      },
+    });
 
     // Total Tickets
-    const totalTickets = await this.prisma.ticket.count();
+    const totalTickets = await this.prisma.ticket.count({
+      where: {
+        deletedAt: null, // this excludes soft-deleted users
+      },
+    });
 
     // Total Posts
     const totalPosts = await this.prisma.posts.count();

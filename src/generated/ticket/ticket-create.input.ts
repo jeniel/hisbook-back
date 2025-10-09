@@ -41,6 +41,9 @@ export class TicketCreateInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
+    @Field(() => Date, {nullable:true})
+    deletedAt?: Date | string;
+
     @Field(() => UserCreateNestedOneWithoutTicketsInput, {nullable:false})
     createdBy!: UserCreateNestedOneWithoutTicketsInput;
 

@@ -18,5 +18,11 @@ export class DepartmentCountAggregate {
     createdAt!: number;
 
     @Field(() => Int, {nullable:false})
+    deletedAt!: number;
+
+    @Field(() => Int, {nullable:false})
+    isSupport!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

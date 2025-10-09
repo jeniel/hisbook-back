@@ -27,6 +27,9 @@ export class UserGroupBy {
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
+    @Field(() => Date, {nullable:true})
+    deletedAt?: Date | string;
+
     @Field(() => [Role], {nullable:true})
     role?: Array<`${Role}`>;
 

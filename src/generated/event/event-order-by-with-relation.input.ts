@@ -26,4 +26,7 @@ export class EventOrderByWithRelationInput {
 
     @Field(() => SortOrder, {nullable:true})
     createdAt?: `${SortOrder}`;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    deletedAt?: SortOrderInput;
 }

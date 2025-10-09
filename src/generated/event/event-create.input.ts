@@ -24,4 +24,7 @@ export class EventCreateInput {
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    deletedAt?: Date | string;
 }

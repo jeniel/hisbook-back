@@ -29,6 +29,9 @@ export class UserOrderByWithRelationInput {
     @Field(() => SortOrderInput, {nullable:true})
     createdAt?: SortOrderInput;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    deletedAt?: SortOrderInput;
+
     @Field(() => SortOrder, {nullable:true})
     role?: `${SortOrder}`;
 

@@ -26,5 +26,8 @@ export class EventCountAggregateInput {
     createdAt?: true;
 
     @Field(() => Boolean, {nullable:true})
+    deletedAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }
