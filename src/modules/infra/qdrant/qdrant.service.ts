@@ -350,6 +350,20 @@ export class QdrantService implements OnModuleInit {
       this.ensureClientInitialized();
       return await this.client.getCollections();
     } catch (error) {
+      this.logger.warn(`QdrantClient failed for getCollections: ${error.message}`);
+
+      // Try HTTP client as fallback
+      if (this.httpClient) {
+        try {
+          this.logger.log('Trying HTTP client as fallback for getCollections...');
+          const response = await this.httpClient.get('/collections');
+          this.logger.log('✓ HTTP client getCollections successful');
+          return response.data;
+        } catch (httpError) {
+          this.logger.error(`Both QdrantClient and HTTP client failed for getCollections`, httpError);
+        }
+      }
+
       this.logger.error('Failed to get collections', error);
       if (!this.isAvailable()) {
         this.logger.warn('Qdrant is not available, returning empty collections list');
