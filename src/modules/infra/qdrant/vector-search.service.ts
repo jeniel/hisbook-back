@@ -19,31 +19,29 @@ export class VectorSearchService {
    */
   async initializeDocumentCollection(
     collectionName: string,
-    vectorSize: number = 1536, // OpenAI embedding size
+    vectorSize: number = 1536,
   ) {
     try {
-      // Check if Qdrant is available
-      if (!this.qdrantService.isAvailable()) {
-        this.logger.warn(`Qdrant is not available, skipping collection initialization: ${collectionName}`);
-        return false;
-      }
+      this.logger.log(`Initializing document collection: ${collectionName} with vector size: ${vectorSize}`);
 
-      const exists = await this.qdrantService.collectionExists(collectionName);
+      // Use the safer createCollectionIfNotExists method
+      await this.qdrantService.createCollectionIfNotExists(collectionName, {
+        size: vectorSize,
+        distance: 'Cosine',
+      });
 
-      if (!exists) {
-        await this.qdrantService.createCollection(collectionName, {
-          size: vectorSize,
-          distance: 'Cosine',
-        });
-
-        // Create payload indexes for better filtering performance
+      // Create payload indexes for better filtering performance
+      // These will fail gracefully if they already exist
+      try {
         await this.qdrantService.createPayloadIndex(collectionName, 'tenant_id', 'keyword');
         await this.qdrantService.createPayloadIndex(collectionName, 'document_type', 'keyword');
         await this.qdrantService.createPayloadIndex(collectionName, 'created_at', 'integer');
-
-        this.logger.log(`Initialized document collection: ${collectionName}`);
+      } catch (indexError) {
+        // Indexes might already exist, that's okay
+        this.logger.debug(`Some indexes might already exist for ${collectionName}: ${indexError.message}`);
       }
 
+      this.logger.log(`Successfully initialized document collection: ${collectionName}`);
       return true;
     } catch (error) {
       this.logger.error(`Failed to initialize collection: ${collectionName}`, error);

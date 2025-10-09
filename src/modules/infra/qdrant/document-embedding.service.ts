@@ -37,6 +37,8 @@ export class DocumentEmbeddingService {
     collectionName: string = 'documents',
   ) {
     try {
+      this.logger.log(`Processing ${documents.length} documents for collection: ${collectionName}`);
+
       // Check if vector search service can initialize (Qdrant availability)
       const initialized = await this.vectorSearchService.initializeDocumentCollection(
         collectionName,
@@ -47,33 +49,57 @@ export class DocumentEmbeddingService {
         return { stored: 0, message: 'Vector storage unavailable' };
       }
 
-      // Generate embeddings for all documents
-      const documentsWithEmbeddings = await Promise.all(
-        documents.map(async (doc) => {
-          const embedding = await this.embeddingService.generateEmbedding(doc.content);
-          return {
-            id: doc.id || uuidv4(), // Generate a new ID if not provided
-            content: doc.content,
-            embedding,
-            metadata: {
-              document_type: doc.documentType,
-              created_at: Date.now(),
-              ...doc.metadata,
-            },
-          };
-        }),
-      );
+      // Process documents in batches to avoid memory issues with large datasets
+      const batchSize = 50; // Process 50 documents at a time
+      const results = [];
 
-      // Store in Qdrant
-      const result = await this.vectorSearchService.storeDocumentEmbeddings(
-        collectionName,
-        documentsWithEmbeddings,
-      );
+      for (let i = 0; i < documents.length; i += batchSize) {
+        const batch = documents.slice(i, i + batchSize);
+        this.logger.log(`Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(documents.length / batchSize)} (${batch.length} documents)`);
 
-      this.logger.log(
-        `Successfully processed and stored ${documents.length} documents`,
-      );
-      return result;
+        // Generate embeddings for batch
+        const documentsWithEmbeddings = await Promise.all(
+          batch.map(async (doc) => {
+            try {
+              const embedding = await this.embeddingService.generateEmbedding(doc.content);
+              return {
+                id: doc.id || uuidv4(),
+                content: doc.content,
+                embedding,
+                metadata: {
+                  document_type: doc.documentType,
+                  created_at: Date.now(),
+                  ...doc.metadata,
+                },
+              };
+            } catch (embeddingError) {
+              this.logger.error(`Failed to generate embedding for document ${doc.id || 'unknown'}:`, embeddingError);
+              throw embeddingError;
+            }
+          }),
+        );
+
+        // Store batch in Qdrant
+        try {
+          const result = await this.vectorSearchService.storeDocumentEmbeddings(
+            collectionName,
+            documentsWithEmbeddings,
+          );
+          results.push(result);
+          this.logger.log(`Successfully stored batch ${Math.floor(i / batchSize) + 1}`);
+        } catch (storageError) {
+          this.logger.error(`Failed to store batch ${Math.floor(i / batchSize) + 1}:`, storageError);
+          throw storageError;
+        }
+      }
+
+      this.logger.log(`Successfully processed and stored ${documents.length} documents in ${collectionName}`);
+
+      return {
+        stored: documents.length,
+        batches: results.length,
+        message: 'All documents processed successfully'
+      };
     } catch (error) {
       this.logger.error('Failed to process and store documents', error);
       throw error;

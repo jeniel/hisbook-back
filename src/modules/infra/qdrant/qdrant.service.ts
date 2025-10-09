@@ -431,11 +431,43 @@ export class QdrantService implements OnModuleInit {
       },
     };
 
-    return this.executeWithClientFallback(
-      `createCollection: ${collectionName}`,
-      () => this.httpClient.put(`/collections/${collectionName}`, collectionConfig).then(response => response.data),
-      () => this.client.createCollection(collectionName, collectionConfig)
-    );
+    try {
+      return await this.executeWithClientFallback(
+        `createCollection: ${collectionName}`,
+        () => this.httpClient.put(`/collections/${collectionName}`, collectionConfig).then(response => response.data),
+        () => this.client.createCollection(collectionName, collectionConfig)
+      );
+    } catch (error) {
+      // Handle 409 Conflict - collection already exists
+      if (error.response?.status === 409 || error.message?.includes('409')) {
+        this.logger.log(`Collection "${collectionName}" already exists, returning success`);
+        // Return a success-like response when collection already exists
+        return { result: true, status: 'ok' };
+      }
+
+      // Re-throw other errors
+      throw error;
+    }
+  }
+
+  /**
+   * Create collection only if it doesn't exist (safer method)
+   */
+  async createCollectionIfNotExists(collectionName: string, params: CreateCollectionParams) {
+    try {
+      // First, try to check if collection exists
+      const exists = await this.collectionExists(collectionName);
+      if (exists) {
+        this.logger.log(`Collection "${collectionName}" already exists, skipping creation`);
+        return { result: true, status: 'already_exists' };
+      }
+    } catch (error) {
+      // If we can't check existence, we'll try to create and handle 409
+      this.logger.warn(`Could not check if collection "${collectionName}" exists, will try to create: ${error.message}`);
+    }
+
+    // Try to create the collection
+    return await this.createCollection(collectionName, params);
   }
 
   /**
@@ -455,7 +487,13 @@ export class QdrantService implements OnModuleInit {
   async collectionExists(collectionName: string): Promise<boolean> {
     try {
       this.ensureClientInitialized();
-      const collections = await this.client.getCollections();
+
+      const collections = await this.executeWithClientFallback(
+        `collectionExists: ${collectionName}`,
+        () => this.httpClient.get('/collections').then(response => response.data),
+        () => this.client.getCollections()
+      );
+
       return collections.collections.some(col => col.name === collectionName);
     } catch (error) {
       this.logger.error(`Failed to check collection existence: ${collectionName}`, error);
@@ -578,14 +616,27 @@ export class QdrantService implements OnModuleInit {
     fieldSchema: 'keyword' | 'integer' | 'float' | 'geo' | 'text' | 'bool' = 'keyword',
   ) {
     try {
-      const result = await this.client.createPayloadIndex(collectionName, {
+      const indexConfig = {
         field_name: fieldName,
         field_schema: fieldSchema,
         wait: true,
-      });
+      };
+
+      const result = await this.executeWithClientFallback(
+        `createPayloadIndex: ${fieldName} in ${collectionName}`,
+        () => this.httpClient.put(`/collections/${collectionName}/index`, indexConfig).then(response => response.data),
+        () => this.client.createPayloadIndex(collectionName, indexConfig)
+      );
+
       this.logger.log(`Created payload index for ${fieldName} in ${collectionName}`);
       return result;
     } catch (error) {
+      // Handle case where index already exists (this is usually okay)
+      if (error.response?.status === 409 || error.message?.includes('409') || error.message?.includes('already exists')) {
+        this.logger.debug(`Payload index for ${fieldName} in ${collectionName} already exists`);
+        return { result: true, status: 'already_exists' };
+      }
+
       this.logger.error(`Failed to create payload index for ${fieldName} in ${collectionName}`, error);
       throw error;
     }

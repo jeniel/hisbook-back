@@ -218,7 +218,6 @@ input DocumentToEmbedInput {
   documentType: String!
   id: String
   metadata: JSON
-  tenantId: String!
 }
 
 input EnumGenderNullableFilter {
