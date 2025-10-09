@@ -1,6 +1,7 @@
 import { AuthModule } from '@/core/auth/auth.module';
 import { PrismaModule } from '@/core/database/prisma/prisma.module';
 import { GlobalModule } from '@/modules/global/global.module';
+import { QdrantModule } from '@/modules/infra/qdrant/qdrant.module';
 import { SequentialIdModule } from '@/shared/common/generator/sequential-id.module';
 import { AccessTokenGuard } from '@/shared/common/guards/accessToken.guard';
 import { RolesGuard } from '@/shared/common/guards/roles.guard';
@@ -27,6 +28,7 @@ import { join } from 'path';
     AuthModule,
     PrismaModule,
     SequentialIdModule,
+    QdrantModule,
     GlobalModule,
   ],
   providers: [
@@ -35,4 +37,4 @@ import { join } from 'path';
     { provide: APP_GUARD, useClass: RolesGuard },
   ],
 })
-export class AppModule {}
+export class AppModule { }
