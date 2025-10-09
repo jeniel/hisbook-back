@@ -391,6 +391,26 @@ export class QdrantService implements OnModuleInit {
       this.logger.log(`Created collection: ${collectionName}`);
       return result;
     } catch (error) {
+      this.logger.warn(`QdrantClient failed for createCollection: ${error.message}`);
+      
+      // Try HTTP client as fallback
+      if (this.httpClient) {
+        try {
+          this.logger.log('Trying HTTP client as fallback for createCollection...');
+          const response = await this.httpClient.put(`/collections/${collectionName}`, {
+            vectors: {
+              size: params.size,
+              distance: params.distance || 'Cosine',
+            },
+          });
+          this.logger.log(`✓ Created collection via HTTP client: ${collectionName}`);
+          return response.data;
+        } catch (httpError) {
+          this.logger.error(`Both QdrantClient and HTTP client failed for createCollection: ${collectionName}`, httpError);
+          throw error; // Throw original error
+        }
+      }
+      
       this.logger.error(`Failed to create collection: ${collectionName}`, error);
       throw error;
     }
@@ -405,6 +425,21 @@ export class QdrantService implements OnModuleInit {
       this.logger.log(`Deleted collection: ${collectionName}`);
       return result;
     } catch (error) {
+      this.logger.warn(`QdrantClient failed for deleteCollection: ${error.message}`);
+      
+      // Try HTTP client as fallback
+      if (this.httpClient) {
+        try {
+          this.logger.log('Trying HTTP client as fallback for deleteCollection...');
+          const response = await this.httpClient.delete(`/collections/${collectionName}`);
+          this.logger.log(`✓ Deleted collection via HTTP client: ${collectionName}`);
+          return response.data;
+        } catch (httpError) {
+          this.logger.error(`Both QdrantClient and HTTP client failed for deleteCollection: ${collectionName}`, httpError);
+          throw error; // Throw original error
+        }
+      }
+      
       this.logger.error(`Failed to delete collection: ${collectionName}`, error);
       throw error;
     }
@@ -435,6 +470,20 @@ export class QdrantService implements OnModuleInit {
     try {
       return await this.client.getCollection(collectionName);
     } catch (error) {
+      this.logger.warn(`QdrantClient failed for getCollectionInfo: ${error.message}`);
+      
+      // Try HTTP client as fallback
+      if (this.httpClient) {
+        try {
+          this.logger.log('Trying HTTP client as fallback for getCollectionInfo...');
+          const response = await this.httpClient.get(`/collections/${collectionName}`);
+          return response.data;
+        } catch (httpError) {
+          this.logger.error(`Both QdrantClient and HTTP client failed for getCollectionInfo: ${collectionName}`, httpError);
+          throw error; // Throw original error
+        }
+      }
+      
       this.logger.error(`Failed to get collection info: ${collectionName}`, error);
       throw error;
     }
