@@ -5,9 +5,8 @@ import { VectorSearchService } from '../qdrant/vector-search.service';
 import { EmbeddingService } from './embedding.service';
 
 interface DocumentToEmbed {
-  id: string;
+  id?: string;
   content: string;
-  tenantId: string;
   documentType: string;
   metadata?: Record<string, any>;
 }
@@ -57,7 +56,6 @@ export class DocumentEmbeddingService {
             content: doc.content,
             embedding,
             metadata: {
-              tenant_id: doc.tenantId,
               document_type: doc.documentType,
               created_at: Date.now(),
               ...doc.metadata,
