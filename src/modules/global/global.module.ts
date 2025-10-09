@@ -6,6 +6,8 @@ import { Module } from '@nestjs/common';
 import { CensusModule } from './census/census.module';
 import { ProfileModule } from './profile/profile.module';
 import { TicketModule } from './ticket/ticket.module';
+import { ChatModule } from './chat/chat.module';
+import { LangchainModule } from './langchain/langchain.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { TicketModule } from './ticket/ticket.module';
     PostModule,
     CensusModule,
     EventModule,
+    ChatModule,
+    LangchainModule,
   ],
   controllers: [],
   providers: [],
