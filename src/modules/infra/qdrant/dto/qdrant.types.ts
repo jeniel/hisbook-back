@@ -200,13 +200,10 @@ export class SemanticSearchInput {
 @InputType()
 export class DocumentToEmbedInput {
   @Field({ nullable: true })
-  id: string;
+  id?: string;
 
   @Field()
   content: string;
-
-  @Field()
-  tenantId: string;
 
   @Field()
   documentType: string;
