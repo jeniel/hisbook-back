@@ -12,7 +12,7 @@ export interface DocumentEmbedding {
 export class VectorSearchService {
   private readonly logger = new Logger(VectorSearchService.name);
 
-  constructor(private readonly qdrantService: QdrantService) {}
+  constructor(private readonly qdrantService: QdrantService) { }
 
   /**
    * Initialize a collection for document embeddings
@@ -22,8 +22,14 @@ export class VectorSearchService {
     vectorSize: number = 1536, // OpenAI embedding size
   ) {
     try {
+      // Check if Qdrant is available
+      if (!this.qdrantService.isAvailable()) {
+        this.logger.warn(`Qdrant is not available, skipping collection initialization: ${collectionName}`);
+        return false;
+      }
+
       const exists = await this.qdrantService.collectionExists(collectionName);
-      
+
       if (!exists) {
         await this.qdrantService.createCollection(collectionName, {
           size: vectorSize,
@@ -34,10 +40,10 @@ export class VectorSearchService {
         await this.qdrantService.createPayloadIndex(collectionName, 'tenant_id', 'keyword');
         await this.qdrantService.createPayloadIndex(collectionName, 'document_type', 'keyword');
         await this.qdrantService.createPayloadIndex(collectionName, 'created_at', 'integer');
-        
+
         this.logger.log(`Initialized document collection: ${collectionName}`);
       }
-      
+
       return true;
     } catch (error) {
       this.logger.error(`Failed to initialize collection: ${collectionName}`, error);
@@ -210,7 +216,7 @@ export class VectorSearchService {
     try {
       const info = await this.qdrantService.getCollectionInfo(collectionName);
       const count = await this.qdrantService.countPoints(collectionName);
-      
+
       return {
         name: collectionName,
         points_count: info.points_count,

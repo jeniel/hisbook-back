@@ -38,10 +38,15 @@ export class DocumentEmbeddingService {
     collectionName: string = 'documents',
   ) {
     try {
-      // Initialize collection if it doesn't exist
-      await this.vectorSearchService.initializeDocumentCollection(
+      // Check if vector search service can initialize (Qdrant availability)
+      const initialized = await this.vectorSearchService.initializeDocumentCollection(
         collectionName,
       );
+
+      if (!initialized) {
+        this.logger.warn('Vector storage not available, documents will not be stored');
+        return { stored: 0, message: 'Vector storage unavailable' };
+      }
 
       // Generate embeddings for all documents
       const documentsWithEmbeddings = await Promise.all(
