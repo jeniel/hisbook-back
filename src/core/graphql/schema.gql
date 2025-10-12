@@ -35,6 +35,11 @@ input AuditLogWhereInput {
   userId: StringNullableFilter
 }
 
+input BatchSearchInput {
+  collectionName: String!
+  searches: [SearchPointsInput!]!
+}
+
 input BoolFilter {
   equals: Boolean
   not: NestedBoolFilter
@@ -52,6 +57,12 @@ type CensusSummary {
   totalUsers: Int!
 }
 
+input CreateCollectionInput {
+  distance: String! = "Cosine"
+  name: String!
+  size: Int!
+}
+
 input CreateDepartmentInput {
   description: String!
   isSupport: Boolean
@@ -64,6 +75,12 @@ input CreateEventInput {
   location: String!
   startDate: DateTime
   title: String!
+}
+
+input CreateIndexInput {
+  collectionName: String!
+  fieldName: String!
+  fieldSchema: String! = "keyword"
 }
 
 input CreatePostInput {
@@ -196,6 +213,13 @@ input DepartmentWhereInput {
   users: UserListRelationFilter
 }
 
+input DocumentToEmbedInput {
+  content: String!
+  documentType: String!
+  id: String
+  metadata: JSON
+}
+
 input EnumGenderNullableFilter {
   equals: Gender
   in: [Gender!]
@@ -259,6 +283,11 @@ type GeneralMsg {
   success: Boolean
 }
 
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
 type MeQuery {
   isSignedIn: Boolean!
   user: User!
@@ -278,15 +307,22 @@ type Mutation {
   createEvent(payload: CreateEventInput!): GeneralMsg!
   createPost(payload: CreatePostInput!): GeneralMsg!
   createProfile(payload: CreateProfileInput!): GeneralMsg!
+  createQdrantCollection(input: CreateCollectionInput!): Boolean!
+  createQdrantIndex(input: CreateIndexInput!): Boolean!
   createTicket(payload: CreateTicketInput!): GeneralMsg!
   createUser(payload: CreateUserInput!): GeneralMsg!
   deleteDepartment(id: String!): GeneralMsg!
   deleteEvent(id: String!): GeneralMsg!
   deletePost(postId: String!): GeneralMsg!
   deleteProfile(id: String!): GeneralMsg!
+  deleteQdrantCollection(name: String!): Boolean!
+  deleteQdrantPoints(collectionName: String!, ids: [ID!]!): Boolean!
+  deleteTenantDocuments(collectionName: String! = "documents", tenantId: String!): String!
   deleteTicket(id: String!): GeneralMsg!
   deleteUser(id: String!): GeneralMsg!
+  initializeDocumentCollection(collectionName: String!, vectorSize: Float! = 1536): Boolean!
   logOut: GeneralMsg!
+  processAndStoreDocuments(input: ProcessDocumentsInput!): Boolean!
   signin(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
   updateDepartment(id: String!, payload: UpdateDepartmentInput!): GeneralMsg!
@@ -295,6 +331,7 @@ type Mutation {
   updateProfile(id: String!, payload: UpdateProfileInput!): GeneralMsg!
   updateTicket(id: String!, payload: UpdateTicketInput!): GeneralMsg!
   updateUser(id: String!, payload: UpdateUserInput!): GeneralMsg!
+  upsertQdrantPoints(input: UpsertPointsInput!): Boolean!
 }
 
 input NestedBoolFilter {
@@ -398,6 +435,11 @@ input PostsWhereInput {
   userId: StringNullableFilter
 }
 
+input ProcessDocumentsInput {
+  collectionName: String! = "documents"
+  documents: [DocumentToEmbedInput!]!
+}
+
 type Profile {
   address: String
   avatar: String
@@ -447,6 +489,61 @@ input ProfileWhereInput {
   userId: StringNullableFilter
 }
 
+type QdrantBatchSearchResultType {
+  results: [[QdrantSearchResultType!]!]!
+}
+
+type QdrantCollectionInfoType {
+  config: JSON
+  indexed_vectors_count: Int!
+  payload_schema: JSON
+  points_count: Int!
+  status: String!
+  vectors_count: Int!
+}
+
+type QdrantCollectionType {
+  name: String!
+}
+
+type QdrantCountResultType {
+  count: Int!
+}
+
+type QdrantHealthStatusType {
+  isAvailable: Boolean!
+  message: String!
+  status: String!
+}
+
+input QdrantPointInput {
+  id: ID!
+  payload: JSON
+  vector: [Float!]!
+}
+
+type QdrantPointType {
+  id: ID!
+  payload: JSON
+  score: Float
+  vector: [Float!]
+  version: Int
+}
+
+type QdrantScrollResultType {
+  next_page_offset: String
+  points: [QdrantPointType!]!
+}
+
+type QdrantSearchResultType {
+  content: String
+  id: ID!
+  metadata: JSON
+  payload: JSON
+  score: Float!
+  vector: [Float!]
+}
+
 type Query {
   findAllDepartments(page: Int, perPage: Int, search: String, where: DepartmentWhereInput): DepartmentList!
   findAllEvents(page: Int, perPage: Int, search: String, where: EventWhereInput): EventList!
@@ -457,12 +554,30 @@ type Query {
   findAllTickets(page: Int, perPage: Int, search: String, status: Status, where: TicketWhereInput): TicketList!
   findAllUsers(employeeID: String, page: Int, perPage: Int, search: String, where: UserWhereInput): UserList!
   findProfile(id: String!): Profile!
+  findSimilarDocuments(collectionName: String! = "documents", documentId: String!, limit: Float! = 5, tenantId: String!, threshold: Float! = 0.8): [QdrantSearchResultType!]!
   findTicketbyID(id: String!): Ticket
   findTicketsByDepartment(page: Int, perPage: Int, search: String, status: Status, where: TicketWhereInput): TicketList!
   findTicketsByUser(page: Int, perPage: Int, search: String, status: Status, userId: String!, where: TicketWhereInput): TicketList!
   findTicketsWorkedByUser(page: Int, perPage: Int, search: String, status: Status, userId: String!, where: TicketWhereInput): TicketList!
   getCensusSummary(userId: String): CensusSummary!
+  hybridSearch(collectionName: String! = "documents", keywords: [String!]!, limit: Float! = 10, query: String!, tenantId: String!): [QdrantSearchResultType!]!
+  isEmbeddingServiceAvailable: Boolean!
   meQuery: MeQuery!
+  qdrantBatchSearch(input: BatchSearchInput!): QdrantBatchSearchResultType!
+  qdrantCollection(name: String!): QdrantCollectionInfoType!
+  qdrantCollectionAnalytics(collectionName: String! = "documents"): String!
+  qdrantCollectionExists(name: String!): Boolean!
+  qdrantCollections: [QdrantCollectionType!]!
+  qdrantConnectivityTest: String!
+  qdrantHealth: QdrantHealthStatusType!
+  qdrantPoint(collectionName: String!, id: ID!): QdrantPointType
+  qdrantPoints(collectionName: String!, ids: [ID!]!): [QdrantPointType!]!
+  qdrantPointsCount(collectionName: String!, filter: JSON): QdrantCountResultType!
+  qdrantQueryPoints(input: SearchPointsInput!): [QdrantSearchResultType!]!
+  qdrantScrollPoints(input: ScrollPointsInput!): QdrantScrollResultType!
+  qdrantSearchPoints(input: SearchPointsInput!): [QdrantSearchResultType!]!
+  qdrantServiceStatus: String!
+  semanticSearch(input: SemanticSearchInput!): [QdrantSearchResultType!]!
 }
 
 enum QueryMode {
@@ -473,6 +588,31 @@ enum QueryMode {
 enum Role {
   ADMIN
   USER
+}
+
+input ScrollPointsInput {
+  collectionName: String!
+  filter: JSON
+  limit: Int! = 100
+  offset: String
+}
+
+input SearchPointsInput {
+  collectionName: String!
+  filter: JSON
+  limit: Int! = 10
+  vector: [Float!]!
+  withPayload: Boolean! = true
+  withVector: Boolean! = false
+}
+
+input SemanticSearchInput {
+  collectionName: String! = "documents"
+  documentType: String
+  limit: Int! = 10
+  query: String!
+  tenantId: String!
+  threshold: Float! = 0.7
 }
 
 input SignInInput {
@@ -668,6 +808,11 @@ input UpdateUserInput {
   password: String!
   role: [Role!]
   username: String!
+}
+
+input UpsertPointsInput {
+  collectionName: String!
+  points: [QdrantPointInput!]!
 }
 
 type User {
