@@ -10,7 +10,18 @@ import { VectorSearchService } from './vector-search.service';
 @Module({
   imports: [ConfigModule],
   controllers: [QdrantController],
-  providers: [QdrantService, VectorSearchService, DocumentEmbeddingService, EmbeddingService, QdrantResolver],
-  exports: [QdrantService, VectorSearchService, DocumentEmbeddingService, EmbeddingService],
+  providers: [
+    QdrantService,
+    VectorSearchService,
+    DocumentEmbeddingService,
+    EmbeddingService,
+    QdrantResolver,
+  ],
+  exports: [
+    QdrantService,
+    VectorSearchService,
+    DocumentEmbeddingService,
+    EmbeddingService,
+  ],
 })
-export class QdrantModule { }
+export class QdrantModule {}

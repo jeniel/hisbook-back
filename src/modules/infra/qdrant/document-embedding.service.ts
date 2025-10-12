@@ -37,15 +37,20 @@ export class DocumentEmbeddingService {
     collectionName: string = 'documents',
   ) {
     try {
-      this.logger.log(`Processing ${documents.length} documents for collection: ${collectionName}`);
-
-      // Check if vector search service can initialize (Qdrant availability)
-      const initialized = await this.vectorSearchService.initializeDocumentCollection(
-        collectionName,
+      this.logger.log(
+        `Processing ${documents.length} documents for collection: ${collectionName}`,
       );
 
+      // Check if vector search service can initialize (Qdrant availability)
+      const initialized =
+        await this.vectorSearchService.initializeDocumentCollection(
+          collectionName,
+        );
+
       if (!initialized) {
-        this.logger.warn('Vector storage not available, documents will not be stored');
+        this.logger.warn(
+          'Vector storage not available, documents will not be stored',
+        );
         return { stored: 0, message: 'Vector storage unavailable' };
       }
 
@@ -55,13 +60,17 @@ export class DocumentEmbeddingService {
 
       for (let i = 0; i < documents.length; i += batchSize) {
         const batch = documents.slice(i, i + batchSize);
-        this.logger.log(`Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(documents.length / batchSize)} (${batch.length} documents)`);
+        this.logger.log(
+          `Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(documents.length / batchSize)} (${batch.length} documents)`,
+        );
 
         // Generate embeddings for batch
         const documentsWithEmbeddings = await Promise.all(
           batch.map(async (doc) => {
             try {
-              const embedding = await this.embeddingService.generateEmbedding(doc.content);
+              const embedding = await this.embeddingService.generateEmbedding(
+                doc.content,
+              );
               return {
                 id: doc.id || uuidv4(),
                 content: doc.content,
@@ -73,7 +82,10 @@ export class DocumentEmbeddingService {
                 },
               };
             } catch (embeddingError) {
-              this.logger.error(`Failed to generate embedding for document ${doc.id || 'unknown'}:`, embeddingError);
+              this.logger.error(
+                `Failed to generate embedding for document ${doc.id || 'unknown'}:`,
+                embeddingError,
+              );
               throw embeddingError;
             }
           }),
@@ -86,19 +98,26 @@ export class DocumentEmbeddingService {
             documentsWithEmbeddings,
           );
           results.push(result);
-          this.logger.log(`Successfully stored batch ${Math.floor(i / batchSize) + 1}`);
+          this.logger.log(
+            `Successfully stored batch ${Math.floor(i / batchSize) + 1}`,
+          );
         } catch (storageError) {
-          this.logger.error(`Failed to store batch ${Math.floor(i / batchSize) + 1}:`, storageError);
+          this.logger.error(
+            `Failed to store batch ${Math.floor(i / batchSize) + 1}:`,
+            storageError,
+          );
           throw storageError;
         }
       }
 
-      this.logger.log(`Successfully processed and stored ${documents.length} documents in ${collectionName}`);
+      this.logger.log(
+        `Successfully processed and stored ${documents.length} documents in ${collectionName}`,
+      );
 
       return {
         stored: documents.length,
         batches: results.length,
-        message: 'All documents processed successfully'
+        message: 'All documents processed successfully',
       };
     } catch (error) {
       this.logger.error('Failed to process and store documents', error);
@@ -134,20 +153,20 @@ export class DocumentEmbeddingService {
       // Search based on whether document type is specified
       const results = documentType
         ? await this.vectorSearchService.searchByDocumentType(
-          collectionName,
-          tenantId,
-          documentType,
-          queryEmbedding,
-          limit,
-          threshold,
-        )
+            collectionName,
+            tenantId,
+            documentType,
+            queryEmbedding,
+            limit,
+            threshold,
+          )
         : await this.vectorSearchService.searchByTenant(
-          collectionName,
-          tenantId,
-          queryEmbedding,
-          limit,
-          threshold,
-        );
+            collectionName,
+            tenantId,
+            queryEmbedding,
+            limit,
+            threshold,
+          );
 
       this.logger.log(
         `Semantic search returned ${results.length} results for tenant ${tenantId}`,

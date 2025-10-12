@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 import { DocumentEmbeddingService } from './document-embedding.service';
@@ -23,7 +24,6 @@ import { EmbeddingService } from './embedding.service';
 import { QdrantService } from './qdrant.service';
 import { VectorSearchService } from './vector-search.service';
 
-
 @Resolver()
 export class QdrantResolver {
   constructor(
@@ -31,7 +31,7 @@ export class QdrantResolver {
     private readonly vectorSearchService: VectorSearchService,
     private readonly documentEmbeddingService: DocumentEmbeddingService,
     private readonly embeddingService: EmbeddingService,
-  ) { }
+  ) {}
 
   @Query(() => [QdrantCollectionType], { name: 'qdrantCollections' })
   async getCollections() {
@@ -120,7 +120,7 @@ export class QdrantResolver {
 
   @Query(() => QdrantBatchSearchResultType, { name: 'qdrantBatchSearch' })
   async batchSearch(@Args('input') input: BatchSearchInput) {
-    const searchParams = input.searches.map(search => ({
+    const searchParams = input.searches.map((search) => ({
       vector: search.vector,
       limit: search.limit,
       filter: search.filter,
@@ -128,7 +128,10 @@ export class QdrantResolver {
       with_vector: search.withVector,
     }));
 
-    const results = await this.qdrantService.searchBatch(input.collectionName, searchParams);
+    const results = await this.qdrantService.searchBatch(
+      input.collectionName,
+      searchParams,
+    );
     return { results };
   }
 
@@ -281,17 +284,21 @@ export class QdrantResolver {
     const health = await this.qdrantService.healthCheck();
     const isEmbeddingAvailable = await this.isEmbeddingServiceAvailable();
 
-    return JSON.stringify({
-      qdrant: {
-        status: health.status,
-        message: health.message,
-        isAvailable: this.qdrantService.isAvailable(),
+    return JSON.stringify(
+      {
+        qdrant: {
+          status: health.status,
+          message: health.message,
+          isAvailable: this.qdrantService.isAvailable(),
+        },
+        embedding: {
+          isAvailable: isEmbeddingAvailable,
+          status: isEmbeddingAvailable ? 'healthy' : 'unhealthy',
+        },
       },
-      embedding: {
-        isAvailable: isEmbeddingAvailable,
-        status: isEmbeddingAvailable ? 'healthy' : 'unhealthy',
-      },
-    }, null, 2);
+      null,
+      2,
+    );
   }
 
   @Query(() => String, { name: 'qdrantConnectivityTest' })
@@ -302,24 +309,26 @@ export class QdrantResolver {
         timestamp: new Date().toISOString(),
         qdrantClient: { available: false, error: null, collections: null },
         httpClient: { available: false, error: null, collections: null },
-        summary: { overallStatus: 'unhealthy', workingClients: [] }
+        summary: { overallStatus: 'unhealthy', workingClients: [] },
       };
 
       // Test QdrantClient
       if (this.qdrantService.getClient()) {
         try {
-          const collections = await this.qdrantService.getClient().getCollections();
+          const collections = await this.qdrantService
+            .getClient()
+            .getCollections();
           results.qdrantClient = {
             available: true,
             error: null,
-            collections: collections.collections?.length || 0
+            collections: collections.collections?.length || 0,
           };
           results.summary.workingClients.push('QdrantClient');
         } catch (error) {
           results.qdrantClient = {
             available: false,
             error: error.message,
-            collections: null
+            collections: null,
           };
         }
       }
@@ -332,7 +341,7 @@ export class QdrantResolver {
           results.httpClient = {
             available: true,
             error: null,
-            collections: collections.collections.length
+            collections: collections.collections.length,
           };
           if (!results.summary.workingClients.includes('QdrantClient')) {
             results.summary.workingClients.push('HTTPClient');
@@ -343,20 +352,25 @@ export class QdrantResolver {
           results.httpClient = {
             available: false,
             error: error.message,
-            collections: null
+            collections: null,
           };
         }
       }
 
       // Determine overall status
-      results.summary.overallStatus = results.summary.workingClients.length > 0 ? 'healthy' : 'unhealthy';
+      results.summary.overallStatus =
+        results.summary.workingClients.length > 0 ? 'healthy' : 'unhealthy';
 
       return JSON.stringify(results, null, 2);
     } catch (error) {
-      return JSON.stringify({
-        error: `Connectivity test failed: ${error.message}`,
-        timestamp: new Date().toISOString()
-      }, null, 2);
+      return JSON.stringify(
+        {
+          error: `Connectivity test failed: ${error.message}`,
+          timestamp: new Date().toISOString(),
+        },
+        null,
+        2,
+      );
     }
   }
 }

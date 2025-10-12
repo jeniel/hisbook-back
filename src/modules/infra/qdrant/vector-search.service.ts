@@ -12,7 +12,7 @@ export interface DocumentEmbedding {
 export class VectorSearchService {
   private readonly logger = new Logger(VectorSearchService.name);
 
-  constructor(private readonly qdrantService: QdrantService) { }
+  constructor(private readonly qdrantService: QdrantService) {}
 
   /**
    * Initialize a collection for document embeddings
@@ -22,7 +22,9 @@ export class VectorSearchService {
     vectorSize: number = 1536,
   ) {
     try {
-      this.logger.log(`Initializing document collection: ${collectionName} with vector size: ${vectorSize}`);
+      this.logger.log(
+        `Initializing document collection: ${collectionName} with vector size: ${vectorSize}`,
+      );
 
       // Use the safer createCollectionIfNotExists method
       await this.qdrantService.createCollectionIfNotExists(collectionName, {
@@ -33,18 +35,37 @@ export class VectorSearchService {
       // Create payload indexes for better filtering performance
       // These will fail gracefully if they already exist
       try {
-        await this.qdrantService.createPayloadIndex(collectionName, 'tenant_id', 'keyword');
-        await this.qdrantService.createPayloadIndex(collectionName, 'document_type', 'keyword');
-        await this.qdrantService.createPayloadIndex(collectionName, 'created_at', 'integer');
+        await this.qdrantService.createPayloadIndex(
+          collectionName,
+          'tenant_id',
+          'keyword',
+        );
+        await this.qdrantService.createPayloadIndex(
+          collectionName,
+          'document_type',
+          'keyword',
+        );
+        await this.qdrantService.createPayloadIndex(
+          collectionName,
+          'created_at',
+          'integer',
+        );
       } catch (indexError) {
         // Indexes might already exist, that's okay
-        this.logger.debug(`Some indexes might already exist for ${collectionName}: ${indexError.message}`);
+        this.logger.debug(
+          `Some indexes might already exist for ${collectionName}: ${indexError.message}`,
+        );
       }
 
-      this.logger.log(`Successfully initialized document collection: ${collectionName}`);
+      this.logger.log(
+        `Successfully initialized document collection: ${collectionName}`,
+      );
       return true;
     } catch (error) {
-      this.logger.error(`Failed to initialize collection: ${collectionName}`, error);
+      this.logger.error(
+        `Failed to initialize collection: ${collectionName}`,
+        error,
+      );
       throw error;
     }
   }
@@ -57,7 +78,7 @@ export class VectorSearchService {
     documents: DocumentEmbedding[],
   ) {
     try {
-      const points = documents.map(doc => ({
+      const points = documents.map((doc) => ({
         id: doc.id,
         vector: doc.embedding,
         payload: {
@@ -67,11 +88,19 @@ export class VectorSearchService {
         },
       }));
 
-      const result = await this.qdrantService.upsertPoints(collectionName, points);
-      this.logger.log(`Stored ${documents.length} document embeddings in ${collectionName}`);
+      const result = await this.qdrantService.upsertPoints(
+        collectionName,
+        points,
+      );
+      this.logger.log(
+        `Stored ${documents.length} document embeddings in ${collectionName}`,
+      );
       return result;
     } catch (error) {
-      this.logger.error(`Failed to store embeddings in ${collectionName}`, error);
+      this.logger.error(
+        `Failed to store embeddings in ${collectionName}`,
+        error,
+      );
       throw error;
     }
   }
@@ -96,10 +125,14 @@ export class VectorSearchService {
       });
 
       // Filter by similarity threshold
-      const filteredResults = results.filter(result => result.score >= threshold);
+      const filteredResults = results.filter(
+        (result) => result.score >= threshold,
+      );
 
-      this.logger.log(`Found ${filteredResults.length} similar documents in ${collectionName}`);
-      return filteredResults.map(result => ({
+      this.logger.log(
+        `Found ${filteredResults.length} similar documents in ${collectionName}`,
+      );
+      return filteredResults.map((result) => ({
         id: result.id,
         score: result.score,
         content: result.payload?.content,
@@ -109,7 +142,10 @@ export class VectorSearchService {
         },
       }));
     } catch (error) {
-      this.logger.error(`Failed to search similar documents in ${collectionName}`, error);
+      this.logger.error(
+        `Failed to search similar documents in ${collectionName}`,
+        error,
+      );
       throw error;
     }
   }
@@ -195,14 +231,19 @@ export class VectorSearchService {
       );
 
       if (scrollResult.points.length > 0) {
-        const pointIds = scrollResult.points.map(point => point.id);
+        const pointIds = scrollResult.points.map((point) => point.id);
         await this.qdrantService.deletePoints(collectionName, pointIds);
-        this.logger.log(`Deleted ${pointIds.length} documents for tenant ${tenantId}`);
+        this.logger.log(
+          `Deleted ${pointIds.length} documents for tenant ${tenantId}`,
+        );
       }
 
       return { deleted: scrollResult.points.length };
     } catch (error) {
-      this.logger.error(`Failed to delete documents for tenant ${tenantId}`, error);
+      this.logger.error(
+        `Failed to delete documents for tenant ${tenantId}`,
+        error,
+      );
       throw error;
     }
   }
@@ -244,7 +285,7 @@ export class VectorSearchService {
         should: [
           // Vector similarity will be handled by the search itself
           // Keywords matching in content
-          ...keywords.map(keyword => ({
+          ...keywords.map((keyword) => ({
             key: 'content',
             match: { text: keyword },
           })),
@@ -269,14 +310,17 @@ export class VectorSearchService {
         with_vector: false,
       });
 
-      return results.map(result => ({
+      return results.map((result) => ({
         id: result.id,
         score: result.score,
         content: result.payload?.content,
         metadata: result.payload,
       }));
     } catch (error) {
-      this.logger.error(`Failed to perform hybrid search in ${collectionName}`, error);
+      this.logger.error(
+        `Failed to perform hybrid search in ${collectionName}`,
+        error,
+      );
       throw error;
     }
   }

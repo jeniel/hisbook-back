@@ -1,21 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-  Controller,
-  Get,
-  Post,
-  Delete,
   Body,
-  Param,
-  Query,
+  Controller,
+  Delete,
+  Get,
   HttpException,
   HttpStatus,
+  Param,
+  Post,
+  Query,
 } from '@nestjs/common';
-import {
-  QdrantService,
-  QdrantPoint,
-  SearchParams,
-  CreateCollectionParams,
-} from './qdrant.service';
-import { Public } from '@/shared/common/decorator/public.decorator';
+import { QdrantPoint, QdrantService } from './qdrant.service';
 
 export class CreateCollectionDto {
   name: string;
@@ -40,11 +35,9 @@ export class CreateIndexDto {
   field_schema?: 'keyword' | 'integer' | 'float' | 'geo' | 'text' | 'bool';
 }
 
-
 @Controller('qdrant')
 export class QdrantController {
   constructor(private readonly qdrantService: QdrantService) {}
-
 
   @Get('collections')
   async getCollections() {
@@ -70,7 +63,6 @@ export class QdrantController {
       );
     }
   }
-
 
   @Get('collections/:name')
   async getCollectionInfo(@Param('name') name: string) {

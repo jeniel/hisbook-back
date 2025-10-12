@@ -76,7 +76,6 @@ async function main() {
     { name: 'ELECTROCARDIOGRAM (ECG)', description: 'Electrocardiogram (Ecg)' },
     { name: 'EMERGENCY ROOM', description: 'Emergency Room' },
     { name: 'ENDOSCOPY', description: 'Endoscopy' },
-    { name: 'ENGINEERING', description: 'Engineering' },
     {
       name: 'ENGINEERING AND MAINTENANCE',
       description: 'Engineering And Maintenance',

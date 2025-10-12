@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { QdrantClient } from '@qdrant/js-client-rest';
@@ -28,10 +30,13 @@ export class QdrantService implements OnModuleInit {
   private client: QdrantClient;
   private httpClient: AxiosInstance | null = null;
 
-  constructor(private configService: ConfigService) { }
+  constructor(private configService: ConfigService) {}
 
   async onModuleInit() {
-    const url = this.configService.get<string>('QDRANT_URL', 'http://localhost:6333');
+    const url = this.configService.get<string>(
+      'QDRANT_URL',
+      'http://localhost:6333',
+    );
     const apiKey = this.configService.get<string>('QDRANT_API_KEY');
     const timeout = this.configService.get<number>('QDRANT_TIMEOUT', 30000); // 30 seconds default
     const retries = this.configService.get<number>('QDRANT_MAX_RETRIES', 3);
@@ -40,7 +45,9 @@ export class QdrantService implements OnModuleInit {
     this.validateConfiguration(url, timeout, retries);
 
     if (!url) {
-      this.logger.warn('QDRANT_URL not configured, skipping Qdrant initialization');
+      this.logger.warn(
+        'QDRANT_URL not configured, skipping Qdrant initialization',
+      );
       return;
     }
 
@@ -50,11 +57,13 @@ export class QdrantService implements OnModuleInit {
 
     try {
       // Add additional logging for debugging
-      this.logger.debug(`Creating QdrantClient with config: ${JSON.stringify({
-        url,
-        timeout,
-        hasApiKey: !!apiKey
-      })}`);
+      this.logger.debug(
+        `Creating QdrantClient with config: ${JSON.stringify({
+          url,
+          timeout,
+          hasApiKey: !!apiKey,
+        })}`,
+      );
 
       const clientConfig: any = {
         url,
@@ -75,7 +84,9 @@ export class QdrantService implements OnModuleInit {
               this.logger.log(`Corrected HTTPS URL: ${urlToFetch}`);
             } else if (urlToFetch.includes('http://')) {
               // For HTTP, change port 6333 to 443 for HTTPS
-              urlToFetch = urlToFetch.replace('http://', 'https://').replace(':6333', '');
+              urlToFetch = urlToFetch
+                .replace('http://', 'https://')
+                .replace(':6333', '');
               this.logger.log(`Corrected HTTP to HTTPS URL: ${urlToFetch}`);
             }
           }
@@ -120,17 +131,22 @@ export class QdrantService implements OnModuleInit {
       }
     }
 
-    if (timeout <= 0 || timeout > 300000) { // Max 5 minutes
-      issues.push(`QDRANT_TIMEOUT should be between 1 and 300000ms, got: ${timeout}`);
+    if (timeout <= 0 || timeout > 300000) {
+      // Max 5 minutes
+      issues.push(
+        `QDRANT_TIMEOUT should be between 1 and 300000ms, got: ${timeout}`,
+      );
     }
 
     if (retries < 0 || retries > 10) {
-      issues.push(`QDRANT_MAX_RETRIES should be between 0 and 10, got: ${retries}`);
+      issues.push(
+        `QDRANT_MAX_RETRIES should be between 0 and 10, got: ${retries}`,
+      );
     }
 
     if (issues.length > 0) {
       this.logger.warn('Qdrant configuration issues detected:');
-      issues.forEach(issue => this.logger.warn(`  - ${issue}`));
+      issues.forEach((issue) => this.logger.warn(`  - ${issue}`));
     }
   }
 
@@ -180,10 +196,15 @@ export class QdrantService implements OnModuleInit {
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        this.logger.log(`Testing Qdrant connection (attempt ${attempt}/${maxRetries})...`);
+        this.logger.log(
+          `Testing Qdrant connection (attempt ${attempt}/${maxRetries})...`,
+        );
 
         // Use a Promise with timeout to better control the connection test
-        const timeoutMs = this.configService.get<number>('QDRANT_TIMEOUT', 30000);
+        const timeoutMs = this.configService.get<number>(
+          'QDRANT_TIMEOUT',
+          30000,
+        );
 
         const connectionTest = new Promise(async (resolve, reject) => {
           try {
@@ -201,7 +222,9 @@ export class QdrantService implements OnModuleInit {
                 this.logger.log('✓ HTTP client connection successful');
                 resolve(response.data);
               } catch (httpError) {
-                this.logger.warn(`HTTP client also failed: ${httpError.message}`);
+                this.logger.warn(
+                  `HTTP client also failed: ${httpError.message}`,
+                );
                 reject(clientError); // Reject with original error
               }
             } else {
@@ -211,41 +234,56 @@ export class QdrantService implements OnModuleInit {
         });
 
         const timeoutPromise = new Promise((_, reject) => {
-          setTimeout(() => reject(new Error(`Connection timeout after ${timeoutMs}ms`)), timeoutMs);
+          setTimeout(
+            () => reject(new Error(`Connection timeout after ${timeoutMs}ms`)),
+            timeoutMs,
+          );
         });
 
-        const result = await Promise.race([connectionTest, timeoutPromise]) as any;
+        const result = (await Promise.race([
+          connectionTest,
+          timeoutPromise,
+        ])) as any;
 
         this.logger.log(`✓ Connected to Qdrant successfully`);
 
         // Handle different response formats
         if (result && result.result && result.result.collections) {
-          this.logger.log(`Found ${result.result.collections.length} collections`);
+          this.logger.log(
+            `Found ${result.result.collections.length} collections`,
+          );
         } else if (result && result.collections) {
           this.logger.log(`Found ${result.collections.length} collections`);
         } else {
-          this.logger.log(`Connected successfully (collections info not available)`);
+          this.logger.log(
+            `Connected successfully (collections info not available)`,
+          );
         }
         return; // Success, exit function
-
       } catch (error) {
         lastError = error;
-        this.logger.warn(`Connection attempt ${attempt} failed: ${error.message}`);
+        this.logger.warn(
+          `Connection attempt ${attempt} failed: ${error.message}`,
+        );
 
         if (attempt < maxRetries) {
           const delay = Math.pow(2, attempt) * 1000; // Exponential backoff
           this.logger.log(`Retrying in ${delay}ms...`);
-          await new Promise(resolve => setTimeout(resolve, delay));
+          await new Promise((resolve) => setTimeout(resolve, delay));
         }
       }
     }
 
     // All retries failed
-    this.logger.error(`Failed to connect to Qdrant after ${maxRetries} attempts`);
+    this.logger.error(
+      `Failed to connect to Qdrant after ${maxRetries} attempts`,
+    );
     this.logger.error(`Last error: ${lastError.message}`);
 
     if (lastError.cause) {
-      this.logger.error(`Error cause: ${lastError.cause.message || lastError.cause}`);
+      this.logger.error(
+        `Error cause: ${lastError.cause.message || lastError.cause}`,
+      );
     }
 
     // Log troubleshooting tips
@@ -274,7 +312,9 @@ export class QdrantService implements OnModuleInit {
    */
   private ensureClientInitialized() {
     if (!this.client) {
-      throw new Error('Qdrant client is not initialized. Check your QDRANT_URL configuration and ensure Qdrant service is accessible.');
+      throw new Error(
+        'Qdrant client is not initialized. Check your QDRANT_URL configuration and ensure Qdrant service is accessible.',
+      );
     }
   }
 
@@ -291,7 +331,7 @@ export class QdrantService implements OnModuleInit {
   private async executeWithClientFallback<T>(
     operation: string,
     httpOperation: () => Promise<T>,
-    qdrantOperation: () => Promise<T>
+    qdrantOperation: () => Promise<T>,
   ): Promise<T> {
     const url = this.configService.get<string>('QDRANT_URL', '');
     const useHttpFirst = url.includes('https://') && this.httpClient !== null;
@@ -303,7 +343,9 @@ export class QdrantService implements OnModuleInit {
         this.logger.log(`✓ ${operation} completed via HTTP client`);
         return result;
       } catch (httpError) {
-        this.logger.warn(`HTTP client failed for ${operation}: ${httpError.message}`);
+        this.logger.warn(
+          `HTTP client failed for ${operation}: ${httpError.message}`,
+        );
 
         // Fallback to QdrantClient if available
         if (this.client) {
@@ -312,7 +354,10 @@ export class QdrantService implements OnModuleInit {
             this.logger.log(`${operation} completed via QdrantClient fallback`);
             return result;
           } catch (clientError) {
-            this.logger.error(`Both HTTP client and QdrantClient failed for ${operation}`, clientError);
+            this.logger.error(
+              `Both HTTP client and QdrantClient failed for ${operation}`,
+              clientError,
+            );
             throw httpError;
           }
         }
@@ -325,16 +370,23 @@ export class QdrantService implements OnModuleInit {
         this.logger.log(`${operation} completed via QdrantClient`);
         return result;
       } catch (error) {
-        this.logger.warn(`QdrantClient failed for ${operation}: ${error.message}`);
+        this.logger.warn(
+          `QdrantClient failed for ${operation}: ${error.message}`,
+        );
 
         // Fallback to HTTP client if available
         if (this.httpClient) {
           try {
             const result = await httpOperation();
-            this.logger.log(`✓ ${operation} completed via HTTP client fallback`);
+            this.logger.log(
+              `✓ ${operation} completed via HTTP client fallback`,
+            );
             return result;
           } catch (httpError) {
-            this.logger.error(`Both QdrantClient and HTTP client failed for ${operation}`, httpError);
+            this.logger.error(
+              `Both QdrantClient and HTTP client failed for ${operation}`,
+              httpError,
+            );
             throw error;
           }
         }
@@ -346,35 +398,49 @@ export class QdrantService implements OnModuleInit {
   /**
    * Health check for Qdrant connection
    */
-  async healthCheck(): Promise<{ status: 'healthy' | 'unhealthy'; message: string }> {
+  async healthCheck(): Promise<{
+    status: 'healthy' | 'unhealthy';
+    message: string;
+  }> {
     try {
       if (!this.client && !this.httpClient) {
-        return { status: 'unhealthy', message: 'Neither Qdrant client nor HTTP client initialized' };
+        return {
+          status: 'unhealthy',
+          message: 'Neither Qdrant client nor HTTP client initialized',
+        };
       }
 
       // Try QdrantClient first
       if (this.client) {
         try {
           await this.client.getCollections();
-          return { status: 'healthy', message: 'Qdrant connection is healthy (via QdrantClient)' };
+          return {
+            status: 'healthy',
+            message: 'Qdrant connection is healthy (via QdrantClient)',
+          };
         } catch (clientError) {
-          this.logger.debug(`QdrantClient health check failed: ${clientError.message}`);
+          this.logger.debug(
+            `QdrantClient health check failed: ${clientError.message}`,
+          );
 
           // Try HTTP client as fallback
           if (this.httpClient) {
             try {
               await this.httpClient.get('/collections');
-              return { status: 'healthy', message: 'Qdrant connection is healthy (via HTTP client)' };
+              return {
+                status: 'healthy',
+                message: 'Qdrant connection is healthy (via HTTP client)',
+              };
             } catch (httpError) {
               return {
                 status: 'unhealthy',
-                message: `Both QdrantClient and HTTP client health checks failed: ${clientError.message}`
+                message: `Both QdrantClient and HTTP client health checks failed: ${clientError.message}`,
               };
             }
           } else {
             return {
               status: 'unhealthy',
-              message: `QdrantClient health check failed: ${clientError.message}`
+              message: `QdrantClient health check failed: ${clientError.message}`,
             };
           }
         }
@@ -382,11 +448,14 @@ export class QdrantService implements OnModuleInit {
         // Only HTTP client available
         try {
           await this.httpClient.get('/collections');
-          return { status: 'healthy', message: 'Qdrant connection is healthy (via HTTP client only)' };
+          return {
+            status: 'healthy',
+            message: 'Qdrant connection is healthy (via HTTP client only)',
+          };
         } catch (httpError) {
           return {
             status: 'unhealthy',
-            message: `HTTP client health check failed: ${httpError.message}`
+            message: `HTTP client health check failed: ${httpError.message}`,
           };
         }
       }
@@ -395,7 +464,7 @@ export class QdrantService implements OnModuleInit {
     } catch (error) {
       return {
         status: 'unhealthy',
-        message: `Unexpected health check error: ${error.message}`
+        message: `Unexpected health check error: ${error.message}`,
       };
     }
   }
@@ -408,20 +477,26 @@ export class QdrantService implements OnModuleInit {
 
     return this.executeWithClientFallback(
       'getCollections',
-      () => this.httpClient.get('/collections').then(response => response.data),
-      () => this.client.getCollections()
-    ).catch(error => {
+      () =>
+        this.httpClient.get('/collections').then((response) => response.data),
+      () => this.client.getCollections(),
+    ).catch((error) => {
       this.logger.error('Failed to get collections', error);
       if (!this.isAvailable()) {
-        this.logger.warn('Qdrant is not available, returning empty collections list');
+        this.logger.warn(
+          'Qdrant is not available, returning empty collections list',
+        );
         return { collections: [] };
       }
       throw error;
     });
-  }  /**
+  } /**
    * Create a new collection
    */
-  async createCollection(collectionName: string, params: CreateCollectionParams) {
+  async createCollection(
+    collectionName: string,
+    params: CreateCollectionParams,
+  ) {
     this.ensureClientInitialized();
 
     const collectionConfig = {
@@ -434,13 +509,18 @@ export class QdrantService implements OnModuleInit {
     try {
       return await this.executeWithClientFallback(
         `createCollection: ${collectionName}`,
-        () => this.httpClient.put(`/collections/${collectionName}`, collectionConfig).then(response => response.data),
-        () => this.client.createCollection(collectionName, collectionConfig)
+        () =>
+          this.httpClient
+            .put(`/collections/${collectionName}`, collectionConfig)
+            .then((response) => response.data),
+        () => this.client.createCollection(collectionName, collectionConfig),
       );
     } catch (error) {
       // Handle 409 Conflict - collection already exists
       if (error.response?.status === 409 || error.message?.includes('409')) {
-        this.logger.log(`Collection "${collectionName}" already exists, returning success`);
+        this.logger.log(
+          `Collection "${collectionName}" already exists, returning success`,
+        );
         // Return a success-like response when collection already exists
         return { result: true, status: 'ok' };
       }
@@ -453,17 +533,24 @@ export class QdrantService implements OnModuleInit {
   /**
    * Create collection only if it doesn't exist (safer method)
    */
-  async createCollectionIfNotExists(collectionName: string, params: CreateCollectionParams) {
+  async createCollectionIfNotExists(
+    collectionName: string,
+    params: CreateCollectionParams,
+  ) {
     try {
       // First, try to check if collection exists
       const exists = await this.collectionExists(collectionName);
       if (exists) {
-        this.logger.log(`Collection "${collectionName}" already exists, skipping creation`);
+        this.logger.log(
+          `Collection "${collectionName}" already exists, skipping creation`,
+        );
         return { result: true, status: 'already_exists' };
       }
     } catch (error) {
       // If we can't check existence, we'll try to create and handle 409
-      this.logger.warn(`Could not check if collection "${collectionName}" exists, will try to create: ${error.message}`);
+      this.logger.warn(
+        `Could not check if collection "${collectionName}" exists, will try to create: ${error.message}`,
+      );
     }
 
     // Try to create the collection
@@ -476,8 +563,11 @@ export class QdrantService implements OnModuleInit {
   async deleteCollection(collectionName: string) {
     return this.executeWithClientFallback(
       `deleteCollection: ${collectionName}`,
-      () => this.httpClient.delete(`/collections/${collectionName}`).then(response => response.data),
-      () => this.client.deleteCollection(collectionName)
+      () =>
+        this.httpClient
+          .delete(`/collections/${collectionName}`)
+          .then((response) => response.data),
+      () => this.client.deleteCollection(collectionName),
     );
   }
 
@@ -490,15 +580,21 @@ export class QdrantService implements OnModuleInit {
 
       const collections = await this.executeWithClientFallback(
         `collectionExists: ${collectionName}`,
-        () => this.httpClient.get('/collections').then(response => response.data),
-        () => this.client.getCollections()
+        () =>
+          this.httpClient.get('/collections').then((response) => response.data),
+        () => this.client.getCollections(),
       );
 
-      return collections.collections.some(col => col.name === collectionName);
+      return collections.collections.some((col) => col.name === collectionName);
     } catch (error) {
-      this.logger.error(`Failed to check collection existence: ${collectionName}`, error);
+      this.logger.error(
+        `Failed to check collection existence: ${collectionName}`,
+        error,
+      );
       if (!this.isAvailable()) {
-        this.logger.warn('Qdrant is not available, assuming collection does not exist');
+        this.logger.warn(
+          'Qdrant is not available, assuming collection does not exist',
+        );
         return false;
       }
       return false;
@@ -511,8 +607,11 @@ export class QdrantService implements OnModuleInit {
   async getCollectionInfo(collectionName: string) {
     return this.executeWithClientFallback(
       `getCollectionInfo: ${collectionName}`,
-      () => this.httpClient.get(`/collections/${collectionName}`).then(response => response.data),
-      () => this.client.getCollection(collectionName)
+      () =>
+        this.httpClient
+          .get(`/collections/${collectionName}`)
+          .then((response) => response.data),
+      () => this.client.getCollection(collectionName),
     );
   }
 
@@ -529,8 +628,11 @@ export class QdrantService implements OnModuleInit {
 
     return this.executeWithClientFallback(
       `upsertPoints: ${points.length} points to ${collectionName}`,
-      () => this.httpClient.put(`/collections/${collectionName}/points`, upsertData).then(response => response.data),
-      () => this.client.upsert(collectionName, upsertData)
+      () =>
+        this.httpClient
+          .put(`/collections/${collectionName}/points`, upsertData)
+          .then((response) => response.data),
+      () => this.client.upsert(collectionName, upsertData),
     );
   }
 
@@ -585,7 +687,10 @@ export class QdrantService implements OnModuleInit {
         with_vector: true,
       });
     } catch (error) {
-      this.logger.error(`Failed to retrieve points from ${collectionName}`, error);
+      this.logger.error(
+        `Failed to retrieve points from ${collectionName}`,
+        error,
+      );
       throw error;
     }
   }
@@ -602,7 +707,10 @@ export class QdrantService implements OnModuleInit {
       this.logger.log(`Deleted ${ids.length} points from ${collectionName}`);
       return result;
     } catch (error) {
-      this.logger.error(`Failed to delete points from ${collectionName}`, error);
+      this.logger.error(
+        `Failed to delete points from ${collectionName}`,
+        error,
+      );
       throw error;
     }
   }
@@ -613,7 +721,13 @@ export class QdrantService implements OnModuleInit {
   async createPayloadIndex(
     collectionName: string,
     fieldName: string,
-    fieldSchema: 'keyword' | 'integer' | 'float' | 'geo' | 'text' | 'bool' = 'keyword',
+    fieldSchema:
+      | 'keyword'
+      | 'integer'
+      | 'float'
+      | 'geo'
+      | 'text'
+      | 'bool' = 'keyword',
   ) {
     try {
       const indexConfig = {
@@ -624,20 +738,34 @@ export class QdrantService implements OnModuleInit {
 
       const result = await this.executeWithClientFallback(
         `createPayloadIndex: ${fieldName} in ${collectionName}`,
-        () => this.httpClient.put(`/collections/${collectionName}/index`, indexConfig).then(response => response.data),
-        () => this.client.createPayloadIndex(collectionName, indexConfig)
+        () =>
+          this.httpClient
+            .put(`/collections/${collectionName}/index`, indexConfig)
+            .then((response) => response.data),
+        () => this.client.createPayloadIndex(collectionName, indexConfig),
       );
 
-      this.logger.log(`Created payload index for ${fieldName} in ${collectionName}`);
+      this.logger.log(
+        `Created payload index for ${fieldName} in ${collectionName}`,
+      );
       return result;
     } catch (error) {
       // Handle case where index already exists (this is usually okay)
-      if (error.response?.status === 409 || error.message?.includes('409') || error.message?.includes('already exists')) {
-        this.logger.debug(`Payload index for ${fieldName} in ${collectionName} already exists`);
+      if (
+        error.response?.status === 409 ||
+        error.message?.includes('409') ||
+        error.message?.includes('already exists')
+      ) {
+        this.logger.debug(
+          `Payload index for ${fieldName} in ${collectionName} already exists`,
+        );
         return { result: true, status: 'already_exists' };
       }
 
-      this.logger.error(`Failed to create payload index for ${fieldName} in ${collectionName}`, error);
+      this.logger.error(
+        `Failed to create payload index for ${fieldName} in ${collectionName}`,
+        error,
+      );
       throw error;
     }
   }
@@ -647,7 +775,7 @@ export class QdrantService implements OnModuleInit {
    */
   async searchBatch(collectionName: string, searches: SearchParams[]) {
     try {
-      const searchRequests = searches.map(params => ({
+      const searchRequests = searches.map((params) => ({
         vector: params.vector,
         limit: params.limit || 10,
         filter: params.filter,
