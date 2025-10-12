@@ -57,22 +57,6 @@ type CensusSummary {
   totalUsers: Int!
 }
 
-input ChatInput {
-  question: String!
-  userId: String!
-}
-
-type ChatMessage {
-  assistant: String!
-  user: String!
-}
-
-type ChatResponse {
-  answer: String!
-  history: [ChatMessage!]!
-  question: String!
-}
-
 input CreateCollectionInput {
   distance: String! = "Cosine"
   name: String!
@@ -319,7 +303,6 @@ type Meta {
 }
 
 type Mutation {
-  ask(input: ChatInput!): ChatResponse!
   createDepartment(payload: CreateDepartmentInput!): GeneralMsg!
   createEvent(payload: CreateEventInput!): GeneralMsg!
   createPost(payload: CreatePostInput!): GeneralMsg!
