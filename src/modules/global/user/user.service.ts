@@ -74,6 +74,11 @@ export class UserService {
               lastName: { contains: args.search, mode: 'insensitive' },
             },
           },
+          {
+            department: {
+              name: { contains: args.search, mode: 'insensitive' },
+            },
+          },
         ],
       };
     }
