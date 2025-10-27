@@ -83,6 +83,10 @@ input CreateIndexInput {
   fieldSchema: String! = "keyword"
 }
 
+input CreateManyUsersInput {
+  users: [CreateUserInput!]!
+}
+
 input CreatePostInput {
   content: String!
   images: [String!]
@@ -120,6 +124,8 @@ input CreateTicketInput {
 input CreateUserInput {
   departmentId: String
   email: String
+  firstName: String
+  lastName: String
   password: String!
   role: [Role!]
   username: String!
@@ -305,6 +311,7 @@ type Meta {
 type Mutation {
   createDepartment(payload: CreateDepartmentInput!): GeneralMsg!
   createEvent(payload: CreateEventInput!): GeneralMsg!
+  createManyUsers(input: CreateManyUsersInput!): String!
   createPost(payload: CreatePostInput!): GeneralMsg!
   createProfile(payload: CreateProfileInput!): GeneralMsg!
   createQdrantCollection(input: CreateCollectionInput!): Boolean!
@@ -805,6 +812,8 @@ input UpdateTicketInput {
 input UpdateUserInput {
   departmentId: String
   email: String
+  firstName: String
+  lastName: String
   password: String!
   role: [Role!]
   username: String!

@@ -17,6 +17,12 @@ export class CreateUserInput {
 
   @Field({ nullable: true })
   departmentId?: string;
+
+  @Field({ nullable: true })
+  firstName?: string;
+
+  @Field({ nullable: true })
+  lastName?: string;
 }
 
 // @InputType()

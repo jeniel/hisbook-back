@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { PrismaService } from '@/core/database/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -8,6 +9,7 @@ import * as argon2 from 'argon2'; // Password Hashing
 import { UserArgs } from '@/modules/global/user/args/user.args';
 import { CreateUserInput } from '@/modules/global/user/dto/create-user.input';
 import { UpdateUserInput } from '@/modules/global/user/dto/update-user.input';
+import { CreateManyUsersInput } from '@/modules/global/user/dto/create-many-user.input';
 
 @Injectable()
 export class UserService {
@@ -39,6 +41,30 @@ export class UserService {
     });
 
     return { message: 'User created successfully', data: user };
+  }
+
+  async createManyUsers(dto: CreateManyUsersInput) {
+    const usersData = await Promise.all(
+      dto.users.map(async (user) => {
+        const hashedPassword = await argon2.hash(user.password);
+
+        return {
+          email: user.email,
+          username: user.username,
+          hashedPassword,
+          departmentId: user.departmentId ?? null,
+          role: user.role ?? ['USER'],
+          profile: { create: {} },
+        };
+      }),
+    );
+
+    const createdUsers = await this.prisma.user.createMany({
+      data: usersData.map(({ profile, ...rest }) => rest),
+      skipDuplicates: true,
+    });
+
+    return { message: 'Users created successfully', count: createdUsers.count };
   }
 
   // -------------------
