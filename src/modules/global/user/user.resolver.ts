@@ -13,6 +13,7 @@ import { UserService } from './user.service';
 import { Role } from '@/generated/prisma/role.enum';
 import { Public } from '@/shared/common/decorator/public.decorator';
 import { Roles } from '@/shared/common/decorator/roles.decorator';
+import { CreateManyUsersInput } from '@/modules/global/user/dto/create-many-user.input';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -27,6 +28,12 @@ export class UserResolver {
   @Public()
   createUser(@Args('payload') payload: CreateUserInput) {
     return this.userService.createUser(payload);
+  }
+
+  // Create Many Users
+  @Mutation(() => String)
+  createManyUsers(@Args('input') input: CreateManyUsersInput) {
+    return this.userService.createManyUsers(input);
   }
 
   // Find All
