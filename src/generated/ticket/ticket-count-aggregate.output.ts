@@ -24,6 +24,9 @@ export class TicketCountAggregate {
     message!: number;
 
     @Field(() => Int, {nullable:false})
+    serialNumber!: number;
+
+    @Field(() => Int, {nullable:false})
     status!: number;
 
     @Field(() => Int, {nullable:false})

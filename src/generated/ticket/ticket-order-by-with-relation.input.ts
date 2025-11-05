@@ -27,6 +27,9 @@ export class TicketOrderByWithRelationInput {
     @Field(() => SortOrderInput, {nullable:true})
     message?: SortOrderInput;
 
+    @Field(() => SortOrderInput, {nullable:true})
+    serialNumber?: SortOrderInput;
+
     @Field(() => SortOrder, {nullable:true})
     status?: `${SortOrder}`;
 

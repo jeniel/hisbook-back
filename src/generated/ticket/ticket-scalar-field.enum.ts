@@ -7,6 +7,7 @@ export enum TicketScalarFieldEnum {
     floor = "floor",
     screenshot = "screenshot",
     message = "message",
+    serialNumber = "serialNumber",
     status = "status",
     remarks = "remarks",
     createdAt = "createdAt",

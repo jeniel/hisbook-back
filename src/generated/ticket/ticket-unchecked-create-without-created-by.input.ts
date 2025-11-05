@@ -24,6 +24,9 @@ export class TicketUncheckedCreateWithoutCreatedByInput {
     @Field(() => String, {nullable:true})
     message?: string;
 
+    @Field(() => String, {nullable:true})
+    serialNumber?: string;
+
     @Field(() => Status, {nullable:true})
     status?: `${Status}`;
 

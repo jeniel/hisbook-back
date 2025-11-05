@@ -233,6 +233,7 @@ export class TicketService {
         subject: dto.subject,
         missedAt: dto.missedAt,
         floor: dto.floor,
+        serialNumber: dto.serialNumber,
         screenshot: dto.screenshot,
         status: dto.status as Status,
         updatedBy: dto.updatedBy,

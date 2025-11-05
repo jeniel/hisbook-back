@@ -40,6 +40,9 @@ export class TicketWhereUniqueInput {
     @Field(() => StringNullableFilter, {nullable:true})
     message?: StringNullableFilter;
 
+    @Field(() => StringNullableFilter, {nullable:true})
+    serialNumber?: StringNullableFilter;
+
     @Field(() => EnumStatusFilter, {nullable:true})
     status?: EnumStatusFilter;
 

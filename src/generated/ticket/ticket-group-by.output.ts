@@ -26,6 +26,9 @@ export class TicketGroupBy {
     @Field(() => String, {nullable:true})
     message?: string;
 
+    @Field(() => String, {nullable:true})
+    serialNumber?: string;
+
     @Field(() => Status, {nullable:false})
     status!: `${Status}`;
 

@@ -30,6 +30,9 @@ export class TicketUpdateInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     message?: NullableStringFieldUpdateOperationsInput;
 
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    serialNumber?: NullableStringFieldUpdateOperationsInput;
+
     @Field(() => EnumStatusFieldUpdateOperationsInput, {nullable:true})
     status?: EnumStatusFieldUpdateOperationsInput;
 

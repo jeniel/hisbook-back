@@ -16,6 +16,9 @@ export class CreateTicketInput {
   screenshot?: string;
 
   @Field({ nullable: true })
+  serialNumber?: string;
+
+  @Field({ nullable: true })
   message?: string;
 
   @Field(() => Status, { nullable: true })
