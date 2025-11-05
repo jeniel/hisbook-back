@@ -24,6 +24,9 @@ export class TicketMaxOrderByAggregateInput {
     message?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    serialNumber?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     status?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})

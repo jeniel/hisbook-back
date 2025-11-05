@@ -28,6 +28,9 @@ export class Ticket {
     @Field(() => String, {nullable:true})
     message!: string | null;
 
+    @Field(() => String, {nullable:true})
+    serialNumber!: string | null;
+
     @Field(() => Status, {defaultValue:'Pending',nullable:false})
     status!: `${Status}`;
 

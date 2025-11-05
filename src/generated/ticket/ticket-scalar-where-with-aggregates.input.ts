@@ -36,6 +36,9 @@ export class TicketScalarWhereWithAggregatesInput {
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     message?: StringNullableWithAggregatesFilter;
 
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    serialNumber?: StringNullableWithAggregatesFilter;
+
     @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
     status?: EnumStatusWithAggregatesFilter;
 

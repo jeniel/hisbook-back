@@ -95,6 +95,7 @@ model Ticket {
   floor       String?    // Optional: Example "B1 Biometrics"
   screenshot  String?    // Optional: Screenshot URL or path
   message     String?    // Detailed message/request
+  serialNumber String?  // Serial number of the device
   status      Status     @default(Pending)
   remarks     String?
   createdAt   DateTime   @default(now())

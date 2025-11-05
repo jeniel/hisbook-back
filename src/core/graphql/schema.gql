@@ -116,6 +116,7 @@ input CreateTicketInput {
   missedAt: DateTime
   remarks: String
   screenshot: String
+  serialNumber: String
   status: Status
   subject: String!
   updatedBy: String
@@ -706,6 +707,7 @@ type Ticket {
   missedAt: DateTime
   remarks: String
   screenshot: String
+  serialNumber: String
   status: Status!
   statusFormatted: String!
   subject: String!
@@ -755,6 +757,7 @@ input TicketWhereInput {
   missedAt: DateTimeNullableFilter
   remarks: StringNullableFilter
   screenshot: StringNullableFilter
+  serialNumber: StringNullableFilter
   status: EnumStatusFilter
   subject: StringFilter
   updatedAt: DateTimeFilter
@@ -804,6 +807,7 @@ input UpdateTicketInput {
   missedAt: DateTime
   remarks: String
   screenshot: String
+  serialNumber: String
   status: Status
   subject: String
   updatedBy: String

@@ -23,6 +23,9 @@ export class TicketMinAggregateInput {
     message?: true;
 
     @Field(() => Boolean, {nullable:true})
+    serialNumber?: true;
+
+    @Field(() => Boolean, {nullable:true})
     status?: true;
 
     @Field(() => Boolean, {nullable:true})
