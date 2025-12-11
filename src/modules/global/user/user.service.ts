@@ -201,9 +201,10 @@ export class UserService {
     const sheet = workbook.addWorksheet('Users');
 
     sheet.addRow([
-      'User ID',
+      'User UUID',
       'Username',
       'Roles',
+      'Department UUID',
       'Department',
 
       // Profile fields:
@@ -228,6 +229,7 @@ export class UserService {
         u.id,
         u.username,
         u.role.join(','), // array of roles
+        u.departmentId,
         u.department?.name ?? '',
 
         // Profile fields:
