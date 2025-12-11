@@ -10,6 +10,7 @@ import { UserArgs } from '@/modules/global/user/args/user.args';
 import { CreateManyUsersInput } from '@/modules/global/user/dto/create-many-user.input';
 import { CreateUserInput } from '@/modules/global/user/dto/create-user.input';
 import { UpdateUserInput } from '@/modules/global/user/dto/update-user.input';
+import * as ExcelJS from 'exceljs';
 
 @Injectable()
 export class UserService {
@@ -183,5 +184,72 @@ export class UserService {
     });
 
     return { message: 'User deleted successfully', success: true };
+  }
+
+  // Export To Excel
+  async exportUserExcel(): Promise<Buffer> {
+    const users = await this.prisma.user.findMany({
+      where: { deletedAt: null },
+      include: {
+        profile: true,
+        department: true, // optional
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet('Users');
+
+    sheet.addRow([
+      'User ID',
+      'Username',
+      'Roles',
+      'Department',
+
+      // Profile fields:
+      'First Name',
+      'Middle Name',
+      'Last Name',
+      'Employee ID',
+      'Gender',
+      'Title',
+      'Address',
+      'Contact',
+      'Secondary Contact',
+      'Email',
+
+      // Meta:
+      'Created At',
+      'Deleted At',
+    ]);
+
+    users.forEach((u) => {
+      sheet.addRow([
+        u.id,
+        u.username,
+        u.role.join(','), // array of roles
+        u.department?.name ?? '',
+
+        // Profile fields:
+        u.profile?.firstName ?? '',
+        u.profile?.middleName ?? '',
+        u.profile?.lastName ?? '',
+        u.profile?.employeeID ?? '',
+        u.profile?.gender ?? '',
+        u.profile?.birthDate ?? '',
+        u.profile?.title ?? '',
+        u.profile?.address ?? '',
+        u.profile?.contact ?? '',
+        u.profile?.secondaryContact ?? '',
+        u.profile?.email ?? '',
+
+        // Meta:
+        u.createdAt,
+        u.deletedAt,
+      ]);
+    });
+
+    const arrayBuffer = await workbook.xlsx.writeBuffer();
+    return Buffer.from(arrayBuffer);
   }
 }

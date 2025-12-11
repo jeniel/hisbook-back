@@ -66,6 +66,14 @@ export class UserResolver {
     return this.userService.delete(id);
   }
 
+  // Download to Excel
+  @Mutation(() => String)
+  @Roles([Role.ADMIN])
+  async exportUsersBase64(): Promise<string> {
+    const buffer = await this.userService.exportUserExcel();
+    return buffer.toString('base64');
+  }
+
   // @Roles([Role.ADMIN])
   // @Mutation(() => GeneralMsg)
   // createSuperAdmin(@Args('createUserInput') payload: CreateUserProfileInput) {

@@ -341,6 +341,7 @@ type Mutation {
   deleteTenantDocuments(collectionName: String! = "documents", tenantId: String!): String!
   deleteTicket(id: String!): GeneralMsg!
   deleteUser(id: String!): GeneralMsg!
+  exportUsersBase64: String!
   initializeDocumentCollection(collectionName: String!, vectorSize: Float! = 1536): Boolean!
   logOut: GeneralMsg!
   processAndStoreDocuments(input: ProcessDocumentsInput!): Boolean!
