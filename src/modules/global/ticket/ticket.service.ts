@@ -13,13 +13,24 @@ export class TicketService {
 
   // Create a new Ticket
   async create(dto: CreateTicketInput) {
+    // Step 1: create the ticket without ticketId
     const ticket = await this.prisma.ticket.create({
       data: dto,
     });
 
+    // Step 2: generate ticketId using auto-increment `seq`
+    // `Seq` auto increments
+    const ticketId = `T-${String(ticket.seq).padStart(4, '0')}`;
+
+    // Step 3: update the record with the generated ticketId
+    const updated = await this.prisma.ticket.update({
+      where: { id: ticket.id },
+      data: { ticketId },
+    });
+
     return {
       message: 'Ticket created successfully',
-      data: ticket,
+      data: updated,
     };
   }
 
@@ -31,6 +42,7 @@ export class TicketService {
             { subject: { contains: args.search, mode: 'insensitive' } },
             { message: { contains: args.search, mode: 'insensitive' } },
             { serialNumber: { contains: args.search, mode: 'insensitive' } },
+            { ticketId: { contains: args.search, mode: 'insensitive' } },
             {
               createdBy: {
                 username: { contains: args.search, mode: 'insensitive' },
