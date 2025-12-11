@@ -36,12 +36,14 @@ export class TicketService {
 
   // Generic method to handle search & soft delete filtering
   private buildWhere(args: TicketArgs, extra?: any) {
+    const searchInt = args.search ? parseInt(args.search, 10) : NaN;
     const searchFilter = args.search
       ? {
           OR: [
             { subject: { contains: args.search, mode: 'insensitive' } },
             { message: { contains: args.search, mode: 'insensitive' } },
             { serialNumber: { contains: args.search, mode: 'insensitive' } },
+            ...(isNaN(searchInt) ? [] : [{ seq: searchInt }]),
             { ticketId: { contains: args.search, mode: 'insensitive' } },
             {
               createdBy: {
