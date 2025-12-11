@@ -589,6 +589,7 @@ type Query {
   findAllProfiles(page: Int, perPage: Int, where: ProfileWhereInput): ProfileList!
   findAllTickets(page: Int, perPage: Int, search: String, status: Status, where: TicketWhereInput): TicketList!
   findAllUsers(employeeID: String, page: Int, perPage: Int, search: String, where: UserWhereInput): UserList!
+  findOneUser(id: String!): User!
   findProfile(id: String!): Profile!
   findSimilarDocuments(collectionName: String! = "documents", documentId: String!, limit: Float! = 5, tenantId: String!, threshold: Float! = 0.8): [QdrantSearchResultType!]!
   findTicketbyID(id: String!): Ticket

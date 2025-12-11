@@ -11,9 +11,9 @@ import { UserService } from './user.service';
 
 // Import Roles
 import { Role } from '@/generated/prisma/role.enum';
+import { CreateManyUsersInput } from '@/modules/global/user/dto/create-many-user.input';
 import { Public } from '@/shared/common/decorator/public.decorator';
 import { Roles } from '@/shared/common/decorator/roles.decorator';
-import { CreateManyUsersInput } from '@/modules/global/user/dto/create-many-user.input';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -41,6 +41,12 @@ export class UserResolver {
   @Roles([Role.ADMIN])
   async findAllUsers(@Args() args: UserArgs) {
     return await this.userService.findAll(args);
+  }
+
+  // Find One
+  @Query(() => User)
+  async findOneUser(@Args('id') id: string) {
+    return this.userService.findOne(id);
   }
 
   // Update

@@ -7,9 +7,9 @@ import * as argon2 from 'argon2'; // Password Hashing
 
 // Import DTO and Args
 import { UserArgs } from '@/modules/global/user/args/user.args';
+import { CreateManyUsersInput } from '@/modules/global/user/dto/create-many-user.input';
 import { CreateUserInput } from '@/modules/global/user/dto/create-user.input';
 import { UpdateUserInput } from '@/modules/global/user/dto/update-user.input';
-import { CreateManyUsersInput } from '@/modules/global/user/dto/create-many-user.input';
 
 @Injectable()
 export class UserService {
@@ -133,6 +133,20 @@ export class UserService {
         next: page < lastPage ? page + 1 : null,
       },
     };
+  }
+
+  // FIND ONE USER
+  async findOne(id: string) {
+    const user = await this.prisma.user.findFirst({
+      where: { id, deletedAt: null },
+      include: { profile: true, department: true },
+    });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    return user;
   }
 
   // -------------------
