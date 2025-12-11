@@ -1,6 +1,6 @@
-import { InputType, Field, PartialType } from '@nestjs/graphql';
-import { CreateProfileInput } from './create-profile.input';
 import { Gender } from '@/generated/prisma/gender.enum';
+import { Field, InputType, PartialType } from '@nestjs/graphql';
+import { CreateProfileInput } from './create-profile.input';
 
 @InputType()
 export class UpdateProfileInput extends PartialType(CreateProfileInput) {
@@ -27,6 +27,12 @@ export class UpdateProfileInput extends PartialType(CreateProfileInput) {
 
   @Field(() => String, { nullable: true })
   contact?: string;
+
+  @Field(() => String, { nullable: true })
+  secondaryContact?: string;
+
+  @Field(() => String, { nullable: true })
+  email?: string;
 
   @Field(() => String, { nullable: true })
   avatar?: string;

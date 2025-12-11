@@ -99,11 +99,13 @@ input CreateProfileInput {
   birthDate: DateTime
   contact: String
   departmentId: String
+  email: String
   employeeID: String
   firstName: String
   gender: Gender
   lastName: String
   middleName: String
+  secondaryContact: String
   title: String
   userId: String
 }
@@ -820,11 +822,13 @@ input UpdateProfileInput {
   birthDate: DateTime
   contact: String
   departmentId: String
+  email: String
   employeeID: String
   firstName: String
   gender: Gender
   lastName: String
   middleName: String
+  secondaryContact: String
   title: String
   userId: String
 }
