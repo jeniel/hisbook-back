@@ -33,6 +33,12 @@ export class ProfileMaxOrderByAggregateInput {
     contact?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    secondaryContact?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    email?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     avatar?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})

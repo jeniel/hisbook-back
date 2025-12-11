@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
-import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
+import { IntFilter } from '../prisma/int-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { EnumStatusFilter } from '../prisma/enum-status-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { UserScalarRelationFilter } from '../user/user-scalar-relation-filter.input';
@@ -23,6 +24,12 @@ export class TicketWhereInput {
 
     @Field(() => StringFilter, {nullable:true})
     id?: StringFilter;
+
+    @Field(() => IntFilter, {nullable:true})
+    seq?: IntFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    ticketId?: StringNullableFilter;
 
     @Field(() => StringFilter, {nullable:true})
     subject?: StringFilter;

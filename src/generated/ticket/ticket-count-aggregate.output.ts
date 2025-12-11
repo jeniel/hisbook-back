@@ -9,6 +9,12 @@ export class TicketCountAggregate {
     id!: number;
 
     @Field(() => Int, {nullable:false})
+    seq!: number;
+
+    @Field(() => Int, {nullable:false})
+    ticketId!: number;
+
+    @Field(() => Int, {nullable:false})
     subject!: number;
 
     @Field(() => Int, {nullable:false})

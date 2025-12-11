@@ -33,6 +33,12 @@ export class ProfileCountAggregate {
     contact!: number;
 
     @Field(() => Int, {nullable:false})
+    secondaryContact!: number;
+
+    @Field(() => Int, {nullable:false})
+    email!: number;
+
+    @Field(() => Int, {nullable:false})
     avatar!: number;
 
     @Field(() => Int, {nullable:false})

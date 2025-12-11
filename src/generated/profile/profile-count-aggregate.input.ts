@@ -32,6 +32,12 @@ export class ProfileCountAggregateInput {
     contact?: true;
 
     @Field(() => Boolean, {nullable:true})
+    secondaryContact?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    email?: true;
+
+    @Field(() => Boolean, {nullable:true})
     avatar?: true;
 
     @Field(() => Boolean, {nullable:true})

@@ -33,6 +33,8 @@ model Profile {
   title      String?   @map("title")
   address    String?
   contact    String?
+  secondaryContact String?
+  email String?
   avatar     String?
   employeeID String?  @map("employee_id")
   createdAt  DateTime  @default(now()) @map("created_at")
@@ -90,6 +92,8 @@ model Posts {
 
 model Ticket {
   id          String     @id @default(uuid())
+  seq       Int      @default(autoincrement())
+  ticketId  String? 
   subject     String     // Short title of the ticket
   missedAt    DateTime?  // Optional: for missed logout cases
   floor       String?    // Optional: Example "B1 Biometrics"

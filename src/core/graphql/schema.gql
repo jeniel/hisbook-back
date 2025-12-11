@@ -290,6 +290,17 @@ type GeneralMsg {
   success: Boolean
 }
 
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -383,6 +394,17 @@ input NestedEnumStatusFilter {
   notIn: [Status!]
 }
 
+input NestedIntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
 input NestedStringFilter {
   contains: String
   endsWith: String
@@ -454,12 +476,14 @@ type Profile {
   birthDate: DateTime
   contact: String
   createdAt: DateTime!
+  email: String
   employeeID: String
   firstName: String
   gender: Gender
   id: ID!
   lastName: String
   middleName: String
+  secondaryContact: String
   title: String
   updatedAt: DateTime!
   user: User
@@ -485,12 +509,14 @@ input ProfileWhereInput {
   birthDate: DateTimeNullableFilter
   contact: StringNullableFilter
   createdAt: DateTimeFilter
+  email: StringNullableFilter
   employeeID: StringNullableFilter
   firstName: StringNullableFilter
   gender: EnumGenderNullableFilter
   id: StringFilter
   lastName: StringNullableFilter
   middleName: StringNullableFilter
+  secondaryContact: StringNullableFilter
   title: StringNullableFilter
   updatedAt: DateTimeFilter
   user: UserNullableScalarRelationFilter
@@ -707,10 +733,12 @@ type Ticket {
   missedAt: DateTime
   remarks: String
   screenshot: String
+  seq: Int!
   serialNumber: String
   status: Status!
   statusFormatted: String!
   subject: String!
+  ticketId: String
   updatedAt: DateTime!
   updatedBy: String
 }
@@ -757,9 +785,11 @@ input TicketWhereInput {
   missedAt: DateTimeNullableFilter
   remarks: StringNullableFilter
   screenshot: StringNullableFilter
+  seq: IntFilter
   serialNumber: StringNullableFilter
   status: EnumStatusFilter
   subject: StringFilter
+  ticketId: StringNullableFilter
   updatedAt: DateTimeFilter
   updatedBy: StringNullableFilter
 }

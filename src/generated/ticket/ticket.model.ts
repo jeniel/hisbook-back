@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 import { Status } from '../prisma/status.enum';
 import { User } from '../user/user.model';
 import { Department } from '../department/department.model';
@@ -12,6 +13,12 @@ export class Ticket {
 
     @Field(() => ID, {nullable:false})
     id!: string;
+
+    @Field(() => Int, {nullable:false})
+    seq!: number;
+
+    @Field(() => String, {nullable:true})
+    ticketId!: string | null;
 
     @Field(() => String, {nullable:false})
     subject!: string;

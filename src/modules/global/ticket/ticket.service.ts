@@ -30,6 +30,7 @@ export class TicketService {
           OR: [
             { subject: { contains: args.search, mode: 'insensitive' } },
             { message: { contains: args.search, mode: 'insensitive' } },
+            { serialNumber: { contains: args.search, mode: 'insensitive' } },
             {
               createdBy: {
                 username: { contains: args.search, mode: 'insensitive' },

@@ -2,6 +2,8 @@ import { registerEnumType } from '@nestjs/graphql';
 
 export enum TicketScalarFieldEnum {
     id = "id",
+    seq = "seq",
+    ticketId = "ticketId",
     subject = "subject",
     missedAt = "missedAt",
     floor = "floor",
