@@ -34,6 +34,12 @@ export class ProfileCreateInput {
     contact?: string;
 
     @Field(() => String, {nullable:true})
+    secondaryContact?: string;
+
+    @Field(() => String, {nullable:true})
+    email?: string;
+
+    @Field(() => String, {nullable:true})
     avatar?: string;
 
     @Field(() => String, {nullable:true})

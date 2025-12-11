@@ -1,7 +1,7 @@
 import { PrismaService } from '@/core/database/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { Status } from '@prisma/client';
-
+import * as ExcelJS from 'exceljs';
 // Dto and Args
 import { TicketArgs } from '@/modules/global/ticket/args/ticket.args';
 import { CreateTicketInput } from '@/modules/global/ticket/dto/create-ticket.input';
@@ -13,13 +13,24 @@ export class TicketService {
 
   // Create a new Ticket
   async create(dto: CreateTicketInput) {
+    // Step 1: create the ticket without ticketId
     const ticket = await this.prisma.ticket.create({
       data: dto,
     });
 
+    // Step 2: generate ticketId using auto-increment `seq`
+    // `Seq` auto increments
+    const ticketId = `T-${String(ticket.seq).padStart(4, '0')}`;
+
+    // Step 3: update the record with the generated ticketId
+    const updated = await this.prisma.ticket.update({
+      where: { id: ticket.id },
+      data: { ticketId },
+    });
+
     return {
       message: 'Ticket created successfully',
-      data: ticket,
+      data: updated,
     };
   }
 
@@ -30,6 +41,8 @@ export class TicketService {
           OR: [
             { subject: { contains: args.search, mode: 'insensitive' } },
             { message: { contains: args.search, mode: 'insensitive' } },
+            { serialNumber: { contains: args.search, mode: 'insensitive' } },
+            { ticketId: { contains: args.search, mode: 'insensitive' } },
             {
               createdBy: {
                 username: { contains: args.search, mode: 'insensitive' },
@@ -267,5 +280,92 @@ export class TicketService {
       success: true,
       data: ticket,
     };
+  }
+
+  // Export to Excel
+  async exportTicketsExcel(): Promise<Buffer> {
+    // Fetch tickets including audit logs, createdBy user, profile, department
+    const tickets = await this.prisma.ticket.findMany({
+      where: { deletedAt: null },
+      include: {
+        auditLogs: true,
+        createdBy: {
+          include: { profile: true }, // <-- include profile
+        },
+        department: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    const workbook = new ExcelJS.Workbook();
+
+    // Tickets Sheet
+    const ticketSheet = workbook.addWorksheet('Tickets');
+    ticketSheet.addRow([
+      'Ticket UUID',
+      'Ticket ID',
+      'Seq',
+      'Subject',
+      'Status',
+      'Message',
+      'Serial Number',
+      'Floor',
+      'Remarks',
+      'Created By Username',
+      'Created By First Name', // <-- new
+      'Created By Last Name', // <-- new
+      'Department',
+      'Created At',
+      'Recently Updated By',
+      'Updated At',
+    ]);
+
+    tickets.forEach((t) => {
+      ticketSheet.addRow([
+        t.id,
+        t.ticketId ?? '',
+        t.seq,
+        t.subject,
+        t.status,
+        t.message ?? '',
+        t.serialNumber ?? '',
+        t.floor ?? '',
+        t.remarks ?? '',
+        t.createdBy?.username ?? '',
+        t.createdBy?.profile?.firstName ?? '', // <-- first name
+        t.createdBy?.profile?.lastName ?? '', // <-- last name
+        t.department?.name ?? '',
+        t.createdAt,
+        t.updatedBy ?? '',
+        t.updatedAt,
+      ]);
+    });
+
+    // Audit Logs Sheet
+    const auditSheet = workbook.addWorksheet('Audit Logs');
+    auditSheet.addRow([
+      'Audit UUID',
+      'Ticket UUID',
+      'Action',
+      'Remarks',
+      'Timestamp',
+      'Recently Updated By',
+    ]);
+
+    tickets.forEach((t) => {
+      t.auditLogs.forEach((a) => {
+        auditSheet.addRow([
+          a.id,
+          t.id ?? '',
+          a.action ?? '',
+          a.remarks ?? '',
+          a.timestamp,
+          a.updatedBy ?? '',
+        ]);
+      });
+    });
+
+    const arrayBuffer = await workbook.xlsx.writeBuffer();
+    return Buffer.from(arrayBuffer);
   }
 }

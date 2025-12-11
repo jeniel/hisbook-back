@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 import { Status } from '../prisma/status.enum';
 
 @ObjectType()
@@ -7,6 +8,12 @@ export class TicketMaxAggregate {
 
     @Field(() => String, {nullable:true})
     id?: string;
+
+    @Field(() => Int, {nullable:true})
+    seq?: number;
+
+    @Field(() => String, {nullable:true})
+    ticketId?: string;
 
     @Field(() => String, {nullable:true})
     subject?: string;

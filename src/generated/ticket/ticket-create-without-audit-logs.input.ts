@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 import { Status } from '../prisma/status.enum';
 import { UserCreateNestedOneWithoutTicketsInput } from '../user/user-create-nested-one-without-tickets.input';
 import { DepartmentCreateNestedOneWithoutTicketsInput } from '../department/department-create-nested-one-without-tickets.input';
@@ -9,6 +10,12 @@ export class TicketCreateWithoutAuditLogsInput {
 
     @Field(() => String, {nullable:true})
     id?: string;
+
+    @Field(() => Int, {nullable:true})
+    seq?: number;
+
+    @Field(() => String, {nullable:true})
+    ticketId?: string;
 
     @Field(() => String, {nullable:false})
     subject!: string;

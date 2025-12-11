@@ -47,6 +47,12 @@ export class ProfileWhereInput {
     contact?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
+    secondaryContact?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    email?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
     avatar?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})

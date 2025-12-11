@@ -23,6 +23,8 @@ export class ProfileService {
         title: dto.title,
         address: dto.address,
         contact: dto.contact,
+        secondaryContact: dto.secondaryContact,
+        email: dto.email,
         avatar: dto.avatar,
         employeeID: dto.employeeID,
         userId: dto.userId,

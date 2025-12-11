@@ -7,6 +7,8 @@ import { Prisma } from '@prisma/client';
 import { TicketWhereUniqueInput } from './ticket-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { TicketCountAggregateInput } from './ticket-count-aggregate.input';
+import { TicketAvgAggregateInput } from './ticket-avg-aggregate.input';
+import { TicketSumAggregateInput } from './ticket-sum-aggregate.input';
 import { TicketMinAggregateInput } from './ticket-min-aggregate.input';
 import { TicketMaxAggregateInput } from './ticket-max-aggregate.input';
 
@@ -31,6 +33,12 @@ export class TicketAggregateArgs {
 
     @Field(() => TicketCountAggregateInput, {nullable:true})
     _count?: TicketCountAggregateInput;
+
+    @Field(() => TicketAvgAggregateInput, {nullable:true})
+    _avg?: TicketAvgAggregateInput;
+
+    @Field(() => TicketSumAggregateInput, {nullable:true})
+    _sum?: TicketSumAggregateInput;
 
     @Field(() => TicketMinAggregateInput, {nullable:true})
     _min?: TicketMinAggregateInput;

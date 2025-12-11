@@ -11,9 +11,9 @@ import { UserService } from './user.service';
 
 // Import Roles
 import { Role } from '@/generated/prisma/role.enum';
+import { CreateManyUsersInput } from '@/modules/global/user/dto/create-many-user.input';
 import { Public } from '@/shared/common/decorator/public.decorator';
 import { Roles } from '@/shared/common/decorator/roles.decorator';
-import { CreateManyUsersInput } from '@/modules/global/user/dto/create-many-user.input';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -43,6 +43,12 @@ export class UserResolver {
     return await this.userService.findAll(args);
   }
 
+  // Find One
+  @Query(() => User)
+  async findOneUser(@Args('id') id: string) {
+    return this.userService.findOne(id);
+  }
+
   // Update
   @Mutation(() => GeneralMsg)
   @Roles([Role.ADMIN])
@@ -58,6 +64,14 @@ export class UserResolver {
   @Roles([Role.ADMIN])
   deleteUser(@Args('id') id: string) {
     return this.userService.delete(id);
+  }
+
+  // Download to Excel
+  @Mutation(() => String)
+  @Roles([Role.ADMIN])
+  async exportUsersBase64(): Promise<string> {
+    const buffer = await this.userService.exportUserExcel();
+    return buffer.toString('base64');
   }
 
   // @Roles([Role.ADMIN])

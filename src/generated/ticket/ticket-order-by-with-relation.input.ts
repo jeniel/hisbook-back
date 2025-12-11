@@ -13,6 +13,12 @@ export class TicketOrderByWithRelationInput {
     id?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    seq?: `${SortOrder}`;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    ticketId?: SortOrderInput;
+
+    @Field(() => SortOrder, {nullable:true})
     subject?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})

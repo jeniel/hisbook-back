@@ -9,6 +9,12 @@ export class TicketCountOrderByAggregateInput {
     id?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})
+    seq?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    ticketId?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
     subject?: `${SortOrder}`;
 
     @Field(() => SortOrder, {nullable:true})

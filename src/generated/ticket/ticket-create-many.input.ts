@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 import { Status } from '../prisma/status.enum';
 
 @InputType()
@@ -7,6 +8,12 @@ export class TicketCreateManyInput {
 
     @Field(() => String, {nullable:true})
     id?: string;
+
+    @Field(() => Int, {nullable:true})
+    seq?: number;
+
+    @Field(() => String, {nullable:true})
+    ticketId?: string;
 
     @Field(() => String, {nullable:false})
     subject!: string;

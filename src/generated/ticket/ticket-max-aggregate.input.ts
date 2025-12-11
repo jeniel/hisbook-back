@@ -8,6 +8,12 @@ export class TicketMaxAggregateInput {
     id?: true;
 
     @Field(() => Boolean, {nullable:true})
+    seq?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    ticketId?: true;
+
+    @Field(() => Boolean, {nullable:true})
     subject?: true;
 
     @Field(() => Boolean, {nullable:true})

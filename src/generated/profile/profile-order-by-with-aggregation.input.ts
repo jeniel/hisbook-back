@@ -37,6 +37,12 @@ export class ProfileOrderByWithAggregationInput {
     contact?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})
+    secondaryContact?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
+    email?: SortOrderInput;
+
+    @Field(() => SortOrderInput, {nullable:true})
     avatar?: SortOrderInput;
 
     @Field(() => SortOrderInput, {nullable:true})

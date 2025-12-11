@@ -93,4 +93,11 @@ export class TicketResolver {
   statusFormatted(@Parent() ticket: Ticket): string {
     return ticket.status.replace(/([a-z])([A-Z])/g, '$1 $2');
   }
+
+  @Mutation(() => String)
+  @Roles([Role.ADMIN])
+  async exportTicketsBase64(): Promise<string> {
+    const buffer = await this.ticketService.exportTicketsExcel();
+    return buffer.toString('base64'); // GraphQL only allows JSON, so Base64
+  }
 }
