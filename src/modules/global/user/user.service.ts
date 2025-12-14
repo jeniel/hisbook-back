@@ -106,6 +106,11 @@ export class UserService {
               name: { contains: args.search, mode: 'insensitive' },
             },
           },
+          {
+            profile: {
+              employeeID: { contains: args.search, mode: 'insensitive' },
+            },
+          },
         ],
       };
     }
