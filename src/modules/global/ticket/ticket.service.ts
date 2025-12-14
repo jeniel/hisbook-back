@@ -288,7 +288,6 @@ export class TicketService {
   async exportTicketsExcel(): Promise<Buffer> {
     // Fetch tickets including audit logs, createdBy user, profile, department
     const tickets = await this.prisma.ticket.findMany({
-      where: { deletedAt: null },
       include: {
         auditLogs: true,
         createdBy: {
@@ -318,6 +317,7 @@ export class TicketService {
       'Created By Last Name', // <-- new
       'Department',
       'Created At',
+      'Deleted At',
       'Recently Updated By',
       'Updated At',
     ]);
@@ -338,6 +338,7 @@ export class TicketService {
         t.createdBy?.profile?.lastName ?? '', // <-- last name
         t.department?.name ?? '',
         t.createdAt,
+        t.deletedAt,
         t.updatedBy ?? '',
         t.updatedAt,
       ]);
